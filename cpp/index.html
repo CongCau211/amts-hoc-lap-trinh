@@ -516,6 +516,30 @@ details.ch li.done a::after{content:" ✓";color:var(--ok);font-weight:800}
 .tdet i{font-style:normal;display:inline-grid;place-items:center;width:20px;height:20px;border-radius:4px;margin-left:3px;background:var(--bg);color:var(--muted);font-weight:700}
 .tdet i.ok{background:var(--ok-soft);color:var(--ok)}.tdet i.bad{background:var(--err-soft);color:var(--err)}
 
+/* ---------- Ẩn / hiện thanh bên ---------- */
+.org{justify-content:space-between}
+.logo-link{display:flex;border-radius:999px}
+.logo-link:hover .amts-logo{filter:brightness(1.06)}
+.sb-toggle{width:34px;height:34px;border-radius:8px;border:1px solid transparent;background:transparent;display:grid;place-items:center;color:var(--muted);flex:none;padding:0}
+.sb-toggle:hover{background:var(--bg);border-color:var(--line);color:var(--ink)}
+.sb-float{display:none}
+.amts-logo.sm{height:26px}
+@media (min-width:901px){
+  .app{transition:grid-template-columns .22s ease}
+  .side{transition:opacity .15s ease}
+  .app.sb-collapsed{grid-template-columns:0 minmax(0,1fr)}
+  .app.sb-collapsed .side{overflow:hidden;padding-left:0;padding-right:0;border-right:0;opacity:0;visibility:hidden}
+  .sb-float{position:fixed;top:calc(env(safe-area-inset-top,0px) + 12px);left:calc(env(safe-area-inset-left,0px) + 12px);z-index:20;align-items:center;gap:8px;background:var(--surface);border:1px solid var(--line);border-radius:12px;padding:4px 10px 4px 4px;box-shadow:0 4px 14px rgba(10,20,40,.08)}
+  .app.sb-collapsed .sb-float{display:flex}
+  .app.sb-collapsed .main{padding-top:76px}
+}
+@media (prefers-reduced-motion:reduce){.app,.side{transition:none!important}}
+@media (max-width:900px){
+  .app.sb-collapsed .side > :not(.org){display:none!important}
+  .app.sb-collapsed .side .org{border-bottom:0;margin-bottom:0;padding-bottom:0}
+  .app.sb-collapsed .side{padding-block:12px}
+}
+
 .mobile-top{display:none}
 @media (max-width:900px){
   .app{grid-template-columns:1fr}
@@ -550,10 +574,14 @@ details.ch li.done a::after{content:" ✓";color:var(--ok);font-weight:800}
 </style>
 
 <div class="app">
+  <div class="sb-float" id="sb-float">
+    <button class="sb-toggle" id="sb-show" aria-controls="side" aria-expanded="false" aria-label="Hiện thanh bên" title="Hiện thanh bên"><svg width="20" height="20" viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.6" aria-hidden="true"><rect x="2.5" y="3.5" width="15" height="13" rx="2.5"/><path d="M7.5 3.5v13"/></svg></button>
+    <a class="logo-link" href="../index.html" title="Về trang chủ"><span class="amts-logo sm" role="img" aria-label="AMTS · Về trang chủ"></span></a>
+  </div>
   <aside class="side" id="side">
     <div class="org">
-      <span class="amts-logo" role="img" aria-label="AMTS"></span>
-      <a class="home-link" href="../index.html">← Tất cả khóa học</a>
+      <a class="logo-link" href="../index.html" title="Về trang chủ"><span class="amts-logo" role="img" aria-label="AMTS · Về trang chủ"></span></a>
+      <button class="sb-toggle" id="sb-hide" aria-controls="side" aria-expanded="true" aria-label="Ẩn thanh bên" title="Ẩn thanh bên"><svg width="20" height="20" viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.6" aria-hidden="true"><rect x="2.5" y="3.5" width="15" height="13" rx="2.5"/><path d="M7.5 3.5v13"/></svg></button>
     </div>
     <div class="brand">
       <div class="brand-mark">C++</div>
@@ -1828,6 +1856,19 @@ const escH=s=>String(s??"").replace(/[&<>"']/g,c=>({"&":"&amp;","<":"&lt;",">":"
 function avatarHTML(u){const ini=(u.displayName||u.email||"?").trim()[0].toUpperCase();
   return `<span class="ava">${escH(ini)}${u.photoURL?`<img src="${escH(u.photoURL)}" alt="" referrerpolicy="no-referrer" onerror="this.remove()">`:""}</span>`}
 
+/* ---------- Ẩn / hiện thanh bên (nhớ lựa chọn trên trình duyệt) ---------- */
+(function(){
+  const app=document.querySelector(".app"),hide=document.getElementById("sb-hide"),showB=document.getElementById("sb-show");
+  function set(c,focus){app.classList.toggle("sb-collapsed",c);
+    hide.setAttribute("aria-expanded",String(!c));showB.setAttribute("aria-expanded",String(!c));
+    hide.setAttribute("aria-label",c?"Hiện thanh bên":"Ẩn thanh bên");hide.title=c?"Hiện thanh bên":"Ẩn thanh bên";
+    try{localStorage.setItem("amts-sidebar",c?"hidden":"shown")}catch(e){}
+    if(focus)(c&&getComputedStyle(showB.parentNode).display!=="none"?showB:hide).focus({preventScroll:true})}
+  hide.onclick=()=>set(!app.classList.contains("sb-collapsed"),true);
+  showB.onclick=()=>set(false,true);
+  let c=false;try{c=localStorage.getItem("amts-sidebar")==="hidden"}catch(e){}
+  if(c){app.style.transition="none";set(true);requestAnimationFrame(()=>app.style.transition="")}
+})();
 /* ================= COURSE DATA ================= */
 const COURSE=[
  {tier:"Cơ bản",cls:"lv1",note:"Làm quen cú pháp và tư duy lập trình",chapters:[
