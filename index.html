@@ -1,4 +1,11 @@
-<!doctype html><html><head><meta charset=utf8><meta name=viewport content="width=device-width,initial-scale=1,viewport-fit=cover"><style>:root{color-scheme:light;box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}html{scroll-padding-top:env(safe-area-inset-top,0px)}body{margin:0;padding:0;font:14px -apple-system,BlinkMacSystemFont,sans-serif;background:#fff;color:#000}img{max-width:100%}[hidden]:not([hidden=until-found i]){display:none!important}</style></head><body>
+<!doctype html>
+<html lang="vi">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<style>:root{color-scheme:light dark}body{margin:0}img{max-width:100%}[hidden]{display:none!important}</style>
+</head>
+<body>
 <title>C++ Từ Nền Tảng</title>
 <meta name="claude:viewport-fit-sides" content="cover">
 <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -464,6 +471,48 @@ td.num{font-family:var(--f-mono);font-variant-numeric:tabular-nums;font-weight:6
 .et-done{font-size:15px}.et-done b{color:var(--ok)}
 .et-warn{font-size:13.5px;color:var(--warm)}
 
+/* ---------- Tài khoản & tiến độ ---------- */
+.acct{display:grid;gap:8px;margin:14px 0 4px;padding:12px;border:1px solid var(--line);border-radius:10px;background:var(--bg)}
+.acct:empty{display:none}
+.gbtn{display:flex;align-items:center;justify-content:center;gap:10px;width:100%;border:1px solid var(--line);background:var(--surface);border-radius:8px;padding:9px 10px;font-weight:600;font-size:14px}
+.gbtn:hover{border-color:var(--accent)}
+.gbtn .g{width:22px;height:22px;border-radius:50%;display:grid;place-items:center;font-weight:800;font-size:13px;color:#fff;background:conic-gradient(#EA4335 0 25%,#FBBC05 0 50%,#34A853 0 75%,#4285F4 0)}
+.acct-note{font-size:12px;line-height:1.45;color:var(--muted);margin:0}
+.acct-note:empty{display:none}
+.who{display:flex;gap:10px;align-items:center;min-width:0}
+.who img,.who .ava{width:36px;height:36px;border-radius:50%;flex:none;object-fit:cover}
+.who .ava{display:grid;place-items:center;background:var(--accent);color:var(--accent-ink);font-weight:700}
+.who div{min-width:0;display:grid;line-height:1.3}
+.who b{font-size:14px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.who small{font-size:12px;color:var(--muted);overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.pbar{height:8px;border-radius:999px;background:var(--line);overflow:hidden}
+.pbar span{display:block;height:100%;background:var(--ok);border-radius:999px;transition:width .3s}
+.pnum{font-size:12px;color:var(--muted);font-variant-numeric:tabular-nums}
+.acct-btns{display:flex;gap:6px;flex-wrap:wrap}
+.btn.sm{padding:5px 10px;font-size:12.5px}
+.linkbtn{border:0;background:none;padding:0;text-align:left;color:var(--accent);font-weight:600;font-size:13px}
+details.ch li.done span:first-child,details.ch li.done a{position:relative}
+details.ch li.done a::after{content:" ✓";color:var(--ok);font-weight:800}
+.done-btn.is-done{border-color:var(--ok);background:var(--ok-soft);color:var(--ok)}
+.next{align-items:center}
+.t-stats{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:12px}
+.t-stats div{background:var(--surface);border:1px solid var(--line);border-radius:var(--r);padding:14px 16px;display:grid}
+.t-stats b{font-size:28px;font-family:var(--f-display);font-variant-numeric:tabular-nums}
+.t-stats span{font-size:13px;color:var(--muted)}
+.t-tools{display:flex;gap:10px;flex-wrap:wrap;align-items:center}
+.tt{min-width:820px}
+.tt td small{display:block;color:var(--muted);font-size:12px}
+.tt td.st{text-align:center;font-size:15px;padding:8px 4px}
+.tt th{text-align:center}.tt th:first-child{text-align:left}
+.s-done{color:var(--ok);font-weight:800}.s-seen{color:var(--warm)}.s-no{color:var(--line)}
+.tt .when{font-size:13px;white-space:nowrap}
+.trow{cursor:pointer}.trow:hover td,.trow.open td{background:var(--bg)}
+.tdet{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:8px 18px;font-size:13px}
+.tdet div{display:grid;gap:2px;padding:6px 0;border-bottom:1px dashed var(--line)}
+.tdet small{color:var(--muted)}
+.tdet i{font-style:normal;display:inline-grid;place-items:center;width:20px;height:20px;border-radius:4px;margin-left:3px;background:var(--bg);color:var(--muted);font-weight:700}
+.tdet i.ok{background:var(--ok-soft);color:var(--ok)}.tdet i.bad{background:var(--err-soft);color:var(--err)}
+
 .mobile-top{display:none}
 @media (max-width:900px){
   .app{grid-template-columns:1fr}
@@ -474,7 +523,7 @@ td.num{font-family:var(--f-mono);font-variant-numeric:tabular-nums;font-weight:6
   .anatomy,.sim-body{grid-template-columns:1fr}
   .right-pane{border-left:0;border-top:1px solid var(--line)}
   .ex-grid{grid-template-columns:1fr}
-  .shell-body,.vsfig,.sim2 .sim-body,.ls-body,.cg-grid,.cmp2,.ld-body{grid-template-columns:1fr}
+  .shell-body,.vsfig,.sim2 .sim-body,.ls-body,.cg-grid,.cmp2,.ld-body,.tdet{grid-template-columns:1fr}
   .rp{border-left:0;border-top:1px solid var(--line)}
   .sim2 .editor{min-height:340px}
   .bits-info{grid-template-columns:1fr 1fr}
@@ -507,6 +556,7 @@ td.num{font-family:var(--f-mono);font-variant-numeric:tabular-nums;font-weight:6
       <div class="brand-mark">C++</div>
       <div><b>C++ Từ Nền Tảng</b><small>12 chương · từ cơ bản đến nâng cao</small></div>
     </div>
+    <div class="acct" id="acct"></div>
     <div class="side-nav" role="group" aria-label="Chế độ xem">
       <button id="nav-road" aria-pressed="false">Lộ trình</button>
       <button id="nav-lesson" aria-pressed="true">Bài đang học</button>
@@ -1656,6 +1706,18 @@ Lệnh trên chạy cả 4 giai đoạn cùng lúc. Nhấn “Bước tiếp” 
         <span class="byline"><span class="amts-logo" aria-hidden="true"></span>Chương 3 · Bài 1/5 · Tiếp theo: So sánh và logic</span>
       </div>
     </article>
+
+    <!-- ===================== TEACHER ===================== -->
+    <section class="col" id="view-teacher" hidden>
+      <header class="hero">
+        <div class="crumb">Quản lý / Tiến độ học viên</div>
+        <h1>Tiến độ <em>học viên</em></h1>
+        <p class="lede">Chỉ tài khoản giảng viên mới xem được trang này. Dữ liệu cập nhật mỗi khi học viên học bài, làm bài tập hoặc trắc nghiệm.</p>
+      </header>
+      <div class="t-stats" id="t-stats"></div>
+      <div class="t-tools"><label class="stdin-row" style="flex:1;min-width:220px"><span>Tìm</span><input id="t-q" placeholder="Tên hoặc email" autocomplete="off"></label><button class="btn" id="t-reload">Tải lại</button><button class="btn pri" id="t-csv">Xuất Excel (CSV)</button></div>
+      <div id="t-body"></div>
+    </section>
   </main>
 </div>
 
@@ -1707,11 +1769,13 @@ const LESSON_MAP={"1-0":"l1","1-1":"l2","1-2":"l3","2-0":"l4","2-1":"l5","2-2":"
   });
   document.getElementById("road").innerHTML=road;
 })();
-const VIEWS=["road","l1","l2","l3","l4","l5","l6","l7","l8"];
+const VIEWS=["road","l1","l2","l3","l4","l5","l6","l7","l8","teacher"];
 let lastLesson="l1";
 function show(v){
   VIEWS.forEach(x=>{document.getElementById("view-"+x).hidden=x!==v});
-  if(v!=="road")lastLesson=v;
+  if(/^l\d/.test(v))lastLesson=v;
+  if(/^l\d/.test(v)&&window.TRACK)TRACK.visit(v);
+  if(v==="teacher"&&typeof loadTeacher==="function")setTimeout(loadTeacher,0);
   document.getElementById("nav-road").setAttribute("aria-pressed",v==="road");
   document.getElementById("nav-lesson").setAttribute("aria-pressed",v!=="road");
   document.querySelectorAll("#outline li[data-l]").forEach(li=>li.classList.toggle("cur",li.dataset.l===v));
@@ -2159,6 +2223,7 @@ function checkEx(out){
   if(activeEx<0)return;const e=EX[activeEx];
   if(out===null){exState[activeEx]="Chưa biên dịch được";renderEx();return}
   const ok=(e.match?e.match(out):out===e.exp)&&(!e.check||e.check(ed.value));
+  if(window.TRACK)TRACK.ex("l1-"+activeEx,ok,ok?"đạt":"chưa đạt");
   if(ok)exState[activeEx]="pass";
   else if(e.check&&!e.check(ed.value)&&(out===e.exp))exState[activeEx]="Đầu ra đúng nhưng hãy dùng phép tính thay vì gõ sẵn số";
   else{const want=e.exp;let k=0;while(k<out.length&&out[k]===want[k])k++;
@@ -2185,6 +2250,7 @@ function makeQuiz(boxId,scoreId,QZ){
       return `<button class="${c}" data-q="${i}" data-o="${j}" ${qAns[i]>=0?"disabled":""}>${o}</button>`}).join("")}</div>${qAns[i]>=0?`<p class="fb">${qAns[i]===q.a?"<b style='color:var(--ok)'>Chính xác.</b> ":"<b style='color:var(--err)'>Chưa đúng.</b> "}${q.e}</p>`:""}</div>`).join("");
     box.querySelectorAll("[data-q]").forEach(b=>b.onclick=()=>{qAns[+b.dataset.q]=+b.dataset.o;render()});
     const sc=qAns.filter((a,i)=>a===QZ[i].a).length,done=qAns.filter(a=>a>=0).length;
+    if(done===QZ.length&&window.TRACK)TRACK.quiz(boxId,sc,QZ.length);
     score.innerHTML=`Điểm: ${sc} / ${QZ.length}${done===QZ.length?' · <button class="btn" style="padding:3px 10px;font-size:12.5px">Làm lại</button>':""}`;
     const r=score.querySelector("button");if(r)r.onclick=()=>{qAns.fill(-1);render()};
   }
@@ -2292,7 +2358,7 @@ function renderTasks(){
   document.getElementById("task-count").textContent=`${SH.done.size}/${TASKS.length}`;
   document.querySelectorAll("[data-fill]").forEach(c=>{const f=()=>{const tin=document.getElementById("tin");tin.value=c.dataset.fill;tin.focus({preventScroll:true})};c.onclick=f;c.onkeydown=e=>{if(e.key==="Enter")f()}});
 }
-function mark(id){if(!SH.done.has(id)){SH.done.add(id);renderTasks();if(SH.done.size===TASKS.length)out("✓ Hoàn thành cả 6 nhiệm vụ. Hãy làm lại các bước này trên máy thật của bạn.","pr")}}
+function mark(id){if(!SH.done.has(id)){SH.done.add(id);renderTasks();if(SH.done.size===TASKS.length&&window.TRACK)TRACK.ex("l2-term",true,"6/6 nhiệm vụ");if(SH.done.size===TASKS.length)out("✓ Hoàn thành cả 6 nhiệm vụ. Hãy làm lại các bước này trên máy thật của bạn.","pr")}}
 function renderFiles(){
   document.getElementById("files").innerHTML=Object.keys(SH.files).sort().map(f=>`<span class="${SH.files[f].type==="exe"?"exe":SH.files[f].type==="obj"?"obj":""}">${esc(f)}</span>`).join("");
 }
@@ -3046,8 +3112,10 @@ function makeEx2(el,sim,list){
     el.querySelectorAll("[data-grade]").forEach(b=>b.onclick=()=>grade(+b.dataset.grade));
   }
   function grade(i){const e=list[i];const R=runTests(sim.get(),e.tests);
-    if(R.err){st[i]=`<div class="res bad">Code chưa biên dịch được: ${esc(R.err.message)}. Bấm Chạy ở trình mô phỏng để xem chi tiết.</div>`;render();return}
+    const exId=el.id.replace("ex-","")+"-"+i;
+    if(R.err){st[i]=`<div class="res bad">Code chưa biên dịch được: ${esc(R.err.message)}. Bấm Chạy ở trình mô phỏng để xem chi tiết.</div>`;if(window.TRACK)TRACK.ex(exId,false,"lỗi biên dịch");render();return}
     const pass=R.res.filter(x=>x.ok).length,srcOk=!e.need||e.need.test(sim.get());
+    if(window.TRACK)TRACK.ex(exId,pass===R.res.length&&srcOk,`${pass}/${R.res.length} test`);
     st[i]=`<div class="res ${pass===R.res.length&&srcOk?"ok":"bad"}"><b>${pass===R.res.length&&srcOk?"✓ Đạt":"Chưa đạt"}: ${pass}/${R.res.length} test</b>`+
       R.res.map((x,k)=>x.ok?"":`<div class="fail"><span>Test ${k+1}, nhập: <code>${esc(JSON.stringify(x.T.in).slice(1,-1))}</code></span><span>Cần ra: <code>${esc(JSON.stringify(x.T.out).slice(1,-1))}</code></span><span>Bạn ra: <code>${x.crash?esc(x.crash.msg):esc(JSON.stringify(x.got).slice(1,-1))}</code></span></div>`).join("")+
       (srcOk?"":`<div class="fail"><span>${esc(e.needMsg)}</span></div>`)+"</div>";
@@ -4213,9 +4281,181 @@ makeQuiz("quiz8","score8",[
  {q:"<code>20 - 6 - 4</code> bằng?",o:["18","10","14","Lỗi"],a:1,e:"Cùng mức ưu tiên thì tính từ trái sang phải: (20 − 6) − 4 = 10."}
 ]);
 
+/* ================= TIẾN ĐỘ HỌC & ĐĂNG NHẬP GOOGLE (Firebase) ================= */
+const FB_CONFIG={apiKey:"AIzaSyBEz_fVVa2JgZyyXeZ7ziiO0vha1jzk82s",authDomain:"amts-cpp.firebaseapp.com",projectId:"amts-cpp",storageBucket:"amts-cpp.firebasestorage.app",messagingSenderId:"1008205171330",appId:"1:1008205171330:web:ca3019bf0ff5adbbe9429b"};
+const TEACHERS=["congcau0910@gmail.com"];
+const FB_VER="10.14.1";
+const LESSONS=["l1","l2","l3","l4","l5","l6","l7","l8"];
+const LESSON_NAMES={l1:"Chương trình C++ đầu tiên",l2:"Cài đặt trình biên dịch & IDE",l3:"Nhập xuất với cin / cout",l4:"Biến, khai báo, khởi tạo",l5:"int, double, char, bool",l6:"Hằng số const / constexpr",l7:"Ép kiểu và tràn số",l8:"Toán tử số học"};
+const EX_IDS=["l1-0","l1-1","l1-2","l2-term",...["l3","l4","l5","l6","l7","l8"].flatMap(l=>[0,1,2].map(i=>`${l}-${i}`))];
+const QUIZ_IDS={l1:"quiz",l2:"quiz2",l3:"quiz3",l4:"quiz4",l5:"quiz5",l6:"quiz6",l7:"quiz7",l8:"quiz8"};
+const emptyP=()=>({lessons:{},visited:{},ex:{},quiz:{},lastLesson:null});
+let P=emptyP();
+try{const s=JSON.parse(localStorage.getItem("cpp-progress")||"null");if(s&&typeof s==="object")P=Object.assign(emptyP(),s)}catch(e){}
+const AUTH={mode:"off",user:null,auth:null,db:null,createdAt:null,err:"",saveErr:""};
+let saveTimer=null;
+function persist(){
+  try{localStorage.setItem("cpp-progress",JSON.stringify(P))}catch(e){}
+  clearTimeout(saveTimer);saveTimer=setTimeout(cloudSave,1200);
+}
+const track=window.TRACK={
+  visit(l){if(!LESSONS.includes(l))return;P.visited[l]=Date.now();P.lastLesson=l;persist()},
+  done(l,v){if(v)P.lessons[l]=Date.now();else delete P.lessons[l];persist();renderProgress()},
+  ex(id,pass,detail){const cur=P.ex[id];
+    if(pass)P.ex[id]={pass:true,at:Date.now(),d:String(detail||"")};
+    else if(!cur||!cur.pass)P.ex[id]={pass:false,at:Date.now(),d:String(detail||"")};
+    persist();renderProgress()},
+  quiz(id,score,total){const cur=P.quiz[id]||{};P.quiz[id]={score,total,best:Math.max(score,cur.best||0),at:Date.now()};persist();renderProgress()}
+};
+const isTeacher=()=>!!(AUTH.user&&AUTH.user.emailVerified&&TEACHERS.includes((AUTH.user.email||"").toLowerCase()));
+const authAllowedHere=()=>(location.protocol==="https:"&&!/claude|anthropic/i.test(location.hostname))||location.hostname==="localhost"||location.hostname==="127.0.0.1";
+function loadScript(src){return new Promise((res,rej)=>{const s=document.createElement("script");s.src=src;s.async=false;s.onload=res;s.onerror=()=>rej(new Error("Không tải được "+src));document.head.appendChild(s)})}
+async function initAuth(){
+  if(!authAllowedHere()){AUTH.mode="unavailable";renderAccount();return}
+  AUTH.mode="loading";renderAccount();
+  try{
+    for(const m of ["app","auth","firestore"])await loadScript(`https://cdn.jsdelivr.net/npm/firebase@${FB_VER}/firebase-${m}-compat.js`);
+    firebase.initializeApp(FB_CONFIG);
+    AUTH.auth=firebase.auth();AUTH.db=firebase.firestore();
+    AUTH.mode="ready";renderAccount();
+    AUTH.auth.onAuthStateChanged(async u=>{
+      AUTH.user=u;AUTH.saveErr="";
+      if(u){await cloudLoad();}
+      renderAccount();renderProgress();
+      if(!document.getElementById("view-teacher").hidden)loadTeacher();
+    });
+  }catch(e){AUTH.mode="error";AUTH.err="Không kết nối được dịch vụ đăng nhập. Kiểm tra Internet rồi tải lại trang.";renderAccount()}
+}
+function mergeInto(a,b){ // gộp tiến độ b vào a
+  for(const k in b.lessons||{})if(!a.lessons[k])a.lessons[k]=b.lessons[k];
+  for(const k in b.visited||{})a.visited[k]=Math.max(a.visited[k]||0,b.visited[k]||0);
+  for(const k in b.ex||{}){const x=b.ex[k],y=a.ex[k];if(!y||(x.pass&&!y.pass)||(x.pass===y.pass&&x.at>y.at))a.ex[k]=x}
+  for(const k in b.quiz||{}){const x=b.quiz[k],y=a.quiz[k];if(!y)a.quiz[k]=x;else{const latest=x.at>y.at?x:y;a.quiz[k]={...latest,best:Math.max(x.best||0,y.best||0)}}}
+  if(!a.lastLesson||(b.lastLesson&&(b.visited||{})[b.lastLesson]>(a.visited[a.lastLesson]||0)))a.lastLesson=b.lastLesson||a.lastLesson;
+  return a;
+}
+async function cloudLoad(){
+  const u=AUTH.user;
+  try{
+    const snap=await AUTH.db.collection("users").doc(u.uid).get();
+    if(snap.exists){const d=snap.data();AUTH.createdAt=d.createdAt||null;
+      P=mergeInto(Object.assign(emptyP(),{lessons:d.lessons||{},visited:d.visited||{},ex:d.ex||{},quiz:d.quiz||{},lastLesson:d.lastLesson||null}),P)}
+    else AUTH.createdAt=null;
+    try{localStorage.setItem("cpp-progress",JSON.stringify(P))}catch(e){}
+    await cloudSave();
+  }catch(e){AUTH.saveErr=e.code==="permission-denied"?"Firestore đang từ chối truy cập: hãy dán quy tắc bảo mật (firestore.rules) trong Firebase Console.":"Chưa đồng bộ được tiến độ lên máy chủ. Tiến độ vẫn được giữ trên trình duyệt này."}
+}
+async function cloudSave(){
+  const u=AUTH.user;if(!u||!AUTH.db)return;
+  const FV=firebase.firestore.FieldValue;
+  try{
+    await AUTH.db.collection("users").doc(u.uid).set({
+      name:u.displayName||"",email:(u.email||"").toLowerCase(),photo:u.photoURL||"",
+      createdAt:AUTH.createdAt||FV.serverTimestamp(),lastSeen:FV.serverTimestamp(),
+      lastLesson:P.lastLesson||null,lessons:P.lessons,visited:P.visited,ex:P.ex,quiz:P.quiz});
+    if(!AUTH.createdAt)AUTH.createdAt=new Date();
+    if(AUTH.saveErr){AUTH.saveErr="";renderAccount()}
+  }catch(e){AUTH.saveErr=e.code==="permission-denied"?"Firestore đang từ chối ghi: hãy dán quy tắc bảo mật (firestore.rules) trong Firebase Console.":"Chưa lưu được lên máy chủ, sẽ thử lại ở lần thay đổi sau.";renderAccount()}
+}
+async function signIn(){
+  const box=document.getElementById("acct-msg");if(box)box.textContent="";
+  try{const prov=new firebase.auth.GoogleAuthProvider();prov.setCustomParameters({prompt:"select_account"});await AUTH.auth.signInWithPopup(prov)}
+  catch(e){const M={"auth/popup-blocked":"Trình duyệt đã chặn cửa sổ đăng nhập. Hãy cho phép cửa sổ bật lên (popup) cho trang này rồi thử lại.","auth/unauthorized-domain":`Tên miền ${location.hostname} chưa được thêm vào Authorized domains trong Firebase.`,"auth/network-request-failed":"Lỗi mạng, hãy kiểm tra Internet.","auth/operation-not-allowed":"Đăng nhập Google chưa được bật trong Firebase Authentication."};
+    if(e.code==="auth/popup-closed-by-user"||e.code==="auth/cancelled-popup-request")return;
+    const b=document.getElementById("acct-msg");if(b)b.textContent=M[e.code]||("Không đăng nhập được: "+(e.message||e.code))}
+}
+async function signOut(){
+  clearTimeout(saveTimer);await cloudSave();await AUTH.auth.signOut();
+  P=emptyP();try{localStorage.removeItem("cpp-progress")}catch(e){}
+  renderProgress();show("road");
+}
+const doneCount=()=>LESSONS.filter(l=>P.lessons[l]).length;
+function renderAccount(){
+  const el=document.getElementById("acct");if(!el)return;
+  const n=doneCount(),bar=`<div class="pbar" role="progressbar" aria-valuemin="0" aria-valuemax="${LESSONS.length}" aria-valuenow="${n}"><span style="width:${n/LESSONS.length*100}%"></span></div><div class="pnum">${n}/${LESSONS.length} bài đã hoàn thành</div>`;
+  const cont=P.lastLesson&&P.lastLesson!==lastLessonShown()?`<button class="linkbtn" data-go="${P.lastLesson}">Tiếp tục: ${esc(LESSON_NAMES[P.lastLesson]||"")} →</button>`:"";
+  let h="";
+  if(AUTH.mode==="unavailable")h=`${bar}<p class="acct-note">Tiến độ đang lưu trên trình duyệt này. Đăng nhập Google hoạt động trên bản đăng ở website (GitHub Pages).</p>`;
+  else if(AUTH.mode==="loading"||AUTH.mode==="off")h=`${bar}<p class="acct-note">Đang kết nối dịch vụ đăng nhập…</p>`;
+  else if(AUTH.mode==="error")h=`${bar}<p class="acct-note bad-t">${esc(AUTH.err)}</p>`;
+  else if(!AUTH.user)h=`<button class="gbtn" id="btn-signin"><span class="g">G</span>Đăng nhập bằng Google</button><p class="acct-note">Đăng nhập để lưu tiến độ và học tiếp trên mọi thiết bị. Trang lưu tên, email và kết quả học của bạn để giảng viên AMTS theo dõi.</p>${bar}`;
+  else{const u=AUTH.user;const ini=(u.displayName||u.email||"?").trim()[0].toUpperCase();
+    h=`<div class="who">${u.photoURL?`<img src="${esc(u.photoURL)}" alt="" referrerpolicy="no-referrer" onerror="this.replaceWith(Object.assign(document.createElement('span'),{className:'ava',textContent:'${esc(ini)}'}))">`:`<span class="ava">${esc(ini)}</span>`}<div><b>${esc(u.displayName||"Học viên")}</b><small>${esc(u.email||"")}</small></div></div>${bar}
+      <div class="acct-btns">${isTeacher()?`<button class="btn pri sm" data-go="teacher">Trang giảng viên</button>`:""}<button class="btn sm" id="btn-signout">Đăng xuất</button></div>
+      ${AUTH.saveErr?`<p class="acct-note bad-t">${esc(AUTH.saveErr)}</p>`:""}`}
+  el.innerHTML=h+cont+`<p class="acct-note bad-t" id="acct-msg" aria-live="polite"></p>`;
+  const si=document.getElementById("btn-signin");if(si)si.onclick=signIn;
+  const so=document.getElementById("btn-signout");if(so)so.onclick=signOut;
+}
+function lastLessonShown(){const v=VIEWS.find(x=>!document.getElementById("view-"+x).hidden);return v}
+function renderProgress(){
+  document.querySelectorAll("#outline li[data-l]").forEach(li=>{const l=li.dataset.l;li.classList.toggle("done",!!P.lessons[l])});
+  document.querySelectorAll("[data-done]").forEach(b=>{const on=!!P.lessons[b.dataset.done];b.classList.toggle("is-done",on);b.setAttribute("aria-pressed",on);b.textContent=on?"✓ Đã hoàn thành bài này":"Đánh dấu đã học xong"});
+  renderAccount();
+}
+/* nút hoàn thành ở cuối mỗi bài */
+LESSONS.forEach(l=>{const nx=document.querySelector(`#view-${l} .next`);if(!nx)return;
+  const b=document.createElement("button");b.className="btn done-btn";b.dataset.done=l;b.setAttribute("aria-pressed","false");
+  b.onclick=()=>track.done(l,!P.lessons[l]);nx.prepend(b)});
+
+/* ---------- trang giảng viên ---------- */
+let TROWS=[];
+function fmtTime(t){if(!t)return"—";const d=t.toDate?t.toDate():new Date(t);if(isNaN(d))return"—";return d.toLocaleString("vi-VN",{day:"2-digit",month:"2-digit",year:"numeric",hour:"2-digit",minute:"2-digit"})}
+function summarize(d){
+  const done=LESSONS.filter(l=>(d.lessons||{})[l]);
+  const exPass=EX_IDS.filter(k=>((d.ex||{})[k]||{}).pass).length;
+  const qs=Object.values(d.quiz||{}).filter(q=>q.total);const qavg=qs.length?Math.round(qs.reduce((s,q)=>s+(q.best||0)/q.total,0)/qs.length*100):null;
+  return{done,exPass,qavg,qn:qs.length};
+}
+async function loadTeacher(){
+  const box=document.getElementById("t-body");
+  if(!AUTH.user){box.innerHTML=`<p class="mem-empty">Hãy đăng nhập bằng tài khoản giảng viên.</p>`;return}
+  if(!isTeacher()){box.innerHTML=`<p class="mem-empty">Tài khoản ${esc(AUTH.user.email||"")} không có quyền xem trang này.</p>`;return}
+  box.innerHTML=`<p class="mem-empty">Đang tải danh sách học viên…</p>`;
+  try{const snap=await AUTH.db.collection("users").get();
+    TROWS=snap.docs.map(x=>({id:x.id,...x.data()})).filter(r=>!TEACHERS.includes((r.email||"").toLowerCase())).sort((a,b)=>(b.lastSeen?b.lastSeen.toMillis():0)-(a.lastSeen?a.lastSeen.toMillis():0));
+    renderTeacher()}
+  catch(e){box.innerHTML=`<p class="bad-t">${e.code==="permission-denied"?"Firestore từ chối: hãy kiểm tra đã dán quy tắc bảo mật và email giảng viên trong quy tắc trùng với email đang đăng nhập.":"Không tải được dữ liệu: "+esc(e.message||"")}</p>`}
+}
+function renderTeacher(){
+  const q=(document.getElementById("t-q").value||"").toLowerCase().trim();
+  const rows=TROWS.filter(r=>!q||(r.name||"").toLowerCase().includes(q)||(r.email||"").includes(q));
+  const tot=TROWS.length,active=TROWS.filter(r=>r.lastSeen&&Date.now()-r.lastSeen.toMillis()<7*864e5).length;
+  const avgDone=tot?(TROWS.reduce((s,r)=>s+summarize(r).done.length,0)/tot).toFixed(1):"0";
+  document.getElementById("t-stats").innerHTML=`<div><b>${tot}</b><span>học viên</span></div><div><b>${active}</b><span>hoạt động 7 ngày qua</span></div><div><b>${avgDone}</b><span>bài hoàn thành trung bình</span></div>`;
+  const box=document.getElementById("t-body");
+  if(!rows.length){box.innerHTML=`<p class="mem-empty">${tot?"Không có học viên khớp từ khóa.":"Chưa có học viên nào đăng nhập. Danh sách sẽ hiện ở đây khi học viên đăng nhập lần đầu."}</p>`;return}
+  box.innerHTML=`<div class="tbl"><table class="tt"><thead><tr><th>Học viên</th>${LESSONS.map((l,i)=>`<th title="${esc(LESSON_NAMES[l])}">B${i+1}</th>`).join("")}<th>Bài tập</th><th>Trắc nghiệm</th><th>Lần cuối</th></tr></thead><tbody>${
+    rows.map(r=>{const s=summarize(r);return `<tr class="trow" data-id="${esc(r.id)}" tabindex="0"><td><b>${esc(r.name||"(chưa có tên)")}</b><small>${esc(r.email||"")}</small></td>${LESSONS.map(l=>{const d=(r.lessons||{})[l],v=(r.visited||{})[l];return `<td class="st">${d?'<span class="s-done" title="Đã hoàn thành">✓</span>':v?'<span class="s-seen" title="Đã mở">◐</span>':'<span class="s-no">·</span>'}</td>`}).join("")}
+      <td class="num">${s.exPass}/${EX_IDS.length}</td><td class="num">${s.qavg===null?"—":s.qavg+"%"}</td><td class="when">${fmtTime(r.lastSeen)}${r.lastLesson?`<small>${esc(LESSON_NAMES[r.lastLesson]||"")}</small>`:""}</td></tr>
+      <tr class="tdetail" hidden data-for="${esc(r.id)}"><td colspan="${LESSONS.length+4}">${detail(r)}</td></tr>`}).join("")}</tbody></table></div>
+    <p class="acct-note">✓ hoàn thành · ◐ đã mở nhưng chưa đánh dấu xong · bấm vào một học viên để xem chi tiết.</p>`;
+  box.querySelectorAll(".trow").forEach(tr=>{const f=()=>{const d=box.querySelector(`.tdetail[data-for="${CSS.escape(tr.dataset.id)}"]`);d.hidden=!d.hidden;tr.classList.toggle("open",!d.hidden)};tr.onclick=f;tr.onkeydown=e=>{if(e.key==="Enter")f()}});
+}
+function detail(r){
+  return `<div class="tdet">${LESSONS.map((l,i)=>{const exs=EX_IDS.filter(k=>k.startsWith(l+"-"));const q=(r.quiz||{})[QUIZ_IDS[l]];
+    return `<div><b>Bài ${i+1}</b> <small>${esc(LESSON_NAMES[l])}</small><span>${(r.lessons||{})[l]?"✓ Hoàn thành":(r.visited||{})[l]?"Đã mở":"Chưa học"}</span>
+      <span>Bài tập: ${exs.map(k=>{const x=(r.ex||{})[k];return `<i class="${x?x.pass?"ok":"bad":""}" title="${esc(k)}${x&&x.d?" · "+esc(x.d):""}">${x?x.pass?"✓":"✗":"·"}</i>`}).join("")}</span>
+      <span>Trắc nghiệm: ${q?`${q.score}/${q.total} (cao nhất ${q.best}/${q.total})`:"—"}</span></div>`}).join("")}</div>`;
+}
+function exportCSV(){
+  const head=["Họ tên","Email","Số bài hoàn thành","Các bài hoàn thành","Bài tập đạt","Trắc nghiệm TB (%)","Bài gần nhất","Lần cuối truy cập","Ngày bắt đầu"];
+  const q=s=>`"${String(s??"").replace(/"/g,'""')}"`;
+  const lines=[head.map(q).join(",")].concat(TROWS.map(r=>{const s=summarize(r);return [r.name,r.email,s.done.length,s.done.map(l=>"Bài "+(LESSONS.indexOf(l)+1)).join("; "),`${s.exPass}/${EX_IDS.length}`,s.qavg??"",LESSON_NAMES[r.lastLesson]||"",fmtTime(r.lastSeen),fmtTime(r.createdAt)].map(q).join(",")}));
+  const blob=new Blob(["﻿"+lines.join("\r\n")],{type:"text/csv;charset=utf-8"});
+  const a=document.createElement("a");a.href=URL.createObjectURL(blob);a.download=`tien-do-hoc-vien-${new Date().toISOString().slice(0,10)}.csv`;document.body.appendChild(a);a.click();setTimeout(()=>{URL.revokeObjectURL(a.href);a.remove()},500);
+}
+document.getElementById("t-q").addEventListener("input",()=>TROWS.length&&renderTeacher());
+document.getElementById("t-reload").onclick=loadTeacher;
+document.getElementById("t-csv").onclick=()=>{if(TROWS.length)exportCSV()};
+renderProgress();
+{const v=lastLessonShown();if(v&&v.startsWith("l"))track.visit(v)}
+initAuth();
+
 /* init editor */
 let draft=null;try{draft=localStorage.getItem("cpp-l1-draft")}catch(e){}
 load(draft||PRESETS.hello);
 </script>
 
-</body></html>
+</body>
+</html>
