@@ -467,6 +467,11 @@ td.num{font-family:var(--f-mono);font-variant-numeric:tabular-nums;font-weight:6
 .et-lines div span{width:14px;color:var(--muted);font-family:var(--f-mono)}
 .et-lines code{font-size:14px;background:none;padding:0}
 .et-lines mark{background:var(--ok-soft);color:var(--ok);border-radius:4px;padding:0 4px;font-weight:600}
+.tn.skip rect{fill:transparent;stroke:var(--line);stroke-dasharray:3 3}
+.tn.skip text{fill:var(--muted);opacity:.7}
+.et-full{font-size:14px;color:var(--muted)}
+.et-full code{font-size:13.5px;color:var(--ink);background:var(--bg);padding:2px 8px;border-radius:6px;word-break:break-word}
+.et-note{font-size:14px;color:var(--accent);font-weight:600}
 .et-err{color:var(--err);font-size:14px}
 .et-done{font-size:15px}.et-done b{color:var(--ok)}
 .et-warn{font-size:13.5px;color:var(--warm)}
@@ -516,6 +521,67 @@ details.ch li.done a::after{content:" ✓";color:var(--ok);font-weight:800}
 .tdet i{font-style:normal;display:inline-grid;place-items:center;width:20px;height:20px;border-radius:4px;margin-left:3px;background:var(--bg);color:var(--muted);font-weight:700}
 .tdet i.ok{background:var(--ok-soft);color:var(--ok)}.tdet i.bad{background:var(--err-soft);color:var(--err)}
 
+/* ---------- Bài 9–11 ---------- */
+.tt-ctl{display:flex;gap:10px;flex-wrap:wrap;align-items:stretch}
+.tv{border:2px solid var(--line);background:var(--surface);border-radius:12px;padding:10px 18px;display:grid;gap:2px;min-width:110px;text-align:left}
+.tv span{font-family:var(--f-mono);font-size:12px;color:var(--muted)}
+.tv b{font-family:var(--f-mono);font-size:18px;color:var(--err)}
+.tv.on{border-color:var(--ok);background:var(--ok-soft)}.tv.on b{color:var(--ok)}
+.tv-res{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:8px;flex:1;min-width:280px}
+.tv-res div{border-radius:10px;padding:8px 12px;display:grid;gap:2px;background:var(--err-soft)}
+.tv-res div.t{background:var(--ok-soft)}
+.tv-res code{font-size:12.5px;background:none;padding:0;color:var(--ink)}
+.tv-res b{font-family:var(--f-mono);font-size:15px;color:var(--err)}.tv-res .t b{color:var(--ok)}
+.truth td,.truth th{text-align:center;font-family:var(--f-mono)}
+.truth td.t{color:var(--ok);font-weight:700}.truth td.f{color:var(--muted)}
+.truth tr.cur td{background:var(--accent-soft)}
+.note-s{font-size:14px;color:var(--muted)}
+.note-s b{color:var(--ink)}
+.lab-in{display:flex;flex-wrap:wrap;gap:14px 22px;align-items:center}
+.lab-f{display:flex;align-items:center;gap:8px;font-family:var(--f-mono);font-size:13.5px}
+.lab-f input{width:140px;accent-color:var(--accent)}
+.lab-f output{min-width:34px;font-weight:700}
+.lab-c{display:flex;align-items:center;gap:6px;font-family:var(--f-mono);font-size:13.5px;cursor:pointer}
+.lab-expr{display:flex;flex-wrap:wrap;gap:8px;align-items:center;padding:14px;background:var(--bg);border-radius:10px}
+.lab-expr i{font-style:normal;font-family:var(--f-mono);font-weight:700;color:var(--muted)}
+.lx{display:inline-grid;gap:1px;padding:5px 10px;border-radius:8px;border:1.5px solid}
+.lx code{background:none;padding:0;font-size:13px;color:var(--ink)}
+.lx small{font-family:var(--f-mono);font-size:11.5px;font-weight:700}
+.lx.t{border-color:var(--ok);background:var(--ok-soft)}.lx.t small{color:var(--ok)}
+.lx.f{border-color:var(--err);background:var(--err-soft)}.lx.f small{color:var(--err)}
+.lx-g{display:inline-flex;flex-wrap:wrap;gap:6px;align-items:center;border:1.5px dashed var(--line);border-radius:10px;padding:4px 8px;font-family:var(--f-mono);color:var(--muted)}
+.lx-g > small{font-weight:700;color:var(--ink)}
+.lab-read{width:100%;font-size:13.5px;color:var(--muted)}
+.lab-res{border-radius:10px;padding:10px 14px;display:grid;gap:4px;font-size:14.5px}
+.lab-res.t{background:var(--ok-soft)}.lab-res.t > b{color:var(--ok)}
+.lab-res.f{background:var(--err-soft)}.lab-res.f > b{color:var(--err)}
+.bo-ops{display:flex;flex-wrap:wrap;gap:6px}
+.chip-btn.sel{background:var(--accent);border-color:var(--accent);color:var(--accent-ink)}
+.chip-btn.sel code{color:inherit;background:none}
+.bo-grid{display:grid;grid-template-columns:auto minmax(0,max-content) auto;gap:8px 12px;align-items:center;overflow-x:auto;justify-content:start}
+.bo-grid .bits{display:flex;gap:3px;align-items:center}
+.bo-l{font-family:var(--f-mono);font-weight:700;font-size:14px;white-space:nowrap}
+.bo-l.op{color:var(--accent)}
+.bo-v input{width:76px;font-family:var(--f-mono);font-size:14px;padding:5px 8px;border:1px solid var(--line);border-radius:6px;background:var(--bg);color:var(--ink)}
+.bo-v.res{font-family:var(--f-mono);font-weight:700;font-size:18px;color:var(--accent)}
+.bo-n{font-size:13.5px;color:var(--muted);display:flex;gap:8px;align-items:center}
+.bit.res{display:inline-grid;place-items:center}
+.bit.res.on{background:var(--ok);border-color:var(--ok);color:#fff}
+.fl-state{display:flex;flex-wrap:wrap;gap:10px}
+.fl{border:1.5px solid var(--line);border-radius:10px;padding:8px 14px;display:grid;gap:1px;min-width:110px;background:var(--surface)}
+.fl b{font-family:var(--f-mono);font-size:14px}.fl span{font-size:12.5px;color:var(--muted)}.fl code{font-size:12px;background:none;padding:0;color:var(--muted)}
+.fl.on{border-color:var(--ok);background:var(--ok-soft)}.fl.on b{color:var(--ok)}
+.fl-val{border-radius:10px;padding:8px 14px;display:grid;gap:1px;background:var(--code-bg);color:var(--code-fg);min-width:110px}
+.fl-val span{font-size:12px;color:var(--code-muted);font-family:var(--f-mono)}.fl-val b{font-size:20px;font-family:var(--f-mono)}.fl-val code{background:none;padding:0;color:var(--syn-num);font-size:13px}
+.fl-acts{display:flex;flex-wrap:wrap;gap:6px}
+.fl-code{display:grid;gap:4px;font-size:12.5px;color:var(--muted)}
+.fl-code code{background:var(--code-bg);color:var(--code-fg);padding:8px 12px;border-radius:8px;font-size:13.5px;white-space:pre;overflow-x:auto}
+.fl-chk{display:flex;flex-wrap:wrap;gap:8px 18px;font-size:13.5px}
+.fl-chk div{display:flex;gap:8px;align-items:center}
+.fl-chk b{font-family:var(--f-mono)}.fl-chk b.t{color:var(--ok)}.fl-chk b.f{color:var(--err)}
+.prec td:first-child{font-family:var(--f-mono);color:var(--muted);text-align:center}
+.updated{font-size:12.5px;color:var(--muted);margin-top:-24px;font-variant-numeric:tabular-nums}
+
 /* ---------- Ẩn / hiện thanh bên ---------- */
 .org{justify-content:space-between}
 .logo-link{display:flex;border-radius:999px}
@@ -555,6 +621,12 @@ details.ch li.done a::after{content:" ✓";color:var(--ok);font-weight:800}
   .sim2 .editor{min-height:340px}
   .bits-info{grid-template-columns:1fr 1fr}
   .ascii-grid{grid-template-columns:repeat(12,minmax(0,1fr))}
+  .tv-res{grid-template-columns:1fr 1fr;min-width:0;flex:1 1 100%}
+  .bo-grid .bits{min-width:max-content}
+  .bo-grid .bit{width:22px;height:30px;font-size:13px}
+  .bo-grid .gap{width:4px}
+  .bo-v input{width:58px}
+  .bo-grid{gap:8px}
   .tasks{border-left:0;border-top:1px solid var(--line)}
   .tty{height:340px}
   .pipe{grid-template-columns:1fr 1fr}
@@ -1734,10 +1806,277 @@ Lệnh trên chạy cả 4 giai đoạn cùng lúc. Nhấn “Bước tiếp” 
 
       <div class="next">
         <button class="btn" data-go="l7">← Bài 7</button>
-        <span class="byline"><span class="amts-logo" aria-hidden="true"></span>Chương 3 · Bài 1/5 · Tiếp theo: So sánh và logic</span>
+        <button class="btn pri" data-go="l9">Bài tiếp: So sánh và logic →</button>
       </div>
     </article>
 
+    <!-- ===================== LESSON 9 ===================== -->
+    <article class="col" id="view-l9" hidden>
+      <header class="hero">
+        <div class="crumb">Chương 3 · Toán tử và biểu thức / Bài 9</div>
+        <h1>So sánh và <em>logic</em></h1>
+        <p class="lede">Mọi quyết định trong chương trình đều bắt đầu từ một câu hỏi đúng hay sai: điểm có đủ đỗ không, tuổi có hợp lệ không. Bài này dạy cách đặt những câu hỏi đó bằng toán tử so sánh và kết hợp chúng bằng toán tử logic.</p>
+        <div class="meta"><span class="chip lv1">Cơ bản</span><span class="chip">60 phút</span><span class="chip">Bảng chân trị · Ngắn mạch</span><span class="chip">3 bài tập · 4 câu hỏi</span></div>
+      </header>
+      <div class="goals">
+        <h3>Sau bài này học viên có thể</h3>
+        <ul>
+          <li>Dùng 6 toán tử so sánh và hiểu kết quả là <code>bool</code>.</li>
+          <li>Kết hợp điều kiện bằng <code>&amp;&amp;</code>, <code>||</code>, <code>!</code> và đọc bảng chân trị.</li>
+          <li>Giải thích cơ chế ngắn mạch và dùng nó để tránh lỗi chia cho 0.</li>
+          <li>Tránh 5 lỗi hay gặp: <code>=</code> thay <code>==</code>, <code>a &lt; x &lt; b</code>, so sánh số thực, <code>!a == b</code>, <code>&amp;</code> thay <code>&amp;&amp;</code>.</li>
+        </ul>
+      </div>
+
+      <section class="part">
+        <div class="part-head"><span class="num">9.1</span><h2>Sáu toán tử so sánh</h2></div>
+        <div class="prose"><p>Mỗi phép so sánh trả về một giá trị <code>bool</code>: <code>true</code> hoặc <code>false</code>. <code>cout</code> in chúng thành <code>1</code> và <code>0</code>, trừ khi dùng <code>std::boolalpha</code>.</p></div>
+        <div class="tbl"><table>
+          <thead><tr><th>Toán tử</th><th>Ý nghĩa</th><th>Ví dụ (a = 7, b = 3)</th><th>Kết quả</th></tr></thead>
+          <tbody>
+            <tr><td><code>==</code></td><td>bằng</td><td><code>a == b</code></td><td><code>false</code></td></tr>
+            <tr><td><code>!=</code></td><td>khác</td><td><code>a != b</code></td><td><code>true</code></td></tr>
+            <tr><td><code>&lt;</code></td><td>nhỏ hơn</td><td><code>a &lt; b</code></td><td><code>false</code></td></tr>
+            <tr><td><code>&lt;=</code></td><td>nhỏ hơn hoặc bằng</td><td><code>b &lt;= 3</code></td><td><code>true</code></td></tr>
+            <tr><td><code>&gt;</code></td><td>lớn hơn</td><td><code>a &gt; b</code></td><td><code>true</code></td></tr>
+            <tr><td><code>&gt;=</code></td><td>lớn hơn hoặc bằng</td><td><code>a &gt;= 8</code></td><td><code>false</code></td></tr>
+          </tbody>
+        </table></div>
+        <div class="note"><b>Lưu ý:</b> <code>=</code> là <b>gán</b>, <code>==</code> mới là <b>so sánh</b>. Viết <code>x = 5</code> khi định so sánh sẽ âm thầm đổi giá trị của x. Chuỗi <code>std::string</code> cũng so sánh được: <code>"abc" &lt; "abd"</code> theo thứ tự từ điển.</div>
+      </section>
+
+      <section class="part">
+        <div class="part-head"><span class="num">9.2</span><h2>Toán tử logic và bảng chân trị</h2></div>
+        <div class="prose">
+          <p>Ba toán tử logic kết hợp các giá trị <code>bool</code>:</p>
+          <ul>
+            <li><code>A &amp;&amp; B</code> (VÀ): đúng khi <b>cả hai</b> đều đúng.</li>
+            <li><code>A || B</code> (HOẶC): đúng khi <b>ít nhất một</b> vế đúng.</li>
+            <li><code>!A</code> (PHỦ ĐỊNH): đảo đúng thành sai và ngược lại.</li>
+          </ul>
+          <p>Bấm vào A và B để đổi giá trị, hàng tương ứng trong bảng sẽ sáng lên.</p>
+        </div>
+        <div class="figure" id="truth-l9"></div>
+      </section>
+
+      <section class="part">
+        <div class="part-head"><span class="num">9.3</span><h2>Phòng thí nghiệm điều kiện</h2></div>
+        <div class="prose"><p>Quy định học bổng: <b>điểm từ 8.0 trở lên, và</b> (dưới 18 tuổi <b>hoặc</b> thuộc diện hộ nghèo). Kéo thanh trượt để xem từng phần của biểu thức đổi màu. Bật “Bỏ ngoặc” để thấy vì sao dấu ngoặc làm thay đổi ý nghĩa.</p></div>
+        <div class="figure" id="lab-l9"></div>
+      </section>
+
+      <section class="part">
+        <div class="part-head"><span class="num">9.4</span><h2>Ngắn mạch: vế phải có thể không được tính</h2></div>
+        <div class="prose">
+          <p>C++ tính <code>&amp;&amp;</code> và <code>||</code> từ trái sang phải và <b>dừng ngay khi biết kết quả</b>:</p>
+          <ul>
+            <li><code>false &amp;&amp; …</code> chắc chắn là <code>false</code>, nên vế phải bị bỏ qua.</li>
+            <li><code>true || …</code> chắc chắn là <code>true</code>, nên vế phải bị bỏ qua.</li>
+          </ul>
+          <p>Nhờ đó <code>b != 0 &amp;&amp; a / b &gt; 1</code> an toàn khi <code>b</code> bằng 0: phép chia không bao giờ được thực hiện. Đảo thứ tự thành <code>a / b &gt; 1 &amp;&amp; b != 0</code> thì chương trình bị dừng vì chia cho 0. Thử trên cây biểu thức: các nút bị bỏ qua hiện viền đứt.</p>
+        </div>
+        <div class="figure exprtree" id="etree-l9"></div>
+      </section>
+
+      <section class="part">
+        <div class="part-head"><span class="num">9.5</span><h2>Năm lỗi hay gặp</h2></div>
+        <div class="tbl"><table>
+          <thead><tr><th>Viết sai</th><th>Thực tế C++ hiểu</th><th>Viết đúng</th></tr></thead>
+          <tbody>
+            <tr><td><code>x = 5</code> (định so sánh)</td><td>Gán 5 cho x, kết quả là 5 (luôn “đúng”)</td><td><code>x == 5</code></td></tr>
+            <tr><td><code>10 &lt; x &lt; 20</code></td><td><code>(10 &lt; x) &lt; 20</code>, tức 0 hoặc 1 nhỏ hơn 20: luôn đúng</td><td><code>10 &lt; x &amp;&amp; x &lt; 20</code></td></tr>
+            <tr><td><code>0.1 + 0.2 == 0.3</code></td><td>So sánh hai số thực lưu gần đúng: <code>false</code></td><td><code>std::abs(a - b) &lt; 1e-9</code></td></tr>
+            <tr><td><code>!x == 0</code></td><td><code>(!x) == 0</code></td><td><code>!(x == 0)</code> hoặc <code>x != 0</code></td></tr>
+            <tr><td><code>a &gt; 0 &amp; b &gt; 0</code></td><td>Toán tử bit &amp;: không ngắn mạch, dễ nhầm</td><td><code>a &gt; 0 &amp;&amp; b &gt; 0</code></td></tr>
+          </tbody>
+        </table></div>
+        <div class="note"><b>Trình biên dịch giúp bạn:</b> với <code>-Wall</code>, g++ cảnh báo lỗi thứ 2 và thứ 4. Chọn các ví dụ cảnh báo trong trình mô phỏng để xem.</div>
+      </section>
+
+      <section class="part">
+        <div class="part-head"><span class="num">9.6</span><h2>Trình mô phỏng</h2></div>
+        <div id="sim-l9"></div>
+      </section>
+      <section class="part">
+        <div class="part-head"><span class="num">9.7</span><h2>Bài tập chấm tự động</h2></div>
+        <div class="prose"><p>Chưa học câu lệnh <code>if</code>, nên các bài dưới đây in thẳng giá trị <code>bool</code> bằng <code>std::boolalpha</code>.</p></div>
+        <div class="ex-grid" id="ex-l9"></div>
+      </section>
+      <section class="part">
+        <div class="part-head"><span class="num">9.8</span><h2>Kiểm tra nhanh</h2></div>
+        <div class="quiz" id="quiz9"></div><div class="score" id="score9"></div>
+      </section>
+      <div class="next">
+        <button class="btn" data-go="l8">← Bài 8</button>
+        <button class="btn pri" data-go="l10">Bài tiếp: Thứ tự ưu tiên →</button>
+      </div>
+    </article>
+
+    <!-- ===================== LESSON 10 ===================== -->
+    <article class="col" id="view-l10" hidden>
+      <header class="hero">
+        <div class="crumb">Chương 3 · Toán tử và biểu thức / Bài 10</div>
+        <h1>Thứ tự <em>ưu tiên</em> toán tử</h1>
+        <p class="lede">Bài 8 mới giới thiệu ưu tiên của các phép số học. Giờ khi đã có so sánh, logic, gán và toán tử điều kiện, cần một bức tranh đầy đủ: máy đặt ngoặc ngầm ở đâu, và vì sao <code>cout &lt;&lt; a &lt; b</code> lại báo lỗi.</p>
+        <div class="meta"><span class="chip lv1">Cơ bản</span><span class="chip">50 phút</span><span class="chip">Đặt ngoặc tự động · Đoán biên dịch</span><span class="chip">3 bài tập · 4 câu hỏi</span></div>
+      </header>
+      <div class="goals">
+        <h3>Sau bài này học viên có thể</h3>
+        <ul>
+          <li>Xếp đúng thứ tự ưu tiên của các nhóm toán tử đã học.</li>
+          <li>Tự đặt ngoặc đầy đủ cho một biểu thức và dự đoán kết quả.</li>
+          <li>Dùng toán tử điều kiện <code>?:</code> đúng cách.</li>
+          <li>Nhận ra biểu thức có hành vi không xác định như <code>i++ + i</code>.</li>
+        </ul>
+      </div>
+
+      <section class="part">
+        <div class="part-head"><span class="num">10.1</span><h2>Bảng ưu tiên đầy đủ</h2></div>
+        <div class="prose"><p>Từ trên xuống: nhóm ở trên được tính trước. Mẹo nhớ theo thứ tự: <b>đơn → nhân → cộng → dịch → so sánh → bằng → bit → logic → điều kiện → gán</b>.</p></div>
+        <div class="tbl"><table class="prec">
+          <thead><tr><th>Mức</th><th>Nhóm</th><th>Toán tử</th><th>Kết hợp</th></tr></thead>
+          <tbody>
+            <tr><td>1</td><td>Hậu tố</td><td><code>x++</code> <code>x--</code> <code>f()</code> <code>a.b</code></td><td>trái → phải</td></tr>
+            <tr><td>2</td><td>Một ngôi</td><td><code>++x</code> <code>--x</code> <code>-a</code> <code>+a</code> <code>!</code> <code>~</code> <code>(kiểu)</code> <code>sizeof</code></td><td>phải → trái</td></tr>
+            <tr><td>3</td><td>Nhân</td><td><code>*</code> <code>/</code> <code>%</code></td><td>trái → phải</td></tr>
+            <tr><td>4</td><td>Cộng</td><td><code>+</code> <code>-</code></td><td>trái → phải</td></tr>
+            <tr><td>5</td><td>Dịch bit</td><td><code>&lt;&lt;</code> <code>&gt;&gt;</code> (cả với <code>cout</code>, <code>cin</code>)</td><td>trái → phải</td></tr>
+            <tr><td>6</td><td>So sánh</td><td><code>&lt;</code> <code>&lt;=</code> <code>&gt;</code> <code>&gt;=</code></td><td>trái → phải</td></tr>
+            <tr><td>7</td><td>Bằng</td><td><code>==</code> <code>!=</code></td><td>trái → phải</td></tr>
+            <tr><td>8</td><td>Bit</td><td><code>&amp;</code>, rồi <code>^</code>, rồi <code>|</code></td><td>trái → phải</td></tr>
+            <tr><td>9</td><td>Logic</td><td><code>&amp;&amp;</code>, rồi <code>||</code></td><td>trái → phải</td></tr>
+            <tr><td>10</td><td>Điều kiện, gán</td><td><code>?:</code> <code>=</code> <code>+=</code> <code>-=</code> <code>*=</code> <code>&amp;=</code> …</td><td>phải → trái</td></tr>
+          </tbody>
+        </table></div>
+        <div class="note"><b>Hai chỗ bất ngờ:</b> <code>&lt;&lt;</code> đứng <b>trên</b> so sánh, nên <code>cout &lt;&lt; a &lt; b</code> bị hiểu là <code>(cout &lt;&lt; a) &lt; b</code>. Toán tử bit <code>&amp;</code> đứng <b>dưới</b> <code>==</code>, nên <code>n &amp; 1 == 0</code> là <code>n &amp; (1 == 0)</code>.</div>
+      </section>
+
+      <section class="part">
+        <div class="part-head"><span class="num">10.2</span><h2>Đặt ngoặc tự động</h2></div>
+        <div class="prose"><p>Gõ bất kỳ biểu thức nào: trang hiện dạng đặt ngoặc đầy đủ mà trình biên dịch hiểu, vẽ cây và tính từng bước. Thử đoán dạng có ngoặc trước khi nhìn.</p></div>
+        <div class="figure exprtree" id="etree-l10"></div>
+      </section>
+
+      <section class="part">
+        <div class="part-head"><span class="num">10.3</span><h2>Toán tử điều kiện <code style="font-size:.85em">?:</code></h2></div>
+        <div class="prose">
+          <p><code>dieu_kien ? gia_tri_neu_dung : gia_tri_neu_sai</code> là toán tử duy nhất có ba toán hạng. Chỉ một trong hai nhánh được tính.</p>
+        </div>
+        <div class="code" data-snip="l10cond"></div>
+        <div class="note"><b>Quy tắc:</b> hai nhánh phải cùng loại (cùng là số, hoặc cùng là chuỗi). Khi in bằng <code>cout</code>, luôn đặt cả biểu thức <code>?:</code> trong ngoặc vì nó có ưu tiên rất thấp. <code>?:</code> hợp với lựa chọn ngắn; logic dài hơn thì dùng <code>if</code> ở Chương 4.</div>
+      </section>
+
+      <section class="part">
+        <div class="part-head"><span class="num">10.4</span><h2>Bẫy với <code style="font-size:.85em">cout</code>: đoạn nào biên dịch được?</h2></div>
+        <div class="cg-grid" id="cg-l10"></div>
+      </section>
+
+      <section class="part">
+        <div class="part-head"><span class="num">10.5</span><h2>Ưu tiên không quyết định thứ tự tính</h2></div>
+        <div class="prose">
+          <p>Ưu tiên chỉ cho biết toán hạng nào thuộc về toán tử nào. Nó <b>không</b> quy định vế nào được tính trước. Trong <code>f() + g()</code>, C++ không hứa <code>f</code> chạy trước <code>g</code>.</p>
+          <p>Vì vậy, nếu một biến vừa bị thay đổi vừa được đọc trong cùng biểu thức, như <code>i++ + i</code>, kết quả là <b>không xác định</b>: mỗi trình biên dịch có thể cho một số khác. g++ cảnh báo bằng <code>-Wsequence-point</code>. Cách sửa duy nhất: tách thành nhiều câu lệnh.</p>
+        </div>
+      </section>
+
+      <section class="part">
+        <div class="part-head"><span class="num">10.6</span><h2>Trình mô phỏng</h2></div>
+        <div id="sim-l10"></div>
+      </section>
+      <section class="part">
+        <div class="part-head"><span class="num">10.7</span><h2>Bài tập chấm tự động</h2></div>
+        <div class="ex-grid" id="ex-l10"></div>
+      </section>
+      <section class="part">
+        <div class="part-head"><span class="num">10.8</span><h2>Kiểm tra nhanh</h2></div>
+        <div class="quiz" id="quiz10"></div><div class="score" id="score10"></div>
+      </section>
+      <div class="next">
+        <button class="btn" data-go="l9">← Bài 9</button>
+        <button class="btn pri" data-go="l11">Bài tiếp: Toán tử bit →</button>
+      </div>
+    </article>
+
+    <!-- ===================== LESSON 11 ===================== -->
+    <article class="col" id="view-l11" hidden>
+      <header class="hero">
+        <div class="crumb">Chương 3 · Toán tử và biểu thức / Bài 11</div>
+        <h1>Toán tử <em>bit</em></h1>
+        <p class="lede">Bài 5 cho thấy mỗi số nguyên là một dãy bit. Toán tử bit cho phép bật, tắt, kiểm tra và dịch từng bit một. Đây là công cụ quen thuộc khi làm việc với cờ trạng thái, quyền truy cập, màu sắc và phần cứng.</p>
+        <div class="meta"><span class="chip lv2">Cơ bản +</span><span class="chip">60 phút</span><span class="chip">Máy tính bit · Cờ quyền</span><span class="chip">3 bài tập · 4 câu hỏi</span></div>
+      </header>
+      <div class="goals">
+        <h3>Sau bài này học viên có thể</h3>
+        <ul>
+          <li>Tính <code>&amp;</code>, <code>|</code>, <code>^</code>, <code>~</code>, <code>&lt;&lt;</code>, <code>&gt;&gt;</code> trên giấy và trên máy.</li>
+          <li>Dùng mặt nạ (mask) để bật, tắt, đảo và kiểm tra một bit.</li>
+          <li>Biết dịch trái là nhân 2, dịch phải là chia 2, và giới hạn của chúng.</li>
+          <li>Phân biệt toán tử bit với toán tử logic.</li>
+        </ul>
+      </div>
+
+      <section class="part">
+        <div class="part-head"><span class="num">11.1</span><h2>Sáu toán tử bit</h2></div>
+        <div class="tbl"><table>
+          <thead><tr><th>Toán tử</th><th>Tên</th><th>Quy tắc cho từng bit</th><th>Ví dụ 8 bit</th></tr></thead>
+          <tbody>
+            <tr><td><code>a &amp; b</code></td><td>AND</td><td>1 khi cả hai là 1</td><td><code>1100 &amp; 1010 = 1000</code> (12 &amp; 10 = 8)</td></tr>
+            <tr><td><code>a | b</code></td><td>OR</td><td>1 khi ít nhất một là 1</td><td><code>1100 | 1010 = 1110</code> (14)</td></tr>
+            <tr><td><code>a ^ b</code></td><td>XOR</td><td>1 khi hai bit khác nhau</td><td><code>1100 ^ 1010 = 0110</code> (6)</td></tr>
+            <tr><td><code>~a</code></td><td>NOT</td><td>Đảo mọi bit</td><td><code>~12</code> = −13 (kiểu int)</td></tr>
+            <tr><td><code>a &lt;&lt; n</code></td><td>Dịch trái</td><td>Đẩy bit sang trái n vị trí, thêm 0 bên phải</td><td><code>3 &lt;&lt; 2 = 12</code></td></tr>
+            <tr><td><code>a &gt;&gt; n</code></td><td>Dịch phải</td><td>Đẩy bit sang phải n vị trí</td><td><code>12 &gt;&gt; 2 = 3</code></td></tr>
+          </tbody>
+        </table></div>
+        <div class="note"><b>Đừng nhầm:</b> <code>&amp;&amp;</code> và <code>||</code> làm việc với cả giá trị đúng/sai, còn <code>&amp;</code> và <code>|</code> làm việc với <b>từng bit</b>. <code>2 &amp;&amp; 1</code> là <code>true</code>, nhưng <code>2 &amp; 1</code> là <code>0</code>.</div>
+      </section>
+
+      <section class="part">
+        <div class="part-head"><span class="num">11.2</span><h2>Máy tính bit</h2></div>
+        <div class="prose"><p>Hai số 8 bit (0–255). Bấm vào từng bit để bật hoặc tắt, chọn toán tử để xem kết quả từng cột. Cột nào cho bit 1 sẽ sáng lên.</p></div>
+        <div class="figure" id="bitops-l11"></div>
+      </section>
+
+      <section class="part">
+        <div class="part-head"><span class="num">11.3</span><h2>Mặt nạ bit và cờ trạng thái</h2></div>
+        <div class="prose"><p>Mỗi bit của một số nguyên có thể lưu một công tắc bật/tắt. Ví dụ quyền với một file: bit 0 là đọc, bit 1 là ghi, bit 2 là chạy. Một biến <code>int</code> lưu được 32 công tắc như vậy.</p></div>
+        <div class="code" data-snip="l11flags"></div>
+        <div class="figure" id="flags-l11"></div>
+      </section>
+
+      <section class="part">
+        <div class="part-head"><span class="num">11.4</span><h2>Dịch bit, nhân và chia cho 2</h2></div>
+        <div class="tbl"><table>
+          <thead><tr><th>Biểu thức</th><th>Kết quả</th><th>Giải thích</th></tr></thead>
+          <tbody>
+            <tr><td><code>5 &lt;&lt; 3</code></td><td><code>40</code></td><td>5 × 2³</td></tr>
+            <tr><td><code>1 &lt;&lt; n</code></td><td>2<sup>n</sup></td><td>Cách nhanh tạo mặt nạ cho bit thứ n</td></tr>
+            <tr><td><code>100 &gt;&gt; 2</code></td><td><code>25</code></td><td>100 / 2², bỏ phần dư</td></tr>
+            <tr><td><code>-16 &gt;&gt; 2</code></td><td><code>-4</code></td><td>Số âm: g++ giữ bit dấu (dịch số học)</td></tr>
+            <tr><td><code>1 &lt;&lt; 31</code></td><td><code>-2147483648</code></td><td>Bit 1 lọt vào bit dấu của int</td></tr>
+            <tr><td><code>1 &lt;&lt; 32</code></td><td>không xác định</td><td>Dịch quá số bit của kiểu: g++ cảnh báo</td></tr>
+          </tbody>
+        </table></div>
+        <div class="note"><b>Mẹo hay dùng:</b> <code>n &amp; 1</code> cho biết n lẻ hay chẵn. <code>n &gt; 0 &amp;&amp; (n &amp; (n - 1)) == 0</code> kiểm tra n có phải lũy thừa của 2. Nhớ đặt ngoặc quanh phép <code>&amp;</code> khi so sánh kết quả của nó.</div>
+      </section>
+
+      <section class="part">
+        <div class="part-head"><span class="num">11.5</span><h2>Trình mô phỏng</h2></div>
+        <div id="sim-l11"></div>
+      </section>
+      <section class="part">
+        <div class="part-head"><span class="num">11.6</span><h2>Bài tập chấm tự động</h2></div>
+        <div class="ex-grid" id="ex-l11"></div>
+      </section>
+      <section class="part">
+        <div class="part-head"><span class="num">11.7</span><h2>Kiểm tra nhanh</h2></div>
+        <div class="quiz" id="quiz11"></div><div class="score" id="score11"></div>
+      </section>
+      <div class="next">
+        <button class="btn" data-go="l10">← Bài 10</button>
+        <span class="byline"><span class="amts-logo" aria-hidden="true"></span>Hết Chương 3 · Tiếp theo: Chương 4 · Điều khiển luồng</span>
+      </div>
+    </article>
   </main>
 </div>
 
@@ -1748,9 +2087,9 @@ const COURSES=[
  {id:"cpp",name:"C++ Từ Nền Tảng",mono:"C++",url:"cpp/index.html",status:"open",hue:"cpp",
   desc:"Từ chương trình đầu tiên tới con trỏ, hướng đối tượng, STL và đa luồng. Có trình mô phỏng bộ nhớ chạy ngay trên web.",
   chapters:12,
-  lessons:[["l1","Chương trình C++ đầu tiên"],["l2","Cài đặt trình biên dịch & IDE"],["l3","Nhập xuất với cin / cout"],["l4","Biến, khai báo, khởi tạo"],["l5","int, double, char, bool"],["l6","Hằng số const / constexpr"],["l7","Ép kiểu và tràn số"],["l8","Toán tử số học"]],
-  exercises:["l1-0","l1-1","l1-2","l2-term",...["l3","l4","l5","l6","l7","l8"].flatMap(l=>[0,1,2].map(i=>`${l}-${i}`))],
-  quizzes:{l1:"quiz",l2:"quiz2",l3:"quiz3",l4:"quiz4",l5:"quiz5",l6:"quiz6",l7:"quiz7",l8:"quiz8"}},
+  lessons:[["l1","Chương trình C++ đầu tiên"],["l2","Cài đặt trình biên dịch & IDE"],["l3","Nhập xuất với cin / cout"],["l4","Biến, khai báo, khởi tạo"],["l5","int, double, char, bool"],["l6","Hằng số const / constexpr"],["l7","Ép kiểu và tràn số"],["l8","Toán tử số học"],["l9","So sánh và logic"],["l10","Thứ tự ưu tiên"],["l11","Toán tử bit"]],
+  exercises:["l1-0","l1-1","l1-2","l2-term",...["l3","l4","l5","l6","l7","l8","l9","l10","l11"].flatMap(l=>[0,1,2].map(i=>`${l}-${i}`))],
+  quizzes:{l1:"quiz",l2:"quiz2",l3:"quiz3",l4:"quiz4",l5:"quiz5",l6:"quiz6",l7:"quiz7",l8:"quiz8",l9:"quiz9",l10:"quiz10",l11:"quiz11"}},
  {id:"csharp",name:"C# Căn Bản",mono:"C#",url:"csharp/index.html",status:"soon",hue:"cs",
   desc:"Lập trình hướng đối tượng với .NET: kiểu dữ liệu, lớp, LINQ và ứng dụng Console thực tế.",chapters:null,lessons:[],exercises:[],quizzes:{}},
  {id:"python",name:"Python Cho Người Mới",mono:"Py",url:"python/index.html",status:"soon",hue:"py",
@@ -1890,7 +2229,7 @@ const COURSE=[
 function esc(s){return s.replace(/&/g,"&amp;").replace(/</g,"&lt;").replace(/>/g,"&gt;")}
 
 /* sidebar */
-const LESSON_MAP={"1-0":"l1","1-1":"l2","1-2":"l3","2-0":"l4","2-1":"l5","2-2":"l6","2-3":"l7","3-0":"l8"};
+const LESSON_MAP={"1-0":"l1","1-1":"l2","1-2":"l3","2-0":"l4","2-1":"l5","2-2":"l6","2-3":"l7","3-0":"l8","3-1":"l9","3-2":"l10","3-3":"l11"};
 (function(){
   let n=0,h="";
   COURSE.forEach(t=>{
@@ -1916,7 +2255,7 @@ const LESSON_MAP={"1-0":"l1","1-1":"l2","1-2":"l3","2-0":"l4","2-1":"l5","2-2":"
   });
   document.getElementById("road").innerHTML=road;
 })();
-const VIEWS=["road","l1","l2","l3","l4","l5","l6","l7","l8"];
+const VIEWS=["road","l1","l2","l3","l4","l5","l6","l7","l8","l9","l10","l11"];
 let lastLesson="l1";
 function show(v){
   VIEWS.forEach(x=>{document.getElementById("view-"+x).hidden=x!==v});
@@ -1934,9 +2273,10 @@ document.getElementById("nav-road").onclick=()=>show("road");
 document.getElementById("nav-lesson").onclick=()=>show(lastLesson);
 document.addEventListener("click",e=>{const a=e.target.closest("[data-go]");if(a){e.preventDefault();show(a.dataset.go)}});
 document.getElementById("nav-menu").onclick=function(){const s=document.getElementById("side");s.classList.toggle("open");this.setAttribute("aria-expanded",s.classList.contains("open"))};
-{const H={"#lo-trinh":"road","#bai-1":"l1","#bai-2":"l2","#bai-3":"l3","#bai-4":"l4","#bai-5":"l5","#bai-6":"l6","#bai-7":"l7","#bai-8":"l8"};let v=H[location.hash];
+{const H={"#lo-trinh":"road","#bai-1":"l1","#bai-2":"l2","#bai-3":"l3","#bai-4":"l4","#bai-5":"l5","#bai-6":"l6","#bai-7":"l7","#bai-8":"l8","#bai-9":"l9","#bai-10":"l10","#bai-11":"l11"};let v=H[location.hash];
  if(!v){try{v=localStorage.getItem("cpp-view")}catch(e){}}
- if(VIEWS.includes(v))show(v);}
+ if(VIEWS.includes(v))show(v);
+ window.addEventListener("hashchange",()=>{const x=H[location.hash];if(x)show(x)});}
 
 /* ================= HIGHLIGHTER ================= */
 const KW=new Set("int return void using namespace include char double float bool if else for while const constexpr auto class struct true false long short unsigned signed sizeof static_cast".split(" "));
@@ -1948,7 +2288,7 @@ function lex(src){
     if(c==="/"&&src[i+1]==="*"){let j=src.indexOf("*/",i+2);j=j<0?n:j+2;out.push(["com",src.slice(i,j)]);i=j;continue}
     if(c==="#"&&(i===0||/\n\s*$/.test(src.slice(Math.max(0,i-40),i)))){let j=src.indexOf("\n",i);if(j<0)j=n;out.push(["pre",src.slice(i,j)]);i=j;continue}
     if(c==='"'||c==="'"){let j=i+1;while(j<n&&src[j]!==c&&src[j]!=="\n"){if(src[j]==="\\")j++;j++}if(j<n&&src[j]===c)j++;out.push(["str",src.slice(i,j)]);i=j;continue}
-    if((m=/^\d+(\.\d+)?/.exec(r))){out.push(["num",m[0]]);i+=m[0].length;continue}
+    if((m=/^0[xXbB][0-9a-fA-F]+|^\d+(\.\d+)?/.exec(r))){out.push(["num",m[0]]);i+=m[0].length;continue}
     if((m=/^[A-Za-z_]\w*/.exec(r))){out.push([KW.has(m[0])?"kw":"id",m[0]]);i+=m[0].length;continue}
     if((m=/^(<<|::|[{}();<>+\-*/%=])/.exec(r))){out.push(["op",m[0]]);i+=m[0].length;continue}
     out.push(["tx",c]);i++;
@@ -2652,7 +2992,7 @@ function gfmt(v,p){
 function ffmt(v,p){if(Number.isNaN(v))return "nan";if(!isFinite(v))return v<0?"-inf":"inf";return v.toFixed(Math.min(100,Math.max(0,p)))}
 
 /* ---------- lexer ---------- */
-const OPS=["<<=",">>=","<<",">>","<=",">=","==","!=","&&","||","++","--","+=","-=","*=","/=","%=","::","->","+","-","*","/","%","<",">","=","!","(",")","{","}","[","]",";",",",".","?",":","&","|","^","~"];
+const OPS=["<<=",">>=","<<",">>","<=",">=","==","!=","&&","||","++","--","+=","-=","*=","/=","%=","&=","|=","^=","::","->","+","-","*","/","%","<",">","=","!","(",")","{","}","[","]",";",",",".","?",":","&","|","^","~"];
 const KWS=new Set("int double float char bool long short unsigned signed void auto const constexpr return if else while for do switch case break continue true false sizeof static_cast using namespace class struct new delete default goto".split(" "));
 function lex2(src){
   const toks=[],inc=new Set();let i=0;const n=src.length;
@@ -2676,6 +3016,8 @@ function lex2(src){
       const b=u8(s);if(b.length>1)throw new E2(i,"character too large for enclosing character literal type","Chữ có dấu tiếng Việt chiếm 2–3 byte (UTF-8), không vừa 1 char. Hãy dùng std::string.");
       toks.push({t:"chr",v:wrapTo("char",b[0]),p:i,e:j+1});i=j+1;continue}
     const r=src.slice(i,i+60);let m;
+    if((m=/^0([xX][0-9a-fA-F]+|[bB][01]+)(?![\w.])/.exec(r))){const v=parseInt(m[1].slice(1),/[xX]/.test(m[1][0])?16:2);
+      toks.push({t:"num",nt:v>2147483647?"long long":"int",v,p:i,e:i+m[0].length,raw:m[0]});i+=m[0].length;continue}
     if((m=/^(\d+\.\d*|\.\d+|\d+)([eE][+-]?\d+)?([A-Za-z_]\w*)?/.exec(r))&&/^\.?\d/.test(r)){
       const body=m[1],ex=m[2]||"",suf=(m[3]||"");
       const fl=body.includes(".")||ex;
@@ -2778,15 +3120,18 @@ class P2{
     const e=this.expr();this.expect(";");return{k:"expr",e,p:k.p}
   }
   expr(){return this.assign()}
-  assign(){const L=this.bin(1);const k=this.pk();
-    if(k.t==="op"&&["=","+=","-=","*=","/=","%="].includes(k.v)){this.nx();return{k:"as",op:k.v,a:L,b:this.assign(),p:k.p}}
+  assign(){const L=this.cond();const k=this.pk();
+    if(k.t==="op"&&["=","+=","-=","*=","/=","%=","&=","|=","^=","<<=",">>="].includes(k.v)){this.nx();return{k:"as",op:k.v,a:L,b:this.assign(),p:k.p}}
     return L}
   bin(min){let L=this.un();
     for(;;){const k=this.pk();const pr=k.t==="op"?PREC[k.v]:0;if(!pr||pr<min)break;this.nx();const R=this.bin(pr+1);L={k:"bin",op:k.v,a:L,b:R,p:k.p}}
     return L}
   isCastAt(o){const k=this.pk(o);return k.t==="id"&&["int","double","float","char","bool","long","short","unsigned","signed"].includes(k.v)}
+  cond(){const c=this.bin(1);if(!this.is("?"))return c;const q=this.nx();const a=this.assign();
+    if(!this.is(":")){const k=this.pk();throw new E2(k.p,`expected ':' before ${this.desc(k)}`,"Toán tử điều kiện cần đủ ba phần: điều_kiện ? giá_trị_khi_đúng : giá_trị_khi_sai")}
+    this.nx();const b=this.assign();return{k:"cond",c,a,b,p:q.p}}
   un(){const k=this.pk();
-    if(k.t==="op"&&["-","+","!"].includes(k.v)){this.nx();return{k:"un",op:k.v,a:this.un(),p:k.p}}
+    if(k.t==="op"&&["-","+","!","~"].includes(k.v)){this.nx();return{k:"un",op:k.v,a:this.un(),p:k.p}}
     if(k.t==="op"&&(k.v==="++"||k.v==="--")){this.nx();return{k:"pre",op:k.v,a:this.un(),p:k.p}}
     if(this.is("(")&&this.isCastAt(1)){this.nx();const ty=this.type();this.expect(")");return{k:"cast",ty,a:this.un(),p:k.p}}
     if(this.is("sizeof")){this.nx();this.expect("(");let r;if(this.typeStart())r={k:"sizeof",ty:this.type(),p:k.p};else r={k:"sizeof",a:this.expr(),p:k.p};this.expect(")");return r}
@@ -2802,7 +3147,7 @@ class P2{
     if(k.t==="num"){this.nx();return{k:"num",t:k.nt,v:k.v,p:k.p,raw:k.raw}}
     if(k.t==="str"){this.nx();let v=k.v;while(this.pk().t==="str")v+=this.nx().v;return{k:"str",v,p:k.p}}
     if(k.t==="chr"){this.nx();return{k:"chr",v:k.v,p:k.p}}
-    if(this.is("(")){this.nx();const e=this.expr();this.expect(")");return e}
+    if(this.is("(")){this.nx();const e=this.expr();this.expect(")");e.paren=true;return e}
     if(k.t==="id"){
       if(k.v==="true"||k.v==="false"){this.nx();return{k:"bool",v:k.v==="true"?1:0,p:k.p}}
       if(k.v==="static_cast"){this.nx();this.expect("<");const ty=this.type();this.expect(">");this.expect("(");const a=this.expr();this.expect(")");return{k:"cast",ty,a,p:k.p}}
@@ -2862,12 +3207,21 @@ function check2(prog,src,inc){
           const V=sc.get(e.b.n);if(V.c)throw new E2(e.b.p,`no match for 'operator>>' (operand types are 'std::istream' and 'const ${tn(V.t)}')`,`${e.b.n} là hằng const, không nhập giá trị vào được.`);
           V.init=true;return "istream"}
         const R=tc(e.b);
-        if(INTG.has(L)&&INTG.has(R))return promo(L,L);
+        if(INTG.has(L)&&INTG.has(R)){const W=promo(L,L)==="long long"?64:32;
+          if(e.b.k==="num"&&e.b.v>=W)warns.push({p:e.p,msg:`${op==="<<"?"left":"right"} shift count >= width of type [-Wshift-count-overflow]`,vi:`Dịch ${e.b.v} bit trong khi kiểu chỉ có ${W} bit: hành vi không xác định.`});
+          if(e.b.k==="un"&&e.b.op==="-"&&e.b.a.k==="num")warns.push({p:e.p,msg:`${op==="<<"?"left":"right"} shift count is negative [-Wshift-count-negative]`,vi:"Số bit dịch không được âm: hành vi không xác định."});
+          return promo(L,L)}
         throw new E2(e.p,`invalid operands of types '${tn(L)}' and '${tn(R)}' to binary 'operator${op}'`,"Toán tử dịch bit chỉ dùng cho số nguyên.")}
       const L=tc(e.a),R=tc(e.b);
-      if(["ostream","istream","manip","void"].includes(L)||["ostream","istream","manip","void"].includes(R))
+      if(!((op==="&&"||op==="||")&&!["manip","void"].includes(L)&&!["manip","void"].includes(R))&&(["ostream","istream","manip","void"].includes(L)||["ostream","istream","manip","void"].includes(R)))
         throw new E2(e.p,`no match for 'operator${op}' (operand types are '${tn(L)}' and '${tn(R)}')`,`Toán tử ${op} được tính sau <<. Đặt biểu thức trong ngoặc: cout << (a ${op} b);`);
+      const np=x=>x.k==="bin"&&!x.paren;
+      if(op==="||"&&[e.a,e.b].some(x=>np(x)&&x.op==="&&"))warns.push({p:e.p,msg:"suggest parentheses around '&&' within '||' [-Wparentheses]",vi:"&& được tính trước ||. Thêm ngoặc để người đọc thấy rõ ý định, ví dụ a || (b && c)."});
       if(op==="&&"||op==="||")return "bool";
+      if(["<","<=",">",">="].includes(op)&&np(e.a)&&["<","<=",">",">="].includes(e.a.op))warns.push({p:e.p,msg:"comparisons like 'X<=Y<=Z' do not have their mathematical meaning [-Wparentheses]",vi:"C++ tính từ trái sang phải: (a < x) cho true/false (1/0), rồi mới so sánh 1/0 với số còn lại. Hãy viết a < x && x < b."});
+      if(["&","|","^"].includes(op)&&[e.a,e.b].some(x=>np(x)&&CMP.includes(x.op)))warns.push({p:e.p,msg:`suggest parentheses around comparison in operand of '${op}' [-Wparentheses]`,vi:`Phép so sánh được tính TRƯỚC toán tử bit ${op}. Ví dụ n & 1 == 0 nghĩa là n & (1 == 0). Hãy viết (n & 1) == 0.`});
+      if(["==","!="].includes(op)&&e.a.k==="un"&&e.a.op==="!"&&!e.a.paren)warns.push({p:e.p,msg:"logical not is only applied to the left hand side of comparison [-Wlogical-not-parentheses]",vi:"! chỉ áp dụng cho vế trái: !a == b nghĩa là (!a) == b. Muốn phủ định cả phép so sánh, viết !(a == b) hoặc a != b."});
+      if(CMP.includes(op)&&INTG.has(L)&&INTG.has(R)&&L!=="bool"&&R!=="bool"&&((L==="unsigned")!==(R==="unsigned"))){const sgn=L==="unsigned"?e.b:e.a;if(!(sgn.k==="num"&&sgn.v>=0))warns.push({p:e.p,msg:`comparison of integer expressions of different signedness: '${tn(L==="unsigned"?"unsigned":promo(L,L))}' and '${tn(R==="unsigned"?"unsigned":promo(R,R))}' [-Wsign-compare]`,vi:"So sánh số có dấu với unsigned: số âm bị đổi thành số dương rất lớn nên kết quả có thể sai. Ép về cùng kiểu trước khi so sánh."})}
       const sL=L==="string"||L==="cstr",sR=R==="string"||R==="cstr";
       if(sL||sR){
         if(op==="+"&&((L==="string"&&(sR||R==="char"))||(R==="string"&&(sL||L==="char"))))return "string";
@@ -2880,12 +3234,20 @@ function check2(prog,src,inc){
       if(op==="%"&&(isFlT(L)||isFlT(R)))throw new E2(e.p,`invalid operands of types '${tn(L)}' and '${tn(R)}' to binary 'operator%'`,"Toán tử % (chia lấy dư) chỉ dùng cho số nguyên. Với số thực dùng fmod trong <cmath>.");
       if(CMP.includes(op))return "bool";
       return promo(L,R)}
-    case "un":{const t=tc(e.a);if(!isNumT(t))throw new E2(e.p,`no match for 'operator${e.op}' (operand type is '${tn(t)}')`,"Toán tử này chỉ dùng với số.");return e.op==="!"?"bool":promo(t,t)}
+    case "un":{const t=tc(e.a);if(!isNumT(t))throw new E2(e.p,`no match for 'operator${e.op}' (operand type is '${tn(t)}')`,"Toán tử này chỉ dùng với số.");
+      if(e.op==="~"&&!INTG.has(t))throw new E2(e.p,`wrong type argument to bit-complement`,"Toán tử ~ (đảo bit) chỉ dùng cho số nguyên.");
+      return e.op==="!"?"bool":promo(t,t)}
+    case "cond":{const c=tc(e.c);if(!isNumT(c)&&c!=="ostream")throw new E2(e.c.p,`could not convert '${tn(c)}' to 'bool'`,"Phần điều kiện (trước dấu ?) phải là giá trị đúng/sai hoặc số.");
+      const A=tc(e.a),B=tc(e.b);const sA=A==="string"||A==="cstr",sB=B==="string"||B==="cstr";
+      if(isNumT(A)&&isNumT(B))return e.rt=(A===B?A:promo(A,B));
+      if(sA&&sB)return e.rt=(A==="string"||B==="string"?"string":"cstr");
+      throw new E2(e.p,`operands to '?:' have different types '${tn(A)}' and '${tn(B)}'`,"Hai nhánh của ?: phải cùng loại: cùng là số, hoặc cùng là chuỗi.")}
     case "pre":case "post":{const V=lv(e.a,e.op,true);if(!isNumT(V.t))throw new E2(e.p,`no match for 'operator${e.op}' (operand type is '${tn(V.t)}')`,"++ và -- chỉ dùng với biến số.");V.init=true;return V.t}
     case "as":{const V=lv(e.a,e.op,e.op!=="=");const L=V.t,R=tc(e.b);
       if(L==="string"){if(!(["string","cstr","char"].includes(R)||(e.op==="="&&INTG.has(R)))||!["=","+="].includes(e.op))throw new E2(e.p,`no match for 'operator${e.op}' (operand types are 'std::string' and '${tn(R)}')`,"Phép toán này không áp dụng cho chuỗi.")}
       else{if(!isNumT(R))throw new E2(e.b.p,`cannot convert '${tn(R)}' to '${tn(L)}' in assignment`,`Không gán ${R==="cstr"?"chuỗi \"...\"":"giá trị kiểu "+tn(R)} cho biến kiểu ${tn(L)} được.${L==="char"&&R==="cstr"?" Ký tự đơn phải dùng nháy đơn: 'A'.":""}`);
-        if(e.op==="%="&&(isFlT(L)||isFlT(R)))throw new E2(e.p,`invalid operands to binary 'operator%'`,"% chỉ dùng cho số nguyên.")}
+        if(e.op==="%="&&(isFlT(L)||isFlT(R)))throw new E2(e.p,`invalid operands to binary 'operator%'`,"% chỉ dùng cho số nguyên.");
+        if(["&=","|=","^=","<<=",">>="].includes(e.op)&&!(INTG.has(L)&&INTG.has(R)))throw new E2(e.p,`invalid operands to binary 'operator${e.op.slice(0,-1)}'`,"Toán tử bit chỉ dùng cho số nguyên.")}
       V.init=true;return L}
     case "cast":{const t=tc(e.a);if(!isNumT(t)||!isNumT(e.ty.t))throw new E2(e.p,`invalid cast from type '${tn(t)}' to type '${tn(e.ty.t)}'`,"Không ép kiểu giữa chuỗi và số được. (Chuyển chuỗi thành số dùng std::stoi ở bài sau.)");return e.ty.t}
     case "sizeof":{if(e.a){if(e.a.k==="name")e.a.lhs=true;e.st=tc(e.a);if(e.st==="cstr")e.slen=e.a.v.length;}else if(e.ty.needStd&&!prog.using)stdq("string",false,e.ty.p);return "long long"}
@@ -2911,7 +3273,22 @@ function check2(prog,src,inc){
     case "name":return e.r==="macro"||(e.r==="var"&&sc.get(e.n).ce)?null:e;
     case "bin":return ceBad(e.a)||ceBad(e.b);
     case "un":case "cast":return ceBad(e.a);
+    case "cond":return ceBad(e.c)||ceBad(e.a)||ceBad(e.b);
     default:return e}}
+  /* -Wsequence-point: cùng một biến vừa bị sửa vừa được dùng trong một biểu thức */
+  function seqCheck(root){
+    const go=(e,top)=>{const mods=[],reads=[];
+      (function walk(x,isTarget){if(!x||typeof x!=="object")return;
+        if(x.k==="bin"&&x.io){go(x.a);go(x.b);return}
+        if(x.k==="pre"||x.k==="post"){if(x.a.k==="name"){mods.push({n:x.a.n,p:x.p,inc:true})}return}
+        if(x.k==="as"){if(x.a.k==="name"&&!(x===e&&top))mods.push({n:x.a.n,p:x.p,inc:false});walk(x.b);return}
+        if(x.k==="name"){reads.push(x.n);return}
+        for(const k of ["a","b","c","o"])if(x[k])walk(x[k]);if(x.args)x.args.forEach(a=>walk(a))})(e);
+      const done=new Set();
+      for(const m of mods){if(done.has(m.n))continue;
+        const nm=mods.filter(x=>x.n===m.n).length,nr=reads.filter(r=>r===m.n).length;
+        if(nm>=2||(m.inc&&nr>=1)){done.add(m.n);warns.push({p:m.p,msg:`operation on '${m.n}' may be undefined [-Wsequence-point]`,vi:`Biến ${m.n} vừa bị thay đổi (++, --, gán) vừa được dùng ở chỗ khác trong cùng một biểu thức. C++ không quy định thứ tự tính nên kết quả tùy trình biên dịch. Hãy tách thành nhiều câu lệnh.`})}}};
+    go(root,true)}
   for(const s of prog.main){
     if(s.k==="decl"){
       if(s.ty.needStd&&!prog.using)throw new E2(s.ty.p,"'string' was not declared in this scope; did you mean 'std::string'?","string nằm trong std. Viết std::string, hoặc dùng using namespace std;");
@@ -2935,9 +3312,10 @@ function check2(prog,src,inc){
           if(!it.init||!it.init.e)throw new E2(it.p,`uninitialized 'const ${it.name}'`,"constexpr phải được gán giá trị ngay khi khai báo.");
           const bad=ceBad(it.init.e);
           if(bad)throw new E2(bad.p,bad.k==="name"?`the value of '${bad.n}' is not usable in a constant expression`:`call to non-'constexpr' function`,bad.k==="name"?`constexpr chỉ nhận giá trị biết được lúc biên dịch. ${bad.n} là biến thường${sc.get(bad.n)&&!sc.get(bad.n).c?"":""}, giá trị chỉ có khi chương trình chạy. Dùng const nếu chỉ cần “không đổi sau khi gán”.`:"Giá trị này chỉ tính được khi chương trình chạy, không dùng cho constexpr được.")}
+        if(it.init&&it.init.e)seqCheck(it.init.e);
         it.t=t;sc.set(it.name,{t,c:s.ty.c,ce:!!s.ty.ce,init:!!it.init||t==="string",p:it.p});
       }
-    }else if(s.k==="expr")tc(s.e);
+    }else if(s.k==="expr"){tc(s.e);seqCheck(s.e)}
     else if(s.k==="ret"&&s.e){const t=tc(s.e);if(!isNumT(t))throw new E2(s.e.p,`invalid conversion from '${tn(t)}' to 'int'`,"main phải trả về một số nguyên.")}
   }
   return warns;
@@ -2999,12 +3377,14 @@ class M2{
       if(e.r==="macro")return{t:MACRO[e.n][1],v:MACRO[e.n][0]};
       const S=STDN[e.n];return S.t==="manip"?{t:"manip",m:e.n}:{t:S.t}}
     case "bin":return this.bin(e);
-    case "un":{const a=this.ev(e.a);if(e.op==="!")return{t:"bool",v:a.v?0:1};const t=promo(a.t,a.t);return{t,v:wrapTo(t,e.op==="-"?-a.v:a.v)}}
+    case "un":return this.unop(e.op,this.ev(e.a));
+    case "cond":{const c=this.ev(e.c);const yes=c.t==="ostream"?!this.failed:!!c.v;const r=this.ev(yes?e.a:e.b);
+      if(e.rt==="string"||e.rt==="cstr")return{t:e.rt,v:r.t==="char"?String.fromCharCode(r.v):r.v};return{t:e.rt,v:this.conv(r,e.rt)}}
     case "pre":case "post":{const V=this.vars.get(e.a.n);const old=V.v;
       V.v=V.t==="bool"?(e.op==="++"?1:0):wrapTo(V.t,old+(e.op==="++"?1:-1));V.init=true;return{t:V.t,v:e.k==="pre"?V.v:old}}
     case "as":{const V=this.vars.get(e.a.n);let r=this.ev(e.b);
       if(e.op!=="="){if(V.t==="string"){V.v+=r.t==="char"?String.fromCharCode(((r.v%256)+256)%256):r.v;return{t:"string",v:V.v}}
-        r=this.arith(e.op[0],{t:V.t,v:V.v},r)}
+        r=this.arith(e.op.slice(0,-1),{t:V.t,v:V.v},r)}
       V.v=this.conv(r,V.t);V.init=true;return{t:V.t,v:V.v}}
     case "cast":{const a=this.ev(e.a);return{t:e.ty.t,v:this.conv(a,e.ty.t)}}
     case "sizeof":{if(e.st==="cstr")return{t:"long long",v:u8(e.a.v).length+1};return{t:"long long",v:SIZES[e.ty?e.ty.t:e.st]||8}}
@@ -3034,17 +3414,24 @@ class M2{
   bin(e){
     if(e.io==="out"){this.ev(e.a);this.put(this.ev(e.b));return{t:"ostream"}}
     if(e.io==="in"){this.ev(e.a);this.read(e.b.n);return{t:"istream"}}
-    if(e.op==="&&"){if(!this.ev(e.a).v)return{t:"bool",v:0};return{t:"bool",v:this.ev(e.b).v?1:0}}
-    if(e.op==="||"){if(this.ev(e.a).v)return{t:"bool",v:1};return{t:"bool",v:this.ev(e.b).v?1:0}}
+    const tr=x=>x.t==="ostream"||x.t==="istream"?!this.failed:!!x.v;
+    if(e.op==="&&"){if(!tr(this.ev(e.a)))return{t:"bool",v:0};return{t:"bool",v:tr(this.ev(e.b))?1:0}}
+    if(e.op==="||"){if(tr(this.ev(e.a)))return{t:"bool",v:1};return{t:"bool",v:tr(this.ev(e.b))?1:0}}
     const A=this.ev(e.a),B=this.ev(e.b);
-    if(e.op==="<<"||e.op===">>"){const t=promo(A.t,A.t);return{t,v:wrapTo(t,e.op==="<<"?A.v*Math.pow(2,B.v):Math.floor(A.v/Math.pow(2,B.v)))}}
     return this.arith(e.op,A,B);
   }
+  unop(op,a){if(op==="!")return{t:"bool",v:a.v?0:1};const t=promo(a.t,a.t);
+    if(op==="~")return{t,v:t==="long long"?Number(BigInt.asIntN(64,~BigInt(a.v))):wrapTo(t,~a.v)};
+    return{t,v:isFlT(t)?(op==="-"?-a.v:a.v):wrapTo(t,op==="-"?-a.v:a.v)}}
   arith(op,A,B){
     const str=x=>x.t==="char"?String.fromCharCode(((x.v%256)+256)%256):x.v;
     if(["string","cstr"].includes(A.t)||["string","cstr"].includes(B.t)){
       if(op==="+")return{t:"string",v:str(A)+str(B)};
       const a=str(A),b=str(B);return{t:"bool",v:({"==":a===b,"!=":a!==b,"<":a<b,"<=":a<=b,">":a>b,">=":a>=b})[op]?1:0}}
+    if(op==="<<"||op===">>"){const t=promo(A.t,A.t),W=t==="long long"?64:32,cnt=((B.v%W)+W)%W;
+      if(t==="long long"){const x=BigInt(A.v);return{t,v:Number(BigInt.asIntN(64,op==="<<"?x<<BigInt(cnt):x>>BigInt(cnt)))}}
+      if(t==="unsigned")return{t,v:op==="<<"?wrapTo(t,A.v*2**cnt):(A.v>>>cnt)};
+      return{t,v:op==="<<"?wrapTo(t,A.v*2**cnt):Math.floor(A.v/2**cnt)}}
     const t=promo(A.t,B.t);let a=A.v,b=B.v;
     if(t==="unsigned"){a=wrapTo("unsigned",a);b=wrapTo("unsigned",b)}
     if(CMP.includes(op))return{t:"bool",v:({"==":a===b,"!=":a!==b,"<":a<b,"<=":a<=b,">":a>b,">=":a>=b})[op]?1:0};
@@ -3944,77 +4331,134 @@ function makeRounder(el){
   inp.addEventListener("input",upd);el.querySelectorAll("[data-x]").forEach(b=>b.onclick=()=>{inp.value=b.dataset.x;upd()});upd();
 }
 
-/* Cây biểu thức tính từng bước */
-function makeExprTree(el){
-  const DECL=[["int","a","7"],["int","b","2"],["double","x","1.5"]];
-  const EX=["2 + 3 * 4","(2 + 3) * 4","20 - 6 - 4","7 / 2 * 2.0","7.0 / 2 * 2","a / b * b + a % b","-a % b","x * 2 + a / 4","a * 100 / 3","2 ^ 3"];
-  el.innerHTML=`<div class="et-vars">${DECL.map(d=>`<code>${d[0]} ${d[1]} = ${d[2]};</code>`).join("")}</div>
-   <label class="stdin-row"><span>Biểu thức</span><input id="et-in" value="7 / 2 * 2.0" spellcheck="false" autocomplete="off"></label>
+/* Cây biểu thức tính từng bước (hỗ trợ ngắn mạch &&, ||, toán tử ?:, gán, ++/--) */
+function makeExprTree(el,opts={}){
+  const P=opts.id||"et";
+  const DECL=opts.decl||[["int","a","7"],["int","b","2"],["double","x","1.5"]];
+  const EX=opts.examples||["2 + 3 * 4","(2 + 3) * 4","20 - 6 - 4","7 / 2 * 2.0","7.0 / 2 * 2","a / b * b + a % b","-a % b","x * 2 + a / 4","a * 100 / 3","2 ^ 3"];
+  const INIT=opts.initial||"7 / 2 * 2.0";
+  el.innerHTML=`<div class="et-vars">${DECL.map(d=>`<code>${esc(d[0])} ${esc(d[1])} = ${esc(d[2])};</code>`).join("")}</div>
+   <label class="stdin-row"><span>Biểu thức</span><input id="${P}-in" value="${esc(INIT)}" spellcheck="false" autocomplete="off"></label>
    <div class="chips">${EX.map(x=>`<button class="chip-btn" data-x="${esc(x)}">${esc(x)}</button>`).join("")}</div>
-   <div class="et-svg" id="et-svg"></div>
-   <div class="et-lines" id="et-lines"></div>
-   <div class="pipe-ctl"><button class="btn pri" id="et-next">Tính bước tiếp</button><button class="btn" id="et-all">Tính hết</button><button class="btn" id="et-reset">Làm lại</button><span class="crumb" id="et-k"></span></div>`;
-  const inp=el.querySelector("#et-in");let S=null;
+   ${opts.fullParen?`<div class="et-full" id="${P}-full"></div>`:""}
+   <div class="et-svg" id="${P}-svg"></div>
+   <div class="et-lines" id="${P}-lines"></div>
+   <div class="pipe-ctl"><button class="btn pri" id="${P}-next">Tính bước tiếp</button><button class="btn" id="${P}-all">Tính hết</button><button class="btn" id="${P}-reset">Làm lại</button><span class="crumb" id="${P}-k"></span></div>`;
+  const $=s=>el.querySelector("#"+P+"-"+s);
+  const inp=$("in");let S=null;
   const NAME={"+":"+","-":"−","*":"×","/":"÷","%":"%","^":"^","&":"&","|":"|","&&":"&&","||":"||","==":"==","!=":"!=","<":"<","<=":"≤",">":">",">=":"≥","<<":"<<",">>":">>"};
-  const vtxt=V=>{if(!V)return"?";if(V.t==="double"||V.t==="float"){const s=gfmt(V.v,6);return /[.e]|inf|nan/.test(s)?s:s+".0"}if(V.t==="bool")return V.v?"true":"false";if(V.t==="char")return`'${String.fromCharCode(((V.v%256)+256)%256)}'`;return String(V.v)};
+  const KIDS=n=>n.k==="bin"?[n.a,n.b]:n.k==="un"||n.k==="cast"||n.k==="pre"||n.k==="post"?[n.a]:n.k==="cond"?[n.c,n.a,n.b]:n.k==="as"?[n.a,n.b]:[];
+  const inner=n=>KIDS(n).length>0;
+  const vtxt=V=>{if(!V)return"?";if(V.t==="double"||V.t==="float"){const s=gfmt(V.v,6);return /[.e]|inf|nan/.test(s)?s:s+".0"}if(V.t==="bool")return V.v?"true":"false";if(V.t==="char")return`'${String.fromCharCode(((V.v%256)+256)%256)}'`;if(V.t==="cstr"||V.t==="string")return JSON.stringify(V.v);return llStr(V.v)};
+  const hasIO=n=>!!n&&typeof n==="object"&&((n.k==="bin"&&n.io)||KIDS(n).some(hasIO));
   function build(){
     const expr=inp.value.trim();
-    const src=`#include <iostream>\n#include <cmath>\nint main() {\n${DECL.map(d=>`${d[0]} ${d[1]} = ${d[2]};`).join("\n")}\nauto r = ${expr};\n}`;
-    try{const c=compile2(src);const root=c.prog.main[DECL.length].items[0].init.e;const M=new M2(c.prog,src,{interactive:false});for(let k=0;k<DECL.length;k++)M.step();
-      const val=new Map(),order=[],kids=n=>n.k==="bin"?[n.a,n.b]:n.k==="un"||n.k==="cast"?[n.a]:[];
-      (function walk(n){kids(n).forEach(walk);if(kids(n).length)order.push(n);else{val.set(n,M.ev(n))}})(root);
-      S={root,order,val,M,k:0,lines:[],err:null,warn:c.warns.map(w=>w.msg)};S.lines.push(pr(root,0));render()}
-    catch(e){if(!(e instanceof E2)&&!(e instanceof RunErr))throw e;S=null;
-      el.querySelector("#et-svg").innerHTML=`<p class="et-err"><b>Lỗi biên dịch:</b> ${esc(e.message||e.msg)}<br>${esc(e.vi||"")}</p>`;el.querySelector("#et-lines").innerHTML="";el.querySelector("#et-k").textContent="";
-      ["#et-next","#et-all"].forEach(s=>el.querySelector(s).disabled=true)}
+    const src=`#include <iostream>\n#include <cmath>\n#include <string>\nint main() {\n${DECL.map(d=>`${d[0]} ${d[1]} = ${d[2]};`).join("\n")}\n${expr};\n}`;
+    try{
+      if(!expr)throw new E2(0,"Hãy nhập một biểu thức","Ví dụ: a + b * 2");
+      const c=compile2(src);const st=c.prog.main[DECL.length];
+      if(!st||st.k!=="expr")throw new E2(0,"Chỉ nhập một biểu thức, không khai báo biến","Ví dụ: a > 0 && b > 0");
+      const root=st.e;if(hasIO(root))throw new E2(0,"Cây biểu thức không vẽ cout / cin","Hãy nhập biểu thức tính toán, ví dụ (a + b) * 2.");
+      const M=new M2(c.prog,src,{interactive:false});for(let k=0;k<DECL.length;k++)M.step();
+      const par=new Map(),val=new Map(),order=[];
+      (function walk(n){KIDS(n).forEach(k=>{par.set(k,n);walk(k)});if(inner(n))order.push(n);else val.set(n,M.ev(n))})(root);
+      S={root,par,val,order,M,k:0,lines:[],note:"",err:null,warn:c.warns.map(w=>w.msg),fx:hasFx(root)};
+      S.lines.push(pr(root,0));render();
+      if(opts.fullParen)$("full").innerHTML=`Đặt ngoặc đầy đủ theo thứ tự ưu tiên: <code>${esc(full(root,true))}</code>`;
+    }catch(e){if(!(e instanceof E2)&&!(e instanceof RunErr))throw e;S=null;
+      $("svg").innerHTML=`<p class="et-err"><b>Lỗi biên dịch:</b> ${esc(e.message||e.msg)}<br>${esc(e.vi||"")}</p>`;$("lines").innerHTML="";$("k").textContent="";
+      if(opts.fullParen)$("full").innerHTML="";
+      ["next","all"].forEach(s=>$(s).disabled=true)}
   }
-  function prec(n){return n.k==="bin"?PREC[n.op]:n.k==="un"||n.k==="cast"?90:100}
-  function pr(n,parentP,right){
-    if(S&&S.val.has(n)&&(n.k==="bin"||n.k==="un"||n.k==="cast"))return `<mark>${esc(vtxt(S.val.get(n)))}</mark>`;
-    let s;
-    if(n.k==="num")s=esc(n.raw||String(n.v));else if(n.k==="name")s=esc(n.n);else if(n.k==="chr"||n.k==="bool")s=esc(vtxt(S?S.val.get(n):{t:n.k==="chr"?"char":"bool",v:n.v}));
-    else if(n.k==="un")s=esc(n.op)+pr(n.a,90);
-    else if(n.k==="cast")s=`static_cast&lt;${esc(n.ty.t)}&gt;(${pr(n.a,0)})`;
-    else if(n.k==="bin"){const p=PREC[n.op];s=`${pr(n.a,p)} ${esc(n.op)} ${pr(n.b,p,true)}`;if(p<parentP||(right&&p===parentP))s=`(${s})`}
-    else s="…";
-    return s}
-  function stepOnce(){if(!S||S.k>=S.order.length||S.err)return;const n=S.order[S.k];const M=S.M,V=x=>S.val.get(x);
-    try{let r;
-      if(n.k==="bin"){if(n.op==="&&")r={t:"bool",v:V(n.a).v&&V(n.b).v?1:0};else if(n.op==="||")r={t:"bool",v:V(n.a).v||V(n.b).v?1:0};
-        else if(n.op==="<<"||n.op===">>"){const t=promo(V(n.a).t,V(n.a).t);r={t,v:wrapTo(t,n.op==="<<"?V(n.a).v*2**V(n.b).v:Math.floor(V(n.a).v/2**V(n.b).v))}}
-        else r=M.arith(n.op,V(n.a),V(n.b))}
-      else if(n.k==="un"){const a=V(n.a);r=n.op==="!"?{t:"bool",v:a.v?0:1}:{t:promo(a.t,a.t),v:wrapTo(promo(a.t,a.t),n.op==="-"?-a.v:a.v)}}
-      else if(n.k==="cast")r={t:n.ty.t,v:M.conv(V(n.a),n.ty.t)};
-      S.val.set(n,r);S.k++;S.cur=n;S.lines.push(pr(S.root,0))}
-    catch(e){if(e instanceof RunErr){S.err=e;S.cur=n}else throw e}
+  const hasFx=n=>!!n&&typeof n==="object"&&(n.k==="as"||n.k==="pre"||n.k==="post"||KIDS(n).some(hasFx));
+  /* nút n có nằm trong nhánh bị bỏ qua (ngắn mạch) không? */
+  function skipped(n){let cur=n;
+    while(S.par.has(cur)){const A=S.par.get(cur);
+      if(A.k==="bin"&&(A.op==="&&"||A.op==="||")&&cur===A.b&&S.val.has(A.a)){const l=!!S.val.get(A.a).v;if((A.op==="&&"&&!l)||(A.op==="||"&&l))return A}
+      if(A.k==="cond"&&cur!==A.c&&S.val.has(A.c)){const y=!!S.val.get(A.c).v;if((cur===A.a&&!y)||(cur===A.b&&y))return A}
+      cur=A}
+    return null}
+  function prec(n){return n.k==="bin"?PREC[n.op]:n.k==="cond"?5:n.k==="as"?2:n.k==="post"?95:90}
+  function pr(n,pp,right){
+    if(S&&S.val.has(n)&&inner(n))return `<mark>${esc(vtxt(S.val.get(n)))}</mark>`;
+    const p=prec(n);let s;
+    switch(n.k){
+      case "num":return esc(n.raw||String(n.v));case "name":return esc(n.n);case "str":return esc(JSON.stringify(n.v));
+      case "chr":case "bool":return esc(vtxt(S.val.get(n)));
+      case "call":return esc(n.f)+"("+n.args.map(x=>pr(x,0)).join(", ")+")";
+      case "un":s=esc(n.op)+pr(n.a,90);break;
+      case "pre":s=esc(n.op)+pr(n.a,90);break;
+      case "post":s=pr(n.a,95)+esc(n.op);break;
+      case "cast":s=`static_cast&lt;${esc(n.ty.t)}&gt;(${pr(n.a,0)})`;break;
+      case "bin":s=`${pr(n.a,p)} ${esc(n.op)} ${pr(n.b,p,true)}`;if(p<pp||(right&&p===pp))s=`(${s})`;return s;
+      case "cond":s=`${pr(n.c,6)} ? ${pr(n.a,0)} : ${pr(n.b,5)}`;if(p<pp)s=`(${s})`;return s;
+      case "as":s=`${pr(n.a,3)} ${esc(n.op)} ${pr(n.b,2)}`;if(p<pp)s=`(${s})`;return s;
+      default:return "…"}
+    if(p<pp)s=`(${s})`;return s}
+  function full(n,top){
+    const w=s=>top?s:`(${s})`;
+    switch(n.k){
+      case "num":return n.raw||String(n.v);case "name":return n.n;case "str":return JSON.stringify(n.v);
+      case "chr":return vtxt({t:"char",v:n.v});case "bool":return n.v?"true":"false";
+      case "call":return n.f+"("+n.args.map(x=>full(x,true)).join(", ")+")";
+      case "un":return w(n.op+full(n.a));case "pre":return w(n.op+full(n.a));case "post":return w(full(n.a)+n.op);
+      case "cast":return `static_cast<${n.ty.t}>(${full(n.a,true)})`;
+      case "bin":return w(`${full(n.a)} ${n.op} ${full(n.b)}`);
+      case "cond":return w(`${full(n.c)} ? ${full(n.a)} : ${full(n.b)}`);
+      case "as":return w(`${full(n.a)} ${n.op} ${full(n.b)}`);
+      default:return "…"}}
+  function compute(n){const M=S.M,V=x=>S.val.get(x);
+    if(n.k==="bin"){
+      if(n.op==="&&"){const a=V(n.a);return a.v?{t:"bool",v:V(n.b).v?1:0}:{t:"bool",v:0}}
+      if(n.op==="||"){const a=V(n.a);return a.v?{t:"bool",v:1}:{t:"bool",v:V(n.b).v?1:0}}
+      return M.arith(n.op,V(n.a),V(n.b))}
+    if(n.k==="un")return M.unop(n.op,V(n.a));
+    if(n.k==="cast")return{t:n.ty.t,v:M.conv(V(n.a),n.ty.t)};
+    if(n.k==="cond"){const y=!!V(n.c).v,br=V(y?n.a:n.b);return n.rt==="string"||n.rt==="cstr"?{t:n.rt,v:br.v}:{t:n.rt,v:M.conv(br,n.rt)}}
+    if(n.k==="as"){const X=M.vars.get(n.a.n);let r=V(n.b);if(n.op!=="=")r=M.arith(n.op.slice(0,-1),{t:X.t,v:X.v},r);X.v=M.conv(r,X.t);X.init=true;return{t:X.t,v:X.v}}
+    if(n.k==="pre"||n.k==="post"){const X=M.vars.get(n.a.n),old=X.v;X.v=X.t==="bool"?(n.op==="++"?1:0):wrapTo(X.t,old+(n.op==="++"?1:-1));return{t:X.t,v:n.k==="pre"?X.v:old}}
+    return M.ev(n)}
+  function stepOnce(){if(!S||S.k>=S.order.length||S.err)return;S.note="";
+    while(S.k<S.order.length&&skipped(S.order[S.k])){const A=skipped(S.order[S.k]);S.k++;
+      S.note=A.k==="cond"?"Nhánh không được chọn của ?: không được tính.":`Ngắn mạch: vế trái của ${A.op} đã quyết định kết quả nên vế phải không được tính.`}
+    if(S.k>=S.order.length){render();return}
+    const n=S.order[S.k];
+    try{const r=compute(n);S.val.set(n,r);S.k++;S.cur=n;S.lines.push(pr(S.root,0));
+      if(n.k==="bin"&&(n.op==="&&"||n.op==="||")){const l=!!S.val.get(n.a).v;if((n.op==="&&"&&!l)||(n.op==="||"&&l))S.note=`Ngắn mạch: vế trái của ${n.op} là ${l?"true":"false"} nên kết quả là ${l?"true":"false"}, không cần tính vế phải.`}
+    }catch(e){if(e instanceof RunErr){S.err=e;S.cur=n}else throw e}
     render()}
   function layout(root){let leaf=0;const pos=new Map();let depth=0;
-    (function go(n,d){depth=Math.max(depth,d);const ks=n.k==="bin"?[n.a,n.b]:n.k==="un"||n.k==="cast"?[n.a]:[];
+    (function go(n,d){depth=Math.max(depth,d);const ks=KIDS(n);
       if(!ks.length){pos.set(n,{x:leaf++,y:d});return}
       ks.forEach(k=>go(k,d+1));const xs=ks.map(k=>pos.get(k).x);pos.set(n,{x:(Math.min(...xs)+Math.max(...xs))/2,y:d})})(root,0);
     return{pos,leaves:leaf,depth}}
+  function label(n){if(n.k==="bin")return NAME[n.op]||n.op;if(n.k==="un")return n.op==="-"?"−":n.op;if(n.k==="cast")return`(${n.ty.t})`;if(n.k==="cond")return"? :";if(n.k==="as")return n.op;
+    if(n.k==="pre")return n.op+(n.a.n||"");if(n.k==="post")return(n.a.n||"")+n.op;if(n.k==="name")return n.n;if(n.k==="call")return n.f+"()";return vtxt(S.val.get(n))}
   function render(){
     const {pos,leaves,depth}=layout(S.root);const CW=92,RH=78,W=Math.max(leaves*CW,260),H=(depth+1)*RH+10;
     const X=p=>p.x*CW+CW/2+(W-leaves*CW)/2,Y=p=>p.y*RH+34;
     let lines="",nodes="";
-    pos.forEach((p,n)=>{const ks=n.k==="bin"?[n.a,n.b]:n.k==="un"||n.k==="cast"?[n.a]:[];ks.forEach(k=>{const q=pos.get(k);lines+=`<line x1="${X(p)}" y1="${Y(p)+18}" x2="${X(q)}" y2="${Y(q)-20}" stroke="var(--line)" stroke-width="1.5"/>`})});
-    pos.forEach((p,n)=>{const internal=n.k==="bin"||n.k==="un"||n.k==="cast";const v=S.val.get(n);const cur=S.cur===n;const pending=internal&&!v;
-      const lab=internal?(n.k==="bin"?NAME[n.op]||n.op:n.k==="un"?(n.op==="-"?"−":n.op):`(${n.ty.t})`):(n.k==="name"?n.n:vtxt(v));
-      const cls=cur?(S.err?"err":"cur"):pending?"pend":internal?"done":"leaf";
-      nodes+=`<g class="tn ${cls}"><rect x="${X(p)-38}" y="${Y(p)-20}" width="76" height="38" rx="${internal?19:7}"/>
-        <text x="${X(p)}" y="${Y(p)+(internal&&v?-3:5)}" class="lab${internal&&v?" small":""}">${esc(lab)}</text>
-        ${internal&&v?`<text x="${X(p)}" y="${Y(p)+12}" class="val">${esc(vtxt(v))}</text>`:""}
-        ${v?`<text x="${X(p)}" y="${Y(p)+32}" class="ty">${esc(tn(v.t))}${n.k==="name"?" · "+esc(vtxt(v)):""}</text>`:""}</g>`});
-    el.querySelector("#et-svg").innerHTML=`<svg viewBox="0 0 ${W} ${H}" style="min-width:${Math.min(W,560)}px" role="img" aria-label="Cây biểu thức">${lines}${nodes}</svg>`;
+    pos.forEach((p,n)=>{KIDS(n).forEach(k=>{const q=pos.get(k);lines+=`<line x1="${X(p)}" y1="${Y(p)+18}" x2="${X(q)}" y2="${Y(q)-20}" stroke="var(--line)" stroke-width="1.5"/>`})});
+    pos.forEach((p,n)=>{const isIn=inner(n);const v=S.val.get(n);const cur=S.cur===n;const sk=!!skipped(n);const pending=isIn&&!v;
+      const cls=sk?"skip":cur?(S.err?"err":"cur"):pending?"pend":isIn?"done":"leaf";
+      const lab=label(n),showV=isIn&&v&&!sk;
+      nodes+=`<g class="tn ${cls}"><rect x="${X(p)-38}" y="${Y(p)-20}" width="76" height="38" rx="${isIn?19:7}"/>
+        <text x="${X(p)}" y="${Y(p)+(showV?-3:5)}" class="lab${showV?" small":""}">${esc(lab)}</text>
+        ${showV?`<text x="${X(p)}" y="${Y(p)+12}" class="val">${esc(vtxt(v))}</text>`:""}
+        ${sk?`<text x="${X(p)}" y="${Y(p)+32}" class="ty">bỏ qua</text>`:v?`<text x="${X(p)}" y="${Y(p)+32}" class="ty">${esc(tn(v.t))}${n.k==="name"?" · "+esc(vtxt(v)):""}</text>`:""}</g>`});
+    $("svg").innerHTML=`<svg viewBox="0 0 ${W} ${H}" style="min-width:${Math.min(W,560)}px" role="img" aria-label="Cây biểu thức">${lines}${nodes}</svg>`;
     const fin=S.k>=S.order.length;const R=S.val.get(S.root);
-    el.querySelector("#et-lines").innerHTML=S.lines.map((l,i)=>`<div><span>${i?"=":"&nbsp;"}</span><code>${l}</code></div>`).join("")+
-      (S.err?`<p class="et-err"><b>${esc(S.err.msg)}</b><br>${esc(S.err.vi)}</p>`:fin?`<p class="et-done">Kết quả: <b>${esc(vtxt(R))}</b>, kiểu <code>${esc(tn(R.t))}</code>${R.t==="double"?`. <code>cout</code> sẽ in <code>${esc(gfmt(R.v,6))}</code>`:""}.</p>`:"")+
+    const vars=S.fx&&fin?`<p class="et-done">Giá trị biến sau khi tính: ${DECL.map(d=>`<code>${esc(d[1])} = ${esc(vtxt(S.M.vars.get(d[1])))}</code>`).join(" ")}</p>`:"";
+    $("lines").innerHTML=S.lines.map((l,i)=>`<div><span>${i?"=":"&nbsp;"}</span><code>${l}</code></div>`).join("")+
+      (S.note?`<p class="et-note">${esc(S.note)}</p>`:"")+
+      (S.err?`<p class="et-err"><b>${esc(S.err.msg)}</b><br>${esc(S.err.vi)}</p>`:fin&&R?`<p class="et-done">Kết quả: <b>${esc(vtxt(R))}</b>, kiểu <code>${esc(tn(R.t))}</code>${R.t==="double"?`. <code>cout</code> sẽ in <code>${esc(gfmt(R.v,6))}</code>`:R.t==="bool"?`. <code>cout</code> in <code>${R.v}</code> (hoặc <code>${R.v?"true":"false"}</code> nếu dùng boolalpha)`:""}.</p>`:"")+vars+
       (S.warn.length?`<p class="et-warn">Cảnh báo của trình biên dịch: <code>${esc(S.warn[0])}</code></p>`:"");
-    el.querySelector("#et-k").textContent=S.order.length?`Phép tính ${S.k} / ${S.order.length}`:"Không có phép tính nào";
-    el.querySelector("#et-next").disabled=fin||!!S.err;el.querySelector("#et-all").disabled=fin||!!S.err}
-  el.querySelector("#et-next").onclick=stepOnce;
-  el.querySelector("#et-all").onclick=()=>{while(S&&S.k<S.order.length&&!S.err)stepOnce()};
-  el.querySelector("#et-reset").onclick=build;
+    const comp=S.order.filter(n=>S.val.has(n)).length,skc=S.order.filter(n=>skipped(n)).length;
+    $("k").textContent=S.order.length?`Đã tính ${comp} / ${S.order.length} phép${skc?` · bỏ qua ${skc}`:""}`:"Không có phép tính nào";
+    $("next").disabled=fin||!!S.err;$("all").disabled=fin||!!S.err}
+  $("next").onclick=stepOnce;
+  $("all").onclick=()=>{let g=0;while(S&&S.k<S.order.length&&!S.err&&g++<200)stepOnce()};
+  $("reset").onclick=build;
   let t;inp.addEventListener("input",()=>{clearTimeout(t);t=setTimeout(build,350)});
   el.querySelectorAll("[data-x]").forEach(b=>b.onclick=()=>{inp.value=b.dataset.x;build()});
   build();
@@ -4427,6 +4871,475 @@ makeQuiz("quiz8","score8",[
  {q:"<code>20 - 6 - 4</code> bằng?",o:["18","10","14","Lỗi"],a:1,e:"Cùng mức ưu tiên thì tính từ trái sang phải: (20 − 6) − 4 = 10."}
 ]);
 
+/* ================= WIDGET + DỮ LIỆU BÀI 9–11 ================= */
+/* Bảng chân trị */
+function makeTruth(el){
+  let A=true,B=false;
+  const f=v=>v?"true":"false";
+  function render(){
+    const rows=[[false,false],[false,true],[true,false],[true,true]];
+    el.innerHTML=`<div class="tt-ctl"><button class="tv ${A?"on":""}" id="tv-a" aria-pressed="${A}"><span>A</span><b>${f(A)}</b></button><button class="tv ${B?"on":""}" id="tv-b" aria-pressed="${B}"><span>B</span><b>${f(B)}</b></button>
+      <div class="tv-res">${[["A && B",A&&B],["A || B",A||B],["!A",!A],["A != B",A!==B]].map(([t,v])=>`<div class="${v?"t":"f"}"><code>${esc(t)}</code><b>${f(v)}</b></div>`).join("")}</div></div>
+      <div class="tbl"><table class="truth"><thead><tr><th>A</th><th>B</th><th>A &amp;&amp; B</th><th>A || B</th><th>!A</th><th>A != B <small>(XOR)</small></th></tr></thead><tbody>${
+      rows.map(([a,b])=>`<tr class="${a===A&&b===B?"cur":""}"><td>${f(a)}</td><td>${f(b)}</td>${[a&&b,a||b,!a,a!==b].map(v=>`<td class="${v?"t":"f"}">${f(v)}</td>`).join("")}</tr>`).join("")}</tbody></table></div>
+      <p class="note-s">Mẹo nhớ: <b>&amp;&amp;</b> chỉ đúng ở 1 hàng (cả hai đúng); <b>||</b> chỉ sai ở 1 hàng (cả hai sai).</p>`;
+    el.querySelector("#tv-a").onclick=()=>{A=!A;render();el.querySelector("#tv-a").focus()};
+    el.querySelector("#tv-b").onclick=()=>{B=!B;render();el.querySelector("#tv-b").focus()};
+  }
+  render();
+}
+/* Phòng thí nghiệm điều kiện (học bổng) */
+function makeLogicLab(el){
+  el.innerHTML=`<div class="lab-in">
+    <label class="lab-f"><span>diem</span><input type="range" id="lab-d" min="0" max="10" step="0.1" value="8.5"><output id="lab-do">8.5</output></label>
+    <label class="lab-f"><span>tuoi</span><input type="range" id="lab-t" min="10" max="25" step="1" value="19"><output id="lab-to">19</output></label>
+    <label class="lab-c"><input type="checkbox" id="lab-n"> <span>ngheo (hộ nghèo)</span></label>
+    <label class="switch"><input type="checkbox" id="lab-p"> Bỏ ngoặc</label></div>
+    <div class="lab-expr" id="lab-expr" aria-live="polite"></div><div class="lab-res" id="lab-res"></div>`;
+  const $=s=>el.querySelector(s);
+  const chip=(code,v)=>`<span class="lx ${v?"t":"f"}"><code>${esc(code)}</code><small>${v?"true":"false"}</small></span>`;
+  function upd(){
+    const d=+$("#lab-d").value,t=+$("#lab-t").value,n=$("#lab-n").checked,noP=$("#lab-p").checked;
+    $("#lab-do").textContent=d.toFixed(1);$("#lab-to").textContent=t;
+    const c1=d>=8.0,c2=t<18,c3=n;
+    const withP=c1&&(c2||c3),without=(c1&&c2)||c3;
+    const res=noP?without:withP;
+    $("#lab-expr").innerHTML=noP
+      ?`${chip("diem >= 8.0",c1)}<i>&amp;&amp;</i>${chip("tuoi < 18",c2)}<i>||</i>${chip("ngheo",c3)}<div class="lab-read">Máy hiểu là: <code>(diem &gt;= 8.0 &amp;&amp; tuoi &lt; 18) || ngheo</code> vì <code>&amp;&amp;</code> được tính trước <code>||</code>.</div>`
+      :`${chip("diem >= 8.0",c1)}<i>&amp;&amp;</i><span class="lx-g">(${chip("tuoi < 18",c2)}<i>||</i>${chip("ngheo",c3)})<small>${c2||c3?"true":"false"}</small></span>`;
+    $("#lab-res").className="lab-res "+(res?"t":"f");
+    $("#lab-res").innerHTML=`<b>${res?"✓ Được học bổng":"✗ Không được học bổng"}</b>${noP&&without!==withP?`<span>Sai quy định! Có ngoặc thì kết quả là <b>${withP?"được":"không được"}</b>. ${c3&&!c1?"Học sinh hộ nghèo nhưng điểm dưới 8.0 vẫn lọt qua.":""}</span>`:noP?`<span>Trường hợp này hai cách viết tình cờ cho cùng kết quả. Thử bật “ngheo” và kéo điểm xuống dưới 8.</span>`:""}`;
+  }
+  el.addEventListener("input",upd);upd();
+}
+/* Máy tính bit 8 bit */
+function makeBitOps(el){
+  let a=12,b=10,op="&",n=2;
+  const OPS=[["&","a & b"],["|","a | b"],["^","a ^ b"],["~","~a"],["<<","a << n"],[">>","a >> n"]];
+  function calc(){switch(op){case "&":return a&b;case "|":return a|b;case "^":return a^b;case "~":return (~a)&255;case "<<":return (a<<n)&255;case ">>":return a>>n}}
+  const bits=(v,id,click)=>{let h="";for(let i=7;i>=0;i--){const on=(v>>i)&1;h+=click?`<button class="bit${on?" on":""}" data-w="${id}" data-i="${i}" aria-label="bit ${i} của ${id}">${on}</button>`:`<span class="bit res${on?" on":""}">${on}</span>`;if(i===4)h+='<span class="gap"></span>'}return h};
+  function render(){
+    const r=calc(),two=!["~","<<",">>"].includes(op);
+    const extra=op==="<<"?` (giữ 8 bit thấp; với int thật là ${a<<n})`:op==="~"?` (8 bit; với int thật là ${~a})`:"";
+    el.innerHTML=`<div class="bo-ops" role="group" aria-label="Toán tử">${OPS.map(([o,t])=>`<button class="chip-btn${o===op?" sel":""}" data-op="${esc(o)}" aria-pressed="${o===op}"><code>${esc(t)}</code></button>`).join("")}</div>
+      <div class="bo-grid">
+        <span class="bo-l">a</span><div class="bits">${bits(a,"a",1)}</div><span class="bo-v"><input type="number" min="0" max="255" value="${a}" data-in="a" aria-label="giá trị a"></span>
+        ${two?`<span class="bo-l">b</span><div class="bits">${bits(b,"b",1)}</div><span class="bo-v"><input type="number" min="0" max="255" value="${b}" data-in="b" aria-label="giá trị b"></span>`:op!=="~"?`<span class="bo-l">n</span><div class="bo-n"><input type="range" min="0" max="7" value="${n}" data-in="n" aria-label="số bit dịch"> dịch ${n} bit</div><span></span>`:""}
+        <span class="bo-l op">${esc(op==="~"?"~a":op==="<<"||op===">>"?"a "+op+" "+n:"a "+op+" b")}</span><div class="bits">${bits(r,"r",0)}</div><span class="bo-v res">${r}</span>
+      </div>
+      <p class="note-s">${op==="&"?"AND: bit kết quả là 1 chỉ khi cả hai bit cùng cột là 1. Dùng để giữ lại (lọc) một số bit.":op==="|"?"OR: bit kết quả là 1 khi ít nhất một bit là 1. Dùng để bật bit.":op==="^"?"XOR: bit kết quả là 1 khi hai bit khác nhau. Dùng để đảo bit; a ^ a luôn bằng 0.":op==="~"?"NOT: đảo mọi bit."+extra:op==="<<"?`Dịch trái ${n} bit = nhân ${2**n}${extra}.`:`Dịch phải ${n} bit = chia nguyên cho ${2**n}.`} Hệ 16: <code>0x${r.toString(16).toUpperCase().padStart(2,"0")}</code>.</p>`;
+    el.querySelectorAll("[data-op]").forEach(x=>x.onclick=()=>{op=x.dataset.op;render()});
+    el.querySelectorAll("[data-w]").forEach(x=>x.onclick=()=>{const m=1<<+x.dataset.i;if(x.dataset.w==="a")a^=m;else b^=m;render()});
+    el.querySelectorAll("[data-in]").forEach(x=>x.onchange=x.oninput=()=>{const v=Math.max(0,Math.min(x.dataset.in==="n"?7:255,Math.trunc(+x.value||0)));if(x.dataset.in==="a")a=v;else if(x.dataset.in==="b")b=v;else n=v;if(x.type==="range")render()});
+  }
+  el.addEventListener("change",e=>{if(e.target.matches('input[type="number"]'))render()});
+  render();
+}
+/* Cờ quyền */
+function makeFlags(el){
+  let q=1;const F=[["READ",1,"đọc"],["WRITE",2,"ghi"],["EXEC",4,"chạy"]];let last="int quyen = READ;";
+  const b3=v=>v.toString(2).padStart(3,"0");
+  function render(){
+    el.innerHTML=`<div class="fl-state">${F.map(([n,v,vi])=>`<div class="fl ${q&v?"on":""}"><b>${n}</b><span>${vi}</span><code>bit ${Math.log2(v)} = ${q&v?1:0}</code></div>`).join("")}
+      <div class="fl-val"><span>quyen</span><b>${q}</b><code>${b3(q)}</code></div></div>
+      <div class="fl-acts">${F.map(([n,v])=>`<button class="btn sm" data-a="on" data-f="${n}">Bật ${n}</button><button class="btn sm" data-a="off" data-f="${n}">Tắt ${n}</button><button class="btn sm" data-a="flip" data-f="${n}">Đảo ${n}</button>`).join("")}</div>
+      <div class="fl-code"><span>Câu lệnh vừa chạy</span><code>${esc(last)}</code></div>
+      <div class="fl-chk">${F.map(([n,v])=>`<div><code>(quyen &amp; ${n}) != 0</code><b class="${q&v?"t":"f"}">${q&v?"true":"false"}</b></div>`).join("")}</div>`;
+    el.querySelectorAll("[data-a]").forEach(x=>x.onclick=()=>{const [n,v]=F.find(f=>f[0]===x.dataset.f);const old=q;
+      if(x.dataset.a==="on"){q|=v;last=`quyen |= ${n};   // ${b3(old)} | ${b3(v)} = ${b3(q)}`}
+      else if(x.dataset.a==="off"){q&=~v;last=`quyen &= ~${n};  // ${b3(old)} & ${b3(~v&7)} = ${b3(q)}`}
+      else{q^=v;last=`quyen ^= ${n};   // ${b3(old)} ^ ${b3(v)} = ${b3(q)}`}
+      render()});
+  }
+  render();
+}
+
+Object.assign(SNIP,{
+l10cond:`int diem = 7;
+std::cout << (diem >= 5 ? "Đạt" : "Chưa đạt") << "\\n";
+
+int a = 4, b = 9;
+int lonHon = (a > b) ? a : b;          // 9
+
+// Sai: thiếu ngoặc, cout << diem >= 5 ... bị hiểu là (cout << diem) >= 5
+// std::cout << diem >= 5 ? "Đạt" : "Chưa đạt";`,
+l11flags:`constexpr int READ  = 1 << 0;   // 001
+constexpr int WRITE = 1 << 1;   // 010
+constexpr int EXEC  = 1 << 2;   // 100
+
+int quyen = READ | WRITE;       // 011: được đọc và ghi
+quyen |= EXEC;                  // bật bit:   011 | 100 = 111
+quyen &= ~WRITE;                // tắt bit:   111 & 101 = 101
+quyen ^= READ;                  // đảo bit:   101 ^ 001 = 100
+bool coTheGhi = (quyen & WRITE) != 0;   // kiểm tra bit`
+});
+["l10cond","l11flags"].forEach(k=>document.querySelectorAll(`[data-snip="${k}"]`).forEach(el=>{el.innerHTML=highlightLines(SNIP[k]).map((s,i)=>`<span class="ln" data-n="${i+1}">${s||" "}</span>`).join("")}));
+
+const P9=[
+ {label:"Ví dụ: Sáu toán tử so sánh",input:"7 3",code:`${INC}
+int main() {
+    int a, b;
+    std::cin >> a >> b;
+    std::cout << "a == b: " << (a == b) << "\\n";
+    std::cout << "a != b: " << (a != b) << "\\n";
+    std::cout << "a <  b: " << (a < b) << "\\n";
+    std::cout << "a >= b: " << (a >= b) << "\\n";
+    std::cout << std::boolalpha;
+    std::cout << "a >  b: " << (a > b) << "\\n";
+    std::cout << "a <= b: " << (a <= b) << "\\n";
+    return 0;
+}`},
+ {label:"Ví dụ: Kết hợp && || !",input:"8.5 16 0",code:`${INC}
+int main() {
+    double diem;
+    int tuoi;
+    bool ngheo;
+    std::cin >> diem >> tuoi >> ngheo;
+    bool hocBong = diem >= 8.0 && (tuoi < 18 || ngheo);
+    bool canhCao = !(diem >= 5.0);
+    std::cout << std::boolalpha;
+    std::cout << "Học bổng: " << hocBong << "\\n";
+    std::cout << "Cảnh cáo: " << canhCao << "\\n";
+    return 0;
+}`},
+ {label:"Ví dụ: Ngắn mạch tránh chia cho 0",input:"10 0",code:`${INC}
+int main() {
+    int a, b;
+    std::cin >> a >> b;
+    // b != 0 sai nên a / b không được tính: an toàn
+    bool lonHon = b != 0 && a / b > 1;
+    std::cout << std::boolalpha << lonHon << "\\n";
+    return 0;
+}`},
+ {label:"Lỗi khi chạy: đảo thứ tự điều kiện",input:"10 0",code:`${INC}
+int main() {
+    int a, b;
+    std::cin >> a >> b;
+    bool lonHon = a / b > 1 && b != 0;   // chia trước khi kiểm tra
+    std::cout << lonHon << "\\n";
+    return 0;
+}`},
+ {label:"Cảnh báo: 10 < x < 20",input:"35",code:`${INC}
+int main() {
+    int x;
+    std::cin >> x;
+    std::cout << std::boolalpha;
+    std::cout << (10 < x < 20) << "\\n";          // luôn true!
+    std::cout << (10 < x && x < 20) << "\\n";     // đúng ý
+    return 0;
+}`},
+ {label:"Cảnh báo: !x == 0",code:`${INC}
+int main() {
+    int x = 5;
+    std::cout << (!x == 0) << "\\n";     // (!x) == 0
+    std::cout << !(x == 0) << "\\n";     // đúng ý
+    return 0;
+}`},
+ {label:"Bẫy: so sánh số thực",code:`${INC}#include <cmath>
+
+int main() {
+    double a = 0.1 + 0.2;
+    std::cout << std::boolalpha;
+    std::cout << (a == 0.3) << "\\n";
+    std::cout << (std::abs(a - 0.3) < 1e-9) << "\\n";
+    return 0;
+}`},
+ {label:"Cảnh báo: so sánh int với unsigned",code:`${INC}
+int main() {
+    int am = -1;
+    unsigned int soLuong = 3;
+    std::cout << std::boolalpha << (am < soLuong) << "\\n";   // false!
+    return 0;
+}`},
+ {label:"Ví dụ: So sánh chuỗi",input:"an binh",code:`${INC}#include <string>
+
+int main() {
+    std::string s1, s2;
+    std::cin >> s1 >> s2;
+    std::cout << std::boolalpha;
+    std::cout << (s1 == s2) << " " << (s1 < s2) << "\\n";
+    return 0;
+}`}
+];
+const P10=[
+ {label:"Ví dụ: Ưu tiên trong biểu thức hỗn hợp",code:`${INC}
+int main() {
+    int a = 3, b = 4, c = 5;
+    std::cout << std::boolalpha;
+    std::cout << (a + b * 2 > c && c % 2 == 1) << "\\n";
+    std::cout << (a < b == b < c) << "\\n";        // (a<b) == (b<c)
+    std::cout << (a == 3 || b == 0 && c == 0) << "\\n";
+    return 0;
+}`},
+ {label:"Ví dụ: Toán tử ?:",input:"7 12",code:`${INC}
+int main() {
+    int a, b;
+    std::cin >> a >> b;
+    int lonHon = a > b ? a : b;
+    std::cout << "Lớn hơn: " << lonHon << "\\n";
+    std::cout << a << " là số " << (a % 2 == 0 ? "chẵn" : "lẻ") << "\\n";
+    return 0;
+}`},
+ {label:"Lỗi: cout << a < b",code:`${INC}
+int main() {
+    int a = 3, b = 5;
+    std::cout << a < b;
+    return 0;
+}`},
+ {label:"Lỗi: ?: thiếu ngoặc trong cout",code:`${INC}
+int main() {
+    int n = 7;
+    std::cout << n % 2 == 0 ? "chẵn" : "lẻ";
+    return 0;
+}`},
+ {label:"Ví dụ: Gán kết hợp từ phải sang trái",code:`${INC}
+int main() {
+    int a, b, c;
+    a = b = c = 10;        // a = (b = (c = 10))
+    a += b -= 3;           // b thành 7, a thành 17
+    std::cout << a << " " << b << " " << c << "\\n";
+    return 0;
+}`},
+ {label:"Cảnh báo: i++ + i không xác định",code:`${INC}
+int main() {
+    int i = 1;
+    int k = i++ + i;       // tùy trình biên dịch
+    std::cout << k << "\\n";
+
+    int j = 1;             // cách viết rõ ràng
+    int truoc = j;
+    j++;
+    std::cout << truoc + j << "\\n";
+    return 0;
+}`},
+ {label:"Ví dụ: Ngoặc làm rõ ý",code:`${INC}
+int main() {
+    int gio = 9, phut = 30;
+    bool sang = gio >= 6 && gio < 12;
+    bool dungGio = (gio == 9 && phut == 0) || (gio == 8 && phut >= 55);
+    std::cout << std::boolalpha << sang << " " << dungGio << "\\n";
+    return 0;
+}`}
+];
+const P11=[
+ {label:"Ví dụ: Sáu toán tử bit",input:"12 10",code:`${INC}
+int main() {
+    int a, b;
+    std::cin >> a >> b;
+    std::cout << "a & b  = " << (a & b) << "\\n";
+    std::cout << "a | b  = " << (a | b) << "\\n";
+    std::cout << "a ^ b  = " << (a ^ b) << "\\n";
+    std::cout << "~a     = " << ~a << "\\n";
+    std::cout << "a << 2 = " << (a << 2) << "\\n";
+    std::cout << "a >> 1 = " << (a >> 1) << "\\n";
+    return 0;
+}`},
+ {label:"Ví dụ: Cờ quyền với mặt nạ",code:`${INC}
+int main() {
+    constexpr int READ = 1 << 0, WRITE = 1 << 1, EXEC = 1 << 2;
+    int quyen = READ | WRITE;
+    std::cout << "Ban đầu: " << quyen << "\\n";
+    quyen |= EXEC;
+    std::cout << "Bật EXEC: " << quyen << "\\n";
+    quyen &= ~WRITE;
+    std::cout << "Tắt WRITE: " << quyen << "\\n";
+    std::cout << std::boolalpha << "Ghi được? " << ((quyen & WRITE) != 0) << "\\n";
+    return 0;
+}`},
+ {label:"Ví dụ: Chẵn lẻ và lũy thừa của 2",input:"64",code:`${INC}
+int main() {
+    int n;
+    std::cin >> n;
+    std::cout << std::boolalpha;
+    std::cout << "Lẻ? " << ((n & 1) == 1) << "\\n";
+    std::cout << "Lũy thừa của 2? " << (n > 0 && (n & (n - 1)) == 0) << "\\n";
+    return 0;
+}`},
+ {label:"Ví dụ: Hoán đổi bằng XOR",input:"5 9",code:`${INC}
+int main() {
+    int a, b;
+    std::cin >> a >> b;
+    a ^= b;
+    b ^= a;
+    a ^= b;
+    std::cout << a << " " << b << "\\n";
+    return 0;
+}`},
+ {label:"Ví dụ: Tách màu RGB",code:`${INC}
+int main() {
+    int mau = 0xFF8C1A;              // cam: R=255, G=140, B=26
+    int r = (mau >> 16) & 0xFF;
+    int g = (mau >> 8) & 0xFF;
+    int b = mau & 0xFF;
+    std::cout << r << " " << g << " " << b << "\\n";
+    return 0;
+}`},
+ {label:"Cảnh báo: n & 1 == 0",input:"6",code:`${INC}
+int main() {
+    int n;
+    std::cin >> n;
+    std::cout << (n & 1 == 0) << "\\n";      // n & (1 == 0) = n & 0
+    std::cout << ((n & 1) == 0) << "\\n";    // đúng ý
+    return 0;
+}`},
+ {label:"Bẫy: dịch quá số bit",code:`${INC}
+int main() {
+    std::cout << (1 << 31) << "\\n";
+    std::cout << (1 << 32) << "\\n";
+    std::cout << (-16 >> 2) << "\\n";
+    return 0;
+}`},
+ {label:"Bẫy: & thay vì &&",code:`${INC}
+int main() {
+    int a = 2, b = 1;
+    std::cout << std::boolalpha;
+    std::cout << (a && b) << "\\n";   // true
+    std::cout << (a & b) << "\\n";    // 0: 10 & 01 = 00
+    return 0;
+}`}
+];
+const sim9=makeSim2(document.getElementById("sim-l9"),{id:"s9",presets:P9});
+const sim10=makeSim2(document.getElementById("sim-l10"),{id:"s10",presets:P10});
+const sim11=makeSim2(document.getElementById("sim-l11"),{id:"s11",presets:P11});
+makeTruth(document.getElementById("truth-l9"));
+makeLogicLab(document.getElementById("lab-l9"));
+makeExprTree(document.getElementById("etree-l9"),{id:"et9",decl:[["int","a","10"],["int","b","0"],["int","x","15"]],initial:"b != 0 && a / b > 1",
+  examples:["b != 0 && a / b > 1","a / b > 1 && b != 0","b == 0 || a / b > 1","x > 10 && x < 20","10 < x < 20","!(x == 15)","!x == 0","a > 5 || b > 5 && x < 0"]});
+makeExprTree(document.getElementById("etree-l10"),{id:"et10",decl:[["int","a","3"],["int","b","4"],["int","c","5"]],initial:"a + b * 2 > c && c % 2 == 1",fullParen:true,
+  examples:["a + b * 2 > c && c % 2 == 1","a < b == b < c","a == 3 || b == 0 && c == 0","-a * b + c % 2","a > b ? a : b","a = b = c","a += b * 2","c & 1 == 1","!a + b"]});
+makeCompileGuess(document.getElementById("cg-l10"),[
+ {code:"int a = 3, b = 5;\nstd::cout << a < b;"},
+ {code:"int a = 3, b = 5;\nstd::cout << (a < b);",why:"Ngoặc buộc so sánh được tính trước rồi mới in."},
+ {code:"int a = 3, b = 5;\nstd::cout << a + b;",why:"+ có ưu tiên cao hơn <<, nên a + b được tính trước khi in."},
+ {code:"int n = 7;\nstd::cout << n % 2 == 1;"},
+ {code:"int n = 7;\nstd::cout << (n > 5 ? \"lớn\" : \"nhỏ\");",why:"Cả biểu thức ?: nằm trong ngoặc nên được tính trước khi in."},
+ {code:"int a = 1;\nint b = a > 0 ? 10 : \"không\";"},
+ {code:"int a = 6;\nstd::cout << (a & 1);",why:"Có ngoặc nên a & 1 tính trước rồi mới in: 0."},
+ {code:"int a = 6;\nstd::cout << a & 1;"}
+]);
+makeBitOps(document.getElementById("bitops-l11"));
+makeFlags(document.getElementById("flags-l11"));
+
+makeEx2(document.getElementById("ex-l9"),sim9,[
+ {t:"Năm nhuận",d:"Nhập một năm. In true nếu là năm nhuận, false nếu không (dùng std::boolalpha). Năm nhuận: chia hết cho 4 nhưng không chia hết cho 100, hoặc chia hết cho 400.",
+  tests:[{in:"2024",out:"true"},{in:"1900",out:"false"},{in:"2000",out:"true"},{in:"2026",out:"false"}],
+  start:`#include <iostream>
+
+int main() {
+    int nam;
+    std::cin >> nam;
+
+    return 0;
+}`},
+ {t:"Trong khoảng",d:"Nhập x. In true nếu 10 ≤ x ≤ 20, ngược lại in false. Cẩn thận lỗi 10 <= x <= 20.",
+  tests:[{in:"15",out:"true"},{in:"10",out:"true"},{in:"21",out:"false"},{in:"5",out:"false"}],need:/&&/,needMsg:"Hãy kết hợp hai phép so sánh bằng &&.",
+  start:`#include <iostream>
+
+int main() {
+    int x;
+    std::cin >> x;
+
+    return 0;
+}`},
+ {t:"Tam giác hợp lệ",d:"Nhập 3 cạnh (số nguyên dương). In true nếu ba cạnh tạo thành tam giác: tổng hai cạnh bất kỳ lớn hơn cạnh còn lại.",
+  tests:[{in:"3 4 5",out:"true"},{in:"1 2 3",out:"false"},{in:"10 2 3",out:"false"},{in:"7 7 7",out:"true"}],
+  start:`#include <iostream>
+
+int main() {
+    int a, b, c;
+    std::cin >> a >> b >> c;
+
+    return 0;
+}`}
+]);
+makeEx2(document.getElementById("ex-l10"),sim10,[
+ {t:"Điểm có trọng số",d:"Nhập điểm 3 môn (số thực). Môn 1 hệ số 1, môn 2 hệ số 2, môn 3 hệ số 3. In điểm trung bình có trọng số với 2 chữ số sau dấu phẩy.",
+  tests:[{in:"6 7 8",out:"7.33"},{in:"10 10 10",out:"10.00"},{in:"9 5 6",out:"6.17"}],
+  start:`#include <iostream>
+#include <iomanip>
+
+int main() {
+    double m1, m2, m3;
+    std::cin >> m1 >> m2 >> m3;
+
+    return 0;
+}`},
+ {t:"Số lớn nhất",d:"Nhập 3 số nguyên. In số lớn nhất, dùng toán tử ?: (chưa dùng if).",
+  tests:[{in:"3 9 4",out:"9"},{in:"-1 -5 -2",out:"-1"},{in:"7 7 2",out:"7"},{in:"1 2 30",out:"30"}],need:/\?/,needMsg:"Hãy dùng toán tử ?:.",
+  start:`#include <iostream>
+
+int main() {
+    int a, b, c;
+    std::cin >> a >> b >> c;
+
+    return 0;
+}`},
+ {t:"Chẵn hay lẻ",d:"Nhập n. In “chan” nếu n chẵn, “le” nếu n lẻ (không dấu). Dùng ?: và nhớ đặt ngoặc khi in.",
+  tests:[{in:"4",out:"chan"},{in:"7",out:"le"},{in:"-3",out:"le"},{in:"0",out:"chan"}],need:/\?/,needMsg:"Hãy dùng toán tử ?:.",
+  start:`#include <iostream>
+
+int main() {
+    int n;
+    std::cin >> n;
+
+    return 0;
+}`}
+]);
+makeEx2(document.getElementById("ex-l11"),sim11,[
+ {t:"Bit thứ k",d:"Nhập n và k (0 ≤ k ≤ 30). In giá trị bit thứ k của n (0 hoặc 1), đếm từ bit 0 bên phải.",
+  tests:[{in:"12 2",out:"1"},{in:"12 0",out:"0"},{in:"255 7",out:"1"},{in:"1024 10",out:"1"}],need:/>>|<</,needMsg:"Hãy dùng toán tử dịch bit.",
+  start:`#include <iostream>
+
+int main() {
+    int n, k;
+    std::cin >> n >> k;
+
+    return 0;
+}`},
+ {t:"Lũy thừa của 2",d:"Nhập n (0 ≤ n ≤ 30). Dòng 1 in 2 mũ n bằng phép dịch bit. Dòng 2 in true/false: 2 mũ n có lớn hơn 1000 không.",
+  tests:[{in:"10",out:"1024\ntrue"},{in:"3",out:"8\nfalse"},{in:"0",out:"1\nfalse"}],need:/<</,needMsg:"Hãy tính 2 mũ n bằng 1 << n.",
+  start:`#include <iostream>
+
+int main() {
+    int n;
+    std::cin >> n;
+
+    return 0;
+}`},
+ {t:"Bật, tắt, đảo bit",d:"Nhập số q. In 3 dòng: q sau khi bật bit 2; q sau khi tắt bit 0; q sau khi đảo bit 1. Mỗi dòng tính từ q ban đầu.",
+  tests:[{in:"1",out:"5\n0\n3"},{in:"7",out:"7\n6\n5"},{in:"10",out:"14\n10\n8"}],
+  start:`#include <iostream>
+
+int main() {
+    int q;
+    std::cin >> q;
+
+    return 0;
+}`}
+]);
+makeQuiz("quiz9","score9",[
+ {q:"<code>std::cout &lt;&lt; (5 &gt; 3);</code> in ra gì?",o:["true","1","5 > 3","Lỗi"],a:1,e:"Kết quả so sánh là bool true; cout mặc định in true thành 1. Thêm std::boolalpha để in chữ true."},
+ {q:"Với x = 35, <code>10 &lt; x &lt; 20</code> có giá trị?",o:["false","true","Lỗi biên dịch","Không xác định"],a:1,e:"(10 < 35) là true (1), rồi 1 < 20 là true. Phải viết 10 < x && x < 20."},
+ {q:"Khi b = 0, biểu thức nào an toàn?",o:["<code>a / b &gt; 1 &amp;&amp; b != 0</code>","<code>b != 0 &amp;&amp; a / b &gt; 1</code>","Cả hai","Không cái nào"],a:1,e:"Ngắn mạch: vế trái b != 0 là false nên a / b không được tính."},
+ {q:"<code>true || false &amp;&amp; false</code> bằng?",o:["true","false","Lỗi","Tùy trình biên dịch"],a:0,e:"&& tính trước ||: true || (false && false) = true || false = true."}
+]);
+makeQuiz("quiz10","score10",[
+ {q:"Dạng đặt ngoặc đúng của <code>a + b * c &gt; d &amp;&amp; e</code> là?",o:["<code>((a + b) * c) &gt; (d &amp;&amp; e)</code>","<code>(((a + (b * c)) &gt; d) &amp;&amp; e)</code>","<code>(a + (b * (c &gt; d))) &amp;&amp; e</code>","<code>a + ((b * c) &gt; (d &amp;&amp; e))</code>"],a:1,e:"Nhân → cộng → so sánh → logic."},
+ {q:"Vì sao <code>std::cout &lt;&lt; a &lt; b;</code> báo lỗi?",o:["Thiếu dấu chấm phẩy","&lt;&lt; có ưu tiên cao hơn &lt; nên thành (cout &lt;&lt; a) &lt; b","cout không in được bool","a và b chưa khai báo"],a:1,e:"Phải viết std::cout << (a < b);"},
+ {q:"Sau <code>a = b = 5;</code> thì?",o:["a = 5, b chưa đổi","a = b = 5","Lỗi biên dịch","a = 0"],a:1,e:"Gán kết hợp từ phải sang trái: a = (b = 5), biểu thức b = 5 có giá trị 5."},
+ {q:"<code>int k = i++ + i;</code> cho kết quả gì?",o:["Luôn là 2i","Luôn là 2i + 1","Không xác định, tùy trình biên dịch","Lỗi biên dịch"],a:2,e:"i vừa bị sửa vừa được đọc trong cùng biểu thức, không có thứ tự quy định."}
+]);
+makeQuiz("quiz11","score11",[
+ {q:"<code>12 &amp; 10</code> bằng?",o:["22","8","14","6"],a:1,e:"1100 & 1010 = 1000 = 8."},
+ {q:"Câu lệnh nào <b>tắt</b> bit WRITE trong biến quyen?",o:["<code>quyen |= WRITE;</code>","<code>quyen &amp;= ~WRITE;</code>","<code>quyen ^= WRITE;</code>","<code>quyen = !WRITE;</code>"],a:1,e:"~WRITE có mọi bit là 1 trừ bit WRITE; AND với nó xóa đúng bit đó. ^= là đảo, không phải tắt."},
+ {q:"<code>5 &lt;&lt; 3</code> bằng?",o:["15","40","8","125"],a:1,e:"Dịch trái 3 bit = nhân 2³ = 8: 5 × 8 = 40."},
+ {q:"Với n = 6, <code>n &amp; 1 == 0</code> bằng?",o:["1 (n chẵn)","0","6","Lỗi"],a:1,e:"== tính trước &: n & (1 == 0) = 6 & 0 = 0. Phải viết (n & 1) == 0."}
+]);
+
+const LESSON_UPDATED={"l1": "2026-10-19T11:20:13Z", "l10": "2026-10-19T16:03:07Z", "l11": "2026-10-19T16:03:07Z", "l2": "2026-10-19T11:20:13Z", "l3": "2026-10-19T11:07:05Z", "l4": "2026-10-19T11:07:05Z", "l5": "2026-10-19T11:20:13Z", "l6": "2026-10-19T11:20:13Z", "l7": "2026-10-19T11:20:13Z", "l8": "2026-10-19T16:03:07Z", "l9": "2026-10-19T16:03:07Z"};
+(function(){for(const l in LESSON_UPDATED){const nx=document.querySelector(`#view-${l} .next`);if(!nx)continue;
+  const iso=LESSON_UPDATED[l],d=new Date(iso),p=document.createElement("p");p.className="updated";
+  p.innerHTML=`Cập nhật lần cuối: <time datetime="${iso}">${d.toLocaleTimeString("vi-VN",{hour:"2-digit",minute:"2-digit"})}, ${d.toLocaleDateString("vi-VN",{day:"2-digit",month:"2-digit",year:"numeric"})}</time>`;nx.after(p)}})();
 /* ================= TIẾN ĐỘ KHÓA C++ (dùng lõi AMTS) ================= */
 const CID="cpp",CMETA=courseById(CID);
 const LESSONS=CMETA.lessons.map(x=>x[0]);
