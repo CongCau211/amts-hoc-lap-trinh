@@ -131,6 +131,51 @@ a.btn{text-decoration:none}
 .empty{font-size:14px;color:var(--muted);padding:18px;background:var(--surface);border:1px dashed var(--line);border-radius:var(--r)}
 .backup{background:var(--warm-soft);border-radius:var(--r);padding:12px 16px;font-size:14px;display:flex;gap:12px;align-items:center;justify-content:space-between;flex-wrap:wrap}
 footer{margin-top:56px;border-top:1px solid var(--line);padding-block:20px 40px;font-size:13px;color:var(--muted)}
+
+/* quản trị truy cập */
+.adm{display:grid;gap:10px}
+.adm-box{background:var(--surface);border:1px solid var(--line);border-radius:var(--r)}
+.adm-box>summary{list-style:none;cursor:pointer;display:flex;justify-content:space-between;align-items:center;gap:10px;flex-wrap:wrap;padding:12px 16px;font-size:15px}
+.adm-box>summary::-webkit-details-marker{display:none}
+.adm-box>summary::before{content:"▸";color:var(--muted);margin-right:-4px}
+.adm-box[open]>summary::before{content:"▾"}
+.adm-box>summary b{flex:1}
+.chip.warn{background:var(--warm-soft);border-color:transparent;color:var(--warm)}
+.adm-in{padding:4px 16px 16px;display:grid;gap:12px;border-top:1px solid var(--line);padding-top:14px}
+.adm-in p{font-size:14px}
+.sw{display:flex;gap:12px;align-items:flex-start;cursor:pointer}
+.sw input{position:absolute;opacity:0;width:1px;height:1px}
+.sw-ui{flex:none;width:44px;height:26px;border-radius:999px;background:var(--line);position:relative;transition:background .15s;margin-top:2px}
+.sw-ui::after{content:"";position:absolute;top:3px;left:3px;width:20px;height:20px;border-radius:50%;background:#fff;box-shadow:0 1px 3px rgba(0,0,0,.25);transition:transform .15s}
+.sw input:checked+.sw-ui{background:var(--warm)}
+.sw input:checked+.sw-ui::after{transform:translateX(18px)}
+.sw input:focus-visible+.sw-ui{outline:2px solid var(--accent);outline-offset:2px}
+.sw small{display:block;color:var(--muted);font-size:13px;line-height:1.45}
+.adm-f{display:grid;grid-template-columns:auto minmax(0,1fr);gap:8px 12px;align-items:center;font-size:14px}
+.adm-f.col{grid-template-columns:1fr}
+.adm-f>span{font-weight:600}
+.adm-in select,.adm-in input:not([type=checkbox]):not([type=file]),.adm-in textarea{font:inherit;font-size:14px;padding:8px 10px;border:1px solid var(--line);border-radius:8px;background:var(--surface);color:var(--ink);min-width:0;max-width:100%}
+.adm-in textarea{resize:vertical}
+.adm-paid{border:1px dashed var(--line);border-radius:10px;padding:12px 14px;display:grid;gap:12px;min-width:0;margin:0}
+.adm-paid legend{font-weight:700;font-size:14px;padding:0 6px}
+.adm-paid[disabled]{opacity:.5}
+.adm-quick{display:flex;gap:8px;align-items:center;flex-wrap:wrap;font-size:13.5px;color:var(--muted)}
+.adm-lessons{display:grid;grid-template-columns:repeat(auto-fill,minmax(220px,1fr));gap:4px 14px}
+.adm-lessons label{display:flex;gap:8px;align-items:center;font-size:13.5px;padding:3px 0;min-width:0}
+.adm-lessons input{accent-color:var(--warm);width:16px;height:16px;flex:none}
+.adm-lessons b{font-family:var(--f-mono);font-size:12px;color:var(--muted);min-width:28px}
+.adm-lessons span{overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.adm-act{display:flex;gap:10px;align-items:center;flex-wrap:wrap}
+.adm-enr{display:grid;max-height:420px;overflow:auto;border:1px solid var(--line);border-radius:10px}
+.enr{display:grid;grid-template-columns:minmax(0,1fr) auto auto;gap:10px;align-items:center;padding:8px 12px;border-bottom:1px solid var(--line)}
+.enr:last-child{border-bottom:0}
+.enr div{display:grid;min-width:0}
+.enr b{font-size:14px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.enr small{font-size:12px;color:var(--muted);overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.enr-st{font-size:12.5px;color:var(--muted)}
+.enr.on .enr-st{color:var(--ok);font-weight:600}
+.c-fee{font-size:13px!important;color:var(--ink)!important;background:var(--bg);border-radius:8px;padding:6px 10px}
+@media (max-width:760px){.enr{grid-template-columns:minmax(0,1fr) auto}.enr-st{grid-column:1/-1;order:3}.adm-f{grid-template-columns:1fr}}
 @media (max-width:760px){.grid,.how,.tdet{grid-template-columns:1fr}.t-stats{grid-template-columns:1fr 1fr}.hero{padding-block:28px 18px}}
 </style>
 
@@ -157,6 +202,7 @@ footer{margin-top:56px;border-top:1px solid var(--line);padding-block:20px 40px;
   <section class="teacher" id="giang-vien" hidden>
     <div class="sec-h" style="margin:0"><h2>Tiến độ học viên</h2><span class="note">Chỉ tài khoản giảng viên xem được phần này</span></div>
     <div class="tabs" role="tablist" id="t-tabs"></div>
+    <div class="adm" id="t-adm"></div>
     <div class="t-stats" id="t-stats"></div>
     <div class="t-tools"><input id="t-q" placeholder="Tìm theo tên hoặc email" autocomplete="off" aria-label="Tìm học viên"><button class="btn" id="t-reload">Tải lại</button><button class="btn pri" id="t-csv">Xuất Excel (CSV)</button></div>
     <div id="t-body"></div>
@@ -175,6 +221,7 @@ const COURSES=[
   chapters:12,
   lessons:[["l1","Chương trình C++ đầu tiên"],["l2","Cài đặt trình biên dịch & IDE"],["l3","Nhập xuất với cin / cout"],["l4","Biến, khai báo, khởi tạo"],["l5","int, double, char, bool"],["l6","Hằng số const / constexpr"],["l7","Ép kiểu và tràn số"],["l8","Toán tử số học"],["l9","So sánh và logic"],["l10","Thứ tự ưu tiên"],["l11","Toán tử bit"],["l12","if / else"],["l13","switch"],["l14","while, do-while"],["l15","for, break, continue"],["l16","Định nghĩa và gọi hàm"],["l17","Tham trị và tham chiếu"],["l18","Nạp chồng hàm"],["l19","Đệ quy"]],
   exercises:["l1-0","l1-1","l1-2","l2-term",...["l3","l4","l5","l6","l7","l8","l9","l10","l11","l12","l13","l14","l15","l16","l17","l18","l19"].flatMap(l=>[0,1,2].map(i=>`${l}-${i}`))],
+  contentVer:"07cafb0821f3",
   quizzes:{l1:"quiz",l2:"quiz2",l3:"quiz3",l4:"quiz4",l5:"quiz5",l6:"quiz6",l7:"quiz7",l8:"quiz8",l9:"quiz9",l10:"quiz10",l11:"quiz11",l12:"quiz12",l13:"quiz13",l14:"quiz14",l15:"quiz15",l16:"quiz16",l17:"quiz17",l18:"quiz18",l19:"quiz19"}},
  {id:"csharp",name:"C# Căn Bản",mono:"C#",url:"csharp/index.html",status:"soon",hue:"cs",
   desc:"Lập trình hướng đối tượng với .NET: kiểu dữ liệu, lớp, LINQ và ứng dụng Console thực tế.",chapters:null,lessons:[],exercises:[],quizzes:{}},
@@ -235,10 +282,10 @@ const AMTS=(()=>{
       for(const m of ["app","auth","firestore"])await loadScript(`https://cdn.jsdelivr.net/npm/firebase@${FB_VER}/firebase-${m}-compat.js`);
       firebase.initializeApp(FB_CONFIG);S.auth=firebase.auth();S.db=firebase.firestore();S.mode="ready";
       S.auth.onAuthStateChanged(async u=>{
-        S.user=u;S.saveErr="";S.doc=null;
+        S.user=u;S.saveErr="";S.doc=null;enr=null;
         if(u){try{const snap=await S.db.collection("users").doc(u.uid).get();S.doc=snap.exists?snap.data():null;S.docLoaded=true}
           catch(e){S.docLoaded=false;S.saveErr=e.code==="permission-denied"?"Firestore đang từ chối truy cập: hãy dán quy tắc bảo mật mới (firestore.rules) trong Firebase Console.":"Chưa tải được tiến độ từ máy chủ. Tiến độ vẫn được giữ trên trình duyệt này."}}
-        emit();
+        S.authKnown=true;emit();
       });
     }catch(e){S.mode="error";S.err="Không kết nối được dịch vụ đăng nhập. Kiểm tra Internet rồi tải lại trang.";emit()}
   }
@@ -274,7 +321,40 @@ const AMTS=(()=>{
   }
   async function signOut(){await S.auth.signOut();clearLocal()}
   async function allUsers(){const snap=await S.db.collection("users").get();return snap.docs.map(d=>({uid:d.id,...d.data()}))}
-  return{S,TEACHERS,init,on:f=>{subs.push(f);f(S)},getLocal,setLocal,clearLocal,merge,courseOf,saveCourse,signIn,signOut,isTeacher,allUsers,empty};
+
+  /* ---- quyền truy cập bài học: config/{khóa}, enroll/{uid}, content/{khóa}-{bài} ---- */
+  const DEF_CFG={paidMode:false,loginFrom:16,paid:{},price:"",payInfo:"",contentVer:""};
+  const defaultConfig=()=>JSON.parse(JSON.stringify(DEF_CFG));
+  const cfgCache={};let enr=null,readyP=null;
+  function ready(){return readyP||(readyP=new Promise(res=>{const ok=()=>S.mode==="unavailable"||S.mode==="error"||(S.mode==="ready"&&S.authKnown);
+    if(ok())res(S);else subs.push(()=>{if(ok())res(S)})}))}
+  async function getConfig(id,fresh){
+    if(!fresh&&cfgCache[id])return cfgCache[id];
+    const s=await S.db.collection("config").doc(id).get();
+    const c=Object.assign(defaultConfig(),s.exists?s.data():{});c.exists=s.exists;return cfgCache[id]=c}
+  async function saveConfig(id,c){
+    const d={paidMode:!!c.paidMode,loginFrom:Number(c.loginFrom)||9999,paid:Object.assign({},c.paid||{}),price:String(c.price||"").slice(0,200),payInfo:String(c.payInfo||"").slice(0,2000),contentVer:String(c.contentVer||""),updatedAt:firebase.firestore.FieldValue.serverTimestamp(),updatedBy:(S.user&&S.user.email)||""};
+    await S.db.collection("config").doc(id).set(d);cfgCache[id]=Object.assign(defaultConfig(),d,{exists:true});return cfgCache[id]}
+  async function isEnrolled(id){
+    if(!S.user)return false;
+    if(enr===null){try{const s=await S.db.collection("enroll").doc(S.user.uid).get();enr=s.exists?s.data():{}}catch(e){enr={}}}
+    return enr[id]===true}
+  const clearEnroll=()=>{enr=null};
+  async function getLesson(id,l){const s=await S.db.collection("content").doc(id+"-"+l).get();return s.exists?s.data():null}
+  async function allEnroll(){const s=await S.db.collection("enroll").get();const m={};s.docs.forEach(d=>m[d.id]=d.data());return m}
+  async function setEnroll(uid,id,on,info){const FV=firebase.firestore.FieldValue;
+    await S.db.collection("enroll").doc(uid).set({[id]:!!on,email:(info&&info.email)||"",name:(info&&info.name)||"",["at_"+id]:FV.serverTimestamp(),["by_"+id]:(S.user&&S.user.email)||""},{merge:true})}
+  async function uploadContent(pkg,onProg){
+    if(!pkg||!pkg.course||!Array.isArray(pkg.lessons)||!pkg.ver)throw new Error("File không đúng định dạng nội dung bài học.");
+    const FV=firebase.firestore.FieldValue;let k=0;
+    for(const L of pkg.lessons){
+      if(!/^l\d+$/.test(L.id)||typeof L.html!=="string")throw new Error("Bài "+L.id+" không hợp lệ.");
+      await S.db.collection("content").doc(pkg.course+"-"+L.id).set({course:pkg.course,lesson:L.id,order:Number(L.order)||0,title:String(L.title||""),html:L.html,ver:pkg.ver,updatedAt:FV.serverTimestamp()});
+      k++;onProg&&onProg(k,pkg.lessons.length)}
+    const cur=await getConfig(pkg.course,true);cur.contentVer=pkg.ver;await saveConfig(pkg.course,cur);
+    return k}
+  return{S,TEACHERS,init,on:f=>{subs.push(f);f(S)},getLocal,setLocal,clearLocal,merge,courseOf,saveCourse,signIn,signOut,isTeacher,allUsers,empty,
+    ready,defaultConfig,getConfig,saveConfig,isEnrolled,clearEnroll,getLesson,allEnroll,setEnroll,uploadContent};
 })();
 /* tiện ích dùng chung */
 const escH=s=>String(s??"").replace(/[&<>"']/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c]));
@@ -287,6 +367,11 @@ function progressOf(id){
   const remote=S.user&&S.docLoaded?AMTS.courseOf(S.doc,id):null;
   return remote?AMTS.merge(remote,local):local;
 }
+let PUB={},pubAsked=false;
+function feeLine(c,f){const n=c.lessons.filter(([l])=>f.paid&&f.paid[l]).length;
+  if(f.paidMode&&n)return `<p class="c-fee"><b>${n} bài có phí</b>${f.price?` · Học phí ${escH(f.price)}`:""}. Các bài còn lại miễn phí${+f.loginFrom<=c.lessons.length?`, từ Bài ${+f.loginFrom} cần đăng nhập`:""}.</p>`;
+  if(+f.loginFrom<=c.lessons.length)return `<p class="c-fee">Miễn phí · từ Bài ${+f.loginFrom} cần đăng nhập để học.</p>`;
+  return `<p class="c-fee">Miễn phí toàn bộ.</p>`}
 function renderCourses(){
   document.getElementById("courses").innerHTML=COURSES.map(c=>{
     const open=c.status==="open";const p=progressOf(c.id);const total=c.lessons.length;
@@ -295,7 +380,7 @@ function renderCourses(){
     const href=c.url+(last?"#bai-"+last[0].slice(1):"");
     return `<article class="course ${open?"":"soon"}" style="--hue:var(--c-${c.hue})">
       <div class="c-top"><div class="mono" aria-hidden="true">${escH(c.mono)}</div><div><h3>${escH(c.name)}</h3><span class="chip ${open?"open":""}">${open?`Đang mở · ${total} bài${c.chapters?` / ${c.chapters} chương`:""}`:"Sắp ra mắt"}</span></div></div>
-      <p>${escH(c.desc)}</p>
+      <p>${escH(c.desc)}</p>${open&&PUB[c.id]?feeLine(c,PUB[c.id]):""}
       <div class="c-prog">${open?`<div class="pbar" role="progressbar" aria-label="Tiến độ ${escH(c.name)}" aria-valuemin="0" aria-valuemax="${total}" aria-valuenow="${done}"><span style="width:${total?done/total*100:0}%"></span></div><span class="pnum">${done}/${total} bài đã hoàn thành</span>`:`<span class="pnum">Nội dung đang được biên soạn.</span>`}</div>
       <div class="c-act">${open?`<a class="btn pri" href="${escH(href)}">${started?"Học tiếp":"Bắt đầu học"}</a>${last?`<span class="cont">Bài gần nhất: ${escH(last[1])}</span>`:""}`:`<button class="btn" disabled>Sắp ra mắt</button>`}</div>
     </article>`}).join("");
@@ -315,6 +400,91 @@ function renderAcct(){
 }
 
 /* ================= GIẢNG VIÊN ================= */
+/* ================= QUẢN TRỊ: truy cập, học phí, kích hoạt, nội dung ================= */
+let CFG=null,ENR={},admMsg="";
+function ssGet(){try{return JSON.parse(sessionStorage.getItem("amts-adm-open"))||{set:true}}catch(e){return{set:true}}}
+async function loadAdmin(){
+  const c=courseById(TC);if(c.status!=="open"){document.getElementById("t-adm").innerHTML="";return}
+  try{[CFG,ENR]=await Promise.all([AMTS.getConfig(TC,true),AMTS.allEnroll()])}
+  catch(e){document.getElementById("t-adm").innerHTML=`<p class="empty bad-t">Không đọc được cài đặt truy cập: ${e.code==="permission-denied"?"Firestore từ chối. Hãy dán bộ quy tắc firestore.rules mới (có phần config, enroll, content) trong Firebase Console.":escH(e.message||e.code)}</p>`;return}
+  renderAdmin();
+}
+function enrolledCount(){return Object.values(ENR).filter(x=>x&&x[TC]===true).length}
+function renderAdmin(){
+  const c=courseById(TC),box=document.getElementById("t-adm");if(!CFG||c.status!=="open"){box.innerHTML="";return}
+  const L=c.lessons,paid=CFG.paid||{},nPaid=L.filter(([l])=>paid[l]).length;
+  const open=ssGet();
+  const sv=c.contentVer,cv=CFG.contentVer||"";
+  box.innerHTML=`
+  <details class="adm-box" data-k="set"${open.set?" open":""}><summary><b>Truy cập và học phí</b><span class="chip ${CFG.paidMode?"warn":"open"}">${CFG.paidMode?`Đang bật trả phí · ${nPaid} bài có phí`:"Đang miễn phí"}</span></summary>
+    <div class="adm-in">
+      <label class="sw"><input type="checkbox" id="a-paid"${CFG.paidMode?" checked":""}><span class="sw-ui" aria-hidden="true"></span><span><b>Bật chế độ trả phí</b><small>Tắt: mọi bài miễn phí. Bật: các bài đánh dấu “có phí” chỉ mở cho học viên đã được kích hoạt.</small></span></label>
+      <label class="adm-f"><span>Yêu cầu đăng nhập từ</span><select id="a-login"><option value="9999">Không yêu cầu</option>${L.map(([l,n],i)=>`<option value="${i+1}"${+CFG.loginFrom===i+1?" selected":""}>Bài ${i+1} · ${escH(n)}</option>`).join("")}</select></label>
+      <p class="note">Học viên chưa đăng nhập vẫn xem được các bài trước bài này. Mặc định: Bài 16 (Chương 5 · Hàm).</p>
+      <fieldset class="adm-paid" id="a-paidbox"${CFG.paidMode?"":" disabled"}>
+        <legend>Bài có phí</legend>
+        <div class="adm-quick"><span>Chọn nhanh:</span><label>có phí từ <select id="a-from">${L.map(([l],i)=>`<option value="${i+1}"${i+1===16?" selected":""}>Bài ${i+1}</option>`).join("")}</select> trở đi</label><button class="btn sm" type="button" id="a-apply">Áp dụng</button><button class="btn sm" type="button" id="a-none">Bỏ chọn tất cả</button></div>
+        <div class="adm-lessons">${L.map(([l,n],i)=>`<label><input type="checkbox" data-l="${l}"${paid[l]?" checked":""}><b>B${i+1}</b><span>${escH(n)}</span></label>`).join("")}</div>
+        <label class="adm-f"><span>Học phí</span><input id="a-price" maxlength="200" value="${escH(CFG.price||"")}" placeholder="Ví dụ: 1.500.000đ cho cả khóa"></label>
+        <label class="adm-f col"><span>Thông tin chuyển khoản (hiện cho học viên chưa kích hoạt)</span><textarea id="a-pay" rows="4" maxlength="2000" placeholder="Ngân hàng: …&#10;Số tài khoản: …&#10;Chủ tài khoản: …">${escH(CFG.payInfo||"")}</textarea></label>
+      </fieldset>
+      <div class="adm-act"><button class="btn pri" id="a-save">Lưu cài đặt</button><span class="note" id="a-msg" aria-live="polite">${escH(admMsg)}</span></div>
+    </div></details>
+  <details class="adm-box" data-k="enr"${open.enr?" open":""}><summary><b>Kích hoạt học viên</b><span class="chip">${enrolledCount()} đã kích hoạt</span></summary>
+    <div class="adm-in">
+      <p class="note">Học viên cần đăng nhập vào trang ít nhất một lần thì mới có tên trong danh sách. Đối chiếu email trong nội dung chuyển khoản rồi bấm Kích hoạt.</p>
+      <input id="a-eq" placeholder="Tìm theo tên hoặc email" autocomplete="off" aria-label="Tìm học viên để kích hoạt">
+      <div class="adm-enr" id="a-enr"></div>
+    </div></details>
+  <details class="adm-box" data-k="ct"${open.ct||sv!==cv?" open":""}><summary><b>Nội dung bài học trên máy chủ</b><span class="chip ${sv===cv?"open":"warn"}">${cv?(sv===cv?"Khớp với trang":"Cần cập nhật"):"Chưa tải lên"}</span></summary>
+    <div class="adm-in">
+      <p>Phần chữ của các bài học được lưu trên Firebase để chỉ người có quyền mới xem được. Mỗi lần cập nhật trang trên GitHub, hãy tải kèm file <code>noi-dung-${escH(TC)}.json</code> lên đây.</p>
+      <p class="note">Trang đang dùng phiên bản <code>${escH(sv||"?")}</code> · Máy chủ đang có <code>${escH(cv||"chưa có")}</code>.</p>
+      <div class="adm-act"><input type="file" id="a-file" accept=".json,application/json"><button class="btn pri" id="a-up">Tải nội dung lên</button><span class="note" id="a-umsg" aria-live="polite"></span></div>
+    </div></details>`;
+  box.querySelectorAll("details.adm-box").forEach(d=>d.addEventListener("toggle",()=>{const o=ssGet();o[d.dataset.k]=d.open;try{sessionStorage.setItem("amts-adm-open",JSON.stringify(o))}catch(e){}}));
+  const $=id=>document.getElementById(id);
+  $("a-paid").onchange=e=>{$("a-paidbox").disabled=!e.target.checked};
+  $("a-apply").onclick=()=>{const f=+$("a-from").value;box.querySelectorAll("[data-l]").forEach(x=>x.checked=+x.dataset.l.slice(1)>=f)};
+  $("a-none").onclick=()=>box.querySelectorAll("[data-l]").forEach(x=>x.checked=false);
+  $("a-save").onclick=saveAdmin;
+  $("a-eq").addEventListener("input",renderEnroll);renderEnroll();
+  $("a-up").onclick=uploadPkg;
+}
+async function saveAdmin(){
+  const $=id=>document.getElementById(id),msg=$("a-msg");
+  const paid={};document.querySelectorAll("#t-adm [data-l]").forEach(x=>paid[x.dataset.l]=x.checked);
+  const next={...CFG,paidMode:$("a-paid").checked,loginFrom:+$("a-login").value,paid,price:$("a-price").value.trim(),payInfo:$("a-pay").value.trim()};
+  if(next.paidMode&&!Object.values(paid).some(Boolean)){msg.textContent="Chế độ trả phí đang bật nhưng chưa chọn bài có phí nào.";return}
+  if(next.paidMode&&!next.payInfo&&!confirm("Chưa có thông tin chuyển khoản. Học viên sẽ không biết cách đóng học phí. Vẫn lưu?"))return;
+  msg.textContent="Đang lưu…";
+  try{CFG=await AMTS.saveConfig(TC,next);PUB[TC]=CFG;admMsg="Đã lưu lúc "+new Date().toLocaleTimeString("vi-VN",{hour:"2-digit",minute:"2-digit"})+".";renderAdmin();renderCourses()}
+  catch(e){msg.textContent="Không lưu được: "+(e.code==="permission-denied"?"Firestore từ chối. Hãy dán bộ quy tắc firestore.rules mới.":(e.message||e.code))}
+}
+function renderEnroll(){
+  const el=document.getElementById("a-enr");if(!el)return;const q=(document.getElementById("a-eq").value||"").toLowerCase().trim();
+  const st=students().filter(r=>!q||(r.name||"").toLowerCase().includes(q)||(r.email||"").includes(q))
+    .sort((a,b)=>((ENR[b.uid]||{})[TC]===true)-((ENR[a.uid]||{})[TC]===true)||tsMs(b.lastSeen)-tsMs(a.lastSeen));
+  if(!st.length){el.innerHTML=`<p class="empty">${students().length?"Không có học viên khớp từ khóa.":"Chưa có học viên nào đăng nhập."}</p>`;return}
+  el.innerHTML=st.slice(0,200).map(r=>{const on=(ENR[r.uid]||{})[TC]===true,at=(ENR[r.uid]||{})["at_"+TC];
+    return `<div class="enr${on?" on":""}"><div><b>${escH(r.name||"(chưa có tên)")}</b><small>${escH(r.email||"")}</small></div><span class="enr-st">${on?`✓ Đã kích hoạt${at?" · "+fmtTime(at):""}`:"Chưa kích hoạt"}</span><button class="btn sm${on?"":" pri"}" data-u="${escH(r.uid)}">${on?"Hủy kích hoạt":"Kích hoạt"}</button></div>`}).join("")+(st.length>200?`<p class="note">Đang hiện 200 / ${st.length} học viên. Dùng ô tìm kiếm để lọc.</p>`:"");
+  el.querySelectorAll("[data-u]").forEach(b=>b.onclick=async()=>{const r=ALL.find(x=>x.uid===b.dataset.u),on=!((ENR[r.uid]||{})[TC]===true);
+    if(!on&&!confirm(`Hủy kích hoạt ${r.email}? Học viên này sẽ không mở được các bài có phí nữa.`))return;
+    b.disabled=true;b.textContent="Đang lưu…";
+    try{await AMTS.setEnroll(r.uid,TC,on,{email:r.email,name:r.name});ENR[r.uid]=Object.assign({},ENR[r.uid],{[TC]:on,["at_"+TC]:new Date()});renderAdmin()}
+    catch(e){b.disabled=false;b.textContent="Thử lại";alert("Không lưu được: "+(e.code==="permission-denied"?"Firestore từ chối. Hãy dán bộ quy tắc firestore.rules mới.":(e.message||e.code)))}});
+}
+async function uploadPkg(){
+  const f=document.getElementById("a-file").files[0],msg=document.getElementById("a-umsg");
+  if(!f){msg.textContent=`Hãy chọn file noi-dung-${TC}.json trước.`;return}
+  let pkg;try{pkg=JSON.parse(await f.text())}catch(e){msg.textContent="File không đọc được (không phải JSON).";return}
+  if(pkg.course!==TC){msg.textContent=`File này là nội dung của khóa “${pkg.course||"?"}”, không phải khóa đang chọn.`;return}
+  const btn=document.getElementById("a-up");btn.disabled=true;
+  try{const n=await AMTS.uploadContent(pkg,(k,t)=>msg.textContent=`Đang tải lên ${k}/${t} bài…`);
+    CFG=await AMTS.getConfig(TC,true);PUB[TC]=CFG;msg.textContent="";admMsg=`Đã tải lên ${n} bài, phiên bản ${pkg.ver}.`;renderAdmin()}
+  catch(e){btn.disabled=false;msg.textContent="Không tải lên được: "+(e.code==="permission-denied"?"Firestore từ chối. Hãy dán bộ quy tắc firestore.rules mới.":(e.message||e.code))}
+}
+
 let ALL=[],TC="cpp",loadedFor=null;
 const tsMs=t=>t?(t.toMillis?t.toMillis():new Date(t).getTime()):0;
 function fmtTime(t){if(!t)return"—";const d=t.toDate?t.toDate():new Date(t);if(isNaN(d))return"—";return d.toLocaleString("vi-VN",{day:"2-digit",month:"2-digit",year:"numeric",hour:"2-digit",minute:"2-digit"})}
@@ -329,12 +499,12 @@ function summarize(r,c){
 const students=()=>ALL.filter(r=>!AMTS.TEACHERS.includes((r.email||"").toLowerCase()));
 async function loadTeacher(){
   const box=document.getElementById("t-body");box.innerHTML=`<p class="empty">Đang tải danh sách học viên…</p>`;
-  try{ALL=await AMTS.allUsers();loadedFor=AMTS.S.user.uid;renderTeacher()}
+  try{ALL=await AMTS.allUsers();loadedFor=AMTS.S.user.uid;renderTeacher();loadAdmin()}
   catch(e){box.innerHTML=`<p class="empty bad-t">${e.code==="permission-denied"?"Firestore từ chối: hãy kiểm tra đã dán quy tắc bảo mật mới và email giảng viên trong quy tắc trùng với email đang đăng nhập.":"Không tải được dữ liệu: "+escH(e.message||"")}</p>`}
 }
 function renderTabs(){
   document.getElementById("t-tabs").innerHTML=COURSES.map(c=>`<button role="tab" aria-selected="${c.id===TC}" data-c="${c.id}">${escH(c.name)}${c.status==="open"?"":" <small>(sắp ra mắt)</small>"}</button>`).join("");
-  document.querySelectorAll("#t-tabs [data-c]").forEach(b=>b.onclick=()=>{TC=b.dataset.c;renderTabs();renderTeacher()});
+  document.querySelectorAll("#t-tabs [data-c]").forEach(b=>b.onclick=()=>{TC=b.dataset.c;renderTabs();renderTeacher();CFG=null;loadAdmin()});
 }
 function renderTeacher(){
   const c=courseById(TC),q=(document.getElementById("t-q").value||"").toLowerCase().trim();
@@ -389,6 +559,7 @@ document.getElementById("t-json").onclick=exportJSON;
 
 function renderAll(){
   renderAcct();renderCourses();
+  if(AMTS.S.mode==="ready"&&!pubAsked){pubAsked=true;Promise.all(COURSES.filter(c=>c.status==="open").map(c=>AMTS.getConfig(c.id).then(f=>{if(f.exists)PUB[c.id]=f}).catch(()=>{}))).then(renderCourses)}
   const S=AMTS.S,t=document.getElementById("giang-vien"),isT=AMTS.isTeacher();
   t.hidden=!isT;
   if(isT&&S.user&&loadedFor!==S.user.uid){renderTabs();loadTeacher();if(location.hash==="#giang-vien")setTimeout(()=>t.scrollIntoView(),50)}
