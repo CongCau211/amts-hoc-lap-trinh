@@ -332,6 +332,7 @@ select{font:inherit;font-size:13.5px;padding:7px 10px;border-radius:8px;border:1
 .bad-t{color:var(--err);font-weight:700;letter-spacing:0;text-transform:none}
 .con{background:var(--code-bg);color:#E7ECF7;font-family:var(--f-mono);font-size:13.5px;line-height:1.6;padding:12px 14px;white-space:pre-wrap;word-break:break-word;min-height:150px;max-height:260px;overflow:auto;flex:1}
 .con .sys{color:var(--code-muted)}.con .e{color:#FF9A8F}.con .w{color:#F2BC6B}.con .ok{color:#7FE0AE}.con .in{color:#93AAFF}
+.eof-btn{display:inline-block;margin-left:8px;font:inherit;font-size:11.5px;border:1px solid #3a4560;background:transparent;color:#93AAFF;border-radius:6px;padding:1px 8px;cursor:pointer;vertical-align:1px}
 .con-in{background:transparent;border:0;border-bottom:1px dashed #93AAFF;color:#93AAFF;font:inherit;outline:none;min-width:140px;width:60%;padding:0}
 .explain.warn b{color:var(--warm)}
 .explain span{display:block}
@@ -582,6 +583,51 @@ details.ch li.done a::after{content:" ✓";color:var(--ok);font-weight:800}
 .prec td:first-child{font-family:var(--f-mono);color:var(--muted);text-align:center}
 .updated{font-size:12.5px;color:var(--muted);margin-top:-24px;font-variant-numeric:tabular-nums}
 
+/* ---------- Bài 12–14 ---------- */
+.code .ln.dim{opacity:.38}
+.fl-slider input{width:220px}
+.fi-body{display:grid;grid-template-columns:minmax(0,1.15fr) minmax(0,1fr);gap:16px;align-items:start}
+.fi-svg svg{width:100%;height:auto;display:block}
+.fn polygon,.fn rect{fill:var(--surface);stroke:var(--line);stroke-width:1.5}
+.fn text{text-anchor:middle;font-family:var(--f-body);font-size:13px;fill:var(--muted)}
+.fn text.mono{font-family:var(--f-mono);font-size:12px}
+.fn.on polygon,.fn.on rect{fill:var(--accent-soft);stroke:var(--accent);stroke-width:2.5}
+.fn.on text{fill:var(--ink);font-weight:600}
+.fn.res.on rect{fill:var(--ok-soft);stroke:var(--ok)}
+.fe{fill:none;stroke:var(--line);stroke-width:1.5}
+.fe.on{stroke:var(--accent);stroke-width:3}
+.fl-lab{font-family:var(--f-body);font-size:11.5px}
+.fl-lab.t{fill:var(--ok)}.fl-lab.f{fill:var(--err)}
+.fi-code{font-size:13px}
+.fi-log{font-size:14px;display:grid;gap:6px;margin-top:10px}
+.fi-log code{font-size:12.5px;margin-right:4px}
+.fi-log span{color:var(--muted)}
+.fi-out{font-size:14px}.fi-out b{color:var(--ok)}
+.lr-top{display:flex;gap:14px;flex-wrap:wrap;align-items:center;justify-content:space-between}
+.lr-vals{display:flex;gap:6px;align-items:center;flex-wrap:wrap;font-family:var(--f-mono);font-size:13.5px}
+.lr-body{display:grid;grid-template-columns:minmax(0,1.3fr) minmax(0,1fr);gap:16px;align-items:start}
+.lr-code{font-size:13px}
+.lr-badge{display:inline-block;margin-left:10px;font-family:var(--f-body);font-size:10.5px;font-weight:700;color:var(--code-bg);background:var(--syn-num);border-radius:999px;padding:0 6px;line-height:16px;vertical-align:1px}
+.lr-side{display:grid;gap:8px}
+.lr-path{display:flex;flex-wrap:wrap;gap:4px;align-items:center;font-family:var(--f-mono);font-size:13px}
+.lr-path span{background:var(--accent-soft);color:var(--accent);border-radius:6px;padding:1px 7px;font-weight:600}
+.lr-path i{font-style:normal;color:var(--muted);font-size:11px}
+.lr-out{margin:0;background:var(--code-bg);color:#E7ECF7;border-radius:8px;padding:10px 12px;font-size:13.5px;white-space:pre-wrap}
+.lt-seg{flex-wrap:wrap}
+.lt-in input{width:220px}
+.lt-body{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1.1fr);gap:16px;align-items:start}
+.lt-code{font-size:13px}
+.lt-tbl{max-height:420px;overflow:auto}
+.lt-tbl table{font-size:13.5px}
+.lt-tbl td.num{font-family:var(--f-mono);font-variant-numeric:tabular-nums}
+.lt-tbl b.t{color:var(--ok)}.lt-tbl b.f{color:var(--err)}
+.lt-tbl tr.stop td{background:var(--err-soft)}
+.lt-tbl small{color:var(--muted)}
+.lt-sum{font-size:14px;color:var(--muted)}
+.fi-body>*,.lr-body>*,.lt-body>*,.loop-intro>*{min-width:0}
+.lt-sum b{color:var(--ink)}
+.loop-intro{display:grid;grid-template-columns:minmax(0,1.2fr) minmax(0,1fr);gap:16px;align-items:center}
+
 /* ---------- Ẩn / hiện thanh bên ---------- */
 .org{justify-content:space-between}
 .logo-link{display:flex;border-radius:999px}
@@ -622,6 +668,8 @@ details.ch li.done a::after{content:" ✓";color:var(--ok);font-weight:800}
   .bits-info{grid-template-columns:1fr 1fr}
   .ascii-grid{grid-template-columns:repeat(12,minmax(0,1fr))}
   .tv-res{grid-template-columns:1fr 1fr;min-width:0;flex:1 1 100%}
+  .fi-body,.lr-body,.lt-body,.loop-intro{grid-template-columns:minmax(0,1fr)}
+  .fl-slider input,.lt-in input{width:160px}
   .bo-grid .bits{min-width:max-content}
   .bo-grid .bit{width:22px;height:30px;font-size:13px}
   .bo-grid .gap{width:4px}
@@ -2074,7 +2122,264 @@ Lệnh trên chạy cả 4 giai đoạn cùng lúc. Nhấn “Bước tiếp” 
       </section>
       <div class="next">
         <button class="btn" data-go="l10">← Bài 10</button>
-        <span class="byline"><span class="amts-logo" aria-hidden="true"></span>Hết Chương 3 · Tiếp theo: Chương 4 · Điều khiển luồng</span>
+        <button class="btn pri" data-go="l12">Bài tiếp: Chương 4 · if / else →</button>
+      </div>
+    </article>
+
+    <!-- ===================== LESSON 12 ===================== -->
+    <article class="col" id="view-l12" hidden>
+      <header class="hero">
+        <div class="crumb">Chương 4 · Điều khiển luồng / Bài 12</div>
+        <h1>Rẽ nhánh với <em>if</em> và <em>else</em></h1>
+        <p class="lede">Đến giờ mọi chương trình đều chạy thẳng từ trên xuống. Câu lệnh <code>if</code> cho phép chương trình chọn đường đi dựa trên một điều kiện: điểm cao thì in “Giỏi”, nhập sai thì báo lỗi. Đây là bước đầu tiên để viết chương trình biết “suy nghĩ”.</p>
+        <div class="meta"><span class="chip lv1">Cơ bản</span><span class="chip">60 phút</span><span class="chip">Lưu đồ sáng theo đường chạy</span><span class="chip">3 bài tập · 4 câu hỏi</span></div>
+      </header>
+      <div class="goals">
+        <h3>Sau bài này học viên có thể</h3>
+        <ul>
+          <li>Viết <code>if</code>, <code>if … else</code> và chuỗi <code>else if</code> để chọn một trong nhiều trường hợp.</li>
+          <li>Đọc và vẽ lưu đồ cho một đoạn rẽ nhánh.</li>
+          <li>Dùng khối <code>{ }</code> đúng cách và hiểu phạm vi của biến khai báo bên trong khối.</li>
+          <li>Tránh các lỗi kinh điển: <code>=</code> thay <code>==</code>, dấu <code>;</code> sau <code>if</code>, thiếu <code>{ }</code>, <code>else</code> lơ lửng.</li>
+        </ul>
+      </div>
+
+      <section class="part">
+        <div class="part-head"><span class="num">12.1</span><h2>Câu lệnh if</h2></div>
+        <div class="prose"><p>Nếu điều kiện trong ngoặc đúng, câu lệnh (hoặc khối lệnh) phía sau được chạy; nếu sai thì bị bỏ qua. Điều kiện là bất kỳ biểu thức nào cho ra đúng/sai, như các phép so sánh ở Bài 9. Thêm <code>else</code> để chỉ định việc cần làm khi điều kiện sai.</p></div>
+        <div class="code" data-snip="l12if"></div>
+        <div class="note"><b>Thói quen tốt:</b> luôn dùng <code>{ }</code> cho thân <code>if</code> và <code>else</code>, kể cả khi chỉ có một lệnh. Thêm lệnh thứ hai về sau sẽ không bị lỗi lặng lẽ (xem 12.5).</div>
+      </section>
+
+      <section class="part">
+        <div class="part-head"><span class="num">12.2</span><h2>Chuỗi else if và lưu đồ</h2></div>
+        <div class="prose"><p>Khi có nhiều trường hợp, nối các <code>else if</code>. C++ kiểm tra lần lượt từ trên xuống và <b>dừng ở điều kiện đúng đầu tiên</b>; các điều kiện phía dưới không được kiểm tra nữa. Kéo thanh điểm để xem đường đi sáng lên trên lưu đồ và trong code.</p></div>
+        <div class="figure" id="flow-l12"></div>
+        <div class="note"><b>Thứ tự rất quan trọng:</b> nếu đặt <code>diem &gt;= 5.0</code> lên đầu, một học viên 9 điểm sẽ bị xếp “Trung bình”, vì điều kiện đó đúng trước và các nhánh sau bị bỏ qua. Luôn đi từ điều kiện chặt nhất đến lỏng nhất.</div>
+      </section>
+
+      <section class="part">
+        <div class="part-head"><span class="num">12.3</span><h2>Khối lệnh { } và phạm vi biến</h2></div>
+        <div class="prose">
+          <p>Cặp <code>{ }</code> gom nhiều lệnh thành một <b>khối</b>. Biến khai báo bên trong khối chỉ tồn tại từ dòng khai báo đến dấu <code>}</code> đóng khối: đó là <b>phạm vi</b> (scope) của biến. Ra khỏi khối, biến bị hủy và tên của nó không dùng được nữa.</p>
+          <p>Chạy ví dụ “Phạm vi biến” trong trình mô phỏng ở chế độ <b>Từng bước</b>: biến <code>thuong</code> xuất hiện trong khung Bộ nhớ khi vào khối và biến mất khi ra khỏi khối.</p>
+        </div>
+        <div class="code" data-snip="l12scope"></div>
+      </section>
+
+      <section class="part">
+        <div class="part-head"><span class="num">12.4</span><h2>if lồng nhau và else “lơ lửng”</h2></div>
+        <div class="prose"><p>Một <code>if</code> có thể nằm trong thân của <code>if</code> khác. Khi đó cần nhớ quy tắc: <b><code>else</code> luôn thuộc về <code>if</code> gần nhất chưa có <code>else</code></b>, bất kể thụt lề thế nào.</p></div>
+        <div class="cmp2">
+          <div><div class="cmp-h bad">Thụt lề đánh lừa người đọc</div><div class="code" data-snip="l12dangle"></div></div>
+          <div><div class="cmp-h good">Dùng { } để nói rõ ý</div><div class="code" data-snip="l12dangle2"></div></div>
+        </div>
+      </section>
+
+      <section class="part">
+        <div class="part-head"><span class="num">12.5</span><h2>Năm lỗi kinh điển</h2></div>
+        <div class="tbl"><table>
+          <thead><tr><th>Viết sai</th><th>Chuyện gì xảy ra</th><th>g++ -Wall -Wextra</th></tr></thead>
+          <tbody>
+            <tr><td><code>if (x = 5)</code></td><td>Gán 5 cho x, điều kiện luôn đúng</td><td>Cảnh báo <code>-Wparentheses</code></td></tr>
+            <tr><td><code>if (x &gt; 5);</code></td><td>Dấu <code>;</code> tạo lệnh rỗng, lệnh sau luôn chạy</td><td>Cảnh báo <code>-Wempty-body</code></td></tr>
+            <tr><td><code>if (ok)</code><br><code>&nbsp;&nbsp;a++;</code><br><code>&nbsp;&nbsp;b++;</code></td><td>Chỉ <code>a++</code> thuộc if; <code>b++</code> luôn chạy dù thụt lề</td><td>Không cảnh báo: dùng <code>{ }</code></td></tr>
+            <tr><td><code>if (a) if (b) … else …</code></td><td><code>else</code> thuộc if bên trong</td><td>Cảnh báo <code>-Wdangling-else</code></td></tr>
+            <tr><td><code>if (0 &lt; x &lt; 10)</code></td><td>Luôn đúng (Bài 9)</td><td>Cảnh báo <code>-Wparentheses</code></td></tr>
+          </tbody>
+        </table></div>
+      </section>
+
+      <section class="part">
+        <div class="part-head"><span class="num">12.6</span><h2>Trình mô phỏng</h2></div>
+        <div class="prose"><p>Ở chế độ <b>Từng bước</b>, góc trên khung Bộ nhớ cho biết điều kiện vừa kiểm tra là đúng hay sai, và dòng được tô sáng nhảy theo nhánh được chọn.</p></div>
+        <div id="sim-l12"></div>
+      </section>
+      <section class="part">
+        <div class="part-head"><span class="num">12.7</span><h2>Bài tập chấm tự động</h2></div>
+        <div class="ex-grid" id="ex-l12"></div>
+      </section>
+      <section class="part">
+        <div class="part-head"><span class="num">12.8</span><h2>Kiểm tra nhanh</h2></div>
+        <div class="quiz" id="quiz12"></div><div class="score" id="score12"></div>
+      </section>
+      <div class="next">
+        <button class="btn" data-go="l11">← Bài 11</button>
+        <button class="btn pri" data-go="l13">Bài tiếp: switch →</button>
+      </div>
+    </article>
+
+    <!-- ===================== LESSON 13 ===================== -->
+    <article class="col" id="view-l13" hidden>
+      <header class="hero">
+        <div class="crumb">Chương 4 · Điều khiển luồng / Bài 13</div>
+        <h1>Chọn nhánh với <em>switch</em></h1>
+        <p class="lede">Khi cần so một giá trị với nhiều hằng số cụ thể (thứ trong tuần, lựa chọn trong menu, phép toán + − × ÷), <code>switch</code> gọn và dễ đọc hơn một chuỗi dài <code>else if</code>. Nhưng nó có một đặc điểm dễ gây lỗi: quên <code>break</code>.</p>
+        <div class="meta"><span class="chip lv1">Cơ bản</span><span class="chip">50 phút</span><span class="chip">Vết đường chạy</span><span class="chip">3 bài tập · 4 câu hỏi</span></div>
+      </header>
+      <div class="goals">
+        <h3>Sau bài này học viên có thể</h3>
+        <ul>
+          <li>Viết <code>switch</code> với <code>case</code>, <code>break</code> và <code>default</code>.</li>
+          <li>Giải thích hiện tượng “rơi xuống” (fall-through) khi thiếu <code>break</code>, và dùng nó có chủ đích để gộp case.</li>
+          <li>Biết giới hạn của <code>switch</code>: chỉ số nguyên/ký tự, nhãn phải là hằng.</li>
+          <li>Chọn giữa <code>switch</code> và <code>if … else if</code>.</li>
+        </ul>
+      </div>
+
+      <section class="part">
+        <div class="part-head"><span class="num">13.1</span><h2>Cú pháp và cách chạy</h2></div>
+        <div class="prose"><p><code>switch</code> tính giá trị trong ngoặc một lần, rồi <b>nhảy thẳng</b> tới nhãn <code>case</code> có giá trị bằng nó. Từ đó, các lệnh chạy tuần tự cho tới khi gặp <code>break</code> (thoát khỏi switch) hoặc hết switch. Không khớp case nào thì nhảy tới <code>default</code> (nếu có).</p></div>
+        <div class="code" data-snip="l13syntax"></div>
+      </section>
+
+      <section class="part">
+        <div class="part-head"><span class="num">13.2</span><h2>break và hiện tượng rơi xuống</h2></div>
+        <div class="prose"><p>Chọn giá trị của <code>n</code> và phiên bản code. Các dòng thực sự chạy được tô sáng và đánh số theo thứ tự. Ở phiên bản “quên break”, chọn <code>n = 3</code> để thấy chương trình chạy tiếp sang case 4.</p></div>
+        <div class="figure" id="run-l13"></div>
+        <div class="note"><b>Trình biên dịch giúp bạn:</b> với <code>-Wextra</code>, g++ cảnh báo <code>this statement may fall through</code> ở mỗi chỗ rơi xuống. Nếu rơi xuống là cố ý, ghi rõ bằng dòng <code>[[fallthrough]];</code> (C++17) hoặc gộp các case liền nhau như mục 13.3.</div>
+      </section>
+
+      <section class="part">
+        <div class="part-head"><span class="num">13.3</span><h2>Gộp nhiều case và default</h2></div>
+        <div class="prose"><p>Các nhãn <code>case</code> đặt liền nhau, không có lệnh ở giữa, dùng chung một đoạn code. Đây là cách dùng fall-through có chủ đích và không bị cảnh báo.</p></div>
+        <div class="code" data-snip="l13group"></div>
+      </section>
+
+      <section class="part">
+        <div class="part-head"><span class="num">13.4</span><h2>Giới hạn của switch</h2></div>
+        <div class="tbl"><table>
+          <thead><tr><th>Quy tắc</th><th>Ví dụ sai</th><th>Thông báo của g++</th></tr></thead>
+          <tbody>
+            <tr><td>Giá trị phải là số nguyên hoặc ký tự</td><td><code>switch (diem)</code> với <code>double diem</code></td><td><code>switch quantity not an integer</code></td></tr>
+            <tr><td>Nhãn case phải là hằng</td><td><code>case k:</code> với <code>int k</code></td><td><code>the value of 'k' is not usable in a constant expression</code></td></tr>
+            <tr><td>Không trùng nhãn</td><td>hai lần <code>case 1:</code></td><td><code>duplicate case value</code></td></tr>
+            <tr><td>Khai báo biến có giá trị trong case cần <code>{ }</code></td><td><code>case 1: int x = 5; … case 2:</code></td><td><code>jump to case label</code></td></tr>
+            <tr><td>Không so sánh khoảng được</td><td><code>case &gt;= 8:</code></td><td>Lỗi cú pháp: dùng <code>if</code></td></tr>
+          </tbody>
+        </table></div>
+        <div class="tbl"><table>
+          <thead><tr><th>Tình huống</th><th>Nên dùng</th></tr></thead>
+          <tbody>
+            <tr><td>So một biến với nhiều giá trị rời rạc (1, 2, 3; 'a', 'b')</td><td><code>switch</code></td></tr>
+            <tr><td>Điều kiện là khoảng (<code>diem &gt;= 8.5</code>), số thực, chuỗi, nhiều biến</td><td><code>if … else if</code></td></tr>
+          </tbody>
+        </table></div>
+      </section>
+
+      <section class="part">
+        <div class="part-head"><span class="num">13.5</span><h2>Trình mô phỏng</h2></div>
+        <div id="sim-l13"></div>
+      </section>
+      <section class="part">
+        <div class="part-head"><span class="num">13.6</span><h2>Bài tập chấm tự động</h2></div>
+        <div class="ex-grid" id="ex-l13"></div>
+      </section>
+      <section class="part">
+        <div class="part-head"><span class="num">13.7</span><h2>Kiểm tra nhanh</h2></div>
+        <div class="quiz" id="quiz13"></div><div class="score" id="score13"></div>
+      </section>
+      <div class="next">
+        <button class="btn" data-go="l12">← Bài 12</button>
+        <button class="btn pri" data-go="l14">Bài tiếp: while, do-while →</button>
+      </div>
+    </article>
+
+    <!-- ===================== LESSON 14 ===================== -->
+    <article class="col" id="view-l14" hidden>
+      <header class="hero">
+        <div class="crumb">Chương 4 · Điều khiển luồng / Bài 14</div>
+        <h1>Vòng lặp <em>while</em> và <em>do-while</em></h1>
+        <p class="lede">Máy tính mạnh nhất ở chỗ lặp lại một việc hàng triệu lần không mệt. Vòng lặp <code>while</code> lặp lại khối lệnh <b>chừng nào</b> điều kiện còn đúng; <code>do-while</code> làm trước rồi mới hỏi. Bài này dạy cách viết vòng lặp đúng, dừng đúng lúc và theo dõi nó qua bảng.</p>
+        <div class="meta"><span class="chip lv1">Cơ bản</span><span class="chip">75 phút</span><span class="chip">Bảng theo dõi vòng lặp</span><span class="chip">3 bài tập · 4 câu hỏi</span></div>
+      </header>
+      <div class="goals">
+        <h3>Sau bài này học viên có thể</h3>
+        <ul>
+          <li>Viết vòng lặp <code>while</code> với biến đếm, biến tích lũy và điều kiện dừng đúng.</li>
+          <li>Lập bảng theo dõi từng lần lặp và dự đoán số lần lặp.</li>
+          <li>Dùng <code>do-while</code> cho tình huống cần chạy ít nhất một lần, như kiểm tra dữ liệu nhập.</li>
+          <li>Nhận ra và sửa vòng lặp vô hạn và lỗi lệch một (off-by-one).</li>
+        </ul>
+      </div>
+
+      <section class="part">
+        <div class="part-head"><span class="num">14.1</span><h2>Vòng lặp while</h2></div>
+        <div class="prose"><p>Mỗi vòng: kiểm tra điều kiện; đúng thì chạy thân rồi quay lại kiểm tra; sai thì thoát và chạy lệnh sau vòng lặp. Thân vòng lặp <b>phải làm thay đổi</b> thứ gì đó trong điều kiện, nếu không vòng lặp không bao giờ dừng.</p></div>
+        <div class="loop-intro">
+          <div class="code" data-snip="l14while"></div>
+          <figure class="figure" style="margin:0">
+            <svg viewBox="0 0 300 300" role="img" aria-label="Lưu đồ vòng lặp while" style="width:100%;max-width:300px;height:auto;display:block;margin:0 auto">
+              <defs><marker id="ah14" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto"><path d="M0 0 L10 5 L0 10 z" fill="var(--muted)"/></marker></defs>
+              <rect x="90" y="10" width="120" height="34" rx="8" fill="var(--surface)" stroke="var(--line)" stroke-width="1.5"/><text x="150" y="32" text-anchor="middle" fill="var(--ink)" font-family="JetBrains Mono, monospace" font-size="12">int i = 1;</text>
+              <path d="M150 44 V66" stroke="var(--muted)" stroke-width="1.5" marker-end="url(#ah14)"/>
+              <polygon points="150,70 220,110 150,150 80,110" fill="var(--accent-soft)" stroke="var(--accent)" stroke-width="1.5"/><text x="150" y="114" text-anchor="middle" fill="var(--accent)" font-family="JetBrains Mono, monospace" font-size="12">i &lt;= 5 ?</text>
+              <path d="M150 150 V176" stroke="var(--ok)" stroke-width="1.5" marker-end="url(#ah14)"/><text x="158" y="168" fill="var(--ok)" font-family="Be Vietnam Pro, sans-serif" font-size="11">đúng</text>
+              <rect x="80" y="180" width="140" height="50" rx="8" fill="var(--ok-soft)" stroke="var(--ok)" stroke-width="1.5"/><text x="150" y="200" text-anchor="middle" fill="var(--ink)" font-family="JetBrains Mono, monospace" font-size="11.5">cout &lt;&lt; i;</text><text x="150" y="218" text-anchor="middle" fill="var(--ink)" font-family="JetBrains Mono, monospace" font-size="11.5">i++;</text>
+              <path d="M80 205 H40 V110 H76" stroke="var(--muted)" stroke-width="1.5" fill="none" marker-end="url(#ah14)"/><text x="12" y="160" fill="var(--muted)" font-family="Be Vietnam Pro, sans-serif" font-size="11">lặp lại</text>
+              <path d="M220 110 H262 V258 H214" stroke="var(--err)" stroke-width="1.5" fill="none" marker-end="url(#ah14)"/><text x="228" y="102" fill="var(--err)" font-family="Be Vietnam Pro, sans-serif" font-size="11">sai</text>
+              <rect x="90" y="242" width="120" height="34" rx="17" fill="var(--surface)" stroke="var(--line)" stroke-width="1.5"/><text x="150" y="264" text-anchor="middle" fill="var(--ink)" font-family="Be Vietnam Pro, sans-serif" font-size="12">lệnh sau vòng lặp</text>
+            </svg>
+          </figure>
+        </div>
+      </section>
+
+      <section class="part">
+        <div class="part-head"><span class="num">14.2</span><h2>Bảng theo dõi vòng lặp</h2></div>
+        <div class="prose"><p>Mỗi hàng là một lần kiểm tra điều kiện, cùng giá trị các biến lúc đó. Hàng cuối là lần điều kiện sai và vòng lặp kết thúc. Đổi giá trị đầu vào để xem số lần lặp thay đổi ra sao.</p></div>
+        <div class="figure" id="loop-l14"></div>
+      </section>
+
+      <section class="part">
+        <div class="part-head"><span class="num">14.3</span><h2>do-while: làm trước, hỏi sau</h2></div>
+        <div class="prose"><p>Với <code>do { … } while (điều_kiện);</code>, thân được chạy <b>ít nhất một lần</b> rồi mới kiểm tra điều kiện. Rất hợp cho việc hỏi lại đến khi người dùng nhập đúng: phải hỏi ít nhất một lần thì mới có dữ liệu để kiểm tra. Chú ý dấu <code>;</code> sau <code>while (…)</code>.</p></div>
+        <div class="code" data-snip="l14do"></div>
+        <div class="note"><b>So sánh:</b> trong bảng theo dõi ở mục 14.2, chọn ví dụ “while và do-while khi điều kiện sai ngay từ đầu”: <code>while</code> chạy 0 lần, <code>do-while</code> vẫn chạy 1 lần.</div>
+      </section>
+
+      <section class="part">
+        <div class="part-head"><span class="num">14.4</span><h2>Bốn mẫu vòng lặp hay dùng</h2></div>
+        <div class="tbl"><table>
+          <thead><tr><th>Mẫu</th><th>Ý tưởng</th><th>Khung code</th></tr></thead>
+          <tbody>
+            <tr><td>Đếm</td><td>Biến đếm tăng mỗi vòng, dừng khi đủ</td><td><code>int i = 1; while (i &lt;= n) { …; i++; }</code></td></tr>
+            <tr><td>Tích lũy</td><td>Cộng dồn (hoặc nhân dồn) vào một biến khởi tạo 0 (hoặc 1)</td><td><code>tong += x;</code> &nbsp; <code>tich *= x;</code></td></tr>
+            <tr><td>Tách chữ số</td><td>Lấy <code>n % 10</code>, rồi <code>n /= 10</code> cho tới khi n bằng 0</td><td><code>while (n &gt; 0) { d = n % 10; n /= 10; }</code></td></tr>
+            <tr><td>Lính canh</td><td>Đọc đến khi gặp giá trị đặc biệt (0, −1) hoặc hết dữ liệu</td><td><code>while (std::cin &gt;&gt; x &amp;&amp; x != 0) { … }</code></td></tr>
+          </tbody>
+        </table></div>
+      </section>
+
+      <section class="part">
+        <div class="part-head"><span class="num">14.5</span><h2>Vòng lặp vô hạn và lỗi lệch một</h2></div>
+        <div class="tbl"><table>
+          <thead><tr><th>Lỗi</th><th>Ví dụ</th><th>Hậu quả</th></tr></thead>
+          <tbody>
+            <tr><td>Quên cập nhật biến điều kiện</td><td><code>while (i &lt; 5) cout &lt;&lt; i;</code></td><td>In mãi không dừng</td></tr>
+            <tr><td>Dấu <code>;</code> sau while</td><td><code>while (i &lt; 5); { i++; }</code></td><td>Vòng lặp rỗng chạy mãi, khối phía sau không bao giờ tới</td></tr>
+            <tr><td>Cập nhật sai hướng</td><td><code>while (i &lt; 5) i--;</code></td><td>i càng nhỏ, điều kiện mãi đúng</td></tr>
+            <tr><td>Lệch một (off-by-one)</td><td><code>i &lt; n</code> thay vì <code>i &lt;= n</code></td><td>Thiếu (hoặc thừa) đúng một vòng</td></tr>
+          </tbody>
+        </table></div>
+        <div class="note"><b>Trong trình mô phỏng:</b> chương trình chạy quá 300 000 bước sẽ bị dừng với thông báo “Time limit exceeded”, giống cách các hệ thống chấm bài trực tuyến xử lý vòng lặp vô hạn. Trên máy thật, nhấn <kbd>Ctrl</kbd> + <kbd>C</kbd> trong terminal để dừng chương trình.</div>
+      </section>
+
+      <section class="part">
+        <div class="part-head"><span class="num">14.6</span><h2>Trình mô phỏng</h2></div>
+        <div class="prose"><p>Khi chạy, 60 bước đầu được chiếu chậm để dễ theo dõi, sau đó chương trình chạy nhanh tới cuối. Với chương trình đọc tới hết dữ liệu (<code>while (std::cin &gt;&gt; x)</code>), bấm <b>Kết thúc nhập</b> hoặc <kbd>Ctrl</kbd> + <kbd>D</kbd> trong ô nhập để báo hết dữ liệu.</p></div>
+        <div id="sim-l14"></div>
+      </section>
+      <section class="part">
+        <div class="part-head"><span class="num">14.7</span><h2>Bài tập chấm tự động</h2></div>
+        <div class="ex-grid" id="ex-l14"></div>
+      </section>
+      <section class="part">
+        <div class="part-head"><span class="num">14.8</span><h2>Kiểm tra nhanh</h2></div>
+        <div class="quiz" id="quiz14"></div><div class="score" id="score14"></div>
+      </section>
+      <div class="next">
+        <button class="btn" data-go="l13">← Bài 13</button>
+        <span class="byline"><span class="amts-logo" aria-hidden="true"></span>Tiếp theo: Vòng lặp for, break, continue</span>
       </div>
     </article>
   </main>
@@ -2087,9 +2392,9 @@ const COURSES=[
  {id:"cpp",name:"C++ Từ Nền Tảng",mono:"C++",url:"cpp/index.html",status:"open",hue:"cpp",
   desc:"Từ chương trình đầu tiên tới con trỏ, hướng đối tượng, STL và đa luồng. Có trình mô phỏng bộ nhớ chạy ngay trên web.",
   chapters:12,
-  lessons:[["l1","Chương trình C++ đầu tiên"],["l2","Cài đặt trình biên dịch & IDE"],["l3","Nhập xuất với cin / cout"],["l4","Biến, khai báo, khởi tạo"],["l5","int, double, char, bool"],["l6","Hằng số const / constexpr"],["l7","Ép kiểu và tràn số"],["l8","Toán tử số học"],["l9","So sánh và logic"],["l10","Thứ tự ưu tiên"],["l11","Toán tử bit"]],
-  exercises:["l1-0","l1-1","l1-2","l2-term",...["l3","l4","l5","l6","l7","l8","l9","l10","l11"].flatMap(l=>[0,1,2].map(i=>`${l}-${i}`))],
-  quizzes:{l1:"quiz",l2:"quiz2",l3:"quiz3",l4:"quiz4",l5:"quiz5",l6:"quiz6",l7:"quiz7",l8:"quiz8",l9:"quiz9",l10:"quiz10",l11:"quiz11"}},
+  lessons:[["l1","Chương trình C++ đầu tiên"],["l2","Cài đặt trình biên dịch & IDE"],["l3","Nhập xuất với cin / cout"],["l4","Biến, khai báo, khởi tạo"],["l5","int, double, char, bool"],["l6","Hằng số const / constexpr"],["l7","Ép kiểu và tràn số"],["l8","Toán tử số học"],["l9","So sánh và logic"],["l10","Thứ tự ưu tiên"],["l11","Toán tử bit"],["l12","if / else"],["l13","switch"],["l14","while, do-while"]],
+  exercises:["l1-0","l1-1","l1-2","l2-term",...["l3","l4","l5","l6","l7","l8","l9","l10","l11","l12","l13","l14"].flatMap(l=>[0,1,2].map(i=>`${l}-${i}`))],
+  quizzes:{l1:"quiz",l2:"quiz2",l3:"quiz3",l4:"quiz4",l5:"quiz5",l6:"quiz6",l7:"quiz7",l8:"quiz8",l9:"quiz9",l10:"quiz10",l11:"quiz11",l12:"quiz12",l13:"quiz13",l14:"quiz14"}},
  {id:"csharp",name:"C# Căn Bản",mono:"C#",url:"csharp/index.html",status:"soon",hue:"cs",
   desc:"Lập trình hướng đối tượng với .NET: kiểu dữ liệu, lớp, LINQ và ứng dụng Console thực tế.",chapters:null,lessons:[],exercises:[],quizzes:{}},
  {id:"python",name:"Python Cho Người Mới",mono:"Py",url:"python/index.html",status:"soon",hue:"py",
@@ -2229,7 +2534,7 @@ const COURSE=[
 function esc(s){return s.replace(/&/g,"&amp;").replace(/</g,"&lt;").replace(/>/g,"&gt;")}
 
 /* sidebar */
-const LESSON_MAP={"1-0":"l1","1-1":"l2","1-2":"l3","2-0":"l4","2-1":"l5","2-2":"l6","2-3":"l7","3-0":"l8","3-1":"l9","3-2":"l10","3-3":"l11"};
+const LESSON_MAP={"1-0":"l1","1-1":"l2","1-2":"l3","2-0":"l4","2-1":"l5","2-2":"l6","2-3":"l7","3-0":"l8","3-1":"l9","3-2":"l10","3-3":"l11","4-0":"l12","4-1":"l13","4-2":"l14"};
 (function(){
   let n=0,h="";
   COURSE.forEach(t=>{
@@ -2249,13 +2554,13 @@ const LESSON_MAP={"1-0":"l1","1-1":"l2","1-2":"l3","2-0":"l4","2-1":"l5","2-2":"
   COURSE.forEach(t=>{
     road+=`<section class="tier"><div class="tier-h"><span class="chip ${t.cls}">${t.tier}</span><h2>${t.note}</h2></div><div class="cards">`;
     t.chapters.forEach(c=>{k++;
-      road+=`<div class="card ${k<=3?"live":""}"><div class="top"><span class="no">Chương ${k}</span><span class="chip">${c.l.length} bài</span></div><h3>${c.t}</h3><ul>${c.l.map(x=>`<li>${esc(x)}</li>`).join("")}</ul><div class="simtag"><b>Mô phỏng</b>${c.sim}</div></div>`;
+      road+=`<div class="card ${k<=4?"live":""}"><div class="top"><span class="no">Chương ${k}</span><span class="chip">${c.l.length} bài</span></div><h3>${c.t}</h3><ul>${c.l.map(x=>`<li>${esc(x)}</li>`).join("")}</ul><div class="simtag"><b>Mô phỏng</b>${c.sim}</div></div>`;
     });
     road+=`</div></section>`;
   });
   document.getElementById("road").innerHTML=road;
 })();
-const VIEWS=["road","l1","l2","l3","l4","l5","l6","l7","l8","l9","l10","l11"];
+const VIEWS=["road","l1","l2","l3","l4","l5","l6","l7","l8","l9","l10","l11","l12","l13","l14"];
 let lastLesson="l1";
 function show(v){
   VIEWS.forEach(x=>{document.getElementById("view-"+x).hidden=x!==v});
@@ -2273,13 +2578,13 @@ document.getElementById("nav-road").onclick=()=>show("road");
 document.getElementById("nav-lesson").onclick=()=>show(lastLesson);
 document.addEventListener("click",e=>{const a=e.target.closest("[data-go]");if(a){e.preventDefault();show(a.dataset.go)}});
 document.getElementById("nav-menu").onclick=function(){const s=document.getElementById("side");s.classList.toggle("open");this.setAttribute("aria-expanded",s.classList.contains("open"))};
-{const H={"#lo-trinh":"road","#bai-1":"l1","#bai-2":"l2","#bai-3":"l3","#bai-4":"l4","#bai-5":"l5","#bai-6":"l6","#bai-7":"l7","#bai-8":"l8","#bai-9":"l9","#bai-10":"l10","#bai-11":"l11"};let v=H[location.hash];
+{const H={"#lo-trinh":"road","#bai-1":"l1","#bai-2":"l2","#bai-3":"l3","#bai-4":"l4","#bai-5":"l5","#bai-6":"l6","#bai-7":"l7","#bai-8":"l8","#bai-9":"l9","#bai-10":"l10","#bai-11":"l11","#bai-12":"l12","#bai-13":"l13","#bai-14":"l14"};let v=H[location.hash];
  if(!v){try{v=localStorage.getItem("cpp-view")}catch(e){}}
  if(VIEWS.includes(v))show(v);
  window.addEventListener("hashchange",()=>{const x=H[location.hash];if(x)show(x)});}
 
 /* ================= HIGHLIGHTER ================= */
-const KW=new Set("int return void using namespace include char double float bool if else for while const constexpr auto class struct true false long short unsigned signed sizeof static_cast".split(" "));
+const KW=new Set("int return void using namespace include char double float bool if else for while do switch case default break continue const constexpr auto class struct true false long short unsigned signed sizeof static_cast".split(" "));
 function lex(src){
   const out=[];let i=0;const n=src.length;
   while(i<n){
@@ -3069,7 +3374,7 @@ class P2{
     if(!r.main)throw new E2(-1,"undefined reference to `main'","Không tìm thấy hàm main. Mọi chương trình cần có int main() { ... }.","link");
     return r;
   }
-  block(){const st=[];while(!this.is("}")){if(this.pk().t==="eof")throw new E2(this.src.length,"expected '}' at end of input","Thiếu dấu } đóng thân hàm main.");const s=this.stmt();if(s)st.push(s)}this.nx();return st}
+  block(){const st=[];while(!this.is("}")){if(this.pk().t==="eof")throw new E2(this.src.length,"expected '}' at end of input","Thiếu dấu } đóng thân hàm main (hoặc một khối { } bên trong chưa được đóng).");const s=this.stmt();if(s)st.push(s)}this.nx();return st}
   typeStart(o=0){const k=this.pk(o);if(k.t!=="id")return false;
     if(["const","constexpr","unsigned","signed","long",...BASETYPES].includes(k.v))return true;
     if(k.v==="string")return this.pk(o+1).t==="id";
@@ -3096,9 +3401,26 @@ class P2{
   }
   stmt(){
     const k=this.pk();
-    if(this.is("{"))throw new E2(k.p,"khối lệnh lồng nhau chưa hỗ trợ","Khối lệnh { } bên trong main sẽ học ở Chương 4.");
-    if(k.t==="id"&&["if","else","while","for","do","switch"].includes(k.v))throw new E2(k.p,`'${k.v}' chưa hỗ trợ ở bài này`,"Câu lệnh điều khiển (if, vòng lặp) sẽ học ở Chương 4.");
-    if(this.is(";")){this.nx();return null}
+    if(this.is("{")){this.nx();const body=[];while(!this.is("}")){if(this.pk().t==="eof")throw new E2(this.src.length,"expected '}' at end of input","Thiếu dấu } đóng khối lệnh. Mỗi { phải có một } tương ứng.");body.push(this.stmt())}const e=this.nx();return{k:"block",body,p:k.p,e:e.p}}
+    if(this.is(";")){this.nx();return{k:"empty",p:k.p}}
+    const paren=(kw)=>{if(!this.is("("))throw new E2(this.pk().p,`expected '(' before ${this.desc(this.pk())}`,`Điều kiện của ${kw} phải đặt trong ngoặc tròn: ${kw} (điều_kiện)`);this.nx();const c=this.expr();this.expect(")",`Thiếu dấu ) đóng điều kiện của ${kw}.`);return c};
+    if(this.is("if")){this.nx();const c=paren("if");const th=this.stmt();let el=null,ep=null;if(this.is("else")){ep=this.nx().p;el=this.stmt()}return{k:"if",c,th,el,ep,p:k.p}}
+    if(this.is("else"))throw new E2(k.p,"'else' without a previous 'if'","else phải đứng ngay sau thân của một if. Kiểm tra: có dấu ; thừa sau if (...) không, hoặc thân if nhiều lệnh mà thiếu { }?");
+    if(this.is("while")){this.nx();const c=paren("while");const body=this.stmt();return{k:"while",c,body,p:k.p}}
+    if(this.is("do")){this.nx();const body=this.stmt();if(!this.is("while"))throw new E2(this.pk().p,`expected 'while' before ${this.desc(this.pk())}`,"Vòng lặp do phải kết thúc bằng: while (điều_kiện);");const wp=this.nx().p;const c=paren("while");this.expect(";","Sau while (...) của vòng do-while phải có dấu chấm phẩy ;");return{k:"do",c,body,p:k.p,cp:wp}}
+    if(this.is("for")){this.nx();this.expect("(","Cú pháp: for (khởi_tạo; điều_kiện; bước_nhảy)");
+      let init=null;if(this.is(";"))this.nx();else if(this.typeStart())init=this.stmt();else{const ip=this.pk().p;const e=this.expr();this.expect(";","Trong for (...), các phần cách nhau bằng dấu chấm phẩy ;");init={k:"expr",e,p:ip}}
+      let c=null;if(!this.is(";"))c=this.expr();this.expect(";","Trong for (...), các phần cách nhau bằng dấu chấm phẩy ; (không phải dấu phẩy).");
+      let step=null,sp=this.pk().p;if(!this.is(")"))step=this.expr();this.expect(")");const body=this.stmt();return{k:"for",init,c,step,sp,body,p:k.p}}
+    if(this.is("switch")){this.nx();const e=paren("switch");this.expect("{","Thân switch phải nằm trong { }.");const items=[];
+      while(!this.is("}")){if(this.pk().t==="eof")throw new E2(this.src.length,"expected '}' at end of input","Thiếu dấu } đóng switch.");
+        if(this.is("case")){const cp=this.nx().p;const v=this.bin(1);if(!this.is(":"))throw new E2(this.prevEnd(),`expected ':' before ${this.desc(this.pk())}`,"Sau giá trị case phải có dấu hai chấm : (ví dụ case 1:).");this.nx();items.push({k:"case",v,p:cp});continue}
+        if(this.is("default")){const dp=this.nx().p;this.expect(":","Sau default phải có dấu hai chấm :");items.push({k:"default",p:dp});continue}
+        items.push({k:"stmt",s:this.stmt()})}
+      this.nx();return{k:"switch",e,items,p:k.p}}
+    if(this.is("case")||this.is("default"))throw new E2(k.p,`case label not within a switch statement`,`${k.v} chỉ dùng bên trong switch (...) { }.`);
+    if(this.is("break")){this.nx();this.expect(";");return{k:"break",p:k.p}}
+    if(this.is("continue")){this.nx();this.expect(";");return{k:"continue",p:k.p}}
     if(this.is("return")){this.nx();const e=this.is(";")?null:this.expr();this.expect(";");return{k:"ret",e,p:k.p}}
     if(this.typeStart()){const ty=this.type();const items=[];
       for(;;){const nm=this.pk();
@@ -3168,7 +3490,11 @@ const MACRO={INT_MAX:[2147483647,"int"],INT_MIN:[-2147483648,"int"],CHAR_MAX:[12
 const CMP=["==","!=","<","<=",">",">="];
 const CMATH={sqrt:1,pow:2,abs:1,round:1,floor:1,ceil:1,trunc:1,fmod:2};
 function check2(prog,src,inc){
-  const sc=new Map(),warns=[],allDecl=new Map(),warned=new Set();
+  const sc=new Map(),warns=[],allDecl=new Map(),warned=new Set(),gone=new Map();
+  const frames=[{names:new Set(),prev:[]}];
+  const enter=()=>frames.push({names:new Set(),prev:[]});
+  const leave=()=>{const f=frames.pop();for(const n of f.names)gone.set(n,sc.get(n).p);for(const [n,old] of f.prev.reverse()){if(old)sc.set(n,old);else sc.delete(n)}};
+  const declare=(n,info)=>{const f=frames[frames.length-1];f.names.add(n);f.prev.push([n,sc.get(n)]);sc.set(n,info)};
   const lineOf=p=>src.slice(0,p).split("\n").length;
   prog.main.forEach(s=>{if(s.k==="decl")s.items.forEach(it=>{if(!allDecl.has(it.name))allDecl.set(it.name,it.p)})});
   const has=h=>inc.has(h)||(h==="string"&&inc.has("iostream"));
@@ -3182,6 +3508,7 @@ function check2(prog,src,inc){
     if(S){stdq(e.n,e.q,e.p);need(S.h,e.p,"std::"+e.n);e.r="std";return S.t}
     if(e.q)throw new E2(e.p,`'${e.n}' is not a member of 'std'`,`std không có thành phần nào tên ${e.n}.`);
     if(MACRO[e.n]){need("climits",e.p,e.n);e.r="macro";return MACRO[e.n][1]}
+    if(gone.has(e.n))throw new E2(e.p,`'${e.n}' was not declared in this scope`,`Biến ${e.n} được khai báo bên trong một khối { } (dòng ${lineOf(gone.get(e.n))}) nên chỉ tồn tại trong khối đó. Muốn dùng sau khối, hãy khai báo nó ở bên ngoài, trước khối.`);
     if(allDecl.has(e.n)&&allDecl.get(e.n)>e.p)throw new E2(e.p,`'${e.n}' was not declared in this scope`,`Biến ${e.n} được dùng trước dòng khai báo (dòng ${lineOf(allDecl.get(e.n))}). Phải khai báo trước rồi mới dùng.`);
     const ci=[...sc.keys()].find(k=>k.toLowerCase()===e.n.toLowerCase());
     if(ci)throw new E2(e.p,`'${e.n}' was not declared in this scope; did you mean '${ci}'?`,`C++ phân biệt chữ hoa và chữ thường: bạn đã khai báo ${ci}, không phải ${e.n}.`);
@@ -3289,11 +3616,52 @@ function check2(prog,src,inc){
         const nm=mods.filter(x=>x.n===m.n).length,nr=reads.filter(r=>r===m.n).length;
         if(nm>=2||(m.inc&&nr>=1)){done.add(m.n);warns.push({p:m.p,msg:`operation on '${m.n}' may be undefined [-Wsequence-point]`,vi:`Biến ${m.n} vừa bị thay đổi (++, --, gán) vừa được dùng ở chỗ khác trong cùng một biểu thức. C++ không quy định thứ tự tính nên kết quả tùy trình biên dịch. Hãy tách thành nhiều câu lệnh.`})}}};
     go(root,true)}
-  for(const s of prog.main){
+  let loopD=0,swD=0;
+  const constVal=e=>{switch(e.k){case "num":return INTG.has(e.t)?e.v:undefined;case "chr":case "bool":return e.v;
+    case "name":{const V=sc.get(e.n);return V&&V.cv!==undefined?V.cv:undefined}
+    case "un":{const a=constVal(e.a);if(a===undefined)return;return e.op==="-"?-a:e.op==="~"?~a:e.op==="!"?(a?0:1):a}
+    case "bin":{const a=constVal(e.a),b=constVal(e.b);if(a===undefined||b===undefined)return;
+      const M={"+":a+b,"-":a-b,"*":a*b,"/":b?Math.trunc(a/b):undefined,"%":b?a%b:undefined,"<<":a<<b,">>":a>>b,"&":a&b,"|":a|b,"^":a^b};return M[e.op]}
+    default:return}};
+  const condCheck=(e,kw)=>{const t=tc(e);
+    if(!isNumT(t)&&t!=="istream"&&t!=="ostream")throw new E2(e.p,`could not convert '${tn(t)}' to 'bool'`,`Điều kiện của ${kw} phải cho kết quả đúng/sai (hoặc một số). Ví dụ: ${kw} (s == "abc").`);
+    if(e.k==="as"&&e.op==="="&&!e.paren)warns.push({p:e.p,msg:"suggest parentheses around assignment used as truth value [-Wparentheses]",vi:"Bạn đang GÁN (=) chứ không phải SO SÁNH (==). Biểu thức gán có giá trị là số vừa gán, nên điều kiện gần như luôn đúng và biến bị đổi giá trị. Hãy viết ==."});
+    seqCheck(e)};
+  const isEmpty=s=>s&&s.k==="empty";
+  const sub=s=>{if(s.k==="decl"){enter();chk(s);leave()}else chk(s)};
+  function chk(s){switch(s.k){
+    case "empty":return;
+    case "block":enter();s.body.forEach(chk);leave();return;
+    case "if":condCheck(s.c,"if");
+      if(isEmpty(s.th))warns.push({p:s.th.p,msg:"suggest braces around empty body in an 'if' statement [-Wempty-body]",vi:"Dấu ; ngay sau if (...) tạo ra một câu lệnh rỗng: if không điều khiển gì cả, các lệnh phía sau luôn chạy. Xóa dấu ; này."});
+      if(!s.el&&s.th.k==="if"&&s.th.el)warns.push({p:s.p,msg:"suggest explicit braces to avoid ambiguous 'else' [-Wdangling-else]",vi:"else luôn thuộc về if GẦN NHẤT phía trên (if bên trong), không phải if bên ngoài như cách thụt lề gợi ý. Dùng { } để nói rõ else thuộc if nào."});
+      sub(s.th);if(s.el){if(isEmpty(s.el))warns.push({p:s.el.p,msg:"suggest braces around empty body in an 'else' statement [-Wempty-body]",vi:"Dấu ; ngay sau else tạo ra câu lệnh rỗng."});sub(s.el)}return;
+    case "while":condCheck(s.c,"while");loopD++;sub(s.body);loopD--;return;
+    case "do":loopD++;sub(s.body);loopD--;condCheck(s.c,"while");return;
+    case "for":enter();if(s.init)chk(s.init);if(s.c)condCheck(s.c,"for");if(s.step){tc(s.step);seqCheck(s.step)}loopD++;sub(s.body);loopD--;leave();return;
+    case "switch":{const t=tc(s.e);
+      if(!INTG.has(t))throw new E2(s.e.p,"switch quantity not an integer",t==="string"||t==="cstr"?"switch chỉ dùng với số nguyên hoặc ký tự (char), không dùng với chuỗi. Với chuỗi, dùng if ... else if.":"switch chỉ dùng với số nguyên hoặc ký tự (char). Với số thực, dùng if ... else if.");
+      enter();swD++;const seen=new Map();let hasDef=false,crossed=null,lastTerm=true,started=false;
+      s.items.forEach((it,idx)=>{
+        if(it.k==="case"||it.k==="default"){
+          if(crossed)throw new E2(it.p,"jump to case label",`Biến ${crossed.n} (dòng ${lineOf(crossed.p)}) được khai báo kèm giá trị ngay trong switch, nên nhảy tới nhãn này sẽ bỏ qua việc khởi tạo nó. Hãy đặt các lệnh của case trong cặp { }.`);
+          if(started&&!lastTerm)warns.push({p:it.p,msg:"this statement may fall through [-Wimplicit-fallthrough=]",vi:"case phía trên không có break, nên chương trình chạy tiếp xuống case này (fall-through). Nếu cố ý, thêm chú thích [[fallthrough]];. Nếu không, thêm break;"});
+          lastTerm=true;
+          if(it.k==="default"){if(hasDef)throw new E2(it.p,"multiple default labels in one switch","Mỗi switch chỉ có một default.");hasDef=true;return}
+          const vt=tc(it.v);const v=constVal(it.v);
+          if(!INTG.has(vt)||v===undefined){const bad=it.v.k==="name"?it.v.n:null;throw new E2(it.v.p,bad?`the value of '${bad}' is not usable in a constant expression`:vt==="cstr"?"case label does not reduce to an integer constant":"case label does not reduce to an integer constant",bad?`Giá trị sau case phải là hằng biết lúc biên dịch (số, ký tự 'A', hoặc hằng constexpr). ${bad} là biến thường.`:"Giá trị sau case phải là hằng số nguyên hoặc ký tự, ví dụ case 3: hay case 'A':")}
+          const w=wrapTo(promo(t,t),v);if(seen.has(w))throw new E2(it.p,`duplicate case value`,`Giá trị ${v} đã có ở case dòng ${lineOf(seen.get(w))}. Mỗi giá trị chỉ được xuất hiện một lần.`);seen.set(w,it.p);it.cv=w;return}
+        started=true;const st=it.s;chk(st);
+        if(st.k==="decl"&&st.items.some(x=>x.init&&x.init.e))crossed={n:st.items[0].name,p:st.items[0].p};
+        const term=x=>["break","ret","continue"].includes(x.k)||(x.k==="block"&&x.body.length>0&&term(x.body[x.body.length-1]));lastTerm=term(st)});
+      swD--;leave();return}
+    case "break":if(!loopD&&!swD)throw new E2(s.p,"break statement not within loop or switch","break chỉ dùng bên trong vòng lặp hoặc switch.");return;
+    case "continue":if(!loopD)throw new E2(s.p,"continue statement not within a loop","continue chỉ dùng bên trong vòng lặp (while, do-while, for).");return;
+  }
     if(s.k==="decl"){
       if(s.ty.needStd&&!prog.using)throw new E2(s.ty.p,"'string' was not declared in this scope; did you mean 'std::string'?","string nằm trong std. Viết std::string, hoặc dùng using namespace std;");
       for(const it of s.items){
-        if(sc.has(it.name)){const V=sc.get(it.name);throw new E2(it.p,`redeclaration of '${tn(V.t)} ${it.name}'`,`Biến ${it.name} đã khai báo ở dòng ${lineOf(V.p)}. Mỗi tên chỉ khai báo một lần; muốn đổi giá trị thì gán: ${it.name} = ...;`)}
+        if(frames[frames.length-1].names.has(it.name)){const V=sc.get(it.name);throw new E2(it.p,`redeclaration of '${tn(V.t)} ${it.name}'`,`Biến ${it.name} đã khai báo ở dòng ${lineOf(V.p)}. Mỗi tên chỉ khai báo một lần; muốn đổi giá trị thì gán: ${it.name} = ...;`)}
         let t=s.ty.t;
         if(it.init&&it.init.e){const R=tc(it.init.e);const ie=it.init.e;
           if(t==="auto"){if(R==="cstr")throw new E2(it.p,"auto với chuỗi hằng chưa hỗ trợ","auto x = \"...\" cho kiểu const char*, không phải std::string. Hãy ghi rõ std::string.");if(!isNumT(R)&&R!=="string")throw new E2(it.p,`unable to deduce 'auto' from '${tn(R)}'`,"auto không suy ra được kiểu từ giá trị này.");t=R}
@@ -3313,44 +3681,102 @@ function check2(prog,src,inc){
           const bad=ceBad(it.init.e);
           if(bad)throw new E2(bad.p,bad.k==="name"?`the value of '${bad.n}' is not usable in a constant expression`:`call to non-'constexpr' function`,bad.k==="name"?`constexpr chỉ nhận giá trị biết được lúc biên dịch. ${bad.n} là biến thường${sc.get(bad.n)&&!sc.get(bad.n).c?"":""}, giá trị chỉ có khi chương trình chạy. Dùng const nếu chỉ cần “không đổi sau khi gán”.`:"Giá trị này chỉ tính được khi chương trình chạy, không dùng cho constexpr được.")}
         if(it.init&&it.init.e)seqCheck(it.init.e);
-        it.t=t;sc.set(it.name,{t,c:s.ty.c,ce:!!s.ty.ce,init:!!it.init||t==="string",p:it.p});
+        it.t=t;const cv=s.ty.c&&it.init&&it.init.e&&INTG.has(t)?constVal(it.init.e):undefined;
+        declare(it.name,{t,c:s.ty.c,ce:!!s.ty.ce,init:!!it.init||t==="string",p:it.p,cv});
       }
     }else if(s.k==="expr"){tc(s.e);seqCheck(s.e)}
     else if(s.k==="ret"&&s.e){const t=tc(s.e);if(!isNumT(t))throw new E2(s.e.p,`invalid conversion from '${tn(t)}' to 'int'`,"main phải trả về một số nguyên.")}
   }
+  prog.main.forEach(chk);
   return warns;
 }
-function compile2(src){const {toks,inc}=lex2(src);const prog=new P2(toks,src).program();prog.inc=inc;const warns=check2(prog,src,inc);return{prog,warns}}
+function mayRead(n){if(!n||typeof n!=="object")return false;if((n.k==="bin"&&n.io==="in")||(n.k==="call"&&n.f==="getline")||(n.k==="mc"&&n.m==="ignore"))return true;
+  for(const k of ["a","b","c","e","o"])if(n[k]&&typeof n[k]==="object"&&mayRead(n[k]))return true;
+  if(n.items)for(const it of n.items)if(it.init&&it.init.e&&mayRead(it.init.e))return true;
+  if(n.args)for(const x of n.args)if(mayRead(x))return true;return false}
+/* biên dịch cây câu lệnh thành danh sách lệnh phẳng có lệnh nhảy */
+function genCode(stmts){
+  const code=[],loops=[];let depth=0;
+  const emit=x=>{code.push(x);return code.length-1};
+  const patch=(arr,to)=>arr.forEach(i=>code[i].to=to);
+  function sub(s){if(s.k==="block"){blockOf(s)}else if(s.k==="decl"){emit({op:"enter"});depth++;st(s);emit({op:"leave",p:s.p});depth--}else st(s)}
+  function blockOf(s){emit({op:"enter"});depth++;s.body.forEach(st);emit({op:"leave",p:s.e});depth--}
+  function st(s){switch(s.k){
+    case "decl":case "expr":case "ret":emit({op:"stmt",s,p:s.p});return;
+    case "empty":return;
+    case "block":blockOf(s);return;
+    case "if":{const j=emit({op:"jf",e:s.c,p:s.p,kw:"if"});sub(s.th);
+      if(s.el){const j2=emit({op:"jmp"});code[j].to=code.length;sub(s.el);code[j2].to=code.length}else code[j].to=code.length;return}
+    case "while":{const top=code.length;const j=emit({op:"jf",e:s.c,p:s.p,kw:"while"});const L={brk:[],cont:[],depth};loops.push(L);
+      sub(s.body);emit({op:"jmp",to:top});loops.pop();code[j].to=code.length;patch(L.brk,code.length);patch(L.cont,top);return}
+    case "do":{const top=code.length;const L={brk:[],cont:[],depth};loops.push(L);sub(s.body);const ca=code.length;
+      emit({op:"jt",e:s.c,to:top,p:s.cp,kw:"do-while"});loops.pop();patch(L.brk,code.length);patch(L.cont,ca);return}
+    case "for":{emit({op:"enter"});depth++;if(s.init)st(s.init);const top=code.length;
+      const j=s.c?emit({op:"jf",e:s.c,p:s.p,kw:"for"}):null;const L={brk:[],cont:[],depth};loops.push(L);sub(s.body);const ca=code.length;
+      if(s.step)emit({op:"stmt",s:{k:"expr",e:s.step,p:s.sp},p:s.sp,forStep:true});emit({op:"jmp",to:top});loops.pop();
+      const end=code.length;if(j!==null)code[j].to=end;patch(L.brk,end);patch(L.cont,ca);emit({op:"leave",p:s.p});depth--;return}
+    case "switch":{emit({op:"enter"});depth++;const sw=emit({op:"switch",e:s.e,p:s.p,cases:[],def:null});const L={brk:[],sw:true,depth};loops.push(L);
+      for(const it of s.items){if(it.k==="case")code[sw].cases.push({v:it.cv,to:code.length});else if(it.k==="default")code[sw].def=code.length;else st(it.s)}
+      loops.pop();const end=code.length;if(code[sw].def===null)code[sw].def=end;patch(L.brk,end);emit({op:"leave",p:s.p});depth--;return}
+    case "break":{const L=loops[loops.length-1];L.brk.push(emit({op:"jmp",pops:depth-L.depth,p:s.p,vis:"break"}));return}
+    case "continue":{let k=loops.length-1;while(loops[k].sw)k--;const L=loops[k];L.cont.push(emit({op:"jmp",pops:depth-L.depth,p:s.p,vis:"continue"}));return}
+  }}
+  stmts.forEach(st);return code;
+}
+function compile2(src){const {toks,inc}=lex2(src);const prog=new P2(toks,src).program();prog.inc=inc;const warns=check2(prog,src,inc);prog.code=genCode(prog.main);return{prog,warns}}
 
 /* ---------- máy chạy ---------- */
 const LIM={int:[2147483647,-2147483648],"long long":[9223372036854775807,-9223372036854775808],short:[32767,-32768],char:[127,-128],unsigned:[4294967295,0],bool:[1,0],double:[1.7976931348623157e308,2.2250738585072014e-308],float:[3.4028234663852886e38,1.1754943508222875e-38]};
 class M2{
   constructor(prog,src,{input="",interactive=true}={}){
-    this.src=src;this.st=prog.main;this.i=0;this.vars=new Map();this.order=[];this.buf=input;this.pos=0;
+    this.src=src;this.st=prog.code||genCode(prog.main);this.i=0;this.vars=new Map();this.order=[];this.buf=input;this.pos=0;
     this.failed=false;this.eof=false;this.out=[];this.fmt={fixed:false,prec:6,ba:false,w:0,left:false};
     this.inter=interactive;this.done=false;this.exit=0;this.addr=0x7ffd5c50;this.reads=[];this.notes=[];this.crash=null;
+    this.frames=[];this.count=0;this.outLen=0;this.eofIn=false;this.last=null;this.flush();
   }
+  static LIMIT=300000;
+  scopeLeave(){const f=this.frames.pop();if(!f)return;
+    for(const n of f.names){this.vars.delete(n);const k=this.order.lastIndexOf(n);if(k>=0)this.order.splice(k,1)}
+    for(const [n,V,idx] of f.shadow.reverse()){this.vars.set(n,V);this.order.splice(Math.min(idx,this.order.length),0,n)}
+    this.addr=f.addr}
+  flush(){let g=0;while(this.i<this.st.length&&g++<100000){const I=this.st[this.i];
+      if(I.op==="enter"){this.frames.push({names:[],shadow:[],addr:this.addr});this.i++}
+      else if(I.op==="leave"){this.scopeLeave();this.i++}
+      else if(I.op==="jmp"&&!I.vis){for(let k=0;k<(I.pops||0);k++)this.scopeLeave();this.i=I.to}
+      else break}}
+  truth(x){return x.t==="ostream"||x.t==="istream"?!this.failed:!!x.v}
+  run(I){switch(I.op){
+    case "stmt":this.exec(I.s);this.i++;return;
+    case "jf":{const c=this.truth(this.ev(I.e));this.i=c?this.i+1:I.to;return c}
+    case "jt":{const c=this.truth(this.ev(I.e));this.i=c?I.to:this.i+1;return c}
+    case "switch":{const v=this.ev(I.e).v;const k=I.cases.find(x=>x.v===v);this.i=k?k.to:I.def;return{sw:v,hit:!!k}}
+    case "jmp":for(let k=0;k<(I.pops||0);k++)this.scopeLeave();this.i=I.to;return;
+  }}
   line(p){return this.src.slice(0,Math.max(0,p)).split("\n").length}
   nextLine(){return this.i<this.st.length?this.line(this.st[this.i].p):0}
-  write(s){if(!s)return;const L=this.out[this.out.length-1];if(L&&L.k==="o")L.s+=s;else this.out.push({k:"o",s})}
+  write(s){if(!s)return;this.outLen+=s.length;if(this.outLen>200000)throw new RunErr("Output limit exceeded","Chương trình in ra quá nhiều (hơn 200 000 ký tự), có thể do vòng lặp vô hạn.",124);const L=this.out[this.out.length-1];if(L&&L.k==="o")L.s+=s;else this.out.push({k:"o",s})}
   feed(line){this.buf+=line+"\n";this.out.push({k:"i",s:line+"\n"})}
   text(){return this.out.filter(x=>x.k==="o").map(x=>x.s).join("")}
   step(){
     if(this.done)return{s:"done"};
     if(this.i>=this.st.length){this.done=true;return{s:"done"}}
-    const S=this.st[this.i];
-    const snap=structuredClone({vars:this.vars,order:this.order,pos:this.pos,failed:this.failed,eof:this.eof,out:this.out,fmt:this.fmt,addr:this.addr,reads:this.reads,notes:this.notes});
+    const I=this.st[this.i];
+    if(++this.count>M2.LIMIT){this.done=true;this.crash=new RunErr("Time limit exceeded","Chương trình đã chạy hơn 300 000 bước mà chưa dừng. Gần như chắc chắn là vòng lặp vô hạn: điều kiện lặp không bao giờ trở thành sai (quên tăng biến đếm, hoặc dấu ; thừa sau while).",124);this.exit=124;return{s:"crash",line:this.line(I.p)}}
+    const needSnap=this.inter&&(I.rd??=mayRead(I.s||I.e));
+    const snap=needSnap?structuredClone({vars:this.vars,order:this.order,pos:this.pos,failed:this.failed,eof:this.eof,out:this.out,fmt:this.fmt,addr:this.addr,reads:this.reads,notes:this.notes,frames:this.frames,outLen:this.outLen}):null;
     const before=new Map([...this.vars].map(([k,v])=>[k,v.v+"|"+v.init]));
-    try{this.exec(S)}catch(x){
-      if(x instanceof NeedIn){Object.assign(this,snap);return{s:"need",line:this.line(S.p)}}
-      if(x instanceof RunErr){this.done=true;this.crash=x;this.exit=x.code;return{s:"crash",line:this.line(S.p)}}
+    let cond;
+    try{cond=this.run(I)}catch(x){
+      if(x instanceof NeedIn){Object.assign(this,snap);this.count--;return{s:"need",line:this.line(I.p)}}
+      if(x instanceof RunErr){this.done=true;this.crash=x;this.exit=x.code;return{s:"crash",line:this.line(I.p)}}
       throw x}
-    this.i++;
+    this.last=I;
+    if(I.op==="stmt"&&I.s.k==="ret")this.done=true;else this.flush();
+    if(this.i>=this.st.length)this.done=true;
     const ch=new Set();this.vars.forEach((v,k)=>{if(before.get(k)!==v.v+"|"+v.init)ch.add(k)});
-    if(S.k==="ret")this.done=true;
-    return{s:this.done?"done":"ran",line:this.line(S.p),ch};
+    return{s:this.done?"done":"ran",line:this.line(I.p),ch,cond,op:I.op,kw:I.kw||I.vis};
   }
-  runAll(max=20000){let r;for(let k=0;k<max;k++){r=this.step();if(r.s!=="ran")break}return r}
+  runAll(max=M2.LIMIT+5){let r;for(let k=0;k<max;k++){r=this.step();if(r.s!=="ran")break}return r}
   garbage(t){const g=[32767,21845,-858993460,4199040,32764,-1530494976,1,22015][((this.addr>>>2)+this.order.length)%8];
     if(isFlT(t))return t==="float"?Math.fround(4.59163e-41):6.9533558078350043e-310;if(t==="bool")return 1;return wrapTo(t,g)}
   exec(S){
@@ -3359,6 +3785,8 @@ class M2{
         else if(it.init||t==="string")v=t==="string"?"":0;
         else{v=this.garbage(t);init=false}
         const sz=SIZES[t];this.addr-=sz;this.addr-=this.addr%Math.min(sz,8);
+        const F=this.frames[this.frames.length-1];
+        if(F){if(this.vars.has(it.name)&&!F.names.includes(it.name))F.shadow.push([it.name,this.vars.get(it.name),this.order.indexOf(it.name)]);if(this.vars.has(it.name)){const k=this.order.indexOf(it.name);if(k>=0)this.order.splice(k,1)}F.names.push(it.name)}
         this.vars.set(it.name,{t,v,init,c:S.ty.c,ce:S.ty.ce,addr:this.addr});this.order.push(it.name)}
       return}
     if(S.k==="expr"){this.ev(S.e);return}
@@ -3459,7 +3887,7 @@ class M2{
     if(t==="bool")return this.fmt.ba?(r.v?"true":"false"):String(r.v);
     if(isFlT(t))return this.fmt.fixed?ffmt(r.v,this.fmt.prec):gfmt(r.v,this.fmt.prec);
     return llStr(r.v)}
-  needOrEof(){if(this.inter)throw new NeedIn();this.eof=true}
+  needOrEof(){if(this.inter&&!this.eofIn)throw new NeedIn();this.eof=true}
   read(n){const V=this.vars.get(n);if(this.failed)return;const t=V.t;
     while(this.pos<this.buf.length&&/\s/.test(this.buf[this.pos]))this.pos++;
     if(this.pos>=this.buf.length){this.needOrEof();this.failed=true;if(isNumT(t)){V.v=0;V.init=true}this.reads.push({n,a:this.pos,b:this.pos,ok:false});return}
@@ -3479,7 +3907,7 @@ class M2{
     V.init=true;this.reads.push({n,a:start,b:this.pos,ok:true,line:true})}
   ignore(cnt,delim){if(this.failed)return;const start=this.pos;
     if(this.pos>=this.buf.length){this.needOrEof();return}
-    let k=0;while(k<cnt){if(this.pos>=this.buf.length){if(this.inter)throw new NeedIn();this.eof=true;break}const c=this.buf[this.pos++];k++;if(delim>=0&&c.charCodeAt(0)===delim)break}
+    let k=0;while(k<cnt){if(this.pos>=this.buf.length){if(this.inter&&!this.eofIn)throw new NeedIn();this.eof=true;break}const c=this.buf[this.pos++];k++;if(delim>=0&&c.charCodeAt(0)===delim)break}
     this.reads.push({n:"(ignore)",a:start,b:this.pos,ok:true,ign:true})}
 }
 function fmtE2(src,err,warn){
@@ -3560,25 +3988,28 @@ function makeSim2(root,cfg){
     let h=S.head;if(M)h+=M.out.map(x=>x.k==="i"?`<span class="in">${esc(x.s)}</span>`:esc(x.s)).join("");h+=S.tail;
     con.innerHTML=h;
     if(S.waiting){const i=document.createElement("input");i.className="con-in";i.id=cfg.id+"-cin";i.setAttribute("aria-label","Nhập dữ liệu cho chương trình");i.autocomplete="off";i.spellcheck=false;
-      i.addEventListener("keydown",e=>{if(e.key==="Enter"){e.preventDefault();const w=S.waiting;S.waiting=null;S.M.feed(i.value);w()}});
+      i.addEventListener("keydown",e=>{if(e.key==="Enter"){e.preventDefault();const w=S.waiting;S.waiting=null;S.M.feed(i.value);w()}
+        else if((e.key==="d"||e.key==="z")&&e.ctrlKey){e.preventDefault();const w=S.waiting;S.waiting=null;S.M.eofIn=true;w()}});
+      const eb=document.createElement("button");eb.className="eof-btn";eb.type="button";eb.textContent="Kết thúc nhập (Ctrl+D)";eb.title="Báo cho chương trình là đã hết dữ liệu nhập (EOF)";
+      eb.onclick=()=>{const w=S.waiting;if(!w)return;S.waiting=null;S.M.eofIn=true;w()};con.appendChild(eb);
       con.appendChild(i);i.focus({preventScroll:true})}
     con.scrollTop=con.scrollHeight}
-  function renderAll(){paint();renderMem();renderBuf();renderCon();root.querySelector(".s-line").textContent=S.cur&&S.M&&!S.M.done?`dòng ${S.cur}`:"";keepCur()}
+  function renderAll(){paint();renderMem();renderBuf();renderCon();root.querySelector(".s-line").textContent=(S.cur&&S.M&&!S.M.done?`dòng ${S.cur}`:"")+(S.cond&&S.M&&!S.M.done?` · ${S.cond}`:"");keepCur()}
   function reset(){S.tok++;S.M=null;S.cur=0;S.waiting=null;S.head="";S.tail="";S.ch=new Set();exp.hidden=true;btnStep.textContent="Từng bước";root.querySelector(".s-exit").textContent="";renderAll()}
   function load(i){const p=cfg.presets[i];ed.value=p.code;inp.value=p.input||"";ed.scrollTop=0;S.bad=0;reset();
     if(p.input)fitIn()}
   function fitIn(){inp.rows=Math.min(4,Math.max(1,inp.value.split("\n").length))}
   function compileStart(){
-    S.tok++;S.waiting=null;S.bad=0;S.ch=new Set();exp.hidden=true;root.querySelector(".s-exit").textContent="";
+    S.tok++;S.waiting=null;S.bad=0;S.ch=new Set();S.cond="";S.fast=false;exp.hidden=true;root.querySelector(".s-exit").textContent="";
     const src=ed.value;
     try{const c=compile2(src);S.warns=c.warns;
-      S.head='<span class="sys">$ g++ -Wall main.cpp -o main</span>\n'+c.warns.map(w=>fmtE2(src,w,true)+"\n").join("")+'<span class="sys">$ ./main</span>\n';S.tail="";
+      S.head='<span class="sys">$ g++ -Wall -Wextra main.cpp -o main</span>\n'+c.warns.map(w=>fmtE2(src,w,true)+"\n").join("")+'<span class="sys">$ ./main</span>\n';S.tail="";
       S.M=new M2(c.prog,src,{input:inp.value?inp.value.replace(/\r/g,"")+(inp.value.endsWith("\n")?"":"\n"):"",interactive:true});
       if(!inp.value)S.M.buf="";
       return true}
     catch(err){if(!(err instanceof E2))throw err;S.M=null;
       const ln=err.p<0?0:ed.value.slice(0,err.p).split("\n").length;S.bad=err.kind==="link"?0:ln;S.cur=0;
-      S.head='<span class="sys">$ g++ -Wall main.cpp -o main</span>\n'+(err.kind==="link"?"":"main.cpp: In function 'int main()':\n")+fmtE2(src,err);S.tail="";
+      S.head='<span class="sys">$ g++ -Wall -Wextra main.cpp -o main</span>\n'+(err.kind==="link"?"":"main.cpp: In function 'int main()':\n")+fmtE2(src,err);S.tail="";
       renderAll();
       exp.hidden=false;exp.className="explain";exp.innerHTML=`<b>${err.kind==="link"?"Lỗi liên kết":"Lỗi biên dịch"}${S.bad?` ở dòng ${S.bad}`:""}</b><span>${esc(err.vi)}</span>`;
       root.querySelector(".s-exit").textContent="không tạo được file chạy";
@@ -3604,19 +4035,21 @@ function makeSim2(root,cfg){
   function waitInput(){return new Promise(res=>{S.waiting=res;renderAll()})}
   async function run(){
     if(!compileStart())return;const tok=S.tok;S.mode="run";renderAll();
-    for(let k=0;k<5000;k++){
+    for(let k=0;;k++){
       if(tok!==S.tok)return;
-      const r=S.M.step();S.ch=r.ch||new Set();S.cur=r.line||0;
+      const r=S.M.step();S.ch=r.ch||new Set();S.cur=r.line||0;noteCond(r);
       if(r.s==="need"){renderAll();await waitInput();if(tok!==S.tok)return;continue}
       if(r.s!=="ran"){finish(r);return}
-      renderAll();await sleep(110)}
+      if(k<60){renderAll();await sleep(k<30?110:40)}
+      else if(k%2000===0){S.fast=true;renderAll();await sleep(0)}}
   }
+  function noteCond(r){if(r&&r.cond!==undefined&&r.op){S.cond=r.op==="switch"?`switch dòng ${r.line}: giá trị ${r.cond.sw}${r.cond.hit?"":" → default"}`:`${r.kw} dòng ${r.line}: ${r.cond?"đúng":"sai"}`}else if(r&&r.kw&&(r.kw==="break"||r.kw==="continue"))S.cond=`${r.kw} dòng ${r.line}`}
   async function step(){
     if(S.waiting)return;
     if(!S.M||S.M.done||S.mode!=="step"){if(!compileStart())return;S.mode="step";S.cur=S.M.nextLine();btnStep.textContent="Bước tiếp →";renderAll();if(!S.cur)finish({s:"done"});return}
     const tok=S.tok;let r=S.M.step();
     if(r.s==="need"){S.cur=r.line;renderAll();await waitInput();if(tok!==S.tok)return;r=S.M.step()}
-    S.ch=r.ch||new Set();
+    S.ch=r.ch||new Set();noteCond(r);
     if(r.s==="ran"){S.cur=S.M.nextLine();renderAll();if(!S.cur)finish({s:"done"})}
     else if(r.s==="need"){S.cur=r.line;renderAll();step()}
     else finish(r)}
@@ -3695,7 +4128,7 @@ function makeLineStepper(el,variants){
     el.querySelector(".ls-cap").innerHTML=v.caps[k]||"";
     el.querySelector(".ls-k").textContent=`Bước ${k} / ${v.caps.length-1}`;
     el.querySelector(".ls-next").disabled=M.done||k>=v.caps.length-1}
-  el.querySelector(".ls-next").onclick=()=>{let r;do{r=M.step()}while(r.s==="ran"&&M.st[M.i-1].k==="decl");k++;render()};
+  el.querySelector(".ls-next").onclick=()=>{let r;do{r=M.step()}while(r.s==="ran"&&M.last&&M.last.s&&M.last.s.k==="decl");k++;render()};
   el.querySelector(".ls-reset").onclick=start;
   el.querySelectorAll("[data-v]").forEach(b=>b.onclick=()=>{vi=+b.dataset.v;el.querySelectorAll("[data-v]").forEach(x=>x.setAttribute("aria-pressed",x===b));start()});
   start();
@@ -5335,8 +5768,672 @@ makeQuiz("quiz11","score11",[
  {q:"<code>5 &lt;&lt; 3</code> bằng?",o:["15","40","8","125"],a:1,e:"Dịch trái 3 bit = nhân 2³ = 8: 5 × 8 = 40."},
  {q:"Với n = 6, <code>n &amp; 1 == 0</code> bằng?",o:["1 (n chẵn)","0","6","Lỗi"],a:1,e:"== tính trước &: n & (1 == 0) = 6 & 0 = 0. Phải viết (n & 1) == 0."}
 ]);
+/* ================= WIDGET + DỮ LIỆU BÀI 12–14 ================= */
+/* Lưu đồ xếp loại sáng theo đường chạy */
+function makeFlowIf(el){
+  const CODE=`double diem;
+std::cin >> diem;
+if (diem >= 8.5) {
+    std::cout << "Giỏi";
+} else if (diem >= 7.0) {
+    std::cout << "Khá";
+} else if (diem >= 5.0) {
+    std::cout << "Trung bình";
+} else {
+    std::cout << "Yếu";
+}`;
+  el.innerHTML=`<label class="lab-f fl-slider"><span>diem =</span><input type="range" id="fi-d" min="0" max="10" step="0.1" value="7.6" aria-label="Điểm"><output id="fi-o">7.6</output></label>
+    <div class="fi-body"><div class="fi-svg" id="fi-svg"></div><div><div class="code fi-code" id="fi-code"></div><div class="fi-log" id="fi-log" aria-live="polite"></div></div></div>`;
+  const N={start:[280,26,"Bắt đầu","oval"],inp:[280,84,"Nhập diem","io"],d1:[280,166,"diem >= 8.5 ?","dia"],r1:[478,166,"Giỏi","box"],d2:[280,262,"diem >= 7.0 ?","dia"],r2:[478,262,"Khá","box"],d3:[280,358,"diem >= 5.0 ?","dia"],r3:[478,358,"Trung bình","box"],r4:[280,446,"Yếu","box"],end:[280,516,"Kết thúc","oval"]};
+  const E=[["start","inp","",[[280,40],[280,68]]],["inp","d1","",[[280,100],[280,128]]],["d1","r1","đúng",[[350,166],[420,166]]],["d1","d2","sai",[[280,204],[280,224]]],["d2","r2","đúng",[[350,262],[420,262]]],["d2","d3","sai",[[280,300],[280,320]]],["d3","r3","đúng",[[350,358],[420,358]]],["d3","r4","sai",[[280,396],[280,428]]],
+    ["r1","end","",[[536,166],[548,166],[548,516],[322,516]]],["r2","end","",[[536,262],[548,262],[548,516],[322,516]]],["r3","end","",[[536,358],[548,358],[548,516],[322,516]]],["r4","end","",[[280,464],[280,500]]]];
+  function shape(k,[x,y,t,s],on){const c=on?"on":"";
+    if(s==="dia")return `<g class="fn ${c}"><polygon points="${x},${y-38} ${x+70},${y} ${x},${y+38} ${x-70},${y}"/><text x="${x}" y="${y+4}" class="mono">${esc(t)}</text></g>`;
+    if(s==="oval")return `<g class="fn ${c}"><rect x="${x-56}" y="${y-15}" width="112" height="30" rx="15"/><text x="${x}" y="${y+5}">${esc(t)}</text></g>`;
+    if(s==="io")return `<g class="fn ${c}"><polygon points="${x-58},${y+16} ${x-44},${y-16} ${x+66},${y-16} ${x+52},${y+16}"/><text x="${x+4}" y="${y+5}">${esc(t)}</text></g>`;
+    return `<g class="fn ${c} res"><rect x="${x-58}" y="${y-18}" width="116" height="36" rx="8"/><text x="${x}" y="${y+5}">${esc(t)}</text></g>`}
+  function render(){
+    const d=+el.querySelector("#fi-d").value;el.querySelector("#fi-o").textContent=d.toFixed(1);
+    const c1=d>=8.5,c2=d>=7.0,c3=d>=5.0;
+    const path=["start","inp","d1"];const lines=[1,2,3];const log=[`diem >= 8.5 → ${c1?"đúng":"sai"}`];
+    if(c1){path.push("r1");lines.push(4)}else{path.push("d2");lines.push(5);log.push(`diem >= 7.0 → ${c2?"đúng":"sai"}`);
+      if(c2){path.push("r2");lines.push(6)}else{path.push("d3");lines.push(7);log.push(`diem >= 5.0 → ${c3?"đúng":"sai"}`);
+        if(c3){path.push("r3");lines.push(8)}else{path.push("r4");lines.push(10)}}}
+    path.push("end");const res=c1?"Giỏi":c2?"Khá":c3?"Trung bình":"Yếu";
+    const onE=(a,b)=>path.includes(a)&&path.includes(b)&&path.indexOf(b)===path.indexOf(a)+1;
+    const edges=E.map(([a,b,lab,pts])=>{const on=onE(a,b);const dd=pts.map((p,i)=>(i?"L":"M")+p[0]+" "+p[1]).join(" ");
+      const lp=pts[0];return `<path d="${dd}" class="fe ${on?"on":""}" marker-end="url(#fa-${on?"on":"off"})"/>${lab?`<text x="${lab==="đúng"?lp[0]+10:lp[0]+8}" y="${lab==="đúng"?lp[1]-7:lp[1]+14}" class="fl-lab ${lab==="đúng"?"t":"f"}">${lab}</text>`:""}`}).join("");
+    el.querySelector("#fi-svg").innerHTML=`<svg viewBox="0 0 580 540" role="img" aria-label="Lưu đồ xếp loại theo điểm">
+      <defs><marker id="fa-on" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto"><path d="M0 0 L10 5 L0 10 z" fill="var(--accent)"/></marker><marker id="fa-off" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto"><path d="M0 0 L10 5 L0 10 z" fill="var(--line)"/></marker></defs>
+      ${edges}${Object.entries(N).map(([k,v])=>shape(k,v,path.includes(k))).join("")}</svg>`;
+    el.querySelector("#fi-code").innerHTML=highlightLines(CODE).map((s,i)=>`<span class="ln${lines.includes(i+1)?" hl":" dim"}" data-n="${i+1}">${s||" "}</span>`).join("");
+    el.querySelector("#fi-log").innerHTML=`<b>Các điều kiện đã kiểm tra:</b> ${log.map(x=>`<code>${esc(x)}</code>`).join(" ")}${log.length<3&&!(!c3)?` <span>· dừng ở điều kiện đúng đầu tiên, các nhánh sau bị bỏ qua.</span>`:""}<div class="fi-out">Console: <b>${esc(res)}</b></div>`;
+  }
+  el.addEventListener("input",render);render();
+}
+/* Vết đường chạy: chạy thật chương trình, đánh dấu các dòng đã chạy theo thứ tự */
+function makeLineRun(el,{id,variants,values,label}){
+  let vi=0,val=values[Math.min(2,values.length-1)];
+  el.innerHTML=`<div class="lr-top"><div class="seg" role="group" aria-label="Phiên bản">${variants.map((v,i)=>`<button data-v="${i}" aria-pressed="${i===0}">${esc(v.label)}</button>`).join("")}</div>
+    <div class="lr-vals" role="group" aria-label="${esc(label)}"><span>${esc(label)}</span>${values.map(v=>`<button class="chip-btn" data-x="${esc(String(v))}">${esc(String(v))}</button>`).join("")}</div></div>
+    <div class="lr-body"><div class="code lr-code"></div><div class="lr-side"><div class="pane-h" style="padding:0">Thứ tự các dòng đã chạy</div><div class="lr-path"></div><div class="pane-h" style="padding:0">Console</div><pre class="lr-out"></pre></div></div>`;
+  function render(){
+    const v=variants[vi];const src=v.code.replace(/\{\{N\}\}/g,String(val));
+    el.querySelectorAll("[data-v]").forEach(b=>b.setAttribute("aria-pressed",String(+b.dataset.v===vi)));
+    el.querySelectorAll("[data-x]").forEach(b=>b.classList.toggle("sel",b.dataset.x===String(val)));
+    let c;try{c=compile2(src)}catch(e){el.querySelector(".lr-path").textContent=e.message;return}
+    const M=new M2(c.prog,src,{interactive:false});const seq=[];let r;
+    for(let k=0;k<400;k++){r=M.step();if(r.line)seq.push(r.line);if(r.s!=="ran")break}
+    const order=new Map();seq.forEach((l,i)=>{if(!order.has(l))order.set(l,[]);order.get(l).push(i+1)});
+    const L=highlightLines(src);
+    el.querySelector(".lr-code").innerHTML=L.map((s,i)=>{const o=order.get(i+1);return `<span class="ln${o?" hl":" dim"}" data-n="${i+1}">${s||" "}${o?`<b class="lr-badge">${o.slice(0,4).join(",")}${o.length>4?"…":""}</b>`:""}</span>`}).join("");
+    el.querySelector(".lr-path").innerHTML=seq.map(l=>`<span>${l}</span>`).join("<i>→</i>");
+    el.querySelector(".lr-out").textContent=M.text()||"(không in gì)";
+  }
+  el.querySelectorAll("[data-v]").forEach(b=>b.onclick=()=>{vi=+b.dataset.v;render()});
+  el.querySelectorAll("[data-x]").forEach(b=>b.onclick=()=>{val=b.dataset.x;render()});
+  render();
+}
+/* Bảng theo dõi vòng lặp */
+function makeLoopTable(el,{variants}){
+  let vi=0;
+  el.innerHTML=`<div class="seg lt-seg" role="group" aria-label="Ví dụ">${variants.map((v,i)=>`<button data-v="${i}" aria-pressed="${i===0}">${esc(v.label)}</button>`).join("")}</div>
+    <label class="lab-f lt-in"><span class="lt-lab"></span><input type="range" class="lt-n" aria-label="Giá trị đầu vào"><output class="lt-o"></output></label>
+    <div class="lt-body"><div class="code lt-code"></div><div class="lt-side"><div class="tbl lt-tbl"></div><p class="lt-sum"></p></div></div>`;
+  const nIn=el.querySelector(".lt-n");
+  function setup(){const v=variants[vi];nIn.min=v.n.min;nIn.max=v.n.max;nIn.step=v.n.step||1;nIn.value=v.n.val;el.querySelector(".lt-lab").textContent=v.n.lab;
+    el.querySelectorAll("[data-v]").forEach(b=>b.setAttribute("aria-pressed",String(+b.dataset.v===vi)));render()}
+  function render(){
+    const v=variants[vi],n=+nIn.value;el.querySelector(".lt-o").textContent=n;
+    const src=v.code(n);el.querySelector(".lt-code").innerHTML=highlightLines(src).map((s,i)=>`<span class="ln" data-n="${i+1}">${s||" "}</span>`).join("");
+    let c;try{c=compile2(src)}catch(e){el.querySelector(".lt-tbl").textContent=e.message;return}
+    const M=new M2(c.prog,src,{interactive:false});const rows=[];let r,bodyRuns=0;
+    for(let k=0;k<5000;k++){const before=Object.fromEntries(v.watch.map(w=>[w,M.vars.has(w)?M.vars.get(w).v:"—"]));r=M.step();
+      if(r.op&&["jf","jt"].includes(r.op)&&["while","do-while"].includes(r.kw)){rows.push({vals:v.watch.map(w=>M.vars.has(w)?M.vars.get(w).v:before[w]),cond:r.cond,kw:r.kw,line:r.line});if(r.cond)bodyRuns++}
+      if(r.s!=="ran")break}
+    const groups=[...new Set(rows.map(x=>x.line))];
+    const show=rows.slice(0,40);
+    el.querySelector(".lt-tbl").innerHTML=`<table><thead><tr><th>Lần kiểm tra</th>${v.watch.map(w=>`<th><code>${esc(w)}</code></th>`).join("")}<th>${groups.length>1?"Vòng lặp":""} Điều kiện</th></tr></thead><tbody>${
+      show.map((x,i)=>`<tr class="${x.cond?"":"stop"}"><td class="num">${i+1}</td>${x.vals.map(val=>`<td class="num">${esc(String(val))}</td>`).join("")}<td>${groups.length>1?`<small>dòng ${x.line}</small> `:""}<b class="${x.cond?"t":"f"}">${x.cond?"đúng":"sai → thoát"}</b></td></tr>`).join("")}${rows.length>40?`<tr><td colspan="${v.watch.length+2}">… còn ${rows.length-40} lần nữa</td></tr>`:""}</tbody></table>`;
+    el.querySelector(".lt-sum").innerHTML=(v.sum?v.sum(rows,M):`Thân vòng lặp chạy <b>${bodyRuns}</b> lần.`)+` Console: <code>${esc(M.text().replace(/\n/g," ⏎ ")||"(trống)")}</code>`;
+  }
+  el.querySelectorAll("[data-v]").forEach(b=>b.onclick=()=>{vi=+b.dataset.v;setup()});
+  nIn.addEventListener("input",render);setup();
+}
 
-const LESSON_UPDATED={"l1": "2026-10-19T11:20:13Z", "l10": "2026-10-19T16:03:07Z", "l11": "2026-10-19T16:03:07Z", "l2": "2026-10-19T11:20:13Z", "l3": "2026-10-19T11:07:05Z", "l4": "2026-10-19T11:07:05Z", "l5": "2026-10-19T11:20:13Z", "l6": "2026-10-19T11:20:13Z", "l7": "2026-10-19T11:20:13Z", "l8": "2026-10-19T16:03:07Z", "l9": "2026-10-19T16:03:07Z"};
+Object.assign(SNIP,{
+l12if:`int tuoi;
+std::cin >> tuoi;
+
+if (tuoi >= 18) {                       // điều kiện đúng thì chạy khối này
+    std::cout << "Đủ tuổi lái xe máy\\n";
+} else {                                // ngược lại chạy khối này
+    std::cout << "Chưa đủ tuổi\\n";
+}
+std::cout << "Kết thúc\\n";              // luôn chạy`,
+l12scope:`int a = 17, b = 5;
+if (b != 0) {
+    int thuong = a / b;         // thuong sinh ra ở đây
+    std::cout << thuong;
+}                               // thuong bị hủy ở đây
+// std::cout << thuong;         // lỗi: 'thuong' was not declared in this scope`,
+l12dangle:`if (coVe)
+    if (laHocSinh)
+        std::cout << "Giảm 50%";
+else                            // thuộc if (laHocSinh)!
+    std::cout << "Mời mua vé";`,
+l12dangle2:`if (coVe) {
+    if (laHocSinh) {
+        std::cout << "Giảm 50%";
+    }
+} else {                        // giờ mới thuộc if (coVe)
+    std::cout << "Mời mua vé";
+}`,
+l13syntax:`switch (luaChon) {             // chỉ số nguyên hoặc char
+    case 1:                     // nhảy tới đây nếu luaChon == 1
+        std::cout << "Xem điểm";
+        break;                  // thoát khỏi switch
+    case 2:
+        std::cout << "Đổi mật khẩu";
+        break;
+    default:                    // không khớp case nào
+        std::cout << "Lựa chọn không hợp lệ";
+}`,
+l13group:`switch (kyTu) {
+    case 'a': case 'e': case 'i':
+    case 'o': case 'u':
+        std::cout << "Nguyên âm";
+        break;
+    default:
+        std::cout << "Phụ âm";
+}`,
+l14while:`int i = 1;                // 1. khởi tạo
+while (i <= 5) {          // 2. kiểm tra điều kiện
+    std::cout << i << " ";
+    i++;                  // 3. cập nhật
+}
+std::cout << "\\nXong";    // in: 1 2 3 4 5`,
+l14do:`int diem;
+do {
+    std::cout << "Nhập điểm (0-10): ";
+    std::cin >> diem;
+} while (diem < 0 || diem > 10);     // sai thì hỏi lại
+std::cout << "Điểm hợp lệ: " << diem;`
+});
+["l12if","l12scope","l12dangle","l12dangle2","l13syntax","l13group","l14while","l14do"].forEach(k=>document.querySelectorAll(`[data-snip="${k}"]`).forEach(el=>{el.innerHTML=highlightLines(SNIP[k]).map((s,i)=>`<span class="ln" data-n="${i+1}">${s||" "}</span>`).join("")}));
+
+const P12=[
+ {label:"Ví dụ: if … else",input:"16",code:`${INC}
+int main() {
+    int tuoi;
+    std::cout << "Tuổi: ";
+    std::cin >> tuoi;
+    if (tuoi >= 18) {
+        std::cout << "Đủ tuổi lái xe máy\\n";
+    } else {
+        std::cout << "Chưa đủ tuổi, còn " << 18 - tuoi << " năm\\n";
+    }
+    std::cout << "Kết thúc\\n";
+    return 0;
+}`},
+ {label:"Ví dụ: Chuỗi else if xếp loại",input:"7.6",code:`${INC}
+int main() {
+    double diem;
+    std::cin >> diem;
+    if (diem < 0 || diem > 10) {
+        std::cout << "Điểm không hợp lệ\\n";
+    } else if (diem >= 8.5) {
+        std::cout << "Giỏi\\n";
+    } else if (diem >= 7.0) {
+        std::cout << "Khá\\n";
+    } else if (diem >= 5.0) {
+        std::cout << "Trung bình\\n";
+    } else {
+        std::cout << "Yếu\\n";
+    }
+    return 0;
+}`},
+ {label:"Ví dụ: Phạm vi biến",code:`${INC}
+int main() {
+    int a = 17, b = 5;
+    if (b != 0) {
+        int thuong = a / b;
+        int du = a % b;
+        std::cout << thuong << " dư " << du << "\\n";
+    }
+    std::cout << "Ra khỏi khối\\n";
+    return 0;
+}`},
+ {label:"Ví dụ: if lồng nhau",input:"2024",code:`${INC}
+int main() {
+    int nam;
+    std::cin >> nam;
+    if (nam % 4 == 0) {
+        if (nam % 100 == 0) {
+            if (nam % 400 == 0) {
+                std::cout << "Nhuận\\n";
+            } else {
+                std::cout << "Không nhuận\\n";
+            }
+        } else {
+            std::cout << "Nhuận\\n";
+        }
+    } else {
+        std::cout << "Không nhuận\\n";
+    }
+    return 0;
+}`},
+ {label:"Cảnh báo: if (x = 5)",code:`${INC}
+int main() {
+    int x = 3;
+    if (x = 5) {
+        std::cout << "x bằng 5? x giờ là " << x << "\\n";
+    }
+    return 0;
+}`},
+ {label:"Cảnh báo: dấu ; sau if",code:`${INC}
+int main() {
+    int soDu = 50000, gia = 80000;
+    if (soDu >= gia);
+    {
+        std::cout << "Thanh toán thành công!\\n";   // luôn in
+    }
+    return 0;
+}`},
+ {label:"Bẫy: thiếu { } với nhiều lệnh",code:`${INC}
+int main() {
+    int diem = 4, soMonTruot = 0;
+    if (diem < 5)
+        std::cout << "Trượt môn\\n";
+    soMonTruot++;              // không thuộc if!
+    diem = 9;
+    if (diem < 5)
+        std::cout << "Trượt môn\\n";
+    soMonTruot++;              // vẫn chạy
+    std::cout << "Số môn trượt: " << soMonTruot << "\\n";   // 2?!
+    return 0;
+}`},
+ {label:"Cảnh báo: else lơ lửng",code:`${INC}
+int main() {
+    bool coVe = false, laHocSinh = false;
+    if (coVe)
+        if (laHocSinh)
+            std::cout << "Giảm 50%\\n";
+    else
+        std::cout << "Mời mua vé\\n";   // không in!
+    return 0;
+}`},
+ {label:"Lỗi: dùng biến ngoài phạm vi",code:`${INC}
+int main() {
+    int a = 10;
+    if (a > 5) {
+        int b = a * 2;
+    }
+    std::cout << b << "\\n";
+    return 0;
+}`}
+];
+const P13=[
+ {label:"Ví dụ: Menu với switch",input:"2",code:`${INC}
+int main() {
+    int luaChon;
+    std::cout << "1. Xem điểm  2. Đổi mật khẩu  3. Thoát\\nChọn: ";
+    std::cin >> luaChon;
+    switch (luaChon) {
+        case 1:
+            std::cout << "Điểm của bạn: 8.5\\n";
+            break;
+        case 2:
+            std::cout << "Mời nhập mật khẩu mới\\n";
+            break;
+        case 3:
+            std::cout << "Tạm biệt!\\n";
+            break;
+        default:
+            std::cout << "Lựa chọn không hợp lệ\\n";
+    }
+    return 0;
+}`},
+ {label:"Ví dụ: Gộp case (nguyên âm)",input:"e",code:`${INC}
+int main() {
+    char c;
+    std::cin >> c;
+    switch (c) {
+        case 'a': case 'e': case 'i': case 'o': case 'u':
+        case 'A': case 'E': case 'I': case 'O': case 'U':
+            std::cout << c << " là nguyên âm\\n";
+            break;
+        default:
+            std::cout << c << " là phụ âm\\n";
+    }
+    return 0;
+}`},
+ {label:"Ví dụ: Máy tính bỏ túi",input:"12 * 4",code:`${INC}
+int main() {
+    double a, b;
+    char phepToan;
+    std::cin >> a >> phepToan >> b;
+    switch (phepToan) {
+        case '+': std::cout << a + b; break;
+        case '-': std::cout << a - b; break;
+        case '*': std::cout << a * b; break;
+        case '/':
+            if (b == 0) std::cout << "Không chia được cho 0";
+            else std::cout << a / b;
+            break;
+        default: std::cout << "Phép toán không hợp lệ";
+    }
+    std::cout << "\\n";
+    return 0;
+}`},
+ {label:"Cảnh báo: quên break",input:"3",code:`${INC}
+int main() {
+    int n;
+    std::cin >> n;
+    switch (n) {
+        case 3:
+            std::cout << "Ba ";
+        case 4:
+            std::cout << "Bốn ";
+            break;
+        default:
+            std::cout << "Khác";
+    }
+    return 0;
+}`},
+ {label:"Lỗi: switch với số thực",code:`${INC}
+int main() {
+    double diem = 8.5;
+    switch (diem) {
+        case 8.5: std::cout << "Giỏi"; break;
+    }
+    return 0;
+}`},
+ {label:"Lỗi: case không phải hằng",code:`${INC}
+int main() {
+    int n = 2, k = 2;
+    switch (n) {
+        case k: std::cout << "bằng k"; break;
+    }
+    return 0;
+}`},
+ {label:"Lỗi: khai báo biến trong case",code:`${INC}
+int main() {
+    int loai = 1;
+    switch (loai) {
+        case 1:
+            int giam = 10;
+            std::cout << giam;
+            break;
+        case 2:
+            std::cout << "Không giảm";
+            break;
+    }
+    return 0;
+}`},
+ {label:"Sửa: đặt case trong { }",code:`${INC}
+int main() {
+    int loai = 1;
+    switch (loai) {
+        case 1: {
+            int giam = 10;
+            std::cout << "Giảm " << giam << "%\\n";
+            break;
+        }
+        case 2:
+            std::cout << "Không giảm\\n";
+            break;
+    }
+    return 0;
+}`}
+];
+const P14=[
+ {label:"Ví dụ: Đếm từ 1 đến n",input:"5",code:`${INC}
+int main() {
+    int n;
+    std::cin >> n;
+    int i = 1;
+    while (i <= n) {
+        std::cout << i << " ";
+        i++;
+    }
+    std::cout << "\\n";
+    return 0;
+}`},
+ {label:"Ví dụ: Tổng 1 + 2 + … + n",input:"100",code:`${INC}
+int main() {
+    int n;
+    std::cin >> n;
+    int i = 1;
+    long long tong = 0;
+    while (i <= n) {
+        tong += i;
+        i++;
+    }
+    std::cout << "Tổng = " << tong << "\\n";
+    return 0;
+}`},
+ {label:"Ví dụ: Đếm chữ số và đảo số",input:"20261019",code:`${INC}
+int main() {
+    int n;
+    std::cin >> n;
+    int dem = 0, dao = 0;
+    while (n > 0) {
+        int chuSo = n % 10;
+        dao = dao * 10 + chuSo;
+        dem++;
+        n /= 10;
+    }
+    std::cout << dem << " chữ số, đảo ngược: " << dao << "\\n";
+    return 0;
+}`},
+ {label:"Ví dụ: do-while hỏi lại khi nhập sai",input:"12 -3 7",code:`${INC}
+int main() {
+    int diem;
+    do {
+        std::cout << "Nhập điểm (0-10): ";
+        std::cin >> diem;
+    } while (diem < 0 || diem > 10);
+    std::cout << "Điểm hợp lệ: " << diem << "\\n";
+    return 0;
+}`},
+ {label:"Ví dụ: Đọc đến hết dữ liệu",input:"8 6.5 9 7",code:`${INC}
+int main() {
+    double x, tong = 0;
+    int dem = 0;
+    while (std::cin >> x) {     // dừng khi hết dữ liệu
+        tong += x;
+        dem++;
+    }
+    std::cout << dem << " số, trung bình " << tong / dem << "\\n";
+    return 0;
+}`},
+ {label:"Ví dụ: Lính canh, dừng khi gặp 0",input:"5 3 8 0 9",code:`${INC}
+int main() {
+    int x, tong = 0;
+    std::cin >> x;
+    while (x != 0) {
+        tong += x;
+        std::cin >> x;
+    }
+    std::cout << "Tổng: " << tong << "\\n";
+    return 0;
+}`},
+ {label:"Lỗi: vòng lặp vô hạn",code:`${INC}
+int main() {
+    int i = 1;
+    while (i <= 5) {
+        std::cout << i << " ";
+        // quên i++;
+    }
+    return 0;
+}`},
+ {label:"Lỗi: dấu ; sau while",code:`${INC}
+int main() {
+    int i = 1;
+    while (i <= 5);
+    {
+        std::cout << i << " ";
+        i++;
+    }
+    return 0;
+}`},
+ {label:"Bẫy: lệch một vòng",code:`${INC}
+int main() {
+    int n = 5, i = 1, tong = 0;
+    while (i < n) {          // muốn cộng 1..5
+        tong += i;
+        i++;
+    }
+    std::cout << tong << "\\n";   // 10, không phải 15
+    return 0;
+}`}
+];
+const sim12=makeSim2(document.getElementById("sim-l12"),{id:"s12",presets:P12});
+const sim13=makeSim2(document.getElementById("sim-l13"),{id:"s13",presets:P13});
+const sim14=makeSim2(document.getElementById("sim-l14"),{id:"s14",presets:P14});
+makeFlowIf(document.getElementById("flow-l12"));
+const SW=(brk)=>`#include <iostream>
+int main() {
+    int n = {{N}};
+    switch (n) {
+        case 1:
+            std::cout << "Một ";
+            break;
+        case 3:
+            std::cout << "Ba ";${brk?"\n            break;":"\n            // quên break"}
+        case 4:
+            std::cout << "Bốn ";
+            break;
+        default:
+            std::cout << "Khác ";
+    }
+    std::cout << "| hết";
+}`;
+makeLineRun(document.getElementById("run-l13"),{id:"lr13",label:"n =",values:[1,2,3,4,7],variants:[{label:"Đủ break",code:SW(true)},{label:"Quên break ở case 3",code:SW(false)}]});
+makeLoopTable(document.getElementById("loop-l14"),{variants:[
+ {label:"Tổng 1 + … + n",n:{min:0,max:12,val:5,lab:"n ="},watch:["i","tong"],code:n=>`#include <iostream>
+int main() {
+    int n = ${n};
+    int i = 1, tong = 0;
+    while (i <= n) {
+        tong += i;
+        i++;
+    }
+    std::cout << tong;
+}`},
+ {label:"Tách chữ số",n:{min:0,max:99999,val:4072,lab:"n ="},watch:["n","tong"],code:n=>`#include <iostream>
+int main() {
+    int n = ${n};
+    int tong = 0;
+    while (n > 0) {
+        tong += n % 10;
+        n /= 10;
+    }
+    std::cout << tong;
+}`},
+ {label:"Nhân đôi đến khi vượt",n:{min:1,max:1000,val:100,lab:"gioiHan ="},watch:["x","lan"],code:n=>`#include <iostream>
+int main() {
+    int gioiHan = ${n};
+    int x = 1, lan = 0;
+    while (x <= gioiHan) {
+        x *= 2;
+        lan++;
+    }
+    std::cout << x << " sau " << lan << " lần";
+}`},
+ {label:"while và do-while khi điều kiện sai ngay từ đầu",n:{min:0,max:5,val:0,lab:"n ="},watch:["a","b"],code:n=>`#include <iostream>
+int main() {
+    int n = ${n};
+    int a = 0, b = 0;
+    while (a < n) {
+        a++;
+    }
+    do {
+        b++;
+    } while (b < n);
+    std::cout << "while: " << a << ", do-while: " << b;
+}`,sum:(rows)=>{const w=rows.filter(r=>r.kw==="while"&&r.cond).length,d=rows.filter(r=>r.kw==="do-while").length;return `Thân <code>while</code> chạy <b>${w}</b> lần, thân <code>do-while</code> chạy <b>${d}</b> lần (luôn ít nhất 1).`}}
+]});
+
+makeEx2(document.getElementById("ex-l12"),sim12,[
+ {t:"Dương, âm hay không",d:"Nhập một số nguyên. In “duong” nếu lớn hơn 0, “am” nếu nhỏ hơn 0, “khong” nếu bằng 0.",
+  tests:[{in:"5",out:"duong"},{in:"-12",out:"am"},{in:"0",out:"khong"}],need:/\bif\b/,needMsg:"Hãy dùng câu lệnh if.",
+  start:`#include <iostream>
+
+int main() {
+    int n;
+    std::cin >> n;
+
+    return 0;
+}`},
+ {t:"Xếp loại học lực",d:"Nhập điểm (số thực). Điểm ngoài 0–10 in “Khong hop le”. Từ 8.5 in “Gioi”, từ 7.0 in “Kha”, từ 5.0 in “Trung binh”, còn lại “Yeu”.",
+  tests:[{in:"9.2",out:"Gioi"},{in:"8.5",out:"Gioi"},{in:"7",out:"Kha"},{in:"5.5",out:"Trung binh"},{in:"3",out:"Yeu"},{in:"11",out:"Khong hop le"},{in:"-1",out:"Khong hop le"}],
+  start:`#include <iostream>
+
+int main() {
+    double diem;
+    std::cin >> diem;
+
+    return 0;
+}`},
+ {t:"Phương trình ax + b = 0",d:"Nhập a và b (số thực). a = 0 và b = 0: in “Vo so nghiem”. a = 0, b ≠ 0: in “Vo nghiem”. Ngược lại in “x = ” và nghiệm với 2 chữ số sau dấu phẩy.",
+  tests:[{in:"2 -4",out:"x = 2.00"},{in:"0 0",out:"Vo so nghiem"},{in:"0 5",out:"Vo nghiem"},{in:"3 1",out:"x = -0.33"}],
+  start:`#include <iostream>
+#include <iomanip>
+
+int main() {
+    double a, b;
+    std::cin >> a >> b;
+
+    return 0;
+}`}
+]);
+makeEx2(document.getElementById("ex-l13"),sim13,[
+ {t:"Thứ trong tuần",d:"Nhập n từ 1 đến 7. In “Thu hai” cho 1, “Thu ba” cho 2, … “Thu bay” cho 6, “Chu nhat” cho 7. Số khác in “Khong hop le”. Dùng switch.",
+  tests:[{in:"1",out:"Thu hai"},{in:"5",out:"Thu sau"},{in:"7",out:"Chu nhat"},{in:"9",out:"Khong hop le"}],need:/switch/,needMsg:"Hãy dùng switch.",
+  start:`#include <iostream>
+
+int main() {
+    int n;
+    std::cin >> n;
+
+    return 0;
+}`},
+ {t:"Máy tính số nguyên",d:"Nhập “a phép_toán b” với a, b nguyên và phép toán là + - * / %. In kết quả (chia nguyên). Chia hoặc chia dư cho 0 in “Loi: chia cho 0”. Phép toán khác in “Phep toan khong hop le”.",
+  tests:[{in:"7 + 3",out:"10"},{in:"7 / 2",out:"3"},{in:"7 % 3",out:"1"},{in:"5 / 0",out:"Loi: chia cho 0"},{in:"4 ^ 2",out:"Phep toan khong hop le"}],need:/switch/,needMsg:"Hãy dùng switch theo phép toán.",
+  start:`#include <iostream>
+
+int main() {
+    int a, b;
+    char op;
+    std::cin >> a >> op >> b;
+
+    return 0;
+}`},
+ {t:"Số ngày trong tháng",d:"Nhập tháng và năm. In số ngày của tháng đó (tháng 2 năm nhuận có 29 ngày). Tháng không hợp lệ in “Khong hop le”. Gợi ý: gộp các case cùng số ngày.",
+  tests:[{in:"1 2026",out:"31"},{in:"4 2026",out:"30"},{in:"2 2024",out:"29"},{in:"2 1900",out:"28"},{in:"13 2026",out:"Khong hop le"}],need:/switch/,needMsg:"Hãy dùng switch theo tháng.",
+  start:`#include <iostream>
+
+int main() {
+    int thang, nam;
+    std::cin >> thang >> nam;
+
+    return 0;
+}`}
+]);
+makeEx2(document.getElementById("ex-l14"),sim14,[
+ {t:"Tổng các chữ số",d:"Nhập số nguyên không âm n (có thể rất nhiều chữ số, tối đa 2 tỷ). In tổng các chữ số của n.",
+  tests:[{in:"12345",out:"15"},{in:"0",out:"0"},{in:"2000000000",out:"2"},{in:"987654321",out:"45"}],need:/while/,needMsg:"Hãy dùng vòng lặp while.",
+  start:`#include <iostream>
+
+int main() {
+    int n;
+    std::cin >> n;
+
+    return 0;
+}`},
+ {t:"Đếm và cộng đến khi gặp 0",d:"Đọc lần lượt các số nguyên cho đến khi gặp số 0 (không tính số 0). In số lượng số đã đọc và tổng của chúng, cách nhau một dấu cách.",
+  tests:[{in:"5 3 8 0",out:"3 16"},{in:"0",out:"0 0"},{in:"-2 7 0 100",out:"2 5"}],need:/while/,needMsg:"Hãy dùng vòng lặp while.",
+  start:`#include <iostream>
+
+int main() {
+    int x;
+    int dem = 0, tong = 0;
+
+    return 0;
+}`},
+ {t:"Nhập lại khi sai",d:"Dùng do-while đọc điểm (số nguyên) cho tới khi nhận được số trong khoảng 0–10. Dòng 1 in “Diem: ” và điểm hợp lệ. Dòng 2 in “So lan nhap sai: ” và số lần nhập sai.",
+  tests:[{in:"12 -3 7",out:"Diem: 7\nSo lan nhap sai: 2"},{in:"5",out:"Diem: 5\nSo lan nhap sai: 0"},{in:"11 10",out:"Diem: 10\nSo lan nhap sai: 1"}],need:/\bdo\b/,needMsg:"Hãy dùng vòng lặp do-while.",
+  start:`#include <iostream>
+
+int main() {
+    int diem;
+    int sai = 0;
+
+    return 0;
+}`}
+]);
+makeQuiz("quiz12","score12",[
+ {q:"Với <code>int x = 3;</code>, đoạn <code>if (x = 5) std::cout &lt;&lt; x;</code> in ra?",o:["Không in gì","3","5","Lỗi biên dịch"],a:2,e:"x = 5 là phép gán: x thành 5, giá trị biểu thức là 5 (khác 0 nên đúng), rồi in x = 5. g++ cảnh báo -Wparentheses."},
+ {q:"Với điểm 9.0, đoạn sau in gì? <code>if (d &gt;= 5) cout &lt;&lt; \"TB\"; else if (d &gt;= 8.5) cout &lt;&lt; \"Giỏi\";</code>",o:["Giỏi","TB","TBGiỏi","Không in gì"],a:1,e:"Điều kiện đầu tiên d >= 5 đã đúng nên chỉ in TB; các else if phía dưới bị bỏ qua. Phải xếp điều kiện chặt nhất lên trước."},
+ {q:"Biến khai báo bên trong khối <code>{ }</code> của if tồn tại tới đâu?",o:["Hết hàm main","Hết khối { } đó","Hết chương trình","Mãi mãi"],a:1,e:"Phạm vi của biến kết thúc ở dấu } đóng khối chứa nó."},
+ {q:"Trong <code>if (a) if (b) x(); else y();</code>, else thuộc về?",o:["if (a)","if (b)","Cả hai","Lỗi cú pháp"],a:1,e:"else luôn gắn với if gần nhất chưa có else, tức if (b). Dùng { } để thể hiện ý khác."}
+]);
+makeQuiz("quiz13","score13",[
+ {q:"Kiểu nào <b>không</b> dùng được trong <code>switch (…)</code>?",o:["int","char","double","long long"],a:2,e:"switch chỉ nhận số nguyên và ký tự. Với double, dùng if ... else if."},
+ {q:"Thiếu <code>break</code> ở cuối một case thì?",o:["Lỗi biên dịch","Chương trình chạy tiếp các lệnh của case bên dưới","switch tự thoát","Nhảy về default"],a:1,e:"Đó là fall-through: chạy tiếp xuống cho tới khi gặp break hoặc hết switch."},
+ {q:"Với <code>n = 7</code> và switch có <code>case 1</code>, <code>case 2</code>, <code>default</code>: nhánh nào chạy?",o:["case 1","case 2","default","Không nhánh nào"],a:2,e:"Không khớp case nào thì nhảy tới default."},
+ {q:"Cách nào gộp case đúng?",o:["<code>case 1, 2, 3:</code>","<code>case 1 || 2:</code>","<code>case 1: case 2: case 3:</code>","<code>case 1..3:</code>"],a:2,e:"Đặt các nhãn case liền nhau. case 1 || 2 là biểu thức 1 || 2 = true = 1, tức chỉ khớp 1."}
+]);
+makeQuiz("quiz14","score14",[
+ {q:"<code>int i = 0; while (i &lt; 5) i += 2;</code> Thân chạy mấy lần?",o:["2","3","5","Vô hạn"],a:1,e:"i = 0, 2, 4 thì điều kiện đúng (3 lần); i = 6 thì dừng."},
+ {q:"Điểm khác biệt chính của do-while so với while?",o:["Chạy nhanh hơn","Thân chạy ít nhất một lần","Không cần điều kiện","Chỉ dùng với số"],a:1,e:"do-while kiểm tra điều kiện sau khi chạy thân."},
+ {q:"Đoạn <code>while (i &lt;= 5); { i++; }</code> có vấn đề gì?",o:["Không vấn đề","Dấu ; tạo vòng lặp rỗng, chạy mãi","Lỗi biên dịch","Chỉ chạy 1 lần"],a:1,e:"Dấu ; là thân rỗng của while; i không bao giờ đổi nên vòng lặp không dừng."},
+ {q:"Muốn cộng 1 + 2 + … + n, điều kiện nào đúng khi bắt đầu từ <code>i = 1</code>?",o:["<code>i &lt; n</code>","<code>i &lt;= n</code>","<code>i &gt; n</code>","<code>i != n</code>"],a:1,e:"i < n bỏ sót số n (lỗi lệch một)."}
+]);
+
+const LESSON_UPDATED={"l1": "2026-10-19T11:20:13Z", "l10": "2026-10-19T16:03:07Z", "l11": "2026-10-19T16:35:10Z", "l12": "2026-10-19T16:35:10Z", "l13": "2026-10-19T16:35:10Z", "l14": "2026-10-19T16:35:10Z", "l2": "2026-10-19T11:20:13Z", "l3": "2026-10-19T11:07:05Z", "l4": "2026-10-19T11:07:05Z", "l5": "2026-10-19T11:20:13Z", "l6": "2026-10-19T11:20:13Z", "l7": "2026-10-19T11:20:13Z", "l8": "2026-10-19T16:03:07Z", "l9": "2026-10-19T16:03:07Z"};
 (function(){for(const l in LESSON_UPDATED){const nx=document.querySelector(`#view-${l} .next`);if(!nx)continue;
   const iso=LESSON_UPDATED[l],d=new Date(iso),p=document.createElement("p");p.className="updated";
   p.innerHTML=`Cập nhật lần cuối: <time datetime="${iso}">${d.toLocaleTimeString("vi-VN",{hour:"2-digit",minute:"2-digit"})}, ${d.toLocaleDateString("vi-VN",{day:"2-digit",month:"2-digit",year:"numeric"})}</time>`;nx.after(p)}})();
@@ -5366,7 +6463,7 @@ function renderAccount(){
   if(S.mode==="unavailable")h=`${bar}<p class="acct-note">Tiến độ đang lưu trên trình duyệt này. Đăng nhập Google hoạt động trên bản đăng ở website (GitHub Pages).</p>`;
   else if(S.mode==="loading"||S.mode==="off")h=`${bar}<p class="acct-note">Đang kết nối dịch vụ đăng nhập…</p>`;
   else if(S.mode==="error")h=`${bar}<p class="acct-note bad-t">${escH(S.err)}</p>`;
-  else if(!S.user)h=`<button class="gbtn" id="btn-signin"><span class="g">G</span>Đăng nhập bằng Google</button><p class="acct-note">Đăng nhập để lưu tiến độ và học tiếp trên mọi thiết bị. Trang lưu tên, email và kết quả học của bạn để giảng viên AMTS theo dõi.</p>${bar}`;
+  else if(!S.user)h=`<button class="gbtn" id="btn-signin"><span class="g">G</span>Đăng nhập bằng Google</button><p class="acct-note">Đăng nhập để lưu tiến độ và học tiếp trên mọi thiết bị.</p>${bar}`;
   else{const u=S.user;
     h=`<div class="who">${avatarHTML(u)}<div><b>${escH(u.displayName||"Học viên")}</b><small>${escH(u.email||"")}</small></div></div>${bar}
       <div class="acct-btns">${AMTS.isTeacher()?`<a class="btn pri sm" href="../index.html#giang-vien">Trang giảng viên</a>`:""}<button class="btn sm" id="btn-signout">Đăng xuất</button></div>
