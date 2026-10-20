@@ -3629,6 +3629,9 @@ function makeSim2(root,cfg){
     if(M.notes.includes("utf8"))tips.push("Bạn nhập chữ có dấu vào biến char: char chỉ giữ 1 byte đầu của ký tự UTF-8.");
     if(M.failed&&!M.eof)tips.push("cin đã vào trạng thái lỗi vì dữ liệu nhập không khớp kiểu biến. Biến nhận giá trị 0 và mọi lệnh cin sau đó bị bỏ qua.");
     if(M.failed&&M.eof)tips.push("Hết dữ liệu nhập: các lệnh cin cuối không đọc được gì.");
+    {const left=String(M.buf||"").slice(M.pos||0).trim();if(left&&!M.failed)tips.push(`Còn dữ liệu nhập chưa được đọc: “${left.length>40?left.slice(0,40)+"…":left}”. Chương trình chưa có (đủ) lệnh cin để đọc chúng.`)}
+    if(!M.out.some(x=>x.k!=="i"&&String(x.s).trim()))tips.push("Chương trình không in gì ra màn hình (chưa có lệnh cout nào chạy).");
+    if(S.warns&&S.warns.length)tips.push(`Trình biên dịch có ${S.warns.length} cảnh báo (chữ cam trong khung Kết quả). Cảnh báo không làm chương trình dừng nhưng thường báo code chưa xong hoặc dễ sai: ${S.warns[0].vi||S.warns[0].msg}`);
     exp.className="explain"+(tips.length?" warn":" good");
     exp.innerHTML=tips.length?`<b>Chạy xong, có điều cần chú ý</b>${tips.map(t=>`<span>${esc(t)}</span>`).join("")}`:`<b>Biên dịch và chạy thành công</b><span>${M.nCalls?`${M.nCalls} lần gọi hàm, ngăn xếp sâu nhất ${M.maxDepth+1} tầng (tính cả main)`:`${M.order.length} biến trong bộ nhớ`}${M.reads.length?`, ${M.reads.filter(x=>!x.ign).length} lần đọc từ cin`:""}.</span>`;
     cfg.onResult&&cfg.onResult(M);
@@ -3694,6 +3697,11 @@ function exResultHTML(e,R,ok,pass,srcOk){
   return `<div class="res ${ok?"ok":"bad"}"><b>${ok?"✓ Đạt":"✗ Chưa đạt"}: ${pass}/${R.res.length} test đúng</b>`+
     (fails.length?`<div class="tbl ex-t"><table><thead><tr><th scope="col">Test</th><th scope="col">Input</th><th scope="col">Expected</th><th scope="col">Actual</th></tr></thead><tbody>${fails.slice(0,3).map(([x,k])=>`<tr><th scope="row">Test ${k+1}</th><td data-h="Input"><code>${show(x.T.in)}</code></td><td data-h="Expected"><code>${show(x.T.out)}</code></td><td data-h="Actual"><code>${x.crash?esc(x.crash.msg):show(x.got)}</code></td></tr>`).join("")}</tbody></table></div>${fails.length>3?`<p class="ex-more">Còn ${fails.length-3} test sai khác. Sửa các test trên trước rồi nộp lại.</p>`:""}`:"")+
     (srcOk?"":`<div class="fail"><span>${esc(e.needMsg)}</span></div>`)+"</div>"}
+/* Chạy thử: so kết quả với ví dụ nhập đầu tiên để học viên biết đã đúng ví dụ hay chưa */
+function tryExHTML(e,code){const R=runTests(code,[e.tests[0]]);const show=v=>esc(String(v).replace(/\s+$/,""))||'<i class="ex-none">(không in gì)</i>';
+  if(R.err)return `<div class="res bad"><b>Chạy thử: code chưa biên dịch được</b><span>${esc(R.err.message)}. Xem dòng lỗi trong khung Kết quả của trình mô phỏng.</span></div>`;
+  const x=R.res[0];if(x.ok)return `<div class="res ok try"><b>✓ Chạy thử: đúng với ví dụ</b><span>Bấm <b>Nộp bài</b> để chấm đủ ${e.tests.length} test.</span></div>`;
+  return `<div class="res bad try"><b>Chạy thử: chưa khớp ví dụ</b><div class="tbl ex-t"><table><tbody><tr><th scope="row">Ví dụ</th><td data-h="Input"><code>${show(e.tests[0].in)}</code></td><td data-h="Expected"><code>${show(e.tests[0].out)}</code></td><td data-h="Actual"><code>${x.crash?esc(x.crash.msg):show(x.got)}</code></td></tr></tbody></table></div><span>Đây chỉ là chạy thử, chưa tính điểm. Sửa code rồi chạy thử lại hoặc Nộp bài.</span></div>`}
 function gradeEx(e,code){const R=runTests(code,e.tests);if(R.err)return{R,ok:false,pass:0,srcOk:true,d:"lỗi biên dịch"};
   const pass=R.res.filter(x=>x.ok).length,srcOk=!e.need||e.need.test(code);return{R,ok:pass===R.res.length&&srcOk,pass,srcOk,d:`${pass}/${R.res.length} test`}}
 function makeEx2(el,sim,list,opt){
@@ -3715,7 +3723,7 @@ function makeEx2(el,sim,list,opt){
     stEl.innerHTML=st[cur]||`<p class="ex-todo">Chưa nộp bài này · ${e.tests.length} test sẽ được chấm.</p>`;paintList();opt.onSelect&&opt.onSelect(cur,e)}
   tabs.forEach((b,i)=>{b.onclick=()=>{cur=i;render()};b.onkeydown=ev=>{const d=ev.key==="ArrowRight"||ev.key==="ArrowDown"?1:ev.key==="ArrowLeft"||ev.key==="ArrowUp"?-1:0;if(!d)return;ev.preventDefault();cur=(cur+d+list.length)%list.length;render();tabs[cur].focus()}});
   el.querySelector('[data-act="load"]').onclick=()=>{const e=list[cur];sim.set(e.start);sim.setInput(e.tests[0].in);sim.el.scrollIntoView({behavior:REDUCE()?"auto":"smooth",block:"start"})};
-  el.querySelector('[data-act="try"]').onclick=()=>{const e=list[cur];sim.setInput(e.tests[0].in);sim.el.scrollIntoView({behavior:REDUCE()?"auto":"smooth",block:"start"});sim.run()};
+  el.querySelector('[data-act="try"]').onclick=()=>{const e=list[cur];stEl.innerHTML=tryExHTML(e,sim.get());sim.setInput(e.tests[0].in);sim.run()};
   el.querySelector('[data-act="grade"]').onclick=()=>grade(cur);
   function grade(i){const e=list[i],g=gradeEx(e,sim.get());
     if(window.TRACK)TRACK.ex(L+"-"+i,g.ok,g.d);
@@ -7721,7 +7729,7 @@ const PRACTICE=(()=>{
     sim=makeSim2($("pr-sim"),{id:"spr",lesson:"",presets:[{label:"Bài tập",code:""}]});
     $("pr-sel").onchange=e=>select(e.target.value);
     $("pr-reset").onclick=()=>{if(sim.get()!==cur.e.start&&!confirm("Thay code hiện tại bằng code mẫu ban đầu?"))return;sim.set(cur.e.start);sim.setInput(cur.e.tests[0].in);saveDraft()};
-    $("pr-try").onclick=()=>{sim.setInput(cur.e.tests[0].in);sim.run()};
+    $("pr-try").onclick=()=>{$("pr-res").innerHTML=tryExHTML(cur.e,sim.get());sim.setInput(cur.e.tests[0].in);sim.run()};
     $("pr-grade").onclick=grade;
     $("pr-prev").onclick=()=>step(-1);$("pr-next").onclick=()=>step(1);
     $("pr-q").addEventListener("input",renderList);
