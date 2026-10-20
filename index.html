@@ -3,13 +3,20 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-<style>:root{color-scheme:light dark}body{margin:0}img{max-width:100%}[hidden]{display:none!important}</style>
-</head>
-<body>
 <title>AMTS Học Lập Trình</title>
 <meta name="claude:viewport-fit-sides" content="cover">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Be+Vietnam+Pro:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;600&display=swap">
+<meta name="description" content="Học lập trình C++ từ nền tảng cùng AMTS: bài học có hình minh họa, trình mô phỏng chạy ngay trên trình duyệt, bài tập chấm tự động và theo dõi tiến độ.">
+<meta property="og:type" content="website">
+<meta property="og:locale" content="vi_VN">
+<meta property="og:site_name" content="AMTS Học Lập Trình">
+<meta property="og:title" content="AMTS Học Lập Trình">
+<meta property="og:description" content="Học lập trình C++ từ nền tảng cùng AMTS: bài học có hình minh họa, trình mô phỏng chạy ngay trên trình duyệt, bài tập chấm tự động và theo dõi tiến độ.">
+<meta name="theme-color" content="#0E97A9">
+<style>:root{color-scheme:light dark}body{margin:0}img{max-width:100%}[hidden]{display:none!important}</style>
+</head>
+<body>
 <style>
 /* Layout: trang chủ một cột — dải đầu trang (logo + tài khoản), lưới khóa học 2×2, khu giảng viên bên dưới */
 :root{
@@ -129,6 +136,7 @@ a.btn{text-decoration:none}
 .tdet i{font-style:normal;display:inline-grid;place-items:center;width:20px;height:20px;border-radius:4px;margin-left:3px;background:var(--bg);color:var(--muted);font-weight:700}
 .tdet i.ok{background:var(--ok-soft);color:var(--ok)}.tdet i.bad{background:var(--err-soft);color:var(--err)}
 .empty{font-size:14px;color:var(--muted);padding:18px;background:var(--surface);border:1px dashed var(--line);border-radius:var(--r)}
+.bk-btns{display:flex;gap:8px;flex-wrap:wrap}.ok-t{color:var(--ok)}
 .backup{background:var(--warm-soft);border-radius:var(--r);padding:12px 16px;font-size:14px;display:flex;gap:12px;align-items:center;justify-content:space-between;flex-wrap:wrap}
 footer{margin-top:56px;border-top:1px solid var(--line);padding-block:20px 40px;font-size:13px;color:var(--muted)}
 
@@ -206,7 +214,8 @@ footer{margin-top:56px;border-top:1px solid var(--line);padding-block:20px 40px;
     <div class="t-stats" id="t-stats"></div>
     <div class="t-tools"><input id="t-q" placeholder="Tìm theo tên hoặc email" autocomplete="off" aria-label="Tìm học viên"><button class="btn" id="t-reload">Tải lại</button><button class="btn pri" id="t-csv">Xuất Excel (CSV)</button></div>
     <div id="t-body"></div>
-    <div class="backup"><span><b>Sao lưu toàn bộ dữ liệu</b> · tất cả học viên, tất cả khóa học, dạng JSON. Nên tải định kỳ (ví dụ cuối mỗi tháng) và cất ở nơi an toàn.</span><button class="btn" id="t-json">Tải bản sao lưu JSON</button></div>
+    <div class="backup"><span><b>Sao lưu toàn bộ hệ thống</b> · tiến độ mọi học viên, cài đặt truy cập và học phí, danh sách kích hoạt, nội dung bài học. Nên tải định kỳ (ví dụ cuối mỗi tháng) và cất ở nơi riêng tư, vì file có chứa toàn bộ bài học.</span>
+      <span class="bk-btns"><button class="btn" id="t-json">Tải bản sao lưu (JSON)</button><label class="btn" for="t-rf">Khôi phục từ bản sao lưu…</label><input type="file" id="t-rf" accept=".json,application/json" hidden></span></div>
     <p class="note" id="t-msg" aria-live="polite"></p>
   </section>
 </main>
@@ -217,11 +226,11 @@ footer{margin-top:56px;border-top:1px solid var(--line);padding-block:20px 40px;
    Thêm khóa học mới: thêm một mục vào COURSES, đặt status:"open", url trỏ tới thư mục của khóa. */
 const COURSES=[
  {id:"cpp",name:"C++ Từ Nền Tảng",mono:"C++",url:"cpp/index.html",status:"open",hue:"cpp",
-  desc:"Từ chương trình đầu tiên tới con trỏ, hướng đối tượng, STL và đa luồng. Có trình mô phỏng bộ nhớ chạy ngay trên web.",
+  desc:"Đang mở từ chương trình đầu tiên tới hàm và đệ quy, có trình mô phỏng bộ nhớ chạy ngay trên web. Mảng, con trỏ, hướng đối tượng, STL và đa luồng đang được biên soạn.",
   chapters:12,
   lessons:[["l1","Chương trình C++ đầu tiên"],["l2","Cài đặt trình biên dịch & IDE"],["l3","Nhập xuất với cin / cout"],["l4","Biến, khai báo, khởi tạo"],["l5","int, double, char, bool"],["l6","Hằng số const / constexpr"],["l7","Ép kiểu và tràn số"],["l8","Toán tử số học"],["l9","So sánh và logic"],["l10","Thứ tự ưu tiên"],["l11","Toán tử bit"],["l12","if / else"],["l13","switch"],["l14","while, do-while"],["l15","for, break, continue"],["l16","Định nghĩa và gọi hàm"],["l17","Tham trị và tham chiếu"],["l18","Nạp chồng hàm"],["l19","Đệ quy"]],
   exercises:["l1-0","l1-1","l1-2","l2-term",...["l3","l4","l5","l6","l7","l8","l9","l10","l11","l12","l13","l14","l15","l16","l17","l18","l19"].flatMap(l=>[0,1,2].map(i=>`${l}-${i}`))],
-  contentVer:"07cafb0821f3",
+  contentVer:"b11b75a7e232",
   quizzes:{l1:"quiz",l2:"quiz2",l3:"quiz3",l4:"quiz4",l5:"quiz5",l6:"quiz6",l7:"quiz7",l8:"quiz8",l9:"quiz9",l10:"quiz10",l11:"quiz11",l12:"quiz12",l13:"quiz13",l14:"quiz14",l15:"quiz15",l16:"quiz16",l17:"quiz17",l18:"quiz18",l19:"quiz19"}},
  {id:"csharp",name:"C# Căn Bản",mono:"C#",url:"csharp/index.html",status:"soon",hue:"cs",
   desc:"Lập trình hướng đối tượng với .NET: kiểu dữ liệu, lớp, LINQ và ứng dụng Console thực tế.",chapters:null,lessons:[],exercises:[],quizzes:{}},
@@ -255,7 +264,8 @@ const AMTS=(()=>{
   /* ---- gộp hai bản tiến độ (không làm mất kết quả nào) ---- */
   function merge(a,b){
     a=Object.assign(empty(),a);b=Object.assign(empty(),b);
-    for(const k in b.lessons)if(!a.lessons[k])a.lessons[k]=b.lessons[k];
+    // lessons[l] > 0: thời điểm đánh dấu xong; < 0: thời điểm bỏ đánh dấu. Thao tác mới hơn thắng.
+    for(const k in b.lessons){const x=b.lessons[k],y=a.lessons[k];if(y===undefined||Math.abs(x||0)>Math.abs(y||0))a.lessons[k]=x}
     for(const k in b.visited)a.visited[k]=Math.max(a.visited[k]||0,b.visited[k]||0);
     for(const k in b.ex){const x=b.ex[k],y=a.ex[k];if(!y||(x.pass&&!y.pass)||(x.pass===y.pass&&(x.at||0)>(y.at||0)))a.ex[k]=x}
     for(const k in b.quiz){const x=b.quiz[k],y=a.quiz[k];if(!y)a.quiz[k]=x;else{const l=(x.at||0)>(y.at||0)?x:y;a.quiz[k]={...l,best:Math.max(x.best||0,y.best||0)}}}
@@ -289,29 +299,30 @@ const AMTS=(()=>{
       });
     }catch(e){S.mode="error";S.err="Không kết nối được dịch vụ đăng nhập. Kiểm tra Internet rồi tải lại trang.";emit()}
   }
-  /* ---- ghi tiến độ một khóa; các khóa khác giữ nguyên ---- */
+  /* ---- ghi tiến độ một khóa; các khóa khác giữ nguyên ----
+     Ghi trong transaction: đọc bản trên máy chủ, gộp với bản trên máy này rồi mới ghi,
+     nên hai thiết bị học cùng lúc không ghi đè mất kết quả của nhau. Trả về bản đã gộp (hoặc null nếu lỗi). */
   async function saveCourse(id,data){
-    const u=S.user;if(!u||!S.db||!S.docLoaded)return;
+    const u=S.user;if(!u||!S.db||!S.docLoaded)return null;
     const FV=firebase.firestore.FieldValue,ref=S.db.collection("users").doc(u.uid);
     const profile={name:u.displayName||"",email:(u.email||"").toLowerCase(),photo:u.photoURL||"",lastSeen:FV.serverTimestamp()};
-    const clean={lessons:data.lessons||{},visited:data.visited||{},ex:data.ex||{},quiz:data.quiz||{},lastLesson:data.lastLesson||null};
+    const clean=x=>({lessons:x.lessons||{},visited:x.visited||{},ex:x.ex||{},quiz:x.quiz||{},lastLesson:x.lastLesson||null});
     try{
-      if(!S.doc){
-        await ref.set({...profile,createdAt:FV.serverTimestamp(),courses:{[id]:{...clean,updatedAt:FV.serverTimestamp()}}});
-        S.doc={...profile,courses:{[id]:clean}};
-      }else{
-        const upd={...profile,["courses."+id]:{...clean,updatedAt:FV.serverTimestamp()}};
-        if(hasLegacy(S.doc)){
-          // chuyển dữ liệu cũ (dạng phẳng) vào courses.cpp rồi xóa các trường cũ trong cùng một lần ghi
-          if(id!=="cpp")upd["courses.cpp"]={...courseOf(S.doc,"cpp"),updatedAt:FV.serverTimestamp()};
-          LEGACY.forEach(k=>upd[k]=FV.delete());
-        }
-        await ref.update(upd);
-        if(hasLegacy(S.doc)){const legacy=courseOf(S.doc,"cpp");LEGACY.forEach(k=>delete S.doc[k]);S.doc.courses=Object.assign({},S.doc.courses,{cpp:legacy})}
-        S.doc.courses=Object.assign({},S.doc.courses,{[id]:clean});
-      }
+      let merged=null,docAfter=null;
+      await S.db.runTransaction(async tx=>{
+        const snap=await tx.get(ref);const doc=snap.exists?snap.data():null;
+        const remote=courseOf(doc,id);merged=clean(remote?merge(remote,data):Object.assign(empty(),data));
+        if(!doc){tx.set(ref,{...profile,createdAt:FV.serverTimestamp(),courses:{[id]:{...merged,updatedAt:FV.serverTimestamp()}}});docAfter={...profile,courses:{[id]:merged}};return}
+        const upd={...profile,["courses."+id]:{...merged,updatedAt:FV.serverTimestamp()}};
+        if(hasLegacy(doc)){ // chuyển dữ liệu cũ (dạng phẳng) vào courses.cpp rồi xóa các trường cũ trong cùng một lần ghi
+          if(id!=="cpp")upd["courses.cpp"]={...courseOf(doc,"cpp"),updatedAt:FV.serverTimestamp()};
+          LEGACY.forEach(k=>upd[k]=FV.delete())}
+        tx.update(ref,upd);
+        const nd={...doc};LEGACY.forEach(k=>delete nd[k]);nd.courses=Object.assign({},doc.courses,hasLegacy(doc)&&id!=="cpp"?{cpp:courseOf(doc,"cpp")}:{},{[id]:merged});docAfter=nd});
+      S.doc=docAfter;
       if(S.saveErr){S.saveErr="";emit()}
-    }catch(e){S.saveErr=e.code==="permission-denied"?"Firestore đang từ chối ghi: hãy dán quy tắc bảo mật mới (firestore.rules) trong Firebase Console.":"Chưa lưu được lên máy chủ, sẽ thử lại ở lần thay đổi sau.";emit()}
+      return merged;
+    }catch(e){S.saveErr=e.code==="permission-denied"?"Firestore đang từ chối ghi: hãy dán quy tắc bảo mật mới (firestore.rules) trong Firebase Console.":"Chưa lưu được lên máy chủ, sẽ tự thử lại sau ít phút.";emit();return null}
   }
   async function signIn(){
     try{const p=new firebase.auth.GoogleAuthProvider();p.setCustomParameters({prompt:"select_account"});await S.auth.signInWithPopup(p);return ""}
@@ -344,6 +355,9 @@ const AMTS=(()=>{
   async function allEnroll(){const s=await S.db.collection("enroll").get();const m={};s.docs.forEach(d=>m[d.id]=d.data());return m}
   async function setEnroll(uid,id,on,info){const FV=firebase.firestore.FieldValue;
     await S.db.collection("enroll").doc(uid).set({[id]:!!on,email:(info&&info.email)||"",name:(info&&info.name)||"",["at_"+id]:FV.serverTimestamp(),["by_"+id]:(S.user&&S.user.email)||""},{merge:true})}
+  /* ---- sao lưu / khôi phục toàn bộ (chỉ giảng viên) ---- */
+  async function dump(col){const s=await S.db.collection(col).get();const m={};s.docs.forEach(d=>m[d.id]=d.data());return m}
+  async function restoreDoc(col,id,data){await S.db.collection(col).doc(id).set(data)}
   async function uploadContent(pkg,onProg){
     if(!pkg||!pkg.course||!Array.isArray(pkg.lessons)||!pkg.ver)throw new Error("File không đúng định dạng nội dung bài học.");
     const FV=firebase.firestore.FieldValue;let k=0;
@@ -353,8 +367,9 @@ const AMTS=(()=>{
       k++;onProg&&onProg(k,pkg.lessons.length)}
     const cur=await getConfig(pkg.course,true);cur.contentVer=pkg.ver;await saveConfig(pkg.course,cur);
     return k}
-  return{S,TEACHERS,init,on:f=>{subs.push(f);f(S)},getLocal,setLocal,clearLocal,merge,courseOf,saveCourse,signIn,signOut,isTeacher,allUsers,empty,
-    ready,defaultConfig,getConfig,saveConfig,isEnrolled,clearEnroll,getLesson,allEnroll,setEnroll,uploadContent};
+  const isDone=(p,l)=>!!p&&!!p.lessons&&(p.lessons[l]||0)>0;
+  return{S,TEACHERS,init,isDone,on:f=>{subs.push(f);f(S)},getLocal,setLocal,clearLocal,merge,courseOf,saveCourse,signIn,signOut,isTeacher,allUsers,empty,
+    dump,restoreDoc,ready,defaultConfig,getConfig,saveConfig,isEnrolled,clearEnroll,getLesson,allEnroll,setEnroll,uploadContent};
 })();
 /* tiện ích dùng chung */
 const escH=s=>String(s??"").replace(/[&<>"']/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c]));
@@ -375,11 +390,11 @@ function feeLine(c,f){const n=c.lessons.filter(([l])=>f.paid&&f.paid[l]).length;
 function renderCourses(){
   document.getElementById("courses").innerHTML=COURSES.map(c=>{
     const open=c.status==="open";const p=progressOf(c.id);const total=c.lessons.length;
-    const done=c.lessons.filter(([l])=>p.lessons[l]).length;const started=done||Object.keys(p.visited).length;
+    const done=c.lessons.filter(([l])=>AMTS.isDone(p,l)).length;const started=done||Object.keys(p.visited).length;
     const last=p.lastLesson&&c.lessons.find(x=>x[0]===p.lastLesson);
     const href=c.url+(last?"#bai-"+last[0].slice(1):"");
     return `<article class="course ${open?"":"soon"}" style="--hue:var(--c-${c.hue})">
-      <div class="c-top"><div class="mono" aria-hidden="true">${escH(c.mono)}</div><div><h3>${escH(c.name)}</h3><span class="chip ${open?"open":""}">${open?`Đang mở · ${total} bài${c.chapters?` / ${c.chapters} chương`:""}`:"Sắp ra mắt"}</span></div></div>
+      <div class="c-top"><div class="mono" aria-hidden="true">${escH(c.mono)}</div><div><h3>${escH(c.name)}</h3><span class="chip ${open?"open":""}">${open?`${total} bài đang mở${c.chapters?` · lộ trình ${c.chapters} chương`:""}`:"Sắp ra mắt"}</span></div></div>
       <p>${escH(c.desc)}</p>${open&&PUB[c.id]?feeLine(c,PUB[c.id]):""}
       <div class="c-prog">${open?`<div class="pbar" role="progressbar" aria-label="Tiến độ ${escH(c.name)}" aria-valuemin="0" aria-valuemax="${total}" aria-valuenow="${done}"><span style="width:${total?done/total*100:0}%"></span></div><span class="pnum">${done}/${total} bài đã hoàn thành</span>`:`<span class="pnum">Nội dung đang được biên soạn.</span>`}</div>
       <div class="c-act">${open?`<a class="btn pri" href="${escH(href)}">${started?"Học tiếp":"Bắt đầu học"}</a>${last?`<span class="cont">Bài gần nhất: ${escH(last[1])}</span>`:""}`:`<button class="btn" disabled>Sắp ra mắt</button>`}</div>
@@ -440,7 +455,8 @@ function renderAdmin(){
     <div class="adm-in">
       <p>Phần chữ của các bài học được lưu trên Firebase để chỉ người có quyền mới xem được. Mỗi lần cập nhật trang trên GitHub, hãy tải kèm file <code>noi-dung-${escH(TC)}.json</code> lên đây.</p>
       <p class="note">Trang đang dùng phiên bản <code>${escH(sv||"?")}</code> · Máy chủ đang có <code>${escH(cv||"chưa có")}</code>.</p>
-      <div class="adm-act"><input type="file" id="a-file" accept=".json,application/json"><button class="btn pri" id="a-up">Tải nội dung lên</button><span class="note" id="a-umsg" aria-live="polite"></span></div>
+      <div class="adm-act"><input type="file" id="a-file" accept=".json,application/json"><button class="btn pri" id="a-up">Tải nội dung lên</button><button class="btn" id="a-chk">Kiểm tra từng bài</button><span class="note" id="a-umsg" aria-live="polite"></span></div>
+      <div id="a-chkres"></div>
     </div></details>`;
   box.querySelectorAll("details.adm-box").forEach(d=>d.addEventListener("toggle",()=>{const o=ssGet();o[d.dataset.k]=d.open;try{sessionStorage.setItem("amts-adm-open",JSON.stringify(o))}catch(e){}}));
   const $=id=>document.getElementById(id);
@@ -450,6 +466,12 @@ function renderAdmin(){
   $("a-save").onclick=saveAdmin;
   $("a-eq").addEventListener("input",renderEnroll);renderEnroll();
   $("a-up").onclick=uploadPkg;
+  $("a-chk").onclick=async()=>{const out=$("a-chkres");out.innerHTML=`<p class="note">Đang đọc nội dung trên máy chủ…</p>`;
+    try{const all=await AMTS.dump("content");const L=courseById(TC).lessons;
+      const rows=L.map(([l,n],i)=>{const d=all[TC+"-"+l];return{l,i,n,ok:!!(d&&d.html),ver:d&&d.ver,size:d&&d.html?d.html.length:0}});
+      const miss=rows.filter(r=>!r.ok),old=rows.filter(r=>r.ok&&r.ver!==courseById(TC).contentVer);
+      out.innerHTML=`<p class="${miss.length||old.length?"bad-t":"ok-t"}"><b>${rows.length-miss.length}/${rows.length} bài có trên máy chủ</b>${old.length?` · ${old.length} bài khác phiên bản trang`:""}${!miss.length&&!old.length?" · tất cả khớp phiên bản trang":""}.</p>${miss.length||old.length?`<p class="note">${miss.length?`Thiếu: ${miss.map(r=>"Bài "+(r.i+1)).join(", ")}. `:""}${old.length?`Cũ: ${old.map(r=>"Bài "+(r.i+1)).join(", ")}. `:""}Hãy tải lại file noi-dung-${escH(TC)}.json.</p>`:""}`}
+    catch(e){out.innerHTML=`<p class="bad-t">Không đọc được: ${escH(e.message||e.code)}</p>`}};
 }
 async function saveAdmin(){
   const $=id=>document.getElementById(id),msg=$("a-msg");
@@ -490,7 +512,7 @@ const tsMs=t=>t?(t.toMillis?t.toMillis():new Date(t).getTime()):0;
 function fmtTime(t){if(!t)return"—";const d=t.toDate?t.toDate():new Date(t);if(isNaN(d))return"—";return d.toLocaleString("vi-VN",{day:"2-digit",month:"2-digit",year:"numeric",hour:"2-digit",minute:"2-digit"})}
 function summarize(r,c){
   const p=AMTS.courseOf(r,c.id);if(!p)return null;
-  const done=c.lessons.filter(([l])=>p.lessons[l]).map(x=>x[0]);
+  const done=c.lessons.filter(([l])=>AMTS.isDone(p,l)).map(x=>x[0]);
   const exPass=c.exercises.filter(k=>(p.ex[k]||{}).pass).length;
   const qs=Object.values(p.quiz||{}).filter(q=>q&&q.total);const qavg=qs.length?Math.round(qs.reduce((s,q)=>s+(q.best||0)/q.total,0)/qs.length*100):null;
   const upd=(r.courses&&r.courses[c.id]&&r.courses[c.id].updatedAt)||r.lastSeen;
@@ -518,7 +540,7 @@ function renderTeacher(){
   if(!rows.length){box.innerHTML=`<p class="empty">${inC.length?"Không có học viên khớp từ khóa.":"Chưa có học viên nào học khóa này. Danh sách sẽ hiện khi học viên đăng nhập và mở bài học."}</p>`;return}
   const L=c.lessons;
   box.innerHTML=`<div class="tbl"><table class="tt"><thead><tr><th>Học viên</th>${L.map(([l,n],i)=>`<th title="${escH(n)}">B${i+1}</th>`).join("")}<th>Bài tập</th><th>Trắc nghiệm</th><th>Lần cuối</th></tr></thead><tbody>${
-    rows.map(({r,s})=>`<tr class="trow" data-id="${escH(r.uid)}" tabindex="0"><td><b>${escH(r.name||"(chưa có tên)")}</b><small>${escH(r.email||"")}</small></td>${L.map(([l])=>`<td class="st">${s.p.lessons[l]?'<span class="s-done" title="Đã hoàn thành">✓</span>':s.p.visited[l]?'<span class="s-seen" title="Đã mở">◐</span>':'<span class="s-no">·</span>'}</td>`).join("")}
+    rows.map(({r,s})=>`<tr class="trow" data-id="${escH(r.uid)}" tabindex="0"><td><b>${escH(r.name||"(chưa có tên)")}</b><small>${escH(r.email||"")}</small></td>${L.map(([l])=>`<td class="st">${AMTS.isDone(s.p,l)?'<span class="s-done" title="Đã hoàn thành">✓</span>':s.p.visited[l]?'<span class="s-seen" title="Đã mở">◐</span>':'<span class="s-no">·</span>'}</td>`).join("")}
       <td class="num">${s.exPass}/${c.exercises.length}</td><td class="num">${s.qavg===null?"—":s.qavg+"%"}</td><td class="when">${fmtTime(s.upd)}${s.p.lastLesson?`<small>${escH((L.find(x=>x[0]===s.p.lastLesson)||[])[1]||"")}</small>`:""}</td></tr>
       <tr class="tdetail" hidden data-for="${escH(r.uid)}"><td colspan="${L.length+4}">${detail(s.p,c)}</td></tr>`).join("")}</tbody></table></div>
     <p class="note">✓ hoàn thành · ◐ đã mở nhưng chưa đánh dấu xong · bấm vào một học viên để xem chi tiết.</p>`;
@@ -526,7 +548,7 @@ function renderTeacher(){
 }
 function detail(p,c){
   return `<div class="tdet">${c.lessons.map(([l,n],i)=>{const exs=c.exercises.filter(k=>k.startsWith(l+"-"));const q=p.quiz[c.quizzes[l]];
-    return `<div><b>Bài ${i+1}</b> <small>${escH(n)}</small><span>${p.lessons[l]?"✓ Hoàn thành":p.visited[l]?"Đã mở":"Chưa học"}</span>
+    return `<div><b>Bài ${i+1}</b> <small>${escH(n)}</small><span>${AMTS.isDone(p,l)?"✓ Hoàn thành":p.visited[l]?"Đã mở":"Chưa học"}</span>
       <span>Bài tập: ${exs.length?exs.map(k=>{const x=p.ex[k];return `<i class="${x?x.pass?"ok":"bad":""}" title="${escH(k)}${x&&x.d?" · "+escH(x.d):""}">${x?x.pass?"✓":"✗":"·"}</i>`}).join(""):"—"}</span>
       <span>Trắc nghiệm: ${q?`${q.score}/${q.total} (cao nhất ${q.best}/${q.total})`:"—"}</span></div>`}).join("")}</div>`;
 }
@@ -547,11 +569,29 @@ function plain(v){if(v&&typeof v.toDate==="function")return v.toDate().toISOStri
 async function exportJSON(){
   const msg=document.getElementById("t-msg");msg.textContent="Đang lấy dữ liệu mới nhất…";
   try{ALL=await AMTS.allUsers();renderTeacher();
-    const data={app:"AMTS Học Lập Trình",firebaseProject:"amts-cpp",format:"users/{uid} với courses.{mã khóa}",exportedAt:new Date().toISOString(),exportedBy:AMTS.S.user.email,count:ALL.length,courses:COURSES.map(c=>({id:c.id,name:c.name})),users:ALL.map(plain)};
-    download(`amts-sao-luu-${today()}.json`,JSON.stringify(data,null,2),"application/json");
-    msg.textContent=`Đã tạo bản sao lưu gồm ${ALL.length} tài khoản.`}
-  catch(e){msg.textContent="Không sao lưu được: "+(e.code==="permission-denied"?"Firestore từ chối truy cập.":(e.message||e.code))}
+    const [config,enroll,content]=await Promise.all(["config","enroll","content"].map(c=>AMTS.dump(c)));
+    const data={app:"AMTS Học Lập Trình",format:"amts-backup-v2",firebaseProject:"amts-cpp",exportedAt:new Date().toISOString(),exportedBy:AMTS.S.user.email,
+      note:"users: tiến độ học viên · config: cài đặt truy cập/học phí · enroll: danh sách kích hoạt · content: phần chữ bài học",
+      counts:{users:ALL.length,config:Object.keys(config).length,enroll:Object.keys(enroll).length,content:Object.keys(content).length},
+      courses:COURSES.map(c=>({id:c.id,name:c.name})),users:ALL.map(plain),config:plain(config),enroll:plain(enroll),content:plain(content)};
+    download(`amts-sao-luu-${today()}.json`,JSON.stringify(data,null,1),"application/json");
+    msg.textContent=`Đã tạo bản sao lưu: ${ALL.length} học viên, ${Object.keys(content).length} bài học, ${Object.keys(enroll).length} tài khoản kích hoạt.`}
+  catch(e){msg.textContent="Không sao lưu được: "+(e.code==="permission-denied"?"Firestore từ chối truy cập. Hãy dán bộ quy tắc firestore.rules mới.":(e.message||e.code))}
 }
+async function restoreJSON(f){
+  const msg=document.getElementById("t-msg");let d;
+  try{d=JSON.parse(await f.text())}catch(e){msg.textContent="File không đọc được (không phải JSON).";return}
+  if(!d||!Array.isArray(d.users)){msg.textContent="File này không phải bản sao lưu của AMTS.";return}
+  const n={users:d.users.length,config:Object.keys(d.config||{}).length,enroll:Object.keys(d.enroll||{}).length,content:Object.keys(d.content||{}).length};
+  if(!confirm(`Khôi phục từ bản sao lưu ngày ${(d.exportedAt||"?").slice(0,10)}?\n\n• ${n.users} học viên (tiến độ)\n• ${n.config} cài đặt khóa học\n• ${n.enroll} tài khoản kích hoạt\n• ${n.content} bài học\n\nDữ liệu hiện có trùng tên sẽ bị GHI ĐÈ bằng dữ liệu trong file.`))return;
+  let k=0;const tot=n.users+n.config+n.enroll+n.content;const tick=()=>msg.textContent=`Đang khôi phục ${++k}/${tot}…`;
+  try{
+    for(const u of d.users){const {uid,...rest}=u;if(!uid)continue;await AMTS.restoreDoc("users",uid,rest);tick()}
+    for(const col of ["config","enroll","content"])for(const id in (d[col]||{})){await AMTS.restoreDoc(col,id,d[col][id]);tick()}
+    msg.textContent=`Đã khôi phục ${k} mục. Đang tải lại…`;loadTeacher()}
+  catch(e){msg.textContent=`Dừng ở mục ${k}/${tot}: `+(e.code==="permission-denied"?"Firestore từ chối. Hãy dán bộ quy tắc firestore.rules mới (cho phép giảng viên khôi phục).":(e.message||e.code))}
+}
+document.getElementById("t-rf").addEventListener("change",e=>{const f=e.target.files[0];e.target.value="";if(f)restoreJSON(f)});
 document.getElementById("t-q").addEventListener("input",()=>ALL.length&&renderTeacher());
 document.getElementById("t-reload").onclick=loadTeacher;
 document.getElementById("t-csv").onclick=exportCSV;

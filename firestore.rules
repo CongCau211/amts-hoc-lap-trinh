@@ -1,0 +1,82 @@
+rules_version = '2';
+service cloud.firestore {
+  match /databases/{database}/documents {
+
+    // Danh sách email giảng viên được xem tiến độ của mọi học viên.
+    // Thêm giảng viên: ['congcau0910@gmail.com', 'giangvien2@gmail.com']
+    function isTeacher() {
+      return request.auth != null
+        && request.auth.token.email_verified == true
+        && request.auth.token.email.lower() in ['congcau0910@gmail.com'];
+    }
+
+    function isOwner(uid) {
+      return request.auth != null && request.auth.uid == uid;
+    }
+
+    function signedIn() {
+      return request.auth != null;
+    }
+
+    // Học viên đã được giảng viên kích hoạt phần có phí của khóa học chưa.
+    function enrolled(course) {
+      return signedIn()
+        && exists(/databases/$(database)/documents/enroll/$(request.auth.uid))
+        && get(/databases/$(database)/documents/enroll/$(request.auth.uid)).data.get(course, false) == true;
+    }
+
+    // Quy tắc đọc một bài học, theo cài đặt của giảng viên trong config/{khóa}:
+    //  - bài có phí (khi bật chế độ trả phí): chỉ học viên đã kích hoạt;
+    //  - bài từ "loginFrom" trở đi: phải đăng nhập;
+    //  - các bài còn lại: ai cũng xem được.
+    function canReadLesson(d) {
+      let c = get(/databases/$(database)/documents/config/$(d.course)).data;
+      let paid = c.get('paidMode', false) == true && c.get('paid', {}).get(d.lesson, false) == true;
+      return paid ? enrolled(d.course) : (d.order < c.get('loginFrom', 16) || signedIn());
+    }
+
+    // Mỗi học viên có một tài liệu users/{uid}.
+    // Tiến độ của từng khóa nằm trong courses.{mã khóa}: courses.cpp, courses.csharp,
+    // courses.python, courses.java... Thêm khóa mới không cần sửa quy tắc này.
+    match /users/{uid} {
+      // Học viên đọc tiến độ của mình; giảng viên đọc của tất cả.
+      allow read: if isOwner(uid) || isTeacher();
+
+      // Học viên chỉ ghi vào tài liệu của chính mình, đúng email đã đăng nhập,
+      // và chỉ với các trường mà trang khóa học sử dụng.
+      allow create, update: if isOwner(uid)
+        && request.resource.data.email == request.auth.token.email.lower()
+        && request.resource.data.keys().hasOnly(
+             ['name', 'email', 'photo', 'createdAt', 'lastSeen', 'courses'])
+        && request.resource.data.courses is map
+        && request.resource.data.courses.size() <= 20;
+
+      // Giảng viên được ghi (để khôi phục từ bản sao lưu) và xóa dữ liệu học viên.
+      allow create, update, delete: if isTeacher();
+    }
+
+    // Cài đặt truy cập của từng khóa: ai cũng đọc được, chỉ giảng viên sửa.
+    match /config/{course} {
+      allow read: if true;
+      allow write: if isTeacher();
+    }
+
+    // Danh sách học viên được kích hoạt phần có phí: học viên chỉ xem được của mình,
+    // chỉ giảng viên được kích hoạt hoặc hủy kích hoạt.
+    match /enroll/{uid} {
+      allow read: if isOwner(uid) || isTeacher();
+      allow write: if isTeacher();
+    }
+
+    // Nội dung bài học: đọc theo canReadLesson, chỉ giảng viên được tải lên.
+    match /content/{docId} {
+      allow read: if isTeacher() || canReadLesson(resource.data);
+      allow write: if isTeacher();
+    }
+
+    // Mọi đường dẫn khác đều bị khóa.
+    match /{document=**} {
+      allow read, write: if false;
+    }
+  }
+}
