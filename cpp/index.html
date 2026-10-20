@@ -226,6 +226,37 @@ select{font:inherit;font-size:13.5px;padding:7px 10px;border-radius:8px;border:1
 .card .simtag b{font-family:var(--f-mono);font-size:11px;letter-spacing:.06em;text-transform:uppercase;color:var(--accent);margin-right:6px}
 .card.live{border-color:var(--accent)}
 .next{display:flex;justify-content:space-between;gap:12px;flex-wrap:wrap;border-top:1px solid var(--line);padding-top:18px;color:var(--muted);font-size:14px}
+/* Thuật ngữ tiếng Anh: nhãn cạnh lần xuất hiện đầu tiên, phụ đề tiêu đề, bảng thuật ngữ */
+.en{font-family:var(--f-body);font-size:.8em;font-weight:500;font-style:italic;color:var(--accent);background:var(--accent-soft);border-radius:5px;padding:.08em .42em;margin-left:.32em;white-space:nowrap;letter-spacing:0;scroll-margin:120px}
+.en.flash{outline:2px solid var(--accent);outline-offset:2px}
+.h-en{display:block;font-size:max(.52em,14px);font-weight:500;font-style:italic;color:var(--muted);letter-spacing:0;margin-top:3px;line-height:1.35}
+.h1-en{font-size:clamp(16px,2.2vw,19px);font-style:italic;color:var(--muted);margin:4px 0 0;font-weight:500}
+.card h3 .h-en{font-size:13px}
+html.no-en .en,html.no-en .h-en,html.no-en .h1-en,html.no-en .gloss{display:none}
+.gloss{background:var(--surface);border:1px solid var(--line);border-radius:var(--r);padding:0}
+.gloss summary{cursor:pointer;padding:14px 18px;display:flex;gap:10px;align-items:baseline;flex-wrap:wrap;list-style:none}
+.gloss summary::-webkit-details-marker{display:none}
+.gloss summary::before{content:"▸";color:var(--muted);transition:transform .15s}
+.gloss[open] summary::before{transform:rotate(90deg)}
+.gloss summary b{font-size:15px}
+.gloss summary small{color:var(--muted);font-size:13px}
+.gl-list{display:grid;grid-template-columns:repeat(auto-fill,minmax(min(100%,250px),1fr));gap:6px 18px;margin:0;padding:4px 18px 16px}
+.gl-list button{display:flex;flex-direction:column;align-items:flex-start;text-align:left;border:0;background:transparent;padding:6px 8px;border-radius:7px;min-width:0}
+.gl-list button:hover{background:var(--accent-soft)}
+.gl-list .gl-en{font-weight:600;color:var(--accent);font-style:italic}
+.gl-list .gl-vi{font-size:14px;color:var(--ink)}
+.gl-list .gl-at{font-size:12px;color:var(--muted)}
+.gloss-all{margin-top:34px}
+.gloss-all .gl-tools{display:flex;gap:10px;flex-wrap:wrap;align-items:center;padding:0 18px 8px}
+.gloss-all input{flex:1;min-width:0;max-width:360px;font:inherit;font-size:15px;padding:8px 12px;border:1px solid var(--line);border-radius:8px;background:var(--bg);color:var(--ink)}
+.gl-tools .gl-at{font-size:13px;color:var(--muted)}
+.road-gl{border:0;background:none;padding:0;color:var(--accent);font-weight:600;text-decoration:underline;text-underline-offset:3px}
+.gl-empty{color:var(--muted);padding:0 18px 16px;margin:0}
+.en-row{display:flex;align-items:center;justify-content:space-between;gap:10px;margin:-6px 0 16px;font-size:13px;color:var(--muted)}
+.en-sw{position:relative;width:38px;height:22px;border-radius:11px;border:1px solid var(--line);background:var(--bg);padding:0;flex:none}
+.en-sw::after{content:"";position:absolute;top:2px;left:2px;width:16px;height:16px;border-radius:50%;background:var(--muted);transition:transform .15s}
+.en-sw[aria-checked="true"]{background:var(--accent);border-color:var(--accent)}
+.en-sw[aria-checked="true"]::after{transform:translateX(16px);background:var(--accent-ink)}
 
 /* ---------- Logo AMTS ---------- */
 .org{display:flex;align-items:center;gap:10px;padding-bottom:14px;margin-bottom:14px;border-bottom:1px solid var(--line)}
@@ -868,6 +899,7 @@ pre.a16-code{margin:0}
       <button id="nav-road" aria-pressed="false">Lộ trình</button>
       <button id="nav-lesson" aria-pressed="true">Bài đang học</button>
     </div>
+    <div class="en-row"><span id="en-lb">Hiện thuật ngữ tiếng Anh</span><button class="en-sw" id="en-sw" role="switch" aria-checked="true" aria-labelledby="en-lb"></button></div>
     <div class="outline" id="outline"></div>
   </aside>
 
@@ -878,32 +910,65 @@ pre.a16-code{margin:0}
         <div class="crumb">Khóa học / Lộ trình</div>
         <div class="hero">
           <h1>Lộ trình <em>C++</em> 12 chương</h1>
-          <p class="lede">Ba cấp độ, mỗi chương gồm bài lý thuyết có hình minh họa, một trình mô phỏng chạy ngay trên trình duyệt và bài tập tự kiểm tra.</p>
+          <p class="lede">Ba cấp độ, mỗi chương gồm bài lý thuyết có hình minh họa, một trình mô phỏng chạy ngay trên trình duyệt và bài tập tự kiểm tra. Thuật ngữ tiếng Anh được ghi kèm trong bài và tập hợp trong <button type="button" class="road-gl" id="road-gl">từ điển thuật ngữ Anh – Việt</button>.</p>
         </div>
       </div>
       <div id="road"></div>
+      <details class="gloss gloss-all" id="gloss-all"><summary><b>Từ điển thuật ngữ Anh – Việt</b><small>English – Vietnamese glossary</small></summary>
+        <div class="gl-tools"><input id="gl-q" type="search" placeholder="Tìm: biến, loop, tham chiếu…" aria-label="Tìm thuật ngữ"><span class="gl-at" id="gl-n"></span></div>
+        <div class="gl-list" id="gl-all"></div>
+      </details>
     </div>
 
     <!-- ===================== LESSON 1 ===================== -->
-    <article class="col" id="view-l1"><div class="lgate" aria-live="polite"></div><div class="park" hidden><div data-m="m0" class="anatomy">
+    <article class="col" id="view-l1"><div class="lgate" aria-live="polite"></div><div class="park" hidden><header data-m="m0" class="hero">
+        <div class="crumb">Chương 1 · Nhập môn / Bài 1</div>
+        <h1>Chương trình <em>C++</em> đầu tiên</h1>
+        <p class="h1-en" lang="en">Your First C++ Program</p>
+        
+        <p class="lede">Viết, biên dịch<span class="en" lang="en" data-vi="biên dịch">compile</span> và chạy “Hello, World!”. Hiểu từng dòng trong chương trình và chuyện gì xảy ra từ lúc bạn gõ code tới lúc chữ hiện trên màn hình.</p>
+        <div class="meta"><span class="chip lv1">Cơ bản</span><span class="chip">45 phút</span><span class="chip">Có trình mô phỏng</span><span class="chip">3 bài tập · 4 câu hỏi</span></div>
+      </header>
+<div data-m="m1" class="goals">
+        <h3>Sau bài này học viên có thể</h3>
+        <ul>
+          <li>Gọi tên và giải thích 6 thành phần của một chương trình C++ tối thiểu.</li>
+          <li>Mô tả 4 giai đoạn: tiền xử lý<span class="en" lang="en" data-vi="tiền xử lý">preprocessing</span>, biên dịch, liên kết<span class="en" lang="en" data-vi="liên kết">linking</span>, chạy.</li>
+          <li>Dùng <code>std::cout</code>, toán tử<span class="en" lang="en" data-vi="toán tử">operator</span> <code>&lt;&lt;</code>, <code>std::endl</code> và <code>\n</code> để in ra màn hình.</li>
+          <li>Đọc thông báo lỗi<span class="en" lang="en" data-vi="thông báo lỗi">error message</span> biên dịch phổ biến và tự sửa.</li>
+        </ul>
+      </div>
+<div data-m="m2" class="prose">
+          <p>Mọi chương trình C++ đều bắt đầu chạy từ hàm<span class="en" lang="en" data-vi="hàm">function</span> <code>main</code>. Chương trình nhỏ nhất có thể in ra màn hình chỉ cần 6 dòng. Bấm vào từng thành phần bên phải để xem nó nằm ở đâu và làm gì.</p>
+        </div>
+<div data-m="m3" class="anatomy">
           <div class="code" id="anat-code"></div>
           <div class="parts-list" id="anat-list"></div>
         </div>
-<div data-m="m1" class="pipe" id="pipe">
+<div data-m="m4" class="note"><b>Lưu ý:</b> C++ phân biệt chữ hoa và chữ thường. <code>Main</code>, <code>COUT</code> hay <code>Std</code> đều là lỗi. Mỗi câu lệnh<span class="en" lang="en" data-vi="câu lệnh">statement</span> kết thúc bằng dấu chấm phẩy<span class="en" lang="en" data-vi="dấu chấm phẩy">semicolon</span> <code>;</code>.</div>
+<div data-m="m5" class="prose">
+          <p>Máy tính không hiểu trực tiếp file <code>main.cpp</code>. Trình biên dịch<span class="en" lang="en" data-vi="trình biên dịch">compiler</span> như <code>g++</code> biến nó thành mã máy<span class="en" lang="en" data-vi="mã máy">machine code</span> qua bốn giai đoạn. Nhấn <b>Bước tiếp</b> để đi qua từng giai đoạn và xem file trung gian sinh ra.</p>
+        </div>
+<div data-m="m6" class="pipe" id="pipe">
           <div class="stage"><span class="file">main.cpp → main.i</span><h4>Tiền xử lý</h4><span class="tool">g++ -E</span></div>
           <div class="stage"><span class="file">main.i → main.o</span><h4>Biên dịch</h4><span class="tool">g++ -c</span></div>
           <div class="stage"><span class="file">main.o → main</span><h4>Liên kết</h4><span class="tool">ld</span></div>
           <div class="stage"><span class="file">./main</span><h4>Chạy</h4><span class="tool">hệ điều hành</span></div>
         </div>
-<div data-m="m2" class="pipe-ctl">
+<div data-m="m7" class="pipe-ctl">
           <button class="btn" id="pipe-prev" disabled>← Lùi</button>
           <button class="btn pri" id="pipe-next">Bước tiếp</button>
           <button class="btn" id="pipe-reset">Làm lại</button>
           <span class="crumb" id="pipe-step">Giai đoạn 0 / 4</span>
         </div>
-<div data-m="m3" class="pipe-out" id="pipe-out"><span class="cap">$ g++ main.cpp -o main &amp;&amp; ./main
+<div data-m="m8" class="pipe-out" id="pipe-out"><span class="cap">$ g++ main.cpp -o main &amp;&amp; ./main
 Lệnh trên chạy cả 4 giai đoạn cùng lúc. Nhấn “Bước tiếp” để tách từng giai đoạn.</span></div>
-<div data-m="m4" class="sim">
+<div data-m="m9" class="prose">
+          <p><b><code>std::endl</code> hay <code>"\n"</code>?</b> Cả hai đều xuống dòng. <code>"\n"</code> chỉ thêm ký tự xuống dòng<span class="en" lang="en" data-vi="ký tự xuống dòng">newline character</span>; <code>std::endl</code> thêm ký tự<span class="en" lang="en" data-vi="ký tự">character</span> đó và xả bộ đệm<span class="en" lang="en" data-vi="bộ đệm">buffer</span> ngay lập tức. Khi in rất nhiều dòng, <code>"\n"</code> nhanh hơn. Trong bài này dùng cách nào cũng được.</p>
+          <p><b>Ký tự thoát</b><span class="en" lang="en" data-vi="ký tự thoát">escape sequence</span> thường gặp trong chuỗi<span class="en" lang="en" data-vi="chuỗi">string</span>: <code>\n</code> xuống dòng, <code>\t</code> tab, <code>\"</code> dấu nháy kép, <code>\\</code> dấu gạch chéo ngược.</p>
+          <p><b>In số và phép tính:</b> <code>std::cout &lt;&lt; 7 / 2;</code> in ra <code>3</code> vì hai số nguyên<span class="en" lang="en" data-vi="số nguyên">integer</span> chia nhau cho kết quả nguyên. Viết <code>7.0 / 2</code> để có <code>3.5</code>.</p>
+        </div>
+<div data-m="m10" class="sim">
           <div class="sim-bar">
             <div class="left">
               <span class="fname">main.cpp</span>
@@ -950,21 +1015,49 @@ Lệnh trên chạy cả 4 giai đoạn cùng lúc. Nhấn “Bước tiếp” 
             <span>Mô phỏng hỗ trợ: <code>#include</code>, <code>main</code>, <code>std::cout</code>, chuỗi, số, phép tính, <code>return</code></span>
           </div>
         </div>
-<div data-m="m5" class="ex-grid" id="ex-grid"></div>
-<div data-m="m6" class="quiz" id="quiz"></div>
-<div data-m="m7" class="score" id="score">Điểm: 0 / 4</div>
-<div data-m="m8" class="next">
+<div data-m="m11" class="ex-grid" id="ex-grid"></div>
+<div data-m="m12" class="quiz" id="quiz"></div>
+<div data-m="m13" class="score" id="score">Điểm: 0 / 4</div>
+<div data-m="m14" class="next">
         <button class="btn pri" data-go="l2">Bài tiếp: Cài đặt trình biên dịch &amp; IDE →</button>
         <span class="byline"><span class="amts-logo" aria-hidden="true"></span>Chương 1 · Bài 1/3</span>
       </div></div></article>
 
     <!-- ===================== LESSON 2 ===================== -->
-    <article class="col" id="view-l2" hidden><div class="lgate" aria-live="polite"></div><div class="park" hidden><div data-m="m0" class="ostabs" role="tablist" aria-label="Hệ điều hành">
+    <article class="col" id="view-l2" hidden><div class="lgate" aria-live="polite"></div><div class="park" hidden><header data-m="m0" class="hero">
+        <div class="crumb">Chương 1 · Nhập môn / Bài 2</div>
+        <h1>Cài đặt <em>trình biên dịch</em> và IDE</h1>
+        <p class="h1-en" lang="en">Installing a Compiler and an IDE</p>
+        
+        <p class="lede">Chuẩn bị máy để viết C++ thật: cài g++ hoặc clang++, kiểm tra bằng terminal, chọn trình soạn thảo<span class="en" lang="en" data-vi="trình soạn thảo">code editor</span>, rồi tự biên dịch và chạy chương trình bằng dòng lệnh<span class="en" lang="en" data-vi="dòng lệnh">command line</span>.</p>
+        <div class="meta"><span class="chip lv1">Cơ bản</span><span class="chip">60 phút</span><span class="chip">Terminal mô phỏng</span><span class="chip">Danh sách kiểm tra · 4 câu hỏi</span></div>
+      </header>
+<div data-m="m1" class="goals">
+        <h3>Sau bài này học viên có thể</h3>
+        <ul>
+          <li>Phân biệt trình biên dịch<span class="en" lang="en" data-vi="trình biên dịch">compiler</span> (GCC, Clang, MSVC) và IDE / trình soạn thảo.</li>
+          <li>Cài trình biên dịch trên Windows, macOS hoặc Linux và kiểm tra bằng <code>g++ --version</code>.</li>
+          <li>Hiểu biến môi trường<span class="en" lang="en" data-vi="biến môi trường">environment variable</span> PATH và sửa lỗi “g++ is not recognized”.</li>
+          <li>Biên dịch, đặt tên file chạy, chọn chuẩn C++ và bật cảnh báo<span class="en" lang="en" data-vi="cảnh báo">warning</span> bằng dòng lệnh.</li>
+        </ul>
+      </div>
+<div data-m="m2" class="prose">
+          <p><b>Trình biên dịch</b> là chương trình thực hiện 4 giai đoạn ở Bài 1, biến <code>main.cpp</code> thành file chạy được<span class="en" lang="en" data-vi="file chạy được">executable</span>. <b>IDE</b> hay trình soạn thảo chỉ là nơi bạn viết code; khi bấm nút Run, IDE gọi trình biên dịch ở phía sau. Vì vậy phải cài trình biên dịch trước, IDE sau.</p>
+        </div>
+<div data-m="m3" class="tbl"><table>
+          <thead><tr><th>Trình biên dịch</th><th>Lệnh</th><th>Thường dùng trên</th><th>Ghi chú</th></tr></thead>
+          <tbody>
+            <tr><td><b>GCC</b></td><td><code>g++</code></td><td>Linux, Windows (MinGW-w64)</td><td>Phổ biến nhất, miễn phí, dùng làm chuẩn trong khóa học này</td></tr>
+            <tr><td><b>Clang</b></td><td><code>clang++</code></td><td>macOS, Linux</td><td>Thông báo lỗi<span class="en" lang="en" data-vi="thông báo lỗi">error message</span> dễ đọc; trên macOS, lệnh <code>g++</code> thực chất gọi Clang</td></tr>
+            <tr><td><b>MSVC</b></td><td><code>cl</code></td><td>Windows (Visual Studio)</td><td>Đi kèm Visual Studio; cú pháp<span class="en" lang="en" data-vi="cú pháp">syntax</span> tham số khác g++</td></tr>
+          </tbody>
+        </table></div>
+<div data-m="m4" class="ostabs" role="tablist" aria-label="Hệ điều hành">
           <button role="tab" aria-selected="true" data-os="win" id="tab-win">Windows</button>
           <button role="tab" aria-selected="false" data-os="mac" id="tab-mac">macOS</button>
           <button role="tab" aria-selected="false" data-os="lin" id="tab-lin">Linux</button>
         </div>
-<div data-m="m1" class="ospanel" data-panel="win">
+<div data-m="m5" class="ospanel" data-panel="win">
           <div class="route">
             <h4>Cách A · MSYS2 + g++ <span class="chip lv1">Khuyên dùng với VS Code</span></h4>
             <ol>
@@ -987,7 +1080,7 @@ Lệnh trên chạy cả 4 giai đoạn cùng lúc. Nhấn “Bước tiếp” 
             </ol>
           </div>
         </div>
-<div data-m="m2" class="ospanel" data-panel="mac" hidden>
+<div data-m="m6" class="ospanel" data-panel="mac" hidden>
           <div class="route">
             <h4>Command Line Tools của Apple (Clang)</h4>
             <ol>
@@ -1001,13 +1094,13 @@ Lệnh trên chạy cả 4 giai đoạn cùng lúc. Nhấn “Bước tiếp” 
             </ol>
           </div>
         </div>
-<div data-m="m3" class="ospanel" data-panel="lin" hidden>
+<div data-m="m7" class="ospanel" data-panel="lin" hidden>
           <div class="route">
             <h4>Ubuntu / Debian</h4>
             <ol>
               <li>Cập nhật danh sách gói:
                 <div class="cmd"><code>sudo apt update</code><button>Sao chép</button></div></li>
-              <li>Cài g++, make và trình gỡ lỗi gdb:
+              <li>Cài g++, make và trình gỡ lỗi<span class="en" lang="en" data-vi="gỡ lỗi">debugging</span> gdb:
                 <div class="cmd"><code>sudo apt install build-essential gdb</code><button>Sao chép</button></div></li>
               <li>Kiểm tra:
                 <div class="cmd"><code>g++ --version</code><button>Sao chép</button></div></li>
@@ -1018,7 +1111,7 @@ Lệnh trên chạy cả 4 giai đoạn cùng lúc. Nhấn “Bước tiếp” 
             <div class="cmd"><code>sudo dnf install gcc-c++ gdb</code><button>Sao chép</button></div>
           </div>
         </div>
-<div data-m="m4" class="figure pathfig">
+<div data-m="m8" class="figure pathfig">
           <div style="display:flex;justify-content:space-between;gap:12px;flex-wrap:wrap;align-items:center">
             <label class="switch"><input type="checkbox" id="path-add"> Đã thêm <code>C:\msys64\ucrt64\bin</code> vào PATH</label>
             <button class="btn pri" id="path-run">Gõ lệnh g++ --version</button>
@@ -1026,7 +1119,7 @@ Lệnh trên chạy cả 4 giai đoạn cùng lúc. Nhấn “Bước tiếp” 
           <div id="path-rows" style="display:grid;gap:6px"></div>
           <div class="path-out" id="path-out">PS C:\cpp&gt; <span style="color:var(--code-muted)">nhấn nút để chạy</span></div>
         </div>
-<div data-m="m5" class="vsfig">
+<div data-m="m9" class="vsfig">
           <figure class="figure" style="margin:0">
             <div class="svgwrap">
             <svg viewBox="0 0 560 330" role="img" aria-label="Các vùng của cửa sổ VS Code">
@@ -1079,7 +1172,7 @@ Lệnh trên chạy cả 4 giai đoạn cùng lúc. Nhấn “Bước tiếp” 
             <button aria-pressed="true"><span class="pin">5</span><b>Thanh trạng thái</b><span class="d">Cho biết vị trí con trỏ, ngôn ngữ và trình biên dịch đang dùng.</span></button>
           </div>
         </div>
-<div data-m="m6" class="shell">
+<div data-m="m10" class="shell">
           <div class="sim-bar">
             <div class="left"><span class="fname" id="sh-title">Terminal · Linux / macOS</span></div>
             <div class="right"><div class="seg" role="group" aria-label="Hệ điều hành"><button aria-pressed="true" data-sh="nix">Linux / macOS</button><button aria-pressed="false" data-sh="win">Windows</button></div><button class="btn" id="sh-reset">Làm lại</button></div>
@@ -1095,18 +1188,39 @@ Lệnh trên chạy cả 4 giai đoạn cùng lúc. Nhấn “Bước tiếp” 
           </div>
           <div class="sim-foot"><span><kbd>↑</kbd> <kbd>↓</kbd> xem lại lệnh cũ · <kbd>Tab</kbd> tự hoàn thành tên file</span><span>Các tham số hỗ trợ: <code>-o</code> <code>-std=</code> <code>-Wall</code> <code>-Wextra</code> <code>-c</code> <code>-E</code> <code>--version</code></span></div>
         </div>
-<div data-m="m7" class="checklist" id="checklist"></div>
-<div data-m="m8" class="quiz" id="quiz2"></div>
-<div data-m="m9" class="score" id="score2"></div>
-<div data-m="m10" class="next">
+<div data-m="m11" class="checklist" id="checklist"></div>
+<div data-m="m12" class="quiz" id="quiz2"></div>
+<div data-m="m13" class="score" id="score2"></div>
+<div data-m="m14" class="next">
         <button class="btn" data-go="l1">← Bài 1</button>
         <span class="byline"><span class="amts-logo" aria-hidden="true"></span>Chương 1 · Bài 2/3</span>
         <button class="btn pri" data-go="l3">Bài tiếp: Nhập xuất với cin / cout →</button>
       </div></div></article>
 
     <!-- ===================== LESSON 3 ===================== -->
-    <article class="col" id="view-l3" hidden><div class="lgate" aria-live="polite"></div><div class="park" hidden><div data-m="m0" class="code" data-snip="l3a"></div>
-<figure data-m="m1" class="figure" style="margin:0">
+    <article class="col" id="view-l3" hidden><div class="lgate" aria-live="polite"></div><div class="park" hidden><header data-m="m0" class="hero">
+        <div class="crumb">Chương 1 · Nhập môn / Bài 3</div>
+        <h1>Nhập xuất với <em>cin</em> và <em>cout</em></h1>
+        <p class="h1-en" lang="en">Input and Output with cin and cout</p>
+        
+        <p class="lede">Cho chương trình nhận dữ liệu từ bàn phím. Hiểu bộ đệm nhập<span class="en" lang="en" data-vi="bộ đệm">buffer</span> hoạt động ra sao, vì sao getline đôi khi “bị bỏ qua”, và cách định dạng<span class="en" lang="en" data-vi="định dạng">formatting</span> số khi in ra.</p>
+        <div class="meta"><span class="chip lv1">Cơ bản</span><span class="chip">60 phút</span><span class="chip">Mô phỏng bộ đệm nhập</span><span class="chip">3 bài tập chấm tự động · 4 câu hỏi</span></div>
+      </header>
+<div data-m="m1" class="goals">
+        <h3>Sau bài này học viên có thể</h3>
+        <ul>
+          <li>Đọc số, ký tự và chuỗi<span class="en" lang="en" data-vi="chuỗi">string</span> từ bàn phím bằng <code>std::cin &gt;&gt;</code>.</li>
+          <li>Giải thích cách bộ đệm nhập tách dữ liệu theo khoảng trắng<span class="en" lang="en" data-vi="khoảng trắng">whitespace</span>.</li>
+          <li>Đọc cả dòng có dấu cách bằng <code>std::getline</code> và tránh lỗi ký tự ↵ còn sót.</li>
+          <li>Định dạng số thực<span class="en" lang="en" data-vi="số thực">floating-point number</span> bằng <code>std::fixed</code>, <code>std::setprecision</code> và căn cột bằng <code>std::setw</code>.</li>
+        </ul>
+      </div>
+<div data-m="m2" class="prose">
+          <p><code>std::cin</code> là luồng nhập<span class="en" lang="en" data-vi="luồng nhập">input stream</span> nối với bàn phím. Toán tử <code>&gt;&gt;</code> lấy một giá trị từ luồng và cất vào biến<span class="en" lang="en" data-vi="biến">variable</span>. Hãy nhớ hướng mũi tên: với <code>cout &lt;&lt;</code> dữ liệu chảy <b>ra</b> màn hình, với <code>cin &gt;&gt;</code> dữ liệu chảy <b>vào</b> biến.</p>
+          <p>Biến phải được khai báo<span class="en" lang="en" data-vi="khai báo">declaration</span> trước khi đọc. Bài 4 sẽ học kỹ về biến; ở đây chỉ cần biết <code>int a;</code> tạo một ô nhớ<span class="en" lang="en" data-vi="ô nhớ">memory cell</span> tên <code>a</code> chứa số nguyên.</p>
+        </div>
+<div data-m="m3" class="code" data-snip="l3a"></div>
+<figure data-m="m4" class="figure" style="margin:0">
           <div class="svgwrap">
           <svg viewBox="0 0 720 230" role="img" aria-label="Dữ liệu từ bàn phím đi vào bộ đệm, rồi cin tách ra từng biến">
             <g font-family="Be Vietnam Pro, sans-serif" font-size="12.5" fill="var(--muted)">
@@ -1148,153 +1262,501 @@ Lệnh trên chạy cả 4 giai đoạn cùng lúc. Nhấn “Bước tiếp” 
           </div>
           <figcaption>Người dùng gõ <code>25 7</code> rồi Enter. Cả dòng vào bộ đệm trước, sau đó <code>&gt;&gt;</code> thứ nhất lấy “25”, <code>&gt;&gt;</code> thứ hai bỏ qua dấu cách và lấy “7”. Ký tự ↵ vẫn còn lại trong bộ đệm.</figcaption>
         </figure>
-<div data-m="m2" class="figure buftry" id="buftry"></div>
-<div data-m="m3" class="figure" id="linestep"></div>
-<div data-m="m4" id="sim-l3"></div>
-<div data-m="m5" class="ex-grid" id="ex-l3"></div>
-<div data-m="m6" class="quiz" id="quiz3"></div>
-<div data-m="m7" class="score" id="score3"></div>
-<div data-m="m8" class="next">
+<div data-m="m5" class="prose">
+          <p>Bốn quy tắc cần nhớ về <code>cin &gt;&gt;</code>:</p>
+          <ul>
+            <li>Dữ liệu chỉ được gửi cho chương trình khi người dùng nhấn <b>Enter</b>. Trước đó, cả dòng nằm chờ trong bộ đệm.</li>
+            <li><code>&gt;&gt;</code> <b>bỏ qua khoảng trắng ở đầu</b> (dấu cách, tab, ↵), rồi đọc cho tới khi gặp ký tự không hợp với kiểu biến.</li>
+            <li>Phần chưa đọc <b>nằm lại</b> trong bộ đệm cho lần đọc sau. Gõ “3.7” vào biến <code>int</code> thì biến nhận 3, còn “.7” vẫn chờ.</li>
+            <li>Nếu ký tự đầu tiên không hợp kiểu (gõ chữ vào biến <code>int</code>), <code>cin</code> <b>vào trạng thái lỗi</b><span class="en" lang="en" data-vi="trạng thái lỗi">fail state</span>: biến nhận 0 và mọi lệnh <code>cin</code> sau đó bị bỏ qua.</li>
+          </ul>
+          <p>Thử ngay: đổi dữ liệu gõ vào và kiểu của ba biến, xem từng biến lấy phần nào của bộ đệm.</p>
+        </div>
+<div data-m="m6" class="figure buftry" id="buftry"></div>
+<div data-m="m7" class="figure" id="linestep"></div>
+<div data-m="m8" class="prose"><p>Mặc định <code>cout</code> in số thực với <b>6 chữ số có nghĩa</b><span class="en" lang="en" data-vi="chữ số có nghĩa">significant digits</span>, nên <code>3.14159265</code> hiện thành <code>3.14159</code>. Các công cụ dưới đây nằm trong <code>&lt;iomanip&gt;</code> (riêng <code>std::fixed</code> có sẵn trong <code>&lt;iostream&gt;</code>).</p></div>
+<div data-m="m9" class="tbl"><table>
+          <thead><tr><th>Cách viết</th><th>Kết quả với 3.14159265</th><th>Ý nghĩa</th></tr></thead>
+          <tbody>
+            <tr><td><code>cout &lt;&lt; x</code></td><td><code>3.14159</code></td><td>Mặc định: 6 chữ số có nghĩa</td></tr>
+            <tr><td><code>cout &lt;&lt; setprecision(3) &lt;&lt; x</code></td><td><code>3.14</code></td><td>3 chữ số có nghĩa (tính cả phần nguyên)</td></tr>
+            <tr><td><code>cout &lt;&lt; fixed &lt;&lt; setprecision(3) &lt;&lt; x</code></td><td><code>3.142</code></td><td>Có <code>fixed</code>: đúng 3 chữ số <b>sau dấu phẩy</b>, có làm tròn<span class="en" lang="en" data-vi="làm tròn">rounding</span></td></tr>
+            <tr><td><code>cout &lt;&lt; setw(8) &lt;&lt; 42</code></td><td><code>␠␠␠␠␠␠42</code></td><td>Chiếm 8 ô, căn phải. Chỉ áp dụng cho <b>một</b> giá trị ngay sau nó</td></tr>
+          </tbody>
+        </table></div>
+<div data-m="m10" class="prose"><p>Khi chương trình gặp <code>cin</code> mà bộ đệm trống, console sẽ hiện ô nhập: gõ dữ liệu rồi nhấn Enter, giống chạy trên máy thật. Có thể điền sẵn dữ liệu ở ô phía dưới để chạy nhanh. Khung <b>Bộ nhớ</b><span class="en" lang="en" data-vi="bộ nhớ">memory</span> cho thấy giá trị từng biến, khung <b>Bộ đệm</b> cho thấy <code>cin</code> đã lấy tới đâu.</p></div>
+<div data-m="m11" id="sim-l3"></div>
+<div data-m="m12" class="ex-grid" id="ex-l3"></div>
+<div data-m="m13" class="quiz" id="quiz3"></div>
+<div data-m="m14" class="score" id="score3"></div>
+<div data-m="m15" class="next">
         <button class="btn" data-go="l2">← Bài 2</button>
         <button class="btn pri" data-go="l4">Bài tiếp: Biến, khai báo và khởi tạo →</button>
       </div></div></article>
 
     <!-- ===================== LESSON 4 ===================== -->
-    <article class="col" id="view-l4" hidden><div class="lgate" aria-live="polite"></div><div class="park" hidden><div data-m="m0" class="code" data-snip="l4a"></div>
-<div data-m="m1" class="trace" id="trace-l4"></div>
-<div data-m="m2" class="figure namecheck" id="namecheck"></div>
-<div data-m="m3" id="sim-l4"></div>
-<div data-m="m4" class="ex-grid" id="ex-l4"></div>
-<div data-m="m5" class="quiz" id="quiz4"></div>
-<div data-m="m6" class="score" id="score4"></div>
-<div data-m="m7" class="next">
+    <article class="col" id="view-l4" hidden><div class="lgate" aria-live="polite"></div><div class="park" hidden><header data-m="m0" class="hero">
+        <div class="crumb">Chương 2 · Biến và kiểu dữ liệu / Bài 4</div>
+        <h1>Biến: <em>khai báo</em>, khởi tạo và gán</h1>
+        <p class="h1-en" lang="en">Variables: Declaration, Initialization and Assignment</p>
+        
+        <p class="lede">Biến<span class="en" lang="en" data-vi="biến">variable</span> là ô nhớ<span class="en" lang="en" data-vi="ô nhớ">memory cell</span> có tên để chương trình cất dữ liệu. Bài này đi sâu vào cách tạo biến, đặt tên, gán giá trị và theo dõi giá trị thay đổi qua từng dòng lệnh.</p>
+        <div class="meta"><span class="chip lv1">Cơ bản</span><span class="chip">60 phút</span><span class="chip">Mô phỏng bộ nhớ</span><span class="chip">Bảng theo dõi · 3 bài tập · 4 câu hỏi</span></div>
+      </header>
+<div data-m="m1" class="goals">
+        <h3>Sau bài này học viên có thể</h3>
+        <ul>
+          <li>Mô tả 4 thuộc tính của biến: tên, kiểu, giá trị, địa chỉ<span class="en" lang="en" data-vi="địa chỉ">address</span>.</li>
+          <li>Khai báo<span class="en" lang="en" data-vi="khai báo">declaration</span> và khởi tạo<span class="en" lang="en" data-vi="khởi tạo">initialization</span> biến theo 3 cú pháp, biết vì sao nên dùng <code>{ }</code>.</li>
+          <li>Dùng phép gán<span class="en" lang="en" data-vi="phép gán">assignment</span>, gán kết hợp (<code>+=</code>…) và <code>++</code>/<code>--</code>; lập bảng theo dõi<span class="en" lang="en" data-vi="bảng theo dõi">trace table</span> giá trị.</li>
+          <li>Đặt tên biến<span class="en" lang="en" data-vi="tên biến">variable name</span> đúng quy tắc và dễ đọc; nhận ra lỗi dùng biến chưa khởi tạo.</li>
+        </ul>
+      </div>
+<div data-m="m2" class="prose"><p>Bộ nhớ<span class="en" lang="en" data-vi="bộ nhớ">memory</span> RAM là một dãy rất dài các ô 1 byte, mỗi ô có một <b>địa chỉ</b>. Khi khai báo biến, trình biên dịch dành ra một vùng đủ lớn theo <b>kiểu</b> của biến và gắn cho nó một <b>tên</b>. Nội dung các byte trong vùng đó chính là <b>giá trị</b>.</p></div>
+<div data-m="m3" class="code" data-snip="l4a"></div>
+<div data-m="m4" class="tbl"><table>
+          <thead><tr><th>Cú pháp</th><th>Tên gọi</th><th>Với <code>int x … 3.7</code></th></tr></thead>
+          <tbody>
+            <tr><td><code>int x = 3.7;</code></td><td>Khởi tạo sao chép</td><td>Âm thầm cắt thành 3, không báo lỗi</td></tr>
+            <tr><td><code>int x(3.7);</code></td><td>Khởi tạo trực tiếp</td><td>Âm thầm cắt thành 3</td></tr>
+            <tr><td><code>int x{3.7};</code></td><td>Khởi tạo bằng ngoặc nhọn (C++11)</td><td><b>Lỗi biên dịch</b><span class="en" lang="en" data-vi="lỗi biên dịch">compile error</span>: không cho mất dữ liệu</td></tr>
+          </tbody>
+        </table></div>
+<div data-m="m5" class="note"><b>Nên dùng:</b> <code>{ }</code> an toàn nhất vì chặn được lỗi “thu hẹp kiểu<span class="en" lang="en" data-vi="thu hẹp kiểu">narrowing conversion</span>”. <code>int x{};</code> (để trống) cho giá trị 0. Có thể khai báo nhiều biến cùng kiểu trên một dòng: <code>int a = 1, b = 2;</code></div>
+<div data-m="m6" class="tbl"><table>
+          <thead><tr><th>Viết tắt</th><th>Tương đương</th><th>Ghi chú</th></tr></thead>
+          <tbody>
+            <tr><td><code>x += 5;</code></td><td><code>x = x + 5;</code></td><td>Tương tự với <code>-=</code>, <code>*=</code>, <code>/=</code>, <code>%=</code></td></tr>
+            <tr><td><code>x++;</code> / <code>++x;</code></td><td><code>x = x + 1;</code></td><td>Khi đứng riêng một câu lệnh thì như nhau</td></tr>
+            <tr><td><code>y = x++;</code></td><td><code>y = x; x = x + 1;</code></td><td><b>Hậu tố</b><span class="en" lang="en" data-vi="hậu tố">postfix</span>: dùng giá trị cũ rồi mới tăng</td></tr>
+            <tr><td><code>y = ++x;</code></td><td><code>x = x + 1; y = x;</code></td><td><b>Tiền tố</b><span class="en" lang="en" data-vi="tiền tố">prefix</span>: tăng trước rồi dùng giá trị mới</td></tr>
+          </tbody>
+        </table></div>
+<div data-m="m7" class="trace" id="trace-l4"></div>
+<div data-m="m8" class="prose">
+          <ul>
+            <li>Chỉ gồm chữ cái không dấu, chữ số và dấu gạch dưới <code>_</code>. Không có dấu cách.</li>
+            <li>Không bắt đầu bằng chữ số. Không trùng từ khóa<span class="en" lang="en" data-vi="từ khóa">keyword</span> như <code>int</code>, <code>return</code>.</li>
+            <li>Phân biệt hoa thường: <code>diem</code>, <code>Diem</code>, <code>DIEM</code> là ba biến khác nhau.</li>
+            <li>Đặt tên có nghĩa: <code>soHocVien</code> dễ hiểu hơn <code>n</code> hay <code>x1</code>. Chọn một kiểu (camelCase hoặc snake_case) và dùng thống nhất.</li>
+          </ul>
+        </div>
+<div data-m="m9" class="figure namecheck" id="namecheck"></div>
+<div data-m="m10" class="prose">
+          <p><code>int diem;</code> chỉ dành ra 4 byte, <b>không xóa</b> nội dung cũ của chúng. Đọc biến này cho ra một con số ngẫu nhiên còn sót trong bộ nhớ, gọi là <b>giá trị rác</b><span class="en" lang="en" data-vi="giá trị rác">garbage value</span>. Đây là <b>hành vi không xác định</b><span class="en" lang="en" data-vi="hành vi không xác định">undefined behavior (UB)</span>: chương trình có thể chạy đúng trên máy này và sai trên máy khác.</p>
+          <p>Biên dịch với <code>-Wall</code> giúp trình biên dịch cảnh báo phần lớn trường hợp. Thói quen tốt nhất: <b>luôn khởi tạo biến ngay khi khai báo</b>. Chọn ví dụ “Biến chưa khởi tạo” trong trình mô phỏng bên dưới để xem.</p>
+        </div>
+<div data-m="m11" id="sim-l4"></div>
+<div data-m="m12" class="ex-grid" id="ex-l4"></div>
+<div data-m="m13" class="quiz" id="quiz4"></div>
+<div data-m="m14" class="score" id="score4"></div>
+<div data-m="m15" class="next">
         <button class="btn" data-go="l3">← Bài 3</button>
         <button class="btn pri" data-go="l5">Bài tiếp: int, double, char, bool →</button>
       </div></div></article>
 
     <!-- ===================== LESSON 5 ===================== -->
-    <article class="col" id="view-l5" hidden><div class="lgate" aria-live="polite"></div><div class="park" hidden><div data-m="m0" class="figure" id="bits-l5"></div>
-<div data-m="m1" class="figure" id="ascii-l5"></div>
-<div data-m="m2" id="sim-l5"></div>
-<div data-m="m3" class="ex-grid" id="ex-l5"></div>
-<div data-m="m4" class="quiz" id="quiz5"></div>
-<div data-m="m5" class="score" id="score5"></div>
-<div data-m="m6" class="next">
+    <article class="col" id="view-l5" hidden><div class="lgate" aria-live="polite"></div><div class="park" hidden><header data-m="m0" class="hero">
+        <div class="crumb">Chương 2 · Biến và kiểu dữ liệu / Bài 5</div>
+        <h1>Kiểu dữ liệu: <em>int, double, char, bool</em></h1>
+        <p class="h1-en" lang="en">Data Types: int, double, char, bool</p>
+        
+        <p class="lede">Mỗi kiểu dữ liệu<span class="en" lang="en" data-vi="kiểu dữ liệu">data type</span> quyết định biến chiếm bao nhiêu byte, chứa được giá trị nào và phép toán hoạt động ra sao. Bài này cho thấy các con số thực<span class="en" lang="en" data-vi="số thực">floating-point number</span> sự nằm trong bộ nhớ dưới dạng bit.</p>
+        <div class="meta"><span class="chip lv1">Cơ bản</span><span class="chip">75 phút</span><span class="chip">Mô phỏng bit · Bảng ASCII</span><span class="chip">3 bài tập · 4 câu hỏi</span></div>
+      </header>
+<div data-m="m1" class="goals">
+        <h3>Sau bài này học viên có thể</h3>
+        <ul>
+          <li>Chọn kiểu phù hợp dựa trên kích thước, phạm vi và độ chính xác<span class="en" lang="en" data-vi="độ chính xác">precision</span>.</li>
+          <li>Giải thích tràn số<span class="en" lang="en" data-vi="tràn số">overflow</span> nguyên bằng biểu diễn nhị phân và bù hai<span class="en" lang="en" data-vi="bù hai">two's complement</span>.</li>
+          <li>Hiểu vì sao số thực chỉ lưu gần đúng và không nên so sánh bằng <code>==</code>.</li>
+          <li>Dùng <code>char</code> như một số (mã ASCII), dùng <code>bool</code>, và ép kiểu<span class="en" lang="en" data-vi="ép kiểu">type casting</span> đúng chỗ với <code>static_cast</code>.</li>
+        </ul>
+      </div>
+<div data-m="m2" class="tbl"><table class="types">
+          <thead><tr><th>Kiểu</th><th>Byte</th><th style="width:28%">Kích thước</th><th>Phạm vi / độ chính xác</th><th>Ví dụ</th></tr></thead>
+          <tbody>
+            <tr><td><code>bool</code></td><td>1</td><td><span class="bar" style="--w:12.5%"></span></td><td><code>false</code> (0), <code>true</code> (1)</td><td><code>bool daDong = true;</code></td></tr>
+            <tr><td><code>char</code></td><td>1</td><td><span class="bar" style="--w:12.5%"></span></td><td>−128 → 127, thường dùng cho 1 ký tự<span class="en" lang="en" data-vi="ký tự">character</span></td><td><code>char kyTu = 'A';</code></td></tr>
+            <tr><td><code>short</code></td><td>2</td><td><span class="bar" style="--w:25%"></span></td><td>−32 768 → 32 767</td><td><code>short nam = 2026;</code></td></tr>
+            <tr><td><code>int</code></td><td>4</td><td><span class="bar" style="--w:50%"></span></td><td>−2 147 483 648 → 2 147 483 647 (khoảng ±2,1 tỷ)</td><td><code>int soLuong = 150;</code></td></tr>
+            <tr><td><code>long long</code></td><td>8</td><td><span class="bar" style="--w:100%"></span></td><td>khoảng ±9,2 × 10<sup>18</sup></td><td><code>long long danSo = 8100000000LL;</code></td></tr>
+            <tr><td><code>float</code></td><td>4</td><td><span class="bar fl" style="--w:50%"></span></td><td>±3,4 × 10<sup>38</sup>, khoảng <b>7</b> chữ số chính xác</td><td><code>float nhietDo = 36.6f;</code></td></tr>
+            <tr><td><code>double</code></td><td>8</td><td><span class="bar fl" style="--w:100%"></span></td><td>±1,8 × 10<sup>308</sup>, khoảng <b>15–16</b> chữ số chính xác</td><td><code>double diem = 8.75;</code></td></tr>
+          </tbody>
+        </table></div>
+<div data-m="m3" class="note"><b>Lưu ý:</b> kích thước trên là phổ biến trên máy tính 64-bit hiện nay. Chuẩn C++ chỉ quy định mức tối thiểu (ví dụ <code>int</code> ít nhất 16 bit). Dùng <code>sizeof(kiểu)</code> để biết chính xác trên máy của bạn. Mặc định hãy dùng <code>int</code> cho số nguyên<span class="en" lang="en" data-vi="số nguyên">integer</span> và <code>double</code> cho số thực.</div>
+<div data-m="m4" class="prose">
+          <p>Một kiểu <i>n</i> bit chỉ có 2<sup><i>n</i></sup> tổ hợp, nên chỉ biểu diễn được 2<sup><i>n</i></sup> giá trị. Số có dấu dùng bit đầu làm <b>bit dấu</b><span class="en" lang="en" data-vi="bit dấu">sign bit</span> và lưu số âm theo dạng <b>bù hai</b>. Bấm <b>+ 1</b> ở giá trị lớn nhất để thấy tràn số.</p>
+        </div>
+<div data-m="m5" class="figure" id="bits-l5"></div>
+<div data-m="m6" class="prose">
+          <p><code>float</code> và <code>double</code> lưu số theo dạng nhị phân dấu phẩy động<span class="en" lang="en" data-vi="dấu phẩy động">floating point</span> (chuẩn IEEE 754). Nhiều số thập phân đơn giản như 0.1 <b>không biểu diễn chính xác</b> được ở hệ 2, giống như 1/3 không viết hết được ở hệ 10. Máy chỉ lưu giá trị gần nhất:</p>
+        </div>
+<div data-m="m7" class="figure" id="ascii-l5"></div>
+<div data-m="m8" class="prose">
+          <p><code>bool</code> chỉ có hai giá trị <code>true</code> và <code>false</code>. <code>cout</code> in chúng thành <code>1</code> và <code>0</code>; thêm <code>std::boolalpha</code> để in chữ. Mọi số khác 0 khi gán vào <code>bool</code> đều thành <code>true</code>.</p>
+          <p>Khi một phép toán trộn nhiều kiểu, C++ tự <b>chuyển kiểu ngầm</b><span class="en" lang="en" data-vi="chuyển kiểu ngầm">implicit conversion</span> theo quy tắc sau:</p>
+        </div>
+<div data-m="m9" class="tbl"><table>
+          <thead><tr><th>Biểu thức</th><th>Kết quả</th><th>Vì sao</th></tr></thead>
+          <tbody>
+            <tr><td><code>7 / 2</code></td><td><code>3</code></td><td>int / int → chia nguyên<span class="en" lang="en" data-vi="chia nguyên">integer division</span>, bỏ phần thập phân</td></tr>
+            <tr><td><code>7 / 2.0</code></td><td><code>3.5</code></td><td>Có một số thực → cả phép tính thành double</td></tr>
+            <tr><td><code>'A' + 1</code></td><td><code>66</code></td><td>char được nâng lên int trước khi tính</td></tr>
+            <tr><td><code>int x = 9.99;</code></td><td><code>9</code></td><td>double → int: cắt bỏ phần thập phân<span class="en" lang="en" data-vi="cắt bỏ">truncation</span>, không làm tròn</td></tr>
+            <tr><td><code>static_cast&lt;double&gt;(7) / 2</code></td><td><code>3.5</code></td><td>Ép kiểu tường minh<span class="en" lang="en" data-vi="ép kiểu tường minh">explicit cast</span> trước khi chia</td></tr>
+            <tr><td><code>(double)(7 / 2)</code></td><td><code>3</code></td><td>Chia nguyên xong (ra 3) mới ép thì đã muộn</td></tr>
+          </tbody>
+        </table></div>
+<div data-m="m10" class="prose"><p>Khung bộ nhớ hiện số byte của từng biến và giá trị đầy đủ: <code>double</code> hiện 17 chữ số có nghĩa<span class="en" lang="en" data-vi="chữ số có nghĩa">significant digits</span> để thấy rõ phần sai số mà <code>cout</code> thường giấu đi.</p></div>
+<div data-m="m11" id="sim-l5"></div>
+<div data-m="m12" class="ex-grid" id="ex-l5"></div>
+<div data-m="m13" class="quiz" id="quiz5"></div>
+<div data-m="m14" class="score" id="score5"></div>
+<div data-m="m15" class="next">
         <button class="btn" data-go="l4">← Bài 4</button>
         <button class="btn pri" data-go="l6">Bài tiếp: Hằng số const / constexpr →</button>
       </div></div></article>
 
     <!-- ===================== LESSON 6 ===================== -->
-    <article class="col" id="view-l6" hidden><div class="lgate" aria-live="polite"></div><div class="park" hidden><div data-m="m0" class="cmp2">
+    <article class="col" id="view-l6" hidden><div class="lgate" aria-live="polite"></div><div class="park" hidden><header data-m="m0" class="hero">
+        <div class="crumb">Chương 2 · Biến và kiểu dữ liệu / Bài 6</div>
+        <h1>Hằng số: <em>const</em> và <em>constexpr</em></h1>
+        <p class="h1-en" lang="en">Constants: const and constexpr</p>
+        
+        <p class="lede">Có những giá trị không bao giờ được thay đổi: số π, thuế suất, số giây trong một phút. Khai báo chúng thành hằng<span class="en" lang="en" data-vi="hằng">constant</span> giúp code dễ đọc, dễ sửa và để trình biên dịch chặn những lần gán nhầm.</p>
+        <div class="meta"><span class="chip lv1">Cơ bản</span><span class="chip">45 phút</span><span class="chip">Trò chơi “biên dịch được không?”</span><span class="chip">3 bài tập · 4 câu hỏi</span></div>
+      </header>
+<div data-m="m1" class="goals">
+        <h3>Sau bài này học viên có thể</h3>
+        <ul>
+          <li>Nhận ra “số ma thuật<span class="en" lang="en" data-vi="số ma thuật">magic number</span>” trong code và thay bằng hằng có tên.</li>
+          <li>Khai báo hằng bằng <code>const</code> và hiểu các quy tắc của nó.</li>
+          <li>Phân biệt <code>const</code> (không đổi sau khi gán) với <code>constexpr</code> (biết giá trị ngay lúc biên dịch).</li>
+          <li>Đặt tên hằng theo quy ước và biết vì sao nên tránh <code>#define</code>.</li>
+        </ul>
+      </div>
+<div data-m="m2" class="cmp2">
           <div><div class="cmp-h bad">Khó đọc, khó sửa</div><div class="code" data-snip="l6bad"></div></div>
           <div><div class="cmp-h good">Rõ nghĩa, sửa một chỗ</div><div class="code" data-snip="l6good"></div></div>
         </div>
-<div data-m="m1" class="code" data-snip="l6const"></div>
-<div data-m="m2" class="cg-grid" id="cg-l6"></div>
-<div data-m="m3" class="code" data-snip="l6define"></div>
-<div data-m="m4" id="sim-l6"></div>
-<div data-m="m5" class="ex-grid" id="ex-l6"></div>
-<div data-m="m6" class="quiz" id="quiz6"></div>
-<div data-m="m7" class="score" id="score6"></div>
-<div data-m="m8" class="next">
+<div data-m="m3" class="code" data-snip="l6const"></div>
+<div data-m="m4" class="prose"><p><code>constexpr</code> (C++11) chặt hơn <code>const</code>: giá trị phải <b>tính được ngay khi biên dịch</b>, từ các con số cố định hoặc từ hằng <code>constexpr</code> khác. Trình biên dịch thay sẵn kết quả vào mã máy<span class="en" lang="en" data-vi="mã máy">machine code</span>, chương trình không phải tính lại lúc chạy. Một số chỗ trong C++ bắt buộc dùng hằng lúc biên dịch, ví dụ kích thước mảng tĩnh ở Chương 6.</p></div>
+<div data-m="m5" class="prose"><p>Đọc từng đoạn và đoán trình biên dịch có chấp nhận không. Câu trả lời được chấm bằng chính trình biên dịch mô phỏng, kèm thông báo lỗi<span class="en" lang="en" data-vi="thông báo lỗi">error message</span> thật.</p></div>
+<div data-m="m6" class="cg-grid" id="cg-l6"></div>
+<div data-m="m7" class="prose"><p>Code C và C++ cũ hay viết <code>#define PI 3.14159</code>. Đây là lệnh của <b>bộ tiền xử lý</b><span class="en" lang="en" data-vi="bộ tiền xử lý">preprocessor</span> (giai đoạn 1 ở Bài 1): nó thay chữ <code>PI</code> bằng <code>3.14159</code> trước khi biên dịch, giống tìm-và-thay trong Word. Vì chỉ là thay chữ nên nó không có kiểu, không tuân theo phạm vi<span class="en" lang="en" data-vi="phạm vi">scope</span> và gây lỗi khó hiểu.</p></div>
+<div data-m="m8" class="code" data-snip="l6define"></div>
+<div data-m="m9" id="sim-l6"></div>
+<div data-m="m10" class="ex-grid" id="ex-l6"></div>
+<div data-m="m11" class="quiz" id="quiz6"></div>
+<div data-m="m12" class="score" id="score6"></div>
+<div data-m="m13" class="next">
         <button class="btn" data-go="l5">← Bài 5</button>
         <button class="btn pri" data-go="l7">Bài tiếp: Ép kiểu và tràn số →</button>
       </div></div></article>
 
     <!-- ===================== LESSON 7 ===================== -->
-    <article class="col" id="view-l7" hidden><div class="lgate" aria-live="polite"></div><div class="park" hidden><div data-m="m0" class="figure ladder" id="ladder-l7"></div>
-<div data-m="m1" class="figure" id="round-l7"></div>
-<div data-m="m2" id="sim-l7"></div>
-<div data-m="m3" class="ex-grid" id="ex-l7"></div>
-<div data-m="m4" class="quiz" id="quiz7"></div>
-<div data-m="m5" class="score" id="score7"></div>
-<div data-m="m6" class="next">
+    <article class="col" id="view-l7" hidden><div class="lgate" aria-live="polite"></div><div class="park" hidden><header data-m="m0" class="hero">
+        <div class="crumb">Chương 2 · Biến và kiểu dữ liệu / Bài 7</div>
+        <h1>Ép kiểu và <em>tràn số</em></h1>
+        <p class="h1-en" lang="en">Type Casting and Integer Overflow</p>
+        
+        <p class="lede">Bài 5 đã cho thấy C++ tự đổi kiểu trong phép tính. Bài này đi sâu vào quy tắc đổi kiểu, cách làm tròn<span class="en" lang="en" data-vi="làm tròn">rounding</span> đúng, và những lỗi tràn số<span class="en" lang="en" data-vi="tràn số">overflow</span> âm thầm khiến kết quả sai mà không có thông báo nào.</p>
+        <div class="meta"><span class="chip lv1">Cơ bản</span><span class="chip">60 phút</span><span class="chip">Bậc thang kiểu · Bảng làm tròn</span><span class="chip">3 bài tập · 4 câu hỏi</span></div>
+      </header>
+<div data-m="m1" class="goals">
+        <h3>Sau bài này học viên có thể</h3>
+        <ul>
+          <li>Dự đoán kiểu kết quả của một phép tính trộn nhiều kiểu.</li>
+          <li>Chọn đúng giữa cắt bỏ<span class="en" lang="en" data-vi="cắt bỏ">truncation</span> (<code>static_cast</code>) và làm tròn (<code>round</code>, <code>floor</code>, <code>ceil</code>).</li>
+          <li>Phát hiện và sửa lỗi tràn số ở phép tính trung gian.</li>
+          <li>Tránh bẫy trộn <code>int</code> với <code>unsigned</code>; tra giới hạn bằng <code>numeric_limits</code>.</li>
+        </ul>
+      </div>
+<div data-m="m2" class="prose">
+          <p><b>Đổi kiểu ngầm</b><span class="en" lang="en" data-vi="chuyển kiểu ngầm">implicit conversion</span> do trình biên dịch tự làm: khi gán <code>int x = 9.99;</code>, hoặc khi hai vế của phép toán khác kiểu. <b>Ép kiểu tường minh</b><span class="en" lang="en" data-vi="ép kiểu tường minh">explicit cast</span> là khi lập trình viên tự yêu cầu: <code>static_cast&lt;double&gt;(tong)</code>.</p>
+          <p>Ép kiểu tường minh không làm code chạy khác đi so với đổi ngầm cùng kiểu, nhưng nó <b>nói rõ ý định</b>: người đọc biết bạn cố ý đổi kiểu, không phải sơ suất.</p>
+        </div>
+<div data-m="m3" class="prose"><p>Khi hai toán hạng<span class="en" lang="en" data-vi="toán hạng">operand</span> khác kiểu, C++ áp dụng <b>chuyển đổi số học thông thường</b><span class="en" lang="en" data-vi="chuyển đổi số học thông thường">usual arithmetic conversions</span>: kiểu nhỏ (<code>bool</code>, <code>char</code>, <code>short</code>) được nâng lên <code>int</code> trước, rồi bên thấp hơn leo lên kiểu của bên cao hơn. Chọn kiểu cho <code>a</code> và <code>b</code> để xem.</p></div>
+<div data-m="m4" class="figure ladder" id="ladder-l7"></div>
+<div data-m="m5" class="figure" id="round-l7"></div>
+<div data-m="m6" class="prose"><p>Thư viện<span class="en" lang="en" data-vi="thư viện">library</span> <code>&lt;limits&gt;</code> cho biết giới hạn thật trên máy đang chạy, không cần nhớ: <code>std::numeric_limits&lt;int&gt;::max()</code>, <code>::min()</code>, <code>::lowest()</code>. Với số thực<span class="en" lang="en" data-vi="số thực">floating-point number</span>, <code>min()</code> là số <b>dương</b> nhỏ nhất; số âm nhỏ nhất là <code>lowest()</code>. Ví dụ “Giới hạn các kiểu” trong trình mô phỏng in ra bảng này.</p></div>
+<div data-m="m7" id="sim-l7"></div>
+<div data-m="m8" class="ex-grid" id="ex-l7"></div>
+<div data-m="m9" class="quiz" id="quiz7"></div>
+<div data-m="m10" class="score" id="score7"></div>
+<div data-m="m11" class="next">
         <button class="btn" data-go="l6">← Bài 6</button>
         <button class="btn pri" data-go="l8">Bài tiếp: Chương 3 · Toán tử số học →</button>
       </div></div></article>
 
     <!-- ===================== LESSON 8 ===================== -->
-    <article class="col" id="view-l8" hidden><div class="lgate" aria-live="polite"></div><div class="park" hidden><div data-m="m0" class="figure exprtree" id="etree-l8"></div>
-<div data-m="m1" id="sim-l8"></div>
-<div data-m="m2" class="ex-grid" id="ex-l8"></div>
-<div data-m="m3" class="quiz" id="quiz8"></div>
-<div data-m="m4" class="score" id="score8"></div>
-<div data-m="m5" class="next">
+    <article class="col" id="view-l8" hidden><div class="lgate" aria-live="polite"></div><div class="park" hidden><header data-m="m0" class="hero">
+        <div class="crumb">Chương 3 · Toán tử và biểu thức / Bài 8</div>
+        <h1>Toán tử <em>số học</em> và thứ tự tính</h1>
+        <p class="h1-en" lang="en">Arithmetic Operators and Order of Evaluation</p>
+        
+        <p class="lede">Cộng, trừ, nhân, chia, chia dư<span class="en" lang="en" data-vi="chia dư">modulo (remainder)</span>: năm phép toán quen thuộc nhưng có vài quy tắc riêng trong C++. Bài này cho thấy máy tính một biểu thức<span class="en" lang="en" data-vi="biểu thức">expression</span> theo thứ tự nào, từng bước một, trên cây biểu thức<span class="en" lang="en" data-vi="cây biểu thức">expression tree</span>.</p>
+        <div class="meta"><span class="chip lv1">Cơ bản</span><span class="chip">60 phút</span><span class="chip">Cây biểu thức từng bước</span><span class="chip">3 bài tập · 4 câu hỏi</span></div>
+      </header>
+<div data-m="m1" class="goals">
+        <h3>Sau bài này học viên có thể</h3>
+        <ul>
+          <li>Dùng đúng <code>+ - * / %</code> với số nguyên và số thực<span class="en" lang="en" data-vi="số thực">floating-point number</span>.</li>
+          <li>Tính biểu thức theo độ ưu tiên<span class="en" lang="en" data-vi="độ ưu tiên">precedence</span> và chiều kết hợp<span class="en" lang="en" data-vi="chiều kết hợp">associativity</span>, vẽ được cây biểu thức.</li>
+          <li>Tính chia nguyên<span class="en" lang="en" data-vi="chia nguyên">integer division</span> và chia dư với số âm.</li>
+          <li>Dùng <code>%</code> để kiểm tra chẵn lẻ, tách chữ số, quay vòng; tránh các bẫy <code>^</code> và phần trăm.</li>
+        </ul>
+      </div>
+<div data-m="m2" class="prose">
+          <p>Giống toán phổ thông: <b>nhân, chia, chia dư</b> tính trước <b>cộng, trừ</b>. Các phép cùng mức tính <b>từ trái sang phải</b>, nên <code>20 - 6 - 4</code> là <code>(20 - 6) - 4 = 10</code>, không phải <code>20 - (6 - 4) = 18</code>. Phép gán<span class="en" lang="en" data-vi="phép gán">assignment</span> thì ngược lại, kết hợp từ phải sang trái: <code>a = b = 5</code>.</p>
+        </div>
+<div data-m="m3" class="tbl"><table>
+          <thead><tr><th>Mức (cao → thấp)</th><th>Toán tử</th><th>Chiều kết hợp</th></tr></thead>
+          <tbody>
+            <tr><td>1</td><td><code>( )</code> ngoặc, <code>x++</code> <code>x--</code></td><td>trái → phải</td></tr>
+            <tr><td>2</td><td><code>-a</code> <code>+a</code> <code>!</code> <code>++x</code> <code>--x</code> ép kiểu<span class="en" lang="en" data-vi="ép kiểu">type casting</span></td><td>phải → trái</td></tr>
+            <tr><td>3</td><td><code>*</code> <code>/</code> <code>%</code></td><td>trái → phải</td></tr>
+            <tr><td>4</td><td><code>+</code> <code>-</code></td><td>trái → phải</td></tr>
+            <tr><td>5</td><td><code>&lt;&lt;</code> <code>&gt;&gt;</code> (cả khi dùng với cout)</td><td>trái → phải</td></tr>
+            <tr><td>…</td><td>so sánh, logic (bài sau)</td><td></td></tr>
+            <tr><td>cuối</td><td><code>=</code> <code>+=</code> <code>-=</code> <code>*=</code> <code>/=</code> <code>%=</code></td><td>phải → trái</td></tr>
+          </tbody>
+        </table></div>
+<div data-m="m4" class="figure exprtree" id="etree-l8"></div>
+<div data-m="m5" id="sim-l8"></div>
+<div data-m="m6" class="ex-grid" id="ex-l8"></div>
+<div data-m="m7" class="quiz" id="quiz8"></div>
+<div data-m="m8" class="score" id="score8"></div>
+<div data-m="m9" class="next">
         <button class="btn" data-go="l7">← Bài 7</button>
         <button class="btn pri" data-go="l9">Bài tiếp: So sánh và logic →</button>
       </div></div></article>
 
     <!-- ===================== LESSON 9 ===================== -->
-    <article class="col" id="view-l9" hidden><div class="lgate" aria-live="polite"></div><div class="park" hidden><div data-m="m0" class="figure" id="truth-l9"></div>
-<div data-m="m1" class="figure" id="lab-l9"></div>
-<div data-m="m2" class="figure exprtree" id="etree-l9"></div>
-<div data-m="m3" id="sim-l9"></div>
-<div data-m="m4" class="ex-grid" id="ex-l9"></div>
-<div data-m="m5" class="quiz" id="quiz9"></div>
-<div data-m="m6" class="score" id="score9"></div>
-<div data-m="m7" class="next">
+    <article class="col" id="view-l9" hidden><div class="lgate" aria-live="polite"></div><div class="park" hidden><header data-m="m0" class="hero">
+        <div class="crumb">Chương 3 · Toán tử và biểu thức / Bài 9</div>
+        <h1>So sánh và <em>logic</em></h1>
+        <p class="h1-en" lang="en">Comparison and Logical Operators</p>
+        
+        <p class="lede">Mọi quyết định trong chương trình đều bắt đầu từ một câu hỏi đúng hay sai: điểm có đủ đỗ không, tuổi có hợp lệ không. Bài này dạy cách đặt những câu hỏi đó bằng toán tử so sánh<span class="en" lang="en" data-vi="toán tử so sánh">comparison operator</span> và kết hợp chúng bằng toán tử logic<span class="en" lang="en" data-vi="toán tử logic">logical operator</span>.</p>
+        <div class="meta"><span class="chip lv1">Cơ bản</span><span class="chip">60 phút</span><span class="chip">Bảng chân trị · Ngắn mạch</span><span class="chip">3 bài tập · 4 câu hỏi</span></div>
+      </header>
+<div data-m="m1" class="goals">
+        <h3>Sau bài này học viên có thể</h3>
+        <ul>
+          <li>Dùng 6 toán tử so sánh và hiểu kết quả là <code>bool</code>.</li>
+          <li>Kết hợp điều kiện<span class="en" lang="en" data-vi="điều kiện">condition</span> bằng <code>&amp;&amp;</code>, <code>||</code>, <code>!</code> và đọc bảng chân trị<span class="en" lang="en" data-vi="bảng chân trị">truth table</span>.</li>
+          <li>Giải thích cơ chế ngắn mạch<span class="en" lang="en" data-vi="ngắn mạch">short-circuit evaluation</span> và dùng nó để tránh lỗi chia cho 0.</li>
+          <li>Tránh 5 lỗi hay gặp: <code>=</code> thay <code>==</code>, <code>a &lt; x &lt; b</code>, so sánh số thực<span class="en" lang="en" data-vi="số thực">floating-point number</span>, <code>!a == b</code>, <code>&amp;</code> thay <code>&amp;&amp;</code>.</li>
+        </ul>
+      </div>
+<div data-m="m2" class="figure" id="truth-l9"></div>
+<div data-m="m3" class="figure" id="lab-l9"></div>
+<div data-m="m4" class="prose">
+          <p>C++ tính <code>&amp;&amp;</code> và <code>||</code> từ trái sang phải và <b>dừng ngay khi biết kết quả</b>:</p>
+          <ul>
+            <li><code>false &amp;&amp; …</code> chắc chắn là <code>false</code>, nên vế phải bị bỏ qua.</li>
+            <li><code>true || …</code> chắc chắn là <code>true</code>, nên vế phải bị bỏ qua.</li>
+          </ul>
+          <p>Nhờ đó <code>b != 0 &amp;&amp; a / b &gt; 1</code> an toàn khi <code>b</code> bằng 0: phép chia không bao giờ được thực hiện. Đảo thứ tự thành <code>a / b &gt; 1 &amp;&amp; b != 0</code> thì chương trình bị dừng vì chia cho 0. Thử trên cây biểu thức<span class="en" lang="en" data-vi="cây biểu thức">expression tree</span>: các nút bị bỏ qua hiện viền đứt.</p>
+        </div>
+<div data-m="m5" class="figure exprtree" id="etree-l9"></div>
+<div data-m="m6" class="tbl"><table>
+          <thead><tr><th>Viết sai</th><th>Thực tế C++ hiểu</th><th>Viết đúng</th></tr></thead>
+          <tbody>
+            <tr><td><code>x = 5</code> (định so sánh)</td><td>Gán 5 cho x, kết quả là 5 (luôn “đúng”)</td><td><code>x == 5</code></td></tr>
+            <tr><td><code>10 &lt; x &lt; 20</code></td><td><code>(10 &lt; x) &lt; 20</code>, tức 0 hoặc 1 nhỏ hơn 20: luôn đúng</td><td><code>10 &lt; x &amp;&amp; x &lt; 20</code></td></tr>
+            <tr><td><code>0.1 + 0.2 == 0.3</code></td><td>So sánh hai số thực lưu gần đúng: <code>false</code></td><td><code>std::abs(a - b) &lt; 1e-9</code></td></tr>
+            <tr><td><code>!x == 0</code></td><td><code>(!x) == 0</code></td><td><code>!(x == 0)</code> hoặc <code>x != 0</code></td></tr>
+            <tr><td><code>a &gt; 0 &amp; b &gt; 0</code></td><td>Toán tử bit<span class="en" lang="en" data-vi="toán tử bit">bitwise operator</span> &amp;: không ngắn mạch, dễ nhầm</td><td><code>a &gt; 0 &amp;&amp; b &gt; 0</code></td></tr>
+          </tbody>
+        </table></div>
+<div data-m="m7" id="sim-l9"></div>
+<div data-m="m8" class="ex-grid" id="ex-l9"></div>
+<div data-m="m9" class="quiz" id="quiz9"></div>
+<div data-m="m10" class="score" id="score9"></div>
+<div data-m="m11" class="next">
         <button class="btn" data-go="l8">← Bài 8</button>
         <button class="btn pri" data-go="l10">Bài tiếp: Thứ tự ưu tiên →</button>
       </div></div></article>
 
     <!-- ===================== LESSON 10 ===================== -->
-    <article class="col" id="view-l10" hidden><div class="lgate" aria-live="polite"></div><div class="park" hidden><div data-m="m0" class="figure exprtree" id="etree-l10"></div>
-<div data-m="m1" class="code" data-snip="l10cond"></div>
-<div data-m="m2" class="cg-grid" id="cg-l10"></div>
-<div data-m="m3" id="sim-l10"></div>
-<div data-m="m4" class="ex-grid" id="ex-l10"></div>
-<div data-m="m5" class="quiz" id="quiz10"></div>
-<div data-m="m6" class="score" id="score10"></div>
-<div data-m="m7" class="next">
+    <article class="col" id="view-l10" hidden><div class="lgate" aria-live="polite"></div><div class="park" hidden><header data-m="m0" class="hero">
+        <div class="crumb">Chương 3 · Toán tử và biểu thức / Bài 10</div>
+        <h1>Thứ tự <em>ưu tiên</em> toán tử</h1>
+        <p class="h1-en" lang="en">Operator Precedence</p>
+        
+        <p class="lede">Bài 8 mới giới thiệu ưu tiên của các phép số học. Giờ khi đã có so sánh, logic, gán và toán tử điều kiện<span class="en" lang="en" data-vi="toán tử điều kiện">conditional (ternary) operator</span>, cần một bức tranh đầy đủ: máy đặt ngoặc ngầm ở đâu, và vì sao <code>cout &lt;&lt; a &lt; b</code> lại báo lỗi.</p>
+        <div class="meta"><span class="chip lv1">Cơ bản</span><span class="chip">50 phút</span><span class="chip">Đặt ngoặc tự động · Đoán biên dịch</span><span class="chip">3 bài tập · 4 câu hỏi</span></div>
+      </header>
+<div data-m="m1" class="goals">
+        <h3>Sau bài này học viên có thể</h3>
+        <ul>
+          <li>Xếp đúng thứ tự ưu tiên<span class="en" lang="en" data-vi="độ ưu tiên">precedence</span> của các nhóm toán tử đã học.</li>
+          <li>Tự đặt ngoặc đầy đủ cho một biểu thức và dự đoán kết quả.</li>
+          <li>Dùng toán tử điều kiện <code>?:</code> đúng cách.</li>
+          <li>Nhận ra biểu thức có hành vi không xác định<span class="en" lang="en" data-vi="hành vi không xác định">undefined behavior (UB)</span> như <code>i++ + i</code>.</li>
+        </ul>
+      </div>
+<div data-m="m2" class="tbl"><table class="prec">
+          <thead><tr><th>Mức</th><th>Nhóm</th><th>Toán tử</th><th>Kết hợp</th></tr></thead>
+          <tbody>
+            <tr><td>1</td><td>Hậu tố<span class="en" lang="en" data-vi="hậu tố">postfix</span></td><td><code>x++</code> <code>x--</code> <code>f()</code> <code>a.b</code></td><td>trái → phải</td></tr>
+            <tr><td>2</td><td>Một ngôi</td><td><code>++x</code> <code>--x</code> <code>-a</code> <code>+a</code> <code>!</code> <code>~</code> <code>(kiểu)</code> <code>sizeof</code></td><td>phải → trái</td></tr>
+            <tr><td>3</td><td>Nhân</td><td><code>*</code> <code>/</code> <code>%</code></td><td>trái → phải</td></tr>
+            <tr><td>4</td><td>Cộng</td><td><code>+</code> <code>-</code></td><td>trái → phải</td></tr>
+            <tr><td>5</td><td>Dịch bit<span class="en" lang="en" data-vi="dịch bit">bit shift</span></td><td><code>&lt;&lt;</code> <code>&gt;&gt;</code> (cả với <code>cout</code>, <code>cin</code>)</td><td>trái → phải</td></tr>
+            <tr><td>6</td><td>So sánh</td><td><code>&lt;</code> <code>&lt;=</code> <code>&gt;</code> <code>&gt;=</code></td><td>trái → phải</td></tr>
+            <tr><td>7</td><td>Bằng</td><td><code>==</code> <code>!=</code></td><td>trái → phải</td></tr>
+            <tr><td>8</td><td>Bit</td><td><code>&amp;</code>, rồi <code>^</code>, rồi <code>|</code></td><td>trái → phải</td></tr>
+            <tr><td>9</td><td>Logic</td><td><code>&amp;&amp;</code>, rồi <code>||</code></td><td>trái → phải</td></tr>
+            <tr><td>10</td><td>Điều kiện, gán</td><td><code>?:</code> <code>=</code> <code>+=</code> <code>-=</code> <code>*=</code> <code>&amp;=</code> …</td><td>phải → trái</td></tr>
+          </tbody>
+        </table></div>
+<div data-m="m3" class="note"><b>Hai chỗ bất ngờ:</b> <code>&lt;&lt;</code> đứng <b>trên</b> so sánh, nên <code>cout &lt;&lt; a &lt; b</code> bị hiểu là <code>(cout &lt;&lt; a) &lt; b</code>. Toán tử bit<span class="en" lang="en" data-vi="toán tử bit">bitwise operator</span> <code>&amp;</code> đứng <b>dưới</b> <code>==</code>, nên <code>n &amp; 1 == 0</code> là <code>n &amp; (1 == 0)</code>.</div>
+<div data-m="m4" class="figure exprtree" id="etree-l10"></div>
+<div data-m="m5" class="prose">
+          <p><code>dieu_kien ? gia_tri_neu_dung : gia_tri_neu_sai</code> là toán tử duy nhất có ba toán hạng<span class="en" lang="en" data-vi="toán hạng">operand</span>. Chỉ một trong hai nhánh<span class="en" lang="en" data-vi="nhánh">branch</span> được tính.</p>
+        </div>
+<div data-m="m6" class="code" data-snip="l10cond"></div>
+<div data-m="m7" class="cg-grid" id="cg-l10"></div>
+<div data-m="m8" id="sim-l10"></div>
+<div data-m="m9" class="ex-grid" id="ex-l10"></div>
+<div data-m="m10" class="quiz" id="quiz10"></div>
+<div data-m="m11" class="score" id="score10"></div>
+<div data-m="m12" class="next">
         <button class="btn" data-go="l9">← Bài 9</button>
         <button class="btn pri" data-go="l11">Bài tiếp: Toán tử bit →</button>
       </div></div></article>
 
     <!-- ===================== LESSON 11 ===================== -->
-    <article class="col" id="view-l11" hidden><div class="lgate" aria-live="polite"></div><div class="park" hidden><div data-m="m0" class="figure" id="bitops-l11"></div>
-<div data-m="m1" class="code" data-snip="l11flags"></div>
-<div data-m="m2" class="figure" id="flags-l11"></div>
-<div data-m="m3" id="sim-l11"></div>
-<div data-m="m4" class="ex-grid" id="ex-l11"></div>
-<div data-m="m5" class="quiz" id="quiz11"></div>
-<div data-m="m6" class="score" id="score11"></div>
-<div data-m="m7" class="next">
+    <article class="col" id="view-l11" hidden><div class="lgate" aria-live="polite"></div><div class="park" hidden><header data-m="m0" class="hero">
+        <div class="crumb">Chương 3 · Toán tử và biểu thức / Bài 11</div>
+        <h1>Toán tử <em>bit</em></h1>
+        <p class="h1-en" lang="en">Bitwise Operators</p>
+        
+        <p class="lede">Bài 5 cho thấy mỗi số nguyên là một dãy bit. Toán tử bit<span class="en" lang="en" data-vi="toán tử bit">bitwise operator</span> cho phép bật, tắt, kiểm tra và dịch từng bit một. Đây là công cụ quen thuộc khi làm việc với cờ trạng thái<span class="en" lang="en" data-vi="cờ trạng thái">status flag</span>, quyền truy cập, màu sắc và phần cứng.</p>
+        <div class="meta"><span class="chip lv2">Cơ bản +</span><span class="chip">60 phút</span><span class="chip">Máy tính bit · Cờ quyền</span><span class="chip">3 bài tập · 4 câu hỏi</span></div>
+      </header>
+<div data-m="m1" class="goals">
+        <h3>Sau bài này học viên có thể</h3>
+        <ul>
+          <li>Tính <code>&amp;</code>, <code>|</code>, <code>^</code>, <code>~</code>, <code>&lt;&lt;</code>, <code>&gt;&gt;</code> trên giấy và trên máy.</li>
+          <li>Dùng mặt nạ (mask) để bật, tắt, đảo và kiểm tra một bit.</li>
+          <li>Biết dịch trái là nhân 2, dịch phải là chia 2, và giới hạn của chúng.</li>
+          <li>Phân biệt toán tử bit với toán tử logic<span class="en" lang="en" data-vi="toán tử logic">logical operator</span>.</li>
+        </ul>
+      </div>
+<div data-m="m2" class="figure" id="bitops-l11"></div>
+<div data-m="m3" class="code" data-snip="l11flags"></div>
+<div data-m="m4" class="figure" id="flags-l11"></div>
+<div data-m="m5" class="tbl"><table>
+          <thead><tr><th>Biểu thức</th><th>Kết quả</th><th>Giải thích</th></tr></thead>
+          <tbody>
+            <tr><td><code>5 &lt;&lt; 3</code></td><td><code>40</code></td><td>5 × 2³</td></tr>
+            <tr><td><code>1 &lt;&lt; n</code></td><td>2<sup>n</sup></td><td>Cách nhanh tạo mặt nạ cho bit thứ n</td></tr>
+            <tr><td><code>100 &gt;&gt; 2</code></td><td><code>25</code></td><td>100 / 2², bỏ phần dư</td></tr>
+            <tr><td><code>-16 &gt;&gt; 2</code></td><td><code>-4</code></td><td>Số âm: g++ giữ bit dấu<span class="en" lang="en" data-vi="bit dấu">sign bit</span> (dịch số học)</td></tr>
+            <tr><td><code>1 &lt;&lt; 31</code></td><td><code>-2147483648</code></td><td>Bit 1 lọt vào bit dấu của int</td></tr>
+            <tr><td><code>1 &lt;&lt; 32</code></td><td>không xác định</td><td>Dịch quá số bit của kiểu: g++ cảnh báo</td></tr>
+          </tbody>
+        </table></div>
+<div data-m="m6" id="sim-l11"></div>
+<div data-m="m7" class="ex-grid" id="ex-l11"></div>
+<div data-m="m8" class="quiz" id="quiz11"></div>
+<div data-m="m9" class="score" id="score11"></div>
+<div data-m="m10" class="next">
         <button class="btn" data-go="l10">← Bài 10</button>
         <button class="btn pri" data-go="l12">Bài tiếp: Chương 4 · if / else →</button>
       </div></div></article>
 
     <!-- ===================== LESSON 12 ===================== -->
-    <article class="col" id="view-l12" hidden><div class="lgate" aria-live="polite"></div><div class="park" hidden><div data-m="m0" class="code" data-snip="l12if"></div>
-<div data-m="m1" class="figure" id="flow-l12"></div>
-<div data-m="m2" class="code" data-snip="l12scope"></div>
-<div data-m="m3" class="cmp2">
+    <article class="col" id="view-l12" hidden><div class="lgate" aria-live="polite"></div><div class="park" hidden><header data-m="m0" class="hero">
+        <div class="crumb">Chương 4 · Điều khiển luồng / Bài 12</div>
+        <h1>Rẽ nhánh với <em>if</em> và <em>else</em></h1>
+        <p class="h1-en" lang="en">Branching with if and else</p>
+        
+        <p class="lede">Đến giờ mọi chương trình đều chạy thẳng từ trên xuống. Câu lệnh <code>if</code> cho phép chương trình chọn đường đi dựa trên một điều kiện<span class="en" lang="en" data-vi="điều kiện">condition</span>: điểm cao thì in “Giỏi”, nhập sai thì báo lỗi. Đây là bước đầu tiên để viết chương trình biết “suy nghĩ”.</p>
+        <div class="meta"><span class="chip lv1">Cơ bản</span><span class="chip">60 phút</span><span class="chip">Lưu đồ sáng theo đường chạy</span><span class="chip">3 bài tập · 4 câu hỏi</span></div>
+      </header>
+<div data-m="m1" class="goals">
+        <h3>Sau bài này học viên có thể</h3>
+        <ul>
+          <li>Viết <code>if</code>, <code>if … else</code> và chuỗi <code>else if</code> để chọn một trong nhiều trường hợp.</li>
+          <li>Đọc và vẽ lưu đồ<span class="en" lang="en" data-vi="lưu đồ">flowchart</span> cho một đoạn rẽ nhánh<span class="en" lang="en" data-vi="rẽ nhánh">branching</span>.</li>
+          <li>Dùng khối <code>{ }</code> đúng cách và hiểu phạm vi<span class="en" lang="en" data-vi="phạm vi">scope</span> của biến khai báo bên trong khối.</li>
+          <li>Tránh các lỗi kinh điển: <code>=</code> thay <code>==</code>, dấu <code>;</code> sau <code>if</code>, thiếu <code>{ }</code>, <code>else</code> lơ lửng.</li>
+        </ul>
+      </div>
+<div data-m="m2" class="prose"><p>Nếu điều kiện trong ngoặc đúng, câu lệnh (hoặc khối lệnh<span class="en" lang="en" data-vi="khối lệnh">block</span>) phía sau được chạy; nếu sai thì bị bỏ qua. Điều kiện là bất kỳ biểu thức nào cho ra đúng/sai, như các phép so sánh ở Bài 9. Thêm <code>else</code> để chỉ định việc cần làm khi điều kiện sai.</p></div>
+<div data-m="m3" class="code" data-snip="l12if"></div>
+<div data-m="m4" class="figure" id="flow-l12"></div>
+<div data-m="m5" class="note"><b>Thứ tự rất quan trọng:</b> nếu đặt <code>diem &gt;= 5.0</code> lên đầu, một học viên 9 điểm sẽ bị xếp “Trung bình”, vì điều kiện đó đúng trước và các nhánh<span class="en" lang="en" data-vi="nhánh">branch</span> sau bị bỏ qua. Luôn đi từ điều kiện chặt nhất đến lỏng nhất.</div>
+<div data-m="m6" class="code" data-snip="l12scope"></div>
+<div data-m="m7" class="cmp2">
           <div><div class="cmp-h bad">Thụt lề đánh lừa người đọc</div><div class="code" data-snip="l12dangle"></div></div>
           <div><div class="cmp-h good">Dùng { } để nói rõ ý</div><div class="code" data-snip="l12dangle2"></div></div>
         </div>
-<div data-m="m4" id="sim-l12"></div>
-<div data-m="m5" class="ex-grid" id="ex-l12"></div>
-<div data-m="m6" class="quiz" id="quiz12"></div>
-<div data-m="m7" class="score" id="score12"></div>
-<div data-m="m8" class="next">
+<div data-m="m8" id="sim-l12"></div>
+<div data-m="m9" class="ex-grid" id="ex-l12"></div>
+<div data-m="m10" class="quiz" id="quiz12"></div>
+<div data-m="m11" class="score" id="score12"></div>
+<div data-m="m12" class="next">
         <button class="btn" data-go="l11">← Bài 11</button>
         <button class="btn pri" data-go="l13">Bài tiếp: switch →</button>
       </div></div></article>
 
     <!-- ===================== LESSON 13 ===================== -->
-    <article class="col" id="view-l13" hidden><div class="lgate" aria-live="polite"></div><div class="park" hidden><div data-m="m0" class="code" data-snip="l13syntax"></div>
-<div data-m="m1" class="figure" id="run-l13"></div>
-<div data-m="m2" class="code" data-snip="l13group"></div>
-<div data-m="m3" id="sim-l13"></div>
-<div data-m="m4" class="ex-grid" id="ex-l13"></div>
-<div data-m="m5" class="quiz" id="quiz13"></div>
-<div data-m="m6" class="score" id="score13"></div>
-<div data-m="m7" class="next">
+    <article class="col" id="view-l13" hidden><div class="lgate" aria-live="polite"></div><div class="park" hidden><div data-m="m0" class="goals">
+        <h3>Sau bài này học viên có thể</h3>
+        <ul>
+          <li>Viết <code>switch</code> với <code>case</code>, <code>break</code> và <code>default</code>.</li>
+          <li>Giải thích hiện tượng “rơi xuống<span class="en" lang="en" data-vi="rơi xuống">fall-through</span>” khi thiếu <code>break</code>, và dùng nó có chủ đích để gộp case.</li>
+          <li>Biết giới hạn của <code>switch</code>: chỉ số nguyên/ký tự, nhãn phải là hằng.</li>
+          <li>Chọn giữa <code>switch</code> và <code>if … else if</code>.</li>
+        </ul>
+      </div>
+<div data-m="m1" class="code" data-snip="l13syntax"></div>
+<div data-m="m2" class="figure" id="run-l13"></div>
+<div data-m="m3" class="code" data-snip="l13group"></div>
+<div data-m="m4" class="tbl"><table>
+          <thead><tr><th>Tình huống</th><th>Nên dùng</th></tr></thead>
+          <tbody>
+            <tr><td>So một biến với nhiều giá trị rời rạc (1, 2, 3; 'a', 'b')</td><td><code>switch</code></td></tr>
+            <tr><td>Điều kiện là khoảng (<code>diem &gt;= 8.5</code>), số thực<span class="en" lang="en" data-vi="số thực">floating-point number</span>, chuỗi, nhiều biến</td><td><code>if … else if</code></td></tr>
+          </tbody>
+        </table></div>
+<div data-m="m5" id="sim-l13"></div>
+<div data-m="m6" class="ex-grid" id="ex-l13"></div>
+<div data-m="m7" class="quiz" id="quiz13"></div>
+<div data-m="m8" class="score" id="score13"></div>
+<div data-m="m9" class="next">
         <button class="btn" data-go="l12">← Bài 12</button>
         <button class="btn pri" data-go="l14">Bài tiếp: while, do-while →</button>
       </div></div></article>
 
     <!-- ===================== LESSON 14 ===================== -->
-    <article class="col" id="view-l14" hidden><div class="lgate" aria-live="polite"></div><div class="park" hidden><div data-m="m0" class="loop-intro">
+    <article class="col" id="view-l14" hidden><div class="lgate" aria-live="polite"></div><div class="park" hidden><header data-m="m0" class="hero">
+        <div class="crumb">Chương 4 · Điều khiển luồng / Bài 14</div>
+        <h1>Vòng lặp <em>while</em> và <em>do-while</em></h1>
+        <p class="h1-en" lang="en">while and do-while Loops</p>
+        
+        <p class="lede">Máy tính mạnh nhất ở chỗ lặp lại một việc hàng triệu lần không mệt. Vòng lặp<span class="en" lang="en" data-vi="vòng lặp">loop</span> <code>while</code> lặp lại khối lệnh <b>chừng nào</b> điều kiện còn đúng; <code>do-while</code> làm trước rồi mới hỏi. Bài này dạy cách viết vòng lặp đúng, dừng đúng lúc và theo dõi nó qua bảng.</p>
+        <div class="meta"><span class="chip lv1">Cơ bản</span><span class="chip">75 phút</span><span class="chip">Bảng theo dõi vòng lặp</span><span class="chip">3 bài tập · 4 câu hỏi</span></div>
+      </header>
+<div data-m="m1" class="goals">
+        <h3>Sau bài này học viên có thể</h3>
+        <ul>
+          <li>Viết vòng lặp <code>while</code> với biến đếm<span class="en" lang="en" data-vi="biến đếm">loop counter</span>, biến tích lũy và điều kiện dừng đúng.</li>
+          <li>Lập bảng theo dõi<span class="en" lang="en" data-vi="bảng theo dõi">trace table</span> từng lần lặp<span class="en" lang="en" data-vi="lần lặp">iteration</span> và dự đoán số lần lặp.</li>
+          <li>Dùng <code>do-while</code> cho tình huống cần chạy ít nhất một lần, như kiểm tra dữ liệu nhập.</li>
+          <li>Nhận ra và sửa vòng lặp vô hạn<span class="en" lang="en" data-vi="vòng lặp vô hạn">infinite loop</span> và lỗi lệch một<span class="en" lang="en" data-vi="lỗi lệch một">off-by-one error</span>.</li>
+        </ul>
+      </div>
+<div data-m="m2" class="prose"><p>Mỗi vòng: kiểm tra điều kiện; đúng thì chạy thân rồi quay lại kiểm tra; sai thì thoát và chạy lệnh sau vòng lặp. Thân vòng lặp<span class="en" lang="en" data-vi="thân vòng lặp">loop body</span> <b>phải làm thay đổi</b> thứ gì đó trong điều kiện, nếu không vòng lặp không bao giờ dừng.</p></div>
+<div data-m="m3" class="loop-intro">
           <div class="code" data-snip="l14while"></div>
           <figure class="figure" style="margin:0">
             <svg viewBox="0 0 300 300" role="img" aria-label="Lưu đồ vòng lặp while" style="width:100%;max-width:300px;height:auto;display:block;margin:0 auto">
@@ -1310,89 +1772,196 @@ Lệnh trên chạy cả 4 giai đoạn cùng lúc. Nhấn “Bước tiếp” 
             </svg>
           </figure>
         </div>
-<div data-m="m1" class="figure" id="loop-l14"></div>
-<div data-m="m2" class="code" data-snip="l14do"></div>
-<div data-m="m3" id="sim-l14"></div>
-<div data-m="m4" class="ex-grid" id="ex-l14"></div>
-<div data-m="m5" class="quiz" id="quiz14"></div>
-<div data-m="m6" class="score" id="score14"></div>
-<div data-m="m7" class="next">
+<div data-m="m4" class="figure" id="loop-l14"></div>
+<div data-m="m5" class="code" data-snip="l14do"></div>
+<div data-m="m6" class="tbl"><table>
+          <thead><tr><th>Mẫu</th><th>Ý tưởng</th><th>Khung code</th></tr></thead>
+          <tbody>
+            <tr><td>Đếm</td><td>Biến đếm tăng mỗi vòng, dừng khi đủ</td><td><code>int i = 1; while (i &lt;= n) { …; i++; }</code></td></tr>
+            <tr><td>Tích lũy</td><td>Cộng dồn (hoặc nhân dồn) vào một biến khởi tạo 0 (hoặc 1)</td><td><code>tong += x;</code> &nbsp; <code>tich *= x;</code></td></tr>
+            <tr><td>Tách chữ số</td><td>Lấy <code>n % 10</code>, rồi <code>n /= 10</code> cho tới khi n bằng 0</td><td><code>while (n &gt; 0) { d = n % 10; n /= 10; }</code></td></tr>
+            <tr><td>Lính canh<span class="en" lang="en" data-vi="lính canh">sentinel</span></td><td>Đọc đến khi gặp giá trị đặc biệt (0, −1) hoặc hết dữ liệu</td><td><code>while (std::cin &gt;&gt; x &amp;&amp; x != 0) { … }</code></td></tr>
+          </tbody>
+        </table></div>
+<div data-m="m7" id="sim-l14"></div>
+<div data-m="m8" class="ex-grid" id="ex-l14"></div>
+<div data-m="m9" class="quiz" id="quiz14"></div>
+<div data-m="m10" class="score" id="score14"></div>
+<div data-m="m11" class="next">
         <button class="btn" data-go="l13">← Bài 13</button>
         <button class="btn pri" data-go="l15">Bài tiếp: for, break, continue →</button>
       </div></div></article>
-    <article class="col" id="view-l15" hidden><div class="lgate" aria-live="polite"></div><div class="park" hidden><div data-m="m0" class="for-cmp">
+    <article class="col" id="view-l15" hidden><div class="lgate" aria-live="polite"></div><div class="park" hidden><header data-m="m0" class="hero">
+        <div class="crumb">Chương 4 · Điều khiển luồng / Bài 15</div>
+        <h1>Vòng lặp <em>for</em>, <em>break</em> và <em>continue</em></h1>
+        <p class="h1-en" lang="en">for Loops, break and continue</p>
+        
+        <p class="lede">Khi biết trước cần lặp bao nhiêu lần, <code>for</code> gom khởi tạo, điều kiện và bước nhảy<span class="en" lang="en" data-vi="bước nhảy">step (update)</span> vào một dòng, nên đọc là hiểu ngay vòng lặp chạy từ đâu tới đâu. <code>break</code> và <code>continue</code> cho phép thoát sớm hoặc bỏ qua một vòng.</p>
+        <div class="meta"><span class="chip lv1">Cơ bản</span><span class="chip">75 phút</span><span class="chip">Bộ dựng vòng for</span><span class="chip">3 bài tập · 4 câu hỏi</span></div>
+      </header>
+<div data-m="m1" class="goals">
+        <h3>Sau bài này học viên có thể</h3>
+        <ul>
+          <li>Viết vòng <code>for</code> và giải thích thứ tự chạy của ba phần trong ngoặc.</li>
+          <li>Chuyển qua lại giữa <code>for</code> và <code>while</code>.</li>
+          <li>Dùng vòng lặp lồng nhau<span class="en" lang="en" data-vi="vòng lặp lồng nhau">nested loop</span> để in hình và bảng.</li>
+          <li>Dùng <code>break</code> để thoát sớm và <code>continue</code> để bỏ qua phần còn lại của một vòng.</li>
+        </ul>
+      </div>
+<div data-m="m2" class="prose"><p>Trong ngoặc của <code>for</code> có ba phần, cách nhau bằng dấu chấm phẩy<span class="en" lang="en" data-vi="dấu chấm phẩy">semicolon</span>. <b>Khởi tạo</b> chạy đúng một lần. Sau đó lặp lại: <b>kiểm tra điều kiện</b>, đúng thì chạy <b>thân</b>, rồi chạy <b>bước nhảy</b> và quay lại kiểm tra. Điều kiện sai thì thoát.</p></div>
+<div data-m="m3" class="for-cmp">
           <div><div class="pane-h" style="padding:0 0 6px">Viết bằng for</div><div class="code" data-snip="l15for"></div></div>
           <div><div class="pane-h" style="padding:0 0 6px">Cùng ý nghĩa, viết bằng while</div><div class="code" data-snip="l15while"></div></div>
         </div>
-<div data-m="m1" class="figure" id="forb-l15"></div>
-<div data-m="m2" class="figure" id="nest-l15"></div>
-<div data-m="m3" class="figure" id="run-l15"></div>
-<div data-m="m4" id="sim-l15"></div>
-<div data-m="m5" class="ex-grid" id="ex-l15"></div>
-<div data-m="m6" class="quiz" id="quiz15"></div>
-<div data-m="m7" class="score" id="score15"></div>
-<div data-m="m8" class="next">
+<div data-m="m4" class="note"><b>Biến đếm<span class="en" lang="en" data-vi="biến đếm">loop counter</span> sống trong vòng lặp:</b> <code>i</code> khai báo trong ngoặc của <code>for</code> chỉ tồn tại bên trong vòng lặp. Sau dấu <code>}</code>, dùng <code>i</code> sẽ báo lỗi <code>'i' was not declared in this scope</code>.</div>
+<div data-m="m5" class="figure" id="forb-l15"></div>
+<div data-m="m6" class="figure" id="nest-l15"></div>
+<div data-m="m7" class="figure" id="run-l15"></div>
+<div data-m="m8" class="tbl"><table>
+          <thead><tr><th>Lỗi</th><th>Ví dụ</th><th>Hậu quả</th></tr></thead>
+          <tbody>
+            <tr><td>Dấu <code>;</code> ngay sau <code>for (…)</code></td><td><code>for (int i = 0; i &lt; 5; i++);</code></td><td>Thân rỗng chạy 5 lần, khối phía sau chỉ chạy 1 lần</td></tr>
+            <tr><td>Dùng dấu phẩy thay chấm phẩy</td><td><code>for (int i = 0, i &lt; 5, i++)</code></td><td>Lỗi biên dịch<span class="en" lang="en" data-vi="lỗi biên dịch">compile error</span></td></tr>
+            <tr><td>Đếm lùi nhưng điều kiện sai hướng</td><td><code>for (int i = 10; i &lt; 0; i--)</code></td><td>Không chạy lần nào</td></tr>
+            <tr><td>Sửa biến đếm trong thân</td><td><code>for (…; i++) { … i++; }</code></td><td>Nhảy cóc, khó đoán số vòng</td></tr>
+            <tr><td>Bước nhảy vượt qua điểm dừng<span class="en" lang="en" data-vi="điểm dừng">stopping condition</span> của <code>!=</code></td><td><code>for (int i = 0; i != 5; i += 2)</code></td><td>Vòng lặp vô hạn<span class="en" lang="en" data-vi="vòng lặp vô hạn">infinite loop</span> (i = 4 rồi 6, không bao giờ bằng 5)</td></tr>
+          </tbody>
+        </table></div>
+<div data-m="m9" id="sim-l15"></div>
+<div data-m="m10" class="ex-grid" id="ex-l15"></div>
+<div data-m="m11" class="quiz" id="quiz15"></div>
+<div data-m="m12" class="score" id="score15"></div>
+<div data-m="m13" class="next">
         <button class="btn" data-go="l14">← Bài 14</button>
         <button class="btn pri" data-go="l16">Bài tiếp: Chương 5 · Hàm →</button>
       </div></div></article>
 
-    <article class="col" id="view-l16" hidden><div class="lgate" aria-live="polite"></div><div class="park" hidden><div data-m="m0" class="figure anat16" id="anat-l16">
+    <article class="col" id="view-l16" hidden><div class="lgate" aria-live="polite"></div><div class="park" hidden><header data-m="m0" class="hero">
+        <div class="crumb">Chương 5 · Hàm / Bài 16</div>
+        <h1>Định nghĩa và <em>gọi hàm</em></h1>
+        <p class="h1-en" lang="en">Defining and Calling Functions</p>
+        
+        <p class="lede">Hàm<span class="en" lang="en" data-vi="hàm">function</span> là một đoạn code có tên, nhận dữ liệu vào và trả kết quả ra. Viết một lần, gọi bao nhiêu lần cũng được. Chương trình lớn được chia thành nhiều hàm nhỏ, mỗi hàm làm đúng một việc, nên dễ đọc, dễ kiểm tra và dễ sửa.</p>
+        <div class="meta"><span class="chip lv1">Cơ bản</span><span class="chip">75 phút</span><span class="chip">Ngăn xếp lời gọi hàm</span><span class="chip">3 bài tập · 4 câu hỏi</span></div>
+      </header>
+<div data-m="m1" class="goals">
+        <h3>Sau bài này học viên có thể</h3>
+        <ul>
+          <li>Chỉ ra kiểu trả về<span class="en" lang="en" data-vi="kiểu trả về">return type</span>, tên hàm, danh sách tham số<span class="en" lang="en" data-vi="tham số">parameter</span> và thân hàm<span class="en" lang="en" data-vi="thân hàm">function body</span>.</li>
+          <li>Gọi hàm<span class="en" lang="en" data-vi="lời gọi hàm">function call</span>, truyền đối số<span class="en" lang="en" data-vi="đối số">argument</span> và dùng giá trị trả về<span class="en" lang="en" data-vi="giá trị trả về">return value</span>.</li>
+          <li>Phân biệt hàm trả về giá trị với hàm <code>void</code>.</li>
+          <li>Giải thích ngăn xếp lời gọi<span class="en" lang="en" data-vi="ngăn xếp lời gọi">call stack</span> và dùng nguyên mẫu<span class="en" lang="en" data-vi="nguyên mẫu">prototype</span> khi hàm đứng sau main.</li>
+        </ul>
+      </div>
+<div data-m="m2" class="figure anat16" id="anat-l16">
           <div class="a16-chips" role="group" aria-label="Các phần của hàm">
             <button class="chip-btn" data-p="ret">Kiểu trả về</button><button class="chip-btn" data-p="name">Tên hàm</button><button class="chip-btn" data-p="par">Tham số</button><button class="chip-btn" data-p="body">Thân hàm</button><button class="chip-btn" data-p="rs">return</button><button class="chip-btn" data-p="call">Lời gọi hàm</button><button class="chip-btn" data-p="arg">Đối số</button>
           </div>
           <pre class="code a16-code"><span class="ln" data-n="1"><span class="ap" data-p="ret"><span class="t-kw">double</span></span> <span class="ap" data-p="name">tinhTrungBinh</span>(<span class="ap" data-p="par"><span class="t-kw">double</span> a, <span class="t-kw">double</span> b</span>) <span class="ap" data-p="body">{</span></span><span class="ln" data-n="2"><span class="ap" data-p="body">    <span class="t-kw">double</span> tong = a + b;</span></span><span class="ln" data-n="3"><span class="ap" data-p="body">    <span class="ap" data-p="rs"><span class="t-kw">return</span> tong / <span class="t-num">2</span>;</span></span></span><span class="ln" data-n="4"><span class="ap" data-p="body">}</span></span><span class="ln" data-n="5"> </span><span class="ln" data-n="6"><span class="t-kw">int</span> main() {</span><span class="ln" data-n="7">    <span class="t-kw">double</span> tb = <span class="ap" data-p="call">tinhTrungBinh(<span class="ap" data-p="arg"><span class="t-num">7.5</span>, <span class="t-num">9</span></span>)</span>;</span><span class="ln" data-n="8">    std::cout &lt;&lt; tb;      <span class="t-com">// 8.25</span></span><span class="ln" data-n="9">}</span></pre>
           <p class="a16-say" aria-live="polite">Chọn một phần ở trên.</p>
         </div>
-<div data-m="m1" class="figure" id="cs-l16"></div>
-<div data-m="m2" class="code" data-snip="l16void"></div>
-<div data-m="m3" class="code" data-snip="l16proto"></div>
-<div data-m="m4" id="sim-l16"></div>
-<div data-m="m5" class="ex-grid" id="ex-l16"></div>
-<div data-m="m6" class="quiz" id="quiz16"></div>
-<div data-m="m7" class="score" id="score16"></div>
-<div data-m="m8" class="next">
+<div data-m="m3" class="note"><b>Tham số và đối số:</b> <i>tham số</i> (parameter) là biến khai báo trong ngoặc của định nghĩa hàm<span class="en" lang="en" data-vi="định nghĩa hàm">function definition</span>, như <code>a</code>, <code>b</code>. <i>Đối số</i> (argument) là giá trị thật truyền vào khi gọi, như <code>7.5</code>, <code>9</code>. Khi gọi, đối số được chép vào tham số theo đúng thứ tự.</div>
+<div data-m="m4" class="prose"><p>Mỗi lần gọi hàm, máy tạo một <b>khung (frame)</b> mới trên đỉnh vùng nhớ <b>stack</b> để chứa tham số và biến cục bộ<span class="en" lang="en" data-vi="biến cục bộ">local variable</span> của lần gọi đó. Hàm đang gọi (ví dụ <code>main</code>) tạm dừng ở đúng dòng gọi. Khi hàm được gọi chạy tới <code>return</code>, khung của nó bị gỡ, giá trị trả về được đặt vào chỗ lời gọi và <code>main</code> chạy tiếp. Bấm <b>Bước tiếp</b> để xem từng bước.</p></div>
+<div data-m="m5" class="figure" id="cs-l16"></div>
+<div data-m="m6" class="code" data-snip="l16void"></div>
+<div data-m="m7" class="code" data-snip="l16proto"></div>
+<div data-m="m8" class="note"><b>Có nguyên mẫu mà quên viết thân hàm?</b> Biên dịch vẫn qua, nhưng tới bước liên kết<span class="en" lang="en" data-vi="liên kết">linking</span> sẽ báo <code>undefined reference to `tinhTong(int, int)'</code>. Thử ví dụ “Lỗi: chỉ có nguyên mẫu” trong trình mô phỏng.</div>
+<div data-m="m9" id="sim-l16"></div>
+<div data-m="m10" class="ex-grid" id="ex-l16"></div>
+<div data-m="m11" class="quiz" id="quiz16"></div>
+<div data-m="m12" class="score" id="score16"></div>
+<div data-m="m13" class="next">
         <button class="btn" data-go="l15">← Bài 15</button>
         <button class="btn pri" data-go="l17">Bài tiếp: Tham trị và tham chiếu →</button>
       </div></div></article>
 
-    <article class="col" id="view-l17" hidden><div class="lgate" aria-live="polite"></div><div class="park" hidden><div data-m="m0" class="figure" id="cs-l17"></div>
-<div data-m="m1" class="code" data-snip="l17swap"></div>
-<div data-m="m2" class="code" data-snip="l17multi"></div>
-<div data-m="m3" id="sim-l17"></div>
-<div data-m="m4" class="ex-grid" id="ex-l17"></div>
-<div data-m="m5" class="quiz" id="quiz17"></div>
-<div data-m="m6" class="score" id="score17"></div>
-<div data-m="m7" class="next">
+    <article class="col" id="view-l17" hidden><div class="lgate" aria-live="polite"></div><div class="park" hidden><header data-m="m0" class="hero">
+        <div class="crumb">Chương 5 · Hàm / Bài 17</div>
+        <h1>Truyền <em>tham trị</em> và <em>tham chiếu</em></h1>
+        <p class="h1-en" lang="en">Pass by Value and Pass by Reference</p>
+        
+        <p class="lede">Khi truyền một biến vào hàm, hàm nhận <b>bản sao</b><span class="en" lang="en" data-vi="bản sao">copy</span> hay nhận <b>chính biến đó</b>? Câu trả lời quyết định hàm có sửa được biến của người gọi hay không. Bài này so sánh ba cách truyền: tham trị<span class="en" lang="en" data-vi="truyền tham trị">pass by value</span>, tham chiếu<span class="en" lang="en" data-vi="tham chiếu">reference</span> <code>&amp;</code> và tham chiếu hằng <code>const &amp;</code>.</p>
+        <div class="meta"><span class="chip lv1">Cơ bản</span><span class="chip">75 phút</span><span class="chip">Địa chỉ trên ngăn xếp</span><span class="chip">3 bài tập · 4 câu hỏi</span></div>
+      </header>
+<div data-m="m1" class="figure" id="cs-l17"></div>
+<div data-m="m2" class="prose"><p>Thêm <code>&amp;</code> sau kiểu của tham số (<code>int&amp; x</code>) thì tham số trở thành <b>tên gọi khác</b> của chính biến được truyền vào: cùng một ô nhớ<span class="en" lang="en" data-vi="ô nhớ">memory cell</span>, cùng địa chỉ. Mọi thay đổi trên <code>x</code> là thay đổi trên biến gốc. Chọn ví dụ “Tham chiếu” và “Đổi chỗ hai số” ở hình trên để thấy dòng <i>↔ a của main</i> và địa chỉ trùng nhau.</p></div>
+<div data-m="m3" class="code" data-snip="l17swap"></div>
+<div data-m="m4" class="code" data-snip="l17multi"></div>
+<div data-m="m5" class="note"><b>Vì sao không dùng tham trị cho chuỗi dài?</b> Một chuỗi 1 triệu ký tự truyền tham trị sẽ bị chép nguyên 1 triệu ký tự mỗi lần gọi hàm<span class="en" lang="en" data-vi="lời gọi hàm">function call</span>. <code>const std::string&amp;</code> chỉ truyền “đường dẫn” tới chuỗi gốc và vẫn đảm bảo hàm không làm hỏng nó.</div>
+<div data-m="m6" id="sim-l17"></div>
+<div data-m="m7" class="ex-grid" id="ex-l17"></div>
+<div data-m="m8" class="quiz" id="quiz17"></div>
+<div data-m="m9" class="score" id="score17"></div>
+<div data-m="m10" class="next">
         <button class="btn" data-go="l16">← Bài 16</button>
         <button class="btn pri" data-go="l18">Bài tiếp: Nạp chồng hàm →</button>
       </div></div></article>
 
-    <article class="col" id="view-l18" hidden><div class="lgate" aria-live="polite"></div><div class="park" hidden><div data-m="m0" class="code" data-snip="l18ov"></div>
-<div data-m="m1" class="figure" id="ov-l18"></div>
-<div data-m="m2" class="code" data-snip="l18def"></div>
-<div data-m="m3" id="sim-l18"></div>
-<div data-m="m4" class="ex-grid" id="ex-l18"></div>
-<div data-m="m5" class="quiz" id="quiz18"></div>
-<div data-m="m6" class="score" id="score18"></div>
-<div data-m="m7" class="next">
+    <article class="col" id="view-l18" hidden><div class="lgate" aria-live="polite"></div><div class="park" hidden><header data-m="m0" class="hero">
+        <div class="crumb">Chương 5 · Hàm / Bài 18</div>
+        <h1>Nạp chồng hàm và <em>tham số mặc định</em></h1>
+        <p class="h1-en" lang="en">Function Overloading and Default Arguments</p>
+        
+        <p class="lede">C++ cho phép nhiều hàm <b>cùng tên</b> nếu danh sách tham số khác nhau. Khi gọi, trình biên dịch nhìn kiểu và số lượng đối số để chọn đúng phiên bản. Kết hợp với tham số mặc định<span class="en" lang="en" data-vi="tham số mặc định">default argument</span>, một tên hàm có thể phục vụ nhiều cách gọi khác nhau.</p>
+        <div class="meta"><span class="chip lv1">Cơ bản</span><span class="chip">60 phút</span><span class="chip">Bộ chọn phiên bản hàm</span><span class="chip">3 bài tập · 4 câu hỏi</span></div>
+      </header>
+<div data-m="m1" class="goals">
+        <h3>Sau bài này học viên có thể</h3>
+        <ul>
+          <li>Viết các phiên bản nạp chồng<span class="en" lang="en" data-vi="nạp chồng hàm">function overloading</span> khác nhau về số lượng hoặc kiểu tham số.</li>
+          <li>Dự đoán phiên bản nào được gọi, dựa trên mức độ khớp của đối số.</li>
+          <li>Nhận ra lời gọi mơ hồ<span class="en" lang="en" data-vi="mơ hồ">ambiguous</span> và cách sửa.</li>
+          <li>Dùng tham số mặc định đúng quy tắc.</li>
+        </ul>
+      </div>
+<div data-m="m2" class="prose"><p>Ba hàm dưới đây đều tên <code>tong</code>, nhưng khác nhau ở <b>chữ ký</b><span class="en" lang="en" data-vi="chữ ký">signature</span>: số lượng tham số hoặc kiểu của chúng. Trình biên dịch phân biệt các phiên bản bằng chữ ký này.</p></div>
+<div data-m="m3" class="code" data-snip="l18ov"></div>
+<div data-m="m4" class="note"><b>Kiểu trả về<span class="en" lang="en" data-vi="kiểu trả về">return type</span> không tính vào chữ ký.</b> Hai hàm <code>int f(int)</code> và <code>double f(int)</code> có cùng danh sách tham số nên không thể cùng tồn tại; g++ báo <code>ambiguating new declaration of 'double f(int)'</code>. Lý do: với lời gọi <code>f(3);</code> không có cách nào biết bạn muốn bản nào.</div>
+<div data-m="m5" class="prose"><p>Với mỗi phiên bản, trình biên dịch chấm mức độ khớp của đối số: <b>khớp chính xác</b><span class="en" lang="en" data-vi="khớp chính xác">exact match</span> tốt nhất, sau đó là <b>nâng kiểu</b><span class="en" lang="en" data-vi="nâng kiểu">promotion</span> (char, bool → int; float → double), rồi đến <b>chuyển đổi</b> (int ↔ double, long long → int…). Phiên bản tốt nhất được chọn. Nếu có hai phiên bản tốt ngang nhau, lời gọi bị <b>mơ hồ</b> và không biên dịch được. Bật, tắt các phiên bản và đổi đối số để thử.</p></div>
+<div data-m="m6" class="figure" id="ov-l18"></div>
+<div data-m="m7" class="prose"><p>Tham số có thể có giá trị mặc định, dùng khi người gọi bỏ trống đối số đó. Hai quy tắc: tham số mặc định phải nằm ở <b>cuối</b> danh sách, và giá trị mặc định chỉ ghi <b>một lần</b>, thường ở nguyên mẫu<span class="en" lang="en" data-vi="nguyên mẫu">prototype</span>.</p></div>
+<div data-m="m8" class="code" data-snip="l18def"></div>
+<div data-m="m9" id="sim-l18"></div>
+<div data-m="m10" class="ex-grid" id="ex-l18"></div>
+<div data-m="m11" class="quiz" id="quiz18"></div>
+<div data-m="m12" class="score" id="score18"></div>
+<div data-m="m13" class="next">
         <button class="btn" data-go="l17">← Bài 17</button>
         <button class="btn pri" data-go="l19">Bài tiếp: Đệ quy →</button>
       </div></div></article>
 
-    <article class="col" id="view-l19" hidden><div class="lgate" aria-live="polite"></div><div class="park" hidden><div data-m="m0" class="rec-anat">
+    <article class="col" id="view-l19" hidden><div class="lgate" aria-live="polite"></div><div class="park" hidden><header data-m="m0" class="hero">
+        <div class="crumb">Chương 5 · Hàm / Bài 19</div>
+        <h1><em>Đệ quy</em>: hàm gọi chính nó</h1>
+        <p class="h1-en" lang="en">Recursion: A Function That Calls Itself</p>
+        
+        <p class="lede">Nhiều bài toán có thể chia thành một bài toán <b>giống hệt nhưng nhỏ hơn</b>: n! = n × (n − 1)!. Hàm đệ quy<span class="en" lang="en" data-vi="hàm đệ quy">recursive function</span> giải bài toán bằng cách gọi chính nó với dữ liệu nhỏ hơn, cho tới khi gặp trường hợp đủ nhỏ để trả lời ngay. Ngăn xếp lời gọi<span class="en" lang="en" data-vi="ngăn xếp lời gọi">call stack</span> cho thấy rõ mọi chuyện diễn ra như thế nào.</p>
+        <div class="meta"><span class="chip lv1">Cơ bản</span><span class="chip">75 phút</span><span class="chip">Cây lời gọi đệ quy</span><span class="chip">3 bài tập · 4 câu hỏi</span></div>
+      </header>
+<div data-m="m1" class="goals">
+        <h3>Sau bài này học viên có thể</h3>
+        <ul>
+          <li>Xác định trường hợp cơ sở<span class="en" lang="en" data-vi="trường hợp cơ sở">base case</span> (điểm dừng<span class="en" lang="en" data-vi="điểm dừng">stopping condition</span>) và bước đệ quy<span class="en" lang="en" data-vi="bước đệ quy">recursive case</span> của một bài toán.</li>
+          <li>Theo dõi ngăn xếp lời gọi khi đệ quy<span class="en" lang="en" data-vi="đệ quy">recursion</span> “đi xuống” và “quay lên”.</li>
+          <li>Giải thích lỗi tràn ngăn xếp<span class="en" lang="en" data-vi="tràn ngăn xếp">stack overflow</span> khi thiếu điểm dừng.</li>
+          <li>Nhận ra khi nào đệ quy tính lặp lại rất nhiều lần, và khi nào nên dùng vòng lặp.</li>
+        </ul>
+      </div>
+<div data-m="m2" class="rec-anat">
           <div class="code" data-snip="l19fact"></div>
           <div class="rec-math"><p class="pane-h" style="padding:0 0 6px">Định nghĩa toán học</p>
             <p><code>n! = 1</code> nếu <code>n ≤ 1</code> <span class="tag-base">cơ sở</span></p>
             <p><code>n! = n × (n − 1)!</code> nếu <code>n &gt; 1</code> <span class="tag-rec">đệ quy</span></p>
             <p class="rec-ex"><code>4! = 4 × 3! = 4 × 3 × 2! = 4 × 3 × 2 × 1! = 24</code></p></div>
         </div>
-<div data-m="m1" class="figure" id="cs-l19"></div>
-<div data-m="m2" class="figure" id="fib-l19"></div>
-<div data-m="m3" id="sim-l19"></div>
-<div data-m="m4" class="ex-grid" id="ex-l19"></div>
-<div data-m="m5" class="quiz" id="quiz19"></div>
-<div data-m="m6" class="score" id="score19"></div>
-<div data-m="m7" class="next">
+<div data-m="m3" class="figure" id="cs-l19"></div>
+<div data-m="m4" class="figure" id="fib-l19"></div>
+<div data-m="m5" class="prose"><p>Mỗi khung chiếm một ít bộ nhớ stack, mà stack chỉ có vài MB. Nếu đệ quy không bao giờ chạm trường hợp cơ sở (quên viết, viết sai điều kiện, hoặc quên làm nhỏ dữ liệu), các khung chồng mãi cho tới khi hết stack, chương trình bị hệ điều hành<span class="en" lang="en" data-vi="hệ điều hành">operating system</span> dừng với <code>Segmentation fault (core dumped)</code>. Thử ví dụ “Lỗi: thiếu trường hợp cơ sở” trong trình mô phỏng.</p></div>
+<div data-m="m6" id="sim-l19"></div>
+<div data-m="m7" class="ex-grid" id="ex-l19"></div>
+<div data-m="m8" class="quiz" id="quiz19"></div>
+<div data-m="m9" class="score" id="score19"></div>
+<div data-m="m10" class="next">
         <button class="btn" data-go="l18">← Bài 18</button>
         <span class="byline"><span class="amts-logo" aria-hidden="true"></span>Tiếp theo: Phạm vi biến</span>
       </div></div></article>
@@ -1408,7 +1977,7 @@ const COURSES=[
   chapters:12,
   lessons:[["l1","Chương trình C++ đầu tiên"],["l2","Cài đặt trình biên dịch & IDE"],["l3","Nhập xuất với cin / cout"],["l4","Biến, khai báo, khởi tạo"],["l5","int, double, char, bool"],["l6","Hằng số const / constexpr"],["l7","Ép kiểu và tràn số"],["l8","Toán tử số học"],["l9","So sánh và logic"],["l10","Thứ tự ưu tiên"],["l11","Toán tử bit"],["l12","if / else"],["l13","switch"],["l14","while, do-while"],["l15","for, break, continue"],["l16","Định nghĩa và gọi hàm"],["l17","Tham trị và tham chiếu"],["l18","Nạp chồng hàm"],["l19","Đệ quy"]],
   exercises:["l1-0","l1-1","l1-2","l2-term",...["l3","l4","l5","l6","l7","l8","l9","l10","l11","l12","l13","l14","l15","l16","l17","l18","l19"].flatMap(l=>[0,1,2].map(i=>`${l}-${i}`))],
-  contentVer:"b11b75a7e232",
+  contentVer:"b7a1f5f6e6c8",
   quizzes:{l1:"quiz",l2:"quiz2",l3:"quiz3",l4:"quiz4",l5:"quiz5",l6:"quiz6",l7:"quiz7",l8:"quiz8",l9:"quiz9",l10:"quiz10",l11:"quiz11",l12:"quiz12",l13:"quiz13",l14:"quiz14",l15:"quiz15",l16:"quiz16",l17:"quiz17",l18:"quiz18",l19:"quiz19"}},
  {id:"csharp",name:"C# Căn Bản",mono:"C#",url:"csharp/index.html",status:"soon",hue:"cs",
   desc:"Lập trình hướng đối tượng với .NET: kiểu dữ liệu, lớp, LINQ và ứng dụng Console thực tế.",chapters:null,lessons:[],exercises:[],quizzes:{}},
@@ -1607,6 +2176,35 @@ function runLazy(v){const q=LAZY.get("view-"+v);if(!q)return;LAZY.delete("view-"
 {const real=makeSim2;window.makeSim2=function(root,cfg){let s=null;const ensure=()=>s||(s=real(root,cfg));deferInit(root,ensure);
   return{get:()=>ensure().get(),set:c=>ensure().set(c),setInput:v=>ensure().setInput(v),el:root,run:()=>ensure().run()}}}
 const LESSON_EMBED=null;
+/* ---------- Thuật ngữ tiếng Anh ---------- */
+const GLOSSARY=[["compile", "biên dịch", 1], ["preprocessing", "tiền xử lý", 1], ["linking", "liên kết", 1], ["operator", "toán tử", 1], ["error message", "thông báo lỗi", 1], ["function", "hàm", 1], ["statement", "câu lệnh", 1], ["semicolon", "dấu chấm phẩy", 1], ["compiler", "trình biên dịch", 1], ["machine code", "mã máy", 1], ["newline character", "ký tự xuống dòng", 1], ["character", "ký tự", 1], ["buffer", "bộ đệm", 1], ["escape sequence", "ký tự thoát", 1], ["string", "chuỗi", 1], ["integer", "số nguyên", 1], ["code editor", "trình soạn thảo", 2], ["command line", "dòng lệnh", 2], ["environment variable", "biến môi trường", 2], ["warning", "cảnh báo", 2], ["executable", "file chạy được", 2], ["syntax", "cú pháp", 2], ["debugging", "gỡ lỗi", 2], ["formatting", "định dạng", 3], ["whitespace", "khoảng trắng", 3], ["floating-point number", "số thực", 3], ["input stream", "luồng nhập", 3], ["variable", "biến", 3], ["declaration", "khai báo", 3], ["memory cell", "ô nhớ", 3], ["fail state", "trạng thái lỗi", 3], ["significant digits", "chữ số có nghĩa", 3], ["rounding", "làm tròn", 3], ["memory", "bộ nhớ", 3], ["address", "địa chỉ", 4], ["initialization", "khởi tạo", 4], ["assignment", "phép gán", 4], ["trace table", "bảng theo dõi", 4], ["variable name", "tên biến", 4], ["compile error", "lỗi biên dịch", 4], ["narrowing conversion", "thu hẹp kiểu", 4], ["postfix", "hậu tố", 4], ["prefix", "tiền tố", 4], ["keyword", "từ khóa", 4], ["garbage value", "giá trị rác", 4], ["undefined behavior (UB)", "hành vi không xác định", 4], ["data type", "kiểu dữ liệu", 5], ["precision", "độ chính xác", 5], ["overflow", "tràn số", 5], ["two's complement", "bù hai", 5], ["type casting", "ép kiểu", 5], ["sign bit", "bit dấu", 5], ["floating point", "dấu phẩy động", 5], ["implicit conversion", "chuyển kiểu ngầm", 5], ["integer division", "chia nguyên", 5], ["truncation", "cắt bỏ", 5], ["explicit cast", "ép kiểu tường minh", 5], ["constant", "hằng", 6], ["magic number", "số ma thuật", 6], ["preprocessor", "bộ tiền xử lý", 6], ["scope", "phạm vi", 6], ["operand", "toán hạng", 7], ["usual arithmetic conversions", "chuyển đổi số học thông thường", 7], ["library", "thư viện", 7], ["modulo (remainder)", "chia dư", 8], ["expression", "biểu thức", 8], ["expression tree", "cây biểu thức", 8], ["precedence", "độ ưu tiên", 8], ["associativity", "chiều kết hợp", 8], ["comparison operator", "toán tử so sánh", 9], ["logical operator", "toán tử logic", 9], ["condition", "điều kiện", 9], ["truth table", "bảng chân trị", 9], ["short-circuit evaluation", "ngắn mạch", 9], ["bitwise operator", "toán tử bit", 9], ["conditional (ternary) operator", "toán tử điều kiện", 10], ["bit shift", "dịch bit", 10], ["branch", "nhánh", 10], ["status flag", "cờ trạng thái", 11], ["flowchart", "lưu đồ", 12], ["branching", "rẽ nhánh", 12], ["block", "khối lệnh", 12], ["fall-through", "rơi xuống", 13], ["loop", "vòng lặp", 14], ["loop counter", "biến đếm", 14], ["iteration", "lần lặp", 14], ["infinite loop", "vòng lặp vô hạn", 14], ["off-by-one error", "lỗi lệch một", 14], ["loop body", "thân vòng lặp", 14], ["sentinel", "lính canh", 14], ["step (update)", "bước nhảy", 15], ["nested loop", "vòng lặp lồng nhau", 15], ["stopping condition", "điểm dừng", 15], ["return type", "kiểu trả về", 16], ["parameter", "tham số", 16], ["function body", "thân hàm", 16], ["function call", "lời gọi hàm", 16], ["argument", "đối số", 16], ["return value", "giá trị trả về", 16], ["call stack", "ngăn xếp lời gọi", 16], ["prototype", "nguyên mẫu", 16], ["function definition", "định nghĩa hàm", 16], ["local variable", "biến cục bộ", 16], ["copy", "bản sao", 17], ["pass by value", "truyền tham trị", 17], ["reference", "tham chiếu", 17], ["default argument", "tham số mặc định", 18], ["function overloading", "nạp chồng hàm", 18], ["ambiguous", "mơ hồ", 18], ["signature", "chữ ký", 18], ["exact match", "khớp chính xác", 18], ["promotion", "nâng kiểu", 18], ["recursive function", "hàm đệ quy", 19], ["base case", "trường hợp cơ sở", 19], ["recursive case", "bước đệ quy", 19], ["recursion", "đệ quy", 19], ["stack overflow", "tràn ngăn xếp", 19], ["operating system", "hệ điều hành", 19]];   /* [tiếng Anh, tiếng Việt, bài đầu tiên] — sinh khi build */
+const CHAP_EN=["Getting Started","Variables and Data Types","Operators and Expressions","Control Flow","Functions","Arrays and Strings","Pointers and Memory","Object-Oriented Programming","Inheritance and Polymorphism","Templates and the STL","Modern C++ and Resources","Concurrency and Final Project"];
+function flashTerm(el){if(!el)return;el.scrollIntoView({behavior:"smooth",block:"center"});el.classList.add("flash");setTimeout(()=>el.classList.remove("flash"),1600)}
+function addGloss(l){
+  const art=document.getElementById("view-"+l);if(!art||art.querySelector(":scope > .gloss"))return;
+  const seen=new Map();art.querySelectorAll("span.en").forEach(x=>{const k=x.textContent;if(!seen.has(k))seen.set(k,x)});
+  if(!seen.size)return;
+  const box=document.createElement("details");box.className="gloss";
+  box.innerHTML=`<summary><b>Thuật ngữ trong bài</b><small>Glossary · ${seen.size} thuật ngữ</small></summary><div class="gl-list"></div>`;
+  const list=box.querySelector(".gl-list");
+  seen.forEach((el,en)=>{const b=document.createElement("button");b.type="button";
+    b.innerHTML=`<span class="gl-en" lang="en">${esc(en)}</span><span class="gl-vi">${esc(el.dataset.vi||"")}</span>`;
+    b.onclick=()=>flashTerm(el);list.appendChild(b)});
+  const nx=art.querySelector(":scope > div.next");art.insertBefore(box,nx||null);
+}
+function renderGlossAll(){
+  const box=document.getElementById("gl-all");if(!box)return;const q=(document.getElementById("gl-q").value||"").trim().toLowerCase();
+  const norm=s=>s.normalize("NFD").replace(/[\u0300-\u036f]/g,"").replace(/đ/g,"d");const nq=norm(q);
+  const rows=GLOSSARY.filter(([en,vi])=>!q||en.toLowerCase().includes(q)||vi.toLowerCase().includes(q)||norm(vi.toLowerCase()).includes(nq))
+    .sort((a,b)=>a[0].localeCompare(b[0],"en",{sensitivity:"base"}));
+  document.getElementById("gl-n").textContent=`${rows.length} / ${GLOSSARY.length} thuật ngữ`;
+  box.innerHTML=rows.length?rows.map(([en,vi,n])=>`<button type="button" data-l="l${n}" data-en="${esc(en)}"><span class="gl-en" lang="en">${esc(en)}</span><span class="gl-vi">${esc(vi)}</span><span class="gl-at">Bài ${n}</span></button>`).join(""):"";
+  if(!rows.length)box.innerHTML=`<p class="gl-empty">Không có thuật ngữ khớp “${esc(q)}”.</p>`;
+  box.querySelectorAll("button[data-l]").forEach(b=>b.onclick=()=>{const l=b.dataset.l,en=b.dataset.en;go(l);
+    let k=0;const t=setInterval(()=>{const el=[...document.querySelectorAll(`#view-${l} span.en`)].find(x=>x.textContent===en);
+      if(el||++k>40){clearInterval(t);if(el)flashTerm(el)}},150)})}
+function setEN(on){document.documentElement.classList.toggle("no-en",!on);const sw=document.getElementById("en-sw");if(sw)sw.setAttribute("aria-checked",on);
+  try{localStorage.setItem("amts-en",on?"1":"0")}catch(e){}}
 const LOADED=new Set();
 let curView=null;
 function lessonMeta(l){
@@ -1631,6 +2229,7 @@ function mountLesson(l,html){
   if(park&&!park.children.length)park.remove();
   if(gate){gate.hidden=true;gate.innerHTML=""}
   LOADED.add(l);
+  addGloss(l);
 }
 const LOCK_SVG='<svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="4.5" y="10.5" width="15" height="10" rx="2.5"/><path d="M8 10.5V7.5a4 4 0 0 1 8 0v3"/></svg>';
 function accessOf(l,cfg){const no=+l.slice(1);if(cfg.paidMode&&cfg.paid&&cfg.paid[l])return "paid";return no>=(+cfg.loginFrom||9999)?"login":"public"}
@@ -1717,11 +2316,15 @@ const LESSON_MAP={"1-0":"l1","1-1":"l2","1-2":"l3","2-0":"l4","2-1":"l5","2-2":"
   COURSE.forEach(t=>{
     road+=`<section class="tier"><div class="tier-h"><span class="chip ${t.cls}">${t.tier}</span><h2>${t.note}</h2></div><div class="cards">`;
     t.chapters.forEach(c=>{k++;
-      road+=`<div class="card ${k<=5?"live":""}"><div class="top"><span class="no">Chương ${k}</span><span class="chip">${c.l.length} bài</span></div><h3>${c.t}</h3><ul>${c.l.map(x=>`<li>${esc(x)}</li>`).join("")}</ul><div class="simtag"><b>Mô phỏng</b>${c.sim}</div></div>`;
+      road+=`<div class="card ${k<=5?"live":""}"><div class="top"><span class="no">Chương ${k}</span><span class="chip">${c.l.length} bài</span></div><h3>${c.t}<span class="h-en" lang="en">${CHAP_EN[k-1]||""}</span></h3><ul>${c.l.map(x=>`<li>${esc(x)}</li>`).join("")}</ul><div class="simtag"><b>Mô phỏng</b>${c.sim}</div></div>`;
     });
     road+=`</div></section>`;
   });
   document.getElementById("road").innerHTML=road;
+  document.getElementById("road-gl").onclick=()=>{const g=document.getElementById("gloss-all");g.open=true;g.scrollIntoView({behavior:"smooth"});setTimeout(()=>document.getElementById("gl-q").focus({preventScroll:true}),400)};
+  renderGlossAll();document.getElementById("gl-q").addEventListener("input",renderGlossAll);
+  {let on=true;try{on=localStorage.getItem("amts-en")!=="0"}catch(e){}setEN(on);
+   document.getElementById("en-sw").onclick=e=>setEN(e.currentTarget.getAttribute("aria-checked")!=="true")}
 })();
 const VIEWS=["road","l1","l2","l3","l4","l5","l6","l7","l8","l9","l10","l11","l12","l13","l14","l15","l16","l17","l18","l19"];
 let lastLesson="l1";
@@ -7162,7 +7765,7 @@ makeQuiz("quiz19","score19",[
  {q:"<code>void f(int n) { if (n == 0) return; f(n - 1); cout &lt;&lt; n; }</code> Gọi <code>f(3)</code> in ra?",o:["321","123","3","0123"],a:1,e:"Lệnh in đứng sau lời gọi đệ quy nên chạy khi “quay lên”: f(1) in trước, rồi f(2), f(3)."}
 ]);
 
-const LESSON_UPDATED={"l1": "2026-10-19T17:53:41Z", "l10": "2026-10-19T16:03:07Z", "l11": "2026-10-19T16:35:10Z", "l12": "2026-10-19T16:35:10Z", "l13": "2026-10-19T16:35:10Z", "l14": "2026-10-20T01:52:30Z", "l15": "2026-10-19T17:15:13Z", "l16": "2026-10-20T01:52:30Z", "l17": "2026-10-19T17:15:13Z", "l18": "2026-10-19T17:15:13Z", "l19": "2026-10-19T17:15:13Z", "l2": "2026-10-19T11:20:13Z", "l3": "2026-10-19T11:07:05Z", "l4": "2026-10-19T11:07:05Z", "l5": "2026-10-19T11:20:13Z", "l6": "2026-10-19T11:20:13Z", "l7": "2026-10-19T11:20:13Z", "l8": "2026-10-19T16:03:07Z", "l9": "2026-10-19T16:03:07Z"};
+const LESSON_UPDATED={"l1": "2026-10-20T03:43:09Z", "l10": "2026-10-20T03:43:09Z", "l11": "2026-10-20T03:43:09Z", "l12": "2026-10-20T03:43:09Z", "l13": "2026-10-20T03:43:09Z", "l14": "2026-10-20T03:43:09Z", "l15": "2026-10-20T03:43:09Z", "l16": "2026-10-20T03:43:09Z", "l17": "2026-10-20T03:43:09Z", "l18": "2026-10-20T03:43:09Z", "l19": "2026-10-20T03:43:09Z", "l2": "2026-10-20T03:43:09Z", "l3": "2026-10-20T03:43:09Z", "l4": "2026-10-20T03:43:09Z", "l5": "2026-10-20T03:43:09Z", "l6": "2026-10-20T03:43:09Z", "l7": "2026-10-20T03:43:09Z", "l8": "2026-10-20T03:43:09Z", "l9": "2026-10-20T03:43:09Z"};
 (function(){for(const l in LESSON_UPDATED){const nx=document.querySelector(`#view-${l} div.next`);if(!nx)continue;
   const iso=LESSON_UPDATED[l],d=new Date(iso),p=document.createElement("p");p.className="updated";
   p.innerHTML=`Cập nhật lần cuối: <time datetime="${iso}">${d.toLocaleTimeString("vi-VN",{hour:"2-digit",minute:"2-digit"})}, ${d.toLocaleDateString("vi-VN",{day:"2-digit",month:"2-digit",year:"numeric"})}</time>`;nx.after(p)}})();
