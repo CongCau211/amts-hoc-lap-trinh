@@ -3,7 +3,7 @@
 Website học lập trình của trung tâm đào tạo **AMTS**. Mỗi bài có hình minh họa, trình mô phỏng C++ chạy ngay trên trình duyệt, bài tập chấm tự động và trắc nghiệm. Học viên đăng nhập bằng Google để lưu tiến độ; giảng viên theo dõi tiến độ, cài đặt học phí và kích hoạt học viên.
 
 - Trang chủ: `index.html`
-- Khóa C++ Từ Nền Tảng: `cpp/index.html` (19 bài đang mở, lộ trình 12 chương)
+- Khóa C++ từ nền tảng: `cpp/index.html` (19 bài đang mở, lộ trình 12 chương)
 - Công nghệ: HTML, CSS, JavaScript thuần; Firebase Authentication (Google) và Cloud Firestore; hosting tĩnh GitHub Pages.
 
 ## Repo này chứa gì và không chứa gì
