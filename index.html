@@ -14,6 +14,8 @@
 <meta property="og:title" content="AMTS Học Lập Trình">
 <meta property="og:description" content="Học lập trình C++ từ nền tảng cùng AMTS: bài học có hình minh họa, trình mô phỏng chạy ngay trên trình duyệt, bài tập chấm tự động và theo dõi tiến độ.">
 <meta name="theme-color" content="#0E97A9">
+<link rel="icon" href="assets/brand/favicon.png">
+<link rel="apple-touch-icon" href="assets/brand/apple-touch-icon.png">
 <meta property="og:image" content="https://congcau211.github.io/khoa-hoc-cpp/assets/social/og-home.png">
 <meta name="twitter:card" content="summary_large_image">
 <style>:root{color-scheme:light dark}body{margin:0}img{max-width:100%}[hidden]{display:none!important}</style>
@@ -139,6 +141,10 @@ body{background:var(--bg)}
 }
 .tacct .note{background:none;border:0;padding:0;margin:0;font-size:13px;color:var(--muted);border-radius:0}
 .tacct .note:empty{display:none}
+.ava{border-radius:50%;flex:none;position:relative;overflow:hidden;display:grid;place-items:center;font-weight:700}
+.ava img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;border-radius:50%}
+.top .ic{width:20px;height:20px;flex:none}
+.top .iconbtn .ic{width:22px;height:22px}
 
 /* ---- lời chào + tiếp tục học ---- */
 .greet{padding-block:36px 22px}
@@ -258,7 +264,7 @@ footer{margin-top:56px;border-top:1px solid var(--line);background:var(--surface
 .tt td.st{text-align:center;font-size:15px;padding:8px 4px}
 .tt th{text-align:center}.tt th:first-child{text-align:left}
 .tt td.num{font-family:var(--f-mono);font-variant-numeric:tabular-nums;white-space:nowrap}
-.s-done{color:var(--ok);font-weight:800}.s-seen{color:var(--warm)}.s-no{color:var(--line)}
+.s-done{color:var(--ok);font-weight:800}.s-ex{color:var(--accent);font-weight:700}.s-seen{color:var(--warm)}.s-no{color:var(--line)}
 .tt .when{font-size:13px;white-space:nowrap}
 .trow{cursor:pointer}.trow:hover td,.trow.open td{background:var(--bg)}
 .tdet{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:8px 18px;font-size:13px}
@@ -426,14 +432,15 @@ const COURSES=[
   chapters:12,
   lessons:[["l1", "Chương trình C++ đầu tiên"], ["l2", "Cài đặt trình biên dịch & IDE"], ["l3", "Nhập xuất với cin / cout"], ["l4", "Biến, khai báo, khởi tạo"], ["l5", "int, double, char, bool"], ["l6", "Hằng số const / constexpr"], ["l7", "Ép kiểu và tràn số"], ["l8", "Toán tử số học"], ["l9", "So sánh và logic"], ["l10", "Thứ tự ưu tiên"], ["l11", "Toán tử bit"], ["l12", "if / else"], ["l13", "switch"], ["l14", "while, do-while"], ["l15", "for, break, continue"], ["l16", "Định nghĩa và gọi hàm"], ["l17", "Truyền tham trị / tham chiếu"], ["l18", "Nạp chồng hàm"], ["l19", "Đệ quy"]],
   exercises:["l1-0", "l1-1", "l1-2", "l2-term", "l3-0", "l3-1", "l3-2", "l4-0", "l4-1", "l4-2", "l5-0", "l5-1", "l5-2", "l6-0", "l6-1", "l6-2", "l7-0", "l7-1", "l7-2", "l8-0", "l8-1", "l8-2", "l9-0", "l9-1", "l9-2", "l10-0", "l10-1", "l10-2", "l11-0", "l11-1", "l11-2", "l12-0", "l12-1", "l12-2", "l13-0", "l13-1", "l13-2", "l14-0", "l14-1", "l14-2", "l15-0", "l15-1", "l15-2", "l16-0", "l16-1", "l16-2", "l17-0", "l17-1", "l17-2", "l18-0", "l18-1", "l18-2", "l19-0", "l19-1", "l19-2"],
-  contentVer:"4642f2771b6a",
+  practice:["l3-0", "l3-1", "l3-2", "l4-0", "l4-1", "l4-2", "l5-0", "l5-1", "l5-2", "l6-0", "l6-1", "l6-2", "l7-0", "l7-1", "l7-2", "l8-0", "l8-1", "l8-2", "l9-0", "l9-1", "l9-2", "l10-0", "l10-1", "l10-2", "l11-0", "l11-1", "l11-2", "l12-0", "l12-1", "l12-2", "l13-0", "l13-1", "l13-2", "l14-0", "l14-1", "l14-2", "l15-0", "l15-1", "l15-2", "l16-0", "l16-1", "l16-2", "l17-0", "l17-1", "l17-2", "l18-0", "l18-1", "l18-2", "l19-0", "l19-1", "l19-2"],
+  contentVer:"717e007742b7",
   quizzes:{"l1": "quiz", "l2": "quiz2", "l3": "quiz3", "l4": "quiz4", "l5": "quiz5", "l6": "quiz6", "l7": "quiz7", "l8": "quiz8", "l9": "quiz9", "l10": "quiz10", "l11": "quiz11", "l12": "quiz12", "l13": "quiz13", "l14": "quiz14", "l15": "quiz15", "l16": "quiz16", "l17": "quiz17", "l18": "quiz18", "l19": "quiz19"}},
  {id:"csharp",name:"C# căn bản",mono:"C#",url:"csharp/index.html",status:"soon",hue:"cs",
-  desc:"Lập trình hướng đối tượng với .NET.",chapters:null,lessons:[],exercises:[],quizzes:{}},
+  desc:"Lập trình hướng đối tượng với .NET.",chapters:null,lessons:[],exercises:[],practice:[],quizzes:{}},
  {id:"python",name:"Python cho người mới",mono:"Py",url:"python/index.html",status:"soon",hue:"py",
-  desc:"Bắt đầu lập trình và xử lý dữ liệu.",chapters:null,lessons:[],exercises:[],quizzes:{}},
+  desc:"Bắt đầu lập trình và xử lý dữ liệu.",chapters:null,lessons:[],exercises:[],practice:[],quizzes:{}},
  {id:"java",name:"Java từ đầu",mono:"Java",url:"java/index.html",status:"soon",hue:"java",
-  desc:"Nền tảng Java và tư duy lập trình.",chapters:null,lessons:[],exercises:[],quizzes:{}},
+  desc:"Nền tảng Java và tư duy lập trình.",chapters:null,lessons:[],exercises:[],practice:[],quizzes:{}},
 ];
 const courseById=id=>COURSES.find(c=>c.id===id);
 
@@ -572,11 +579,11 @@ const AMTS=(()=>{
     for(const L of pkg.lessons)if(!/^l\d+$/.test(L.id)||typeof L.html!=="string")throw new Error("Bài "+L.id+" không hợp lệ.");
     const FV=firebase.firestore.FieldValue,col=S.db.collection("content");let k=0;const tot=pkg.lessons.length*2;
     for(const L of pkg.lessons){
-      await col.doc(docId(pkg.course,pkg.ver,L.id)).set({course:pkg.course,lesson:L.id,order:Number(L.order)||0,title:String(L.title||""),html:L.html,ver:pkg.ver,updatedAt:FV.serverTimestamp()});
+      await col.doc(docId(pkg.course,pkg.ver,L.id)).set({course:pkg.course,lesson:L.id,order:Number(L.order)||0,title:String(L.title||""),html:L.html,sol:Array.isArray(L.sol)?L.sol.map(String):[],ver:pkg.ver,updatedAt:FV.serverTimestamp()});
       onProg&&onProg(++k,tot,"upload")}
     const bad=[];
     for(const L of pkg.lessons){const s=await col.doc(docId(pkg.course,pkg.ver,L.id)).get();const d=s.exists?s.data():null;
-      if(!d||d.html!==L.html||d.ver!==pkg.ver)bad.push(L.id);onProg&&onProg(++k,tot,"verify")}
+      if(!d||d.html!==L.html||d.ver!==pkg.ver||JSON.stringify(d.sol||[])!==JSON.stringify(Array.isArray(L.sol)?L.sol.map(String):[]))bad.push(L.id);onProg&&onProg(++k,tot,"verify")}
     if(bad.length)throw new Error(`Kiểm tra sau khi tải lên thấy ${bad.length} bài chưa đúng (${bad.join(", ")}). Hãy tải lại; phiên bản đang dùng không bị ảnh hưởng.`);
     const cur=await getConfig(pkg.course,true);
     cur.versions=Object.assign({},cur.versions||{},{[pkg.ver]:{at:new Date().toISOString(),by:(S.user&&S.user.email)||"",n:pkg.lessons.length,lessons:pkg.lessons.map(L=>L.id),ok:true}});
@@ -603,8 +610,18 @@ const AMTS=(()=>{
     try{await ref.update({["courses."+id]:val})}
     catch(e){if(e.code!=="not-found")throw e;await ref.set({name:u.displayName||"",email:(u.email||"").toLowerCase(),photo:u.photoURL||"",courses:{[id]:val}},{merge:true})}
     S.doc=Object.assign({},S.doc||{});S.doc.courses=Object.assign({},S.doc.courses||{},{[id]:val});emit()}
-  const isDone=(p,l)=>!!p&&!!p.lessons&&(p.lessons[l]||0)>0;
-  return{S,TEACHERS,ENV,PROJECT:FB_CONFIG.projectId,init,isDone,on:f=>{subs.push(f);f(S)},getLocal,setLocal,clearLocal,merge,courseOf,saveCourse,signIn,signOut,isTeacher,allUsers,empty,
+  /* Tiến độ 3 mức của một bài: 0 chưa học · 1 Đã đọc · 2 Đã làm bài tập (đạt ≥ 2/3 bài tập) · 3 Đạt kiểm tra (bài tập ≥ 2/3 và trắc nghiệm ≥ 3/4).
+     Bài không có bài tập/trắc nghiệm thì bỏ qua điều kiện đó. "Hoàn thành" = Đạt kiểm tra HOẶC học viên tự bấm "Đánh dấu đã học xong". */
+  const PASS_EX=2/3,PASS_QUIZ=3/4;
+  function detailOf(p,l,cid){const c=courseById(cid||"cpp")||{},ex=(c.exercises||[]).filter(k=>k.startsWith(l+"-")),qid=(c.quizzes||{})[l];
+    const pass=p?ex.filter(k=>((p.ex||{})[k]||{}).pass).length:0,q=p&&qid?(p.quiz||{})[qid]:null;
+    const exOk=!ex.length||pass>=Math.ceil(ex.length*PASS_EX-1e-9),qOk=!qid||!!(q&&q.total&&(q.best||0)/q.total>=PASS_QUIZ-1e-9);
+    const read=!!(p&&p.visited&&p.visited[l]),manual=!!(p&&p.lessons&&(p.lessons[l]||0)>0);
+    const level=(ex.length||qid)&&exOk&&qOk?3:ex.length&&exOk?2:read||pass||q?1:0;
+    return{level,read,manual,exTotal:ex.length,exPass:pass,quiz:q?{best:q.best||0,total:q.total}:null,hasQuiz:!!qid,exOk,qOk}}
+  const levelOf=(p,l,cid)=>detailOf(p,l,cid).level;
+  const isDone=(p,l,cid)=>{const d=detailOf(p,l,cid);return d.manual||d.level===3};
+  return{S,TEACHERS,ENV,PROJECT:FB_CONFIG.projectId,init,isDone,levelOf,detailOf,on:f=>{subs.push(f);f(S)},getLocal,setLocal,clearLocal,merge,courseOf,saveCourse,signIn,signOut,isTeacher,allUsers,empty,
     notifyOf,setNotify,payReqOf,requestPay,allPayReq,clearPayReq,dump,restoreDoc,ready,defaultConfig,getConfig,saveConfig,isEnrolled,clearEnroll,getLesson,allEnroll,setEnroll,uploadContent,deleteVersion,docId};
 })();
 /* tiện ích dùng chung */
@@ -633,12 +650,10 @@ const TOPNAV=(()=>{
   function setOpen(o){if(!top)return;top.classList.toggle("open",o);const b=document.getElementById("nav-menu");if(b)b.setAttribute("aria-expanded",String(o))}
   const mb=document.getElementById("nav-menu");if(mb)mb.onclick=e=>{e.stopPropagation();setOpen(!top.classList.contains("open"))};
   wireMenu("nav-docs","m-docs");
+  {const nv=document.getElementById("mainnav");if(nv)nv.addEventListener("click",e=>{if(e.target.closest("a")){setOpen(false);closeMenus()}})}
   function setActive(k){document.querySelectorAll("#mainnav [data-nav]").forEach(a=>{if(a.dataset.nav===k)a.setAttribute("aria-current","page");else a.removeAttribute("aria-current")})}
-  /* Thực hành: tới bài đầu tiên còn bài tập chưa đạt */
-  function practiceHref(){const c=COURSES.find(x=>x.status==="open");if(!c)return ROOT+"index.html";
-    const S=AMTS.S,loc=AMTS.getLocal(c.id),rem=S.user&&S.docLoaded?AMTS.courseOf(S.doc,c.id):null,p=rem?AMTS.merge(rem,loc):loc;
-    const next=c.lessons.find(([l])=>c.exercises.some(k=>k.startsWith(l+"-")&&!(p.ex[k]||{}).pass));
-    return ROOT+c.url+"#bai-"+(next?next[0].slice(1):"1")}
+  /* Thực hành: trang Thực hành của khóa đang mở */
+  function practiceHref(){const c=COURSES.find(x=>x.status==="open");if(!c)return ROOT+"index.html";return ROOT+c.url+"#thuc-hanh"}
   function render(){
     const el=document.getElementById("topacct");if(!el)return;const S=AMTS.S;
     const subs=COURSES.filter(c=>AMTS.notifyOf(c.id)),sn=seen(),fresh=subs.filter(c=>c.status==="open"&&!sn[c.id]);
@@ -676,7 +691,7 @@ function progressOf(id){
 let PUB={},pubAsked=false;
 /* ---------- ảnh minh họa từng ngôn ngữ (SVG tự vẽ, không dùng logo chính thức) ---------- */
 /* ảnh của designer (assets/courses/<khóa>/card|card-square|hero) — build điền vào; khóa nào chưa có thì dùng ảnh do code vẽ bên dưới */
-const ASSETS={"cpp": {"card": {"src": "assets/courses/cpp/card.svg"}, "card-square": {"src": "assets/courses/cpp/card-square.svg"}, "hero": {"src": "assets/courses/cpp/hero.svg"}}, "csharp": {"card": {"src": "assets/courses/csharp/card.svg"}, "card-square": {"src": "assets/courses/csharp/card-square.svg"}, "hero": {"src": "assets/courses/csharp/hero.svg"}}, "python": {"card": {"src": "assets/courses/python/card.svg"}, "card-square": {"src": "assets/courses/python/card-square.svg"}, "hero": {"src": "assets/courses/python/hero.svg"}}, "java": {"card": {"src": "assets/courses/java/card.svg"}, "card-square": {"src": "assets/courses/java/card-square.svg"}, "hero": {"src": "assets/courses/java/hero.svg"}}};
+const ASSETS={"cpp": {"card": {"src": "assets/courses/cpp/card.webp"}, "card-square": {"src": "assets/courses/cpp/card-square.webp"}, "hero": {"src": "assets/courses/cpp/hero.webp"}}, "csharp": {"card": {"src": "assets/courses/csharp/card.webp"}, "card-square": {"src": "assets/courses/csharp/card-square.webp"}, "hero": {"src": "assets/courses/csharp/hero.webp"}}, "python": {"card": {"src": "assets/courses/python/card.webp"}, "card-square": {"src": "assets/courses/python/card-square.webp"}, "hero": {"src": "assets/courses/python/hero.webp"}}, "java": {"card": {"src": "assets/courses/java/card.webp"}, "card-square": {"src": "assets/courses/java/card-square.webp"}, "hero": {"src": "assets/courses/java/hero.webp"}}};
 function artFor(c,slot,uid){const a=(ASSETS[c.id]||{})[slot];
   if(a&&a.svg)return a.svg;
   if(a&&a.src)return `<img src="${escH(a.src)}" alt="" loading="lazy" decoding="async">`;
@@ -714,7 +729,7 @@ function accessLine(c,f){if(!f)return "";const n=c.lessons.length,lf=+f.loginFro
   if(inn)return "";
   return lf<=n?`Khóa học miễn phí. Đăng nhập để học từ bài ${lf}.`:"Khóa học miễn phí, không cần đăng nhập."}
 function isPaid(c){const f=PUB[c.id];return !!(f&&f.paidMode&&c.lessons.some(([l])=>f.paid&&f.paid[l]))}
-function statsOf(c){const p=progressOf(c.id),total=c.lessons.length,done=c.lessons.filter(([l])=>AMTS.isDone(p,l)).length;
+function statsOf(c){const p=progressOf(c.id),total=c.lessons.length,done=c.lessons.filter(([l])=>AMTS.isDone(p,l,c.id)).length;
   const lastAt=Math.max(0,...Object.values(p.visited||{}).map(Number).filter(Boolean));
   const last=p.lastLesson&&c.lessons.find(x=>x[0]===p.lastLesson);return{p,total,done,last,lastAt,started:!!(done||last)}}
 /* ---------- khối "Tiếp tục học" ---------- */
@@ -770,11 +785,9 @@ async function toggleNotify(id){const S=AMTS.S;cmsg={};
   setNotifyUI(id,NST[id]==="fail"?true:!AMTS.notifyOf(id))}
 /* ---------- thực hành: tới bài đầu tiên còn bài tập chưa đạt ---------- */
 function renderPractice(){const c=COURSES.find(x=>x.status==="open");if(!c)return;const p=progressOf(c.id);
-  const nEx=COURSES.filter(x=>x.status==="open").reduce((a,x)=>a+x.exercises.length,0),nPass=c.exercises.filter(k=>(p.ex[k]||{}).pass).length;
-  const next=c.lessons.find(([l])=>c.exercises.some(k=>k.startsWith(l+"-")&&!(p.ex[k]||{}).pass));
-  const href=c.url+"#bai-"+(next?next[0].slice(1):"1");
+  const L=c.practice||[],nPass=L.filter(k=>(p.ex[k]||{}).pass).length,href=c.url+"#thuc-hanh";
   document.getElementById("pr-link").href=href;document.getElementById("nav-practice").href=href;
-  document.getElementById("pr-text").textContent=`${nEx} bài tập chấm tự động và trình mô phỏng chạy ngay trên trình duyệt`+(nPass?` · bạn đã làm đạt ${nPass}/${nEx}.`:".")+(next&&nPass?` Bài tiếp theo: Bài ${next[0].slice(1)} · ${next[1]}.`:"")}
+  document.getElementById("pr-text").textContent=`${L.length} bài tập chấm tự động có gợi ý, lời giải và trình tự chạy từng bước`+(nPass?` · bạn đã làm đạt ${nPass}/${L.length}.`:".")}
 document.getElementById("c-q").addEventListener("input",renderCourses);
 document.querySelectorAll(".seg [data-f]").forEach(b=>b.onclick=()=>{CF=b.dataset.f;document.querySelectorAll(".seg [data-f]").forEach(x=>x.setAttribute("aria-pressed",x===b));renderCourses()});
 
@@ -929,7 +942,7 @@ const tsMs=t=>t?(t.toMillis?t.toMillis():new Date(t).getTime()):0;
 function fmtTime(t){if(!t)return"—";const d=t.toDate?t.toDate():new Date(t);if(isNaN(d))return"—";return d.toLocaleString("vi-VN",{day:"2-digit",month:"2-digit",year:"numeric",hour:"2-digit",minute:"2-digit"})}
 function summarize(r,c){
   const p=AMTS.courseOf(r,c.id);if(!p)return null;
-  const done=c.lessons.filter(([l])=>AMTS.isDone(p,l)).map(x=>x[0]);
+  const done=c.lessons.filter(([l])=>AMTS.isDone(p,l,c.id)).map(x=>x[0]);
   const exPass=c.exercises.filter(k=>(p.ex[k]||{}).pass).length;
   const qs=Object.values(p.quiz||{}).filter(q=>q&&q.total);const qavg=qs.length?Math.round(qs.reduce((s,q)=>s+(q.best||0)/q.total,0)/qs.length*100):null;
   const upd=(r.courses&&r.courses[c.id]&&r.courses[c.id].updatedAt)||r.lastSeen;
@@ -961,19 +974,22 @@ function renderTeacher(){
   if(!rows.length){box.innerHTML=`<p class="empty">${inC.length?"Không có học viên khớp từ khóa.":"Chưa có học viên nào học khóa này. Danh sách sẽ hiện khi học viên đăng nhập và mở bài học."}</p>`;return}
   const L=c.lessons;
   box.innerHTML=`<div class="tbl"><table class="tt"><thead><tr><th>Học viên</th>${L.map(([l,n],i)=>`<th title="${escH(n)}">B${i+1}</th>`).join("")}<th>Bài tập</th><th>Trắc nghiệm</th><th>Lần cuối</th></tr></thead><tbody>${
-    rows.map(({r,s})=>`<tr class="trow" data-id="${escH(r.uid)}" tabindex="0"><td><b>${escH(r.name||"(chưa có tên)")}</b><small>${escH(r.email||"")}</small></td>${L.map(([l])=>`<td class="st">${AMTS.isDone(s.p,l)?'<span class="s-done" title="Đã hoàn thành">✓</span>':s.p.visited[l]?'<span class="s-seen" title="Đã mở">◐</span>':'<span class="s-no">·</span>'}</td>`).join("")}
+    rows.map(({r,s})=>`<tr class="trow" data-id="${escH(r.uid)}" tabindex="0"><td><b>${escH(r.name||"(chưa có tên)")}</b><small>${escH(r.email||"")}</small></td>${L.map(([l])=>`<td class="st">${stCell(s.p,l,c.id)}</td>`).join("")}
       <td class="num">${s.exPass}/${c.exercises.length}</td><td class="num">${s.qavg===null?"—":s.qavg+"%"}</td><td class="when">${fmtTime(s.upd)}${s.p.lastLesson?`<small>${escH((L.find(x=>x[0]===s.p.lastLesson)||[])[1]||"")}</small>`:""}</td></tr>
       <tr class="tdetail" hidden data-for="${escH(r.uid)}"><td colspan="${L.length+4}">${detail(s.p,c)}</td></tr>`).join("")}</tbody></table></div>
     <ul class="t-cards">${rows.map(({r,s})=>{const n=s.done.length,pct=Math.round(n/L.length*100);
       return `<li><details><summary><span class="tc-who"><b>${escH(r.name||"(chưa có tên)")}</b><small>${escH(r.email||"")}</small></span>
         <span class="tc-p"><span class="pbar" role="progressbar" aria-label="Tiến độ" aria-valuemin="0" aria-valuemax="${L.length}" aria-valuenow="${n}"><span style="width:${pct}%"></span></span><small>${n}/${L.length} bài · Bài tập ${s.exPass}/${c.exercises.length} · Trắc nghiệm ${s.qavg===null?"—":s.qavg+"%"}</small></span>
         <small class="tc-when">Lần cuối: ${fmtTime(s.upd)}</small></summary>${detail(s.p,c)}</details></li>`}).join("")}</ul>
-    <p class="note">✓ hoàn thành · ◐ đã mở nhưng chưa đánh dấu xong · bấm vào một học viên để xem chi tiết.</p>`;
+    <p class="note">✓ đạt kiểm tra (bài tập ≥ 2/3 và trắc nghiệm ≥ 3/4) · ☑ học viên tự đánh dấu học xong · ◑ đã làm bài tập · ◔ đã đọc · bấm vào một học viên để xem chi tiết.</p>`;
   box.querySelectorAll(".trow").forEach(tr=>{const f=()=>{const d=[...box.querySelectorAll(".tdetail")].find(x=>x.dataset.for===tr.dataset.id);d.hidden=!d.hidden;tr.classList.toggle("open",!d.hidden)};tr.onclick=f;tr.onkeydown=e=>{if(e.key==="Enter")f()}});
 }
+function stCell(p,l,cid){const D=AMTS.detailOf(p,l,cid);
+  return D.level===3?'<span class="s-done" title="Đạt kiểm tra">✓</span>':D.manual?'<span class="s-done" title="Tự đánh dấu học xong">☑</span>':D.level===2?'<span class="s-ex" title="Đã làm bài tập">◑</span>':D.level===1?'<span class="s-seen" title="Đã đọc">◔</span>':'<span class="s-no">·</span>'}
+const LV_NAME=["Chưa học","Đã đọc","Đã làm bài tập","✓ Đạt kiểm tra"];
 function detail(p,c){
   return `<div class="tdet">${c.lessons.map(([l,n],i)=>{const exs=c.exercises.filter(k=>k.startsWith(l+"-"));const q=p.quiz[c.quizzes[l]];
-    return `<div><b>Bài ${i+1}</b> <small>${escH(n)}</small><span>${AMTS.isDone(p,l)?"✓ Hoàn thành":p.visited[l]?"Đã mở":"Chưa học"}</span>
+    return `<div><b>Bài ${i+1}</b> <small>${escH(n)}</small><span>${(()=>{const D=AMTS.detailOf(p,l,c.id);return LV_NAME[D.level]+(D.manual&&D.level<3?" · tự đánh dấu học xong":"")})()}</span>
       <span>Bài tập: ${exs.length?exs.map(k=>{const x=p.ex[k];return `<i class="${x?x.pass?"ok":"bad":""}" title="${escH(k)}${x&&x.d?" · "+escH(x.d):""}">${x?x.pass?"✓":"✗":"·"}</i>`}).join(""):"—"}</span>
       <span>Trắc nghiệm: ${q?`${q.score}/${q.total} (cao nhất ${q.best}/${q.total})`:"—"}</span></div>`}).join("")}</div>`;
 }

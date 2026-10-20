@@ -14,6 +14,8 @@
 <meta property="og:title" content="C++ từ nền tảng">
 <meta property="og:description" content="Khóa C++ từ nền tảng của AMTS: 19 bài từ chương trình đầu tiên tới hàm và đệ quy, trình mô phỏng bộ nhớ và ngăn xếp lời gọi, bài tập chấm tự động.">
 <meta name="theme-color" content="#0E97A9">
+<link rel="icon" href="../assets/brand/favicon.png">
+<link rel="apple-touch-icon" href="../assets/brand/apple-touch-icon.png">
 <meta property="og:image" content="https://congcau211.github.io/khoa-hoc-cpp/assets/social/og-cpp.png">
 <meta name="twitter:card" content="summary_large_image">
 <style>:root{color-scheme:light dark}body{margin:0}img{max-width:100%}[hidden]{display:none!important}</style>
@@ -79,33 +81,37 @@ p{margin:0}
 }
 .tacct .note{background:none;border:0;padding:0;margin:0;font-size:13px;color:var(--muted);border-radius:0}
 .tacct .note:empty{display:none}
+.ava{border-radius:50%;flex:none;position:relative;overflow:hidden;display:grid;place-items:center;font-weight:700}
+.ava img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;border-radius:50%}
+.top .ic{width:20px;height:20px;flex:none}
+.top .iconbtn .ic{width:22px;height:22px}
 /* ---------- Khung trang khóa học: thanh điều hướng chung (72px) + sidebar 300px + cột bài tối đa 880px ---------- */
 :root{--topH:72px}
 .top.compact{z-index:50}
 .top .wrap{min-height:var(--topH)}
 .vh{position:absolute!important;width:1px;height:1px;padding:0;margin:-1px;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap;border:0}
 
-/* ---------- Sidebar: phần đầu cố định, danh sách tự cuộn, chân (công tắc thuật ngữ) luôn nhìn thấy ---------- */
-.side{background:var(--surface);border-right:1px solid var(--line);position:sticky;top:calc(var(--topH) + 1px);height:calc(100vh - var(--topH) - 1px);height:calc(100dvh - var(--topH) - 1px);display:flex;flex-direction:column;min-height:0}
-.sb-top{padding:18px 20px 10px max(20px,env(safe-area-inset-left,0px));display:grid;gap:12px;flex:none}
-.sb-head{display:flex;align-items:center;justify-content:space-between;gap:8px;margin:-6px 0 -4px}
+/* ---------- Sidebar: cả thanh cuộn chung (phần đầu cuộn đi để danh sách bài có nhiều chỗ), chân (công tắc thuật ngữ) dính dưới ---------- */
+.side{background:var(--surface);border-right:1px solid var(--line);position:sticky;top:calc(var(--topH) + 1px);height:calc(100vh - var(--topH) - 1px);height:calc(100dvh - var(--topH) - 1px);display:flex;flex-direction:column;min-height:0;overflow-y:auto;overscroll-behavior:contain;scrollbar-width:thin}
+.sb-top{padding:12px 20px 8px max(20px,env(safe-area-inset-left,0px));display:grid;gap:10px;flex:none}
+.sb-head{display:flex;align-items:center;justify-content:space-between;gap:8px;margin:-4px 0 -8px}
 .sb-back{display:inline-flex;align-items:center;gap:6px;min-height:44px;color:var(--accent);font-weight:600;font-size:14px;text-decoration:none;border-radius:8px}
 .sb-back:hover{text-decoration:underline;text-underline-offset:3px}
 .brand{display:grid;gap:2px}
-.brand b{font-family:var(--f-display);font-size:20px;font-weight:800;letter-spacing:-.01em;line-height:1.25}
+.brand b{font-family:var(--f-display);font-size:18px;font-weight:800;letter-spacing:-.01em;line-height:1.25}
 .brand small{color:var(--muted);font-size:12.5px;line-height:1.35}
 .ol-q{position:relative}
-.ol-q input{width:100%;font:inherit;font-size:14.5px;min-height:44px;padding:8px 38px 8px 12px;border:1px solid var(--muted);border-radius:10px;background:var(--bg);color:var(--ink)}
+.ol-q input{width:100%;font:inherit;font-size:14.5px;min-height:40px;padding:8px 38px 8px 12px;border:1px solid var(--muted);border-radius:10px;background:var(--bg);color:var(--ink)}
 .ol-q input::-webkit-search-cancel-button{display:none}
-.ol-x{position:absolute;right:2px;top:2px;width:40px;height:40px;border:0;background:transparent;border-radius:8px;font-size:20px;line-height:1;color:var(--muted)}
+.ol-x{position:absolute;right:2px;top:2px;width:36px;height:36px;border:0;background:transparent;border-radius:8px;font-size:20px;line-height:1;color:var(--muted)}
 .ol-x:hover{color:var(--ink);background:var(--line)}
 .side-nav{display:grid;grid-template-columns:1fr 1fr;gap:8px}
-.side-nav button{min-height:44px;border:1px solid var(--accent);background:var(--surface);color:var(--accent);border-radius:10px;padding:6px 8px;font-size:14px;font-weight:700}
+.side-nav button{min-height:40px;border:1px solid var(--accent);background:var(--surface);color:var(--accent);border-radius:10px;padding:6px 8px;font-size:14px;font-weight:700}
 .side-nav button:hover{background:var(--accent-soft)}
 .side-nav button[aria-pressed="true"]{background:var(--accent);border-color:var(--accent);color:var(--accent-ink)}
-.outline{flex:1;min-height:0;overflow-y:auto;overscroll-behavior:contain;padding:4px 12px 16px max(12px,env(safe-area-inset-left,0px));scrollbar-width:thin}
+.outline{flex:1 0 auto;padding:4px 12px 16px max(12px,env(safe-area-inset-left,0px))}
 .ol-empty{margin:0 20px 12px;font-size:13.5px;color:var(--muted)}
-.sb-foot{flex:none;border-top:1px solid var(--line);padding:10px 20px max(12px,env(safe-area-inset-bottom,0px));background:var(--surface)}
+.sb-foot{flex:none;position:sticky;bottom:0;z-index:2;border-top:1px solid var(--line);padding:2px 20px max(2px,env(safe-area-inset-bottom,0px));background:var(--surface)}
 .sb-foot .en-row{margin:0;min-height:44px;color:var(--ink);font-size:14px}
 
 /* tiến độ + trạng thái lưu */
@@ -130,6 +136,8 @@ details.ch li a{flex:1;min-width:0;display:flex;align-items:center;gap:8px;color
 details.ch li a:hover{color:var(--accent)}
 details.ch li .st{flex:none;width:16px;text-align:center;font-weight:800;color:var(--muted);font-size:13px}
 details.ch li .st::before{content:"○"}
+details.ch li.lv1 .st::before{content:"◔"}
+details.ch li.lv2 .st{color:var(--accent)}details.ch li.lv2 .st::before{content:"◑"}
 details.ch li.done .st{color:var(--ok)}
 details.ch li.done .st::before{content:"✓"}
 details.ch li.cur{background:var(--accent-soft)}
@@ -183,6 +191,8 @@ details.ch li .soon{font-size:11.5px;font-weight:600;white-space:nowrap;color:va
 }
 @media (max-width:900px){.top.compact{position:relative}}
 @media (max-width:860px){:root{--topH:60px}}
+.side-nav{grid-template-columns:repeat(3,minmax(0,1fr))}
+.side-nav button{font-size:13.5px;padding:6px 4px}
 /* ---------- Main ---------- */
 .main{min-width:0;padding-block:28px 80px;padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px))}
 .col{max-width:880px;margin:0 auto;display:grid;grid-template-columns:minmax(0,1fr);gap:40px}
@@ -413,6 +423,7 @@ html.no-en .en,html.no-en .h-en,html.no-en .h1-en,html.no-en .gloss{display:none
 .r-body li a:hover{color:var(--accent)}
 .r-body .st{width:16px;text-align:center;font-weight:800;color:var(--muted)}
 .r-body .st::before{content:"○"}
+.r-body li.lv1 .st::before{content:"◔"}.r-body li.lv2 .st{color:var(--accent)}.r-body li.lv2 .st::before{content:"◑"}
 .r-body li.done .st{color:var(--ok)}.r-body li.done .st::before{content:"✓"}
 .r-body li.soon-l .st::before{content:"–"}
 .r-body .soon{font-size:11.5px;font-weight:600;border:1px solid var(--line);border-radius:999px;padding:1px 8px}
@@ -702,6 +713,112 @@ html.no-en .en,html.no-en .h-en,html.no-en .h1-en,html.no-en .gloss{display:none
 .ex-t td::before{content:attr(data-h);font-weight:600;color:var(--muted)}
 .ex-t code{white-space:pre-wrap;word-break:break-word;font-size:12.5px}
 .ex-none{color:var(--muted)}
+
+/* ---------- 20/10 (tối): thanh công cụ, giải thích ví dụ, ô dữ liệu đầu vào, thanh chờ nhập ---------- */
+.sim-bar{display:flex;flex-wrap:wrap;gap:8px 12px;align-items:center;justify-content:space-between}
+.sim-bar .left{flex:1 1 320px;min-width:0;flex-wrap:nowrap}
+.sim-bar .left .pre-l{flex:1;min-width:0;display:flex}
+.sim-bar .left select{width:100%;min-width:0;max-width:420px;font:inherit;font-size:14px;padding:6px 10px;border:1px solid var(--muted);border-radius:10px;background:var(--surface);color:var(--ink)}
+.sim-bar .right{flex:none}
+.s-note{padding:12px 16px;border-bottom:1px solid var(--line);background:var(--accent-soft);font-size:14.5px;line-height:1.55;display:grid;gap:2px}
+.s-note b{font-size:12.5px;text-transform:uppercase;letter-spacing:.06em;color:var(--accent)}
+.s-note p{margin:0;color:var(--ink)}
+.lcol{display:grid;grid-template-rows:minmax(0,1fr) auto;min-width:0}
+.sim-in{display:grid;gap:6px;padding:10px 12px;border-top:1px solid var(--line);background:var(--surface)}
+.sim-in label{display:grid;gap:2px}
+.sim-in label b{font-size:14px}
+.sim-in label small{font-size:12.5px;color:var(--muted);line-height:1.45}
+.sim-in textarea{width:100%;font-family:var(--f-mono);font-size:14px;padding:8px 10px;border:1px solid var(--muted);border-radius:8px;background:var(--bg);color:var(--ink);resize:vertical;min-height:44px}
+.s-wait{display:grid;gap:8px;padding:12px 14px;background:var(--warm-soft);border-top:3px solid var(--warm)}
+.s-wait[hidden]{display:none}
+.s-wait label{display:grid;gap:2px}
+.s-wait label b{color:var(--ink);font-size:14.5px}
+.s-wait label small{color:var(--ink);font-size:12.5px}
+.s-wrow{display:flex;gap:8px;flex-wrap:wrap}
+.s-wait .con-in{flex:1 1 160px;min-width:0;width:auto;min-height:44px;padding:8px 12px;font-family:var(--f-mono);font-size:15px;border:2px solid var(--warm);border-radius:10px;background:var(--surface);color:var(--ink);outline:none}
+.s-wait .con-in:focus-visible{outline:2px solid var(--accent);outline-offset:2px}
+.s-wait .btn{min-height:44px}
+.s-wait .eof-btn{display:inline-flex;margin:0;font-size:14px;border:1px solid var(--line);background:var(--surface);color:var(--ink);border-radius:8px;padding:8px 12px}
+.sim-foot{justify-content:flex-end}
+@media (max-width:900px){.sim-foot{display:none}}
+@media (max-width:560px){
+  .sim-bar .left{flex-basis:100%;flex-wrap:wrap}
+  .sim-bar .left .pre-l{flex-basis:100%;order:2}
+  .sim-bar .left select{max-width:none}
+  .sim-bar .right{flex-basis:100%}
+  .s-wait .btn{flex:1}
+}
+
+/* ---------- Bài tập gọn: danh sách tên bài + một khung đề + 3 nút dùng chung ---------- */
+.exw{display:grid!important;grid-template-columns:minmax(0,1fr)!important;gap:0!important;border:1px solid var(--line);border-radius:14px;background:var(--surface);overflow:hidden}
+.ex-list{display:flex;gap:6px;flex-wrap:wrap;padding:10px;border-bottom:1px solid var(--line);background:var(--bg)}
+.ex-list button{min-height:44px;display:inline-flex;align-items:center;gap:8px;border:1px solid var(--line);background:var(--surface);color:var(--ink);border-radius:10px;padding:6px 12px;font-weight:600;font-size:14px;text-align:left;max-width:100%}
+.ex-list button:hover{border-color:var(--accent)}
+.ex-list button[aria-selected="true"]{border-color:var(--accent);background:var(--accent-soft);color:var(--accent);box-shadow:inset 0 0 0 1px var(--accent)}
+.ex-i{flex:none;width:20px;height:20px;border-radius:50%;display:inline-grid;place-items:center;font-size:12px;font-weight:800;border:1.5px solid var(--muted);color:var(--muted);line-height:1}
+.ex-i.ok{background:var(--ok);border-color:var(--ok);color:var(--surface)}
+.ex-i.bad{border-color:var(--err);color:var(--err)}
+.exw .ex-panel{border:0;border-radius:0;padding:16px 16px 10px;background:transparent}
+.exw .ex-panel h4{font-size:17px}
+.exw .ex-panel p{font-size:15px;color:var(--ink)}
+.exw .ex-btns{padding:0 16px 12px}
+.exw .ex-st{padding:0 16px 16px}
+.exw .ex-st:empty{display:none}
+@media (max-width:620px){.ex-list{flex-direction:column}.ex-list button{width:100%}.exw .ex-btns{display:grid;grid-template-columns:1fr 1fr}.exw .ex-btns .pri{grid-column:1/-1;order:-1}}
+
+/* ---------- Trang Thực hành ---------- */
+.col.wide{max-width:1240px}
+.pr-sum{display:flex;align-items:center;gap:12px;font-size:14.5px;color:var(--muted)}
+.pr-sum .pbar{width:220px;max-width:40%}
+.pr-sum b{color:var(--ink)}
+.pr-wrap{display:grid;grid-template-columns:300px minmax(0,1fr);gap:24px;align-items:start}
+.pr-side{position:sticky;top:calc(var(--topH) + 16px);max-height:calc(100vh - var(--topH) - 32px);display:flex;flex-direction:column;border:1px solid var(--line);border-radius:14px;background:var(--surface);overflow:hidden}
+.pr-tools{display:grid;gap:8px;padding:12px;border-bottom:1px solid var(--line)}
+.pr-tools input{font:inherit;font-size:14.5px;min-height:40px;padding:8px 12px;border:1px solid var(--muted);border-radius:10px;background:var(--bg);color:var(--ink);width:100%}
+.pr-f{display:grid;grid-template-columns:repeat(3,1fr);gap:6px}
+.pr-f button{min-height:36px;border:1px solid var(--line);background:var(--surface);border-radius:8px;font-size:13px;font-weight:600;padding:0 6px}
+.pr-f button[aria-pressed="true"]{background:var(--accent);border-color:var(--accent);color:var(--accent-ink)}
+.pr-list{overflow-y:auto;padding:6px 8px 12px;scrollbar-width:thin}
+.pr-g>b{display:block;font-size:12px;letter-spacing:.04em;text-transform:uppercase;color:var(--muted);margin:12px 6px 4px}
+.pr-g ul{list-style:none;margin:0;padding:0;display:grid;gap:2px}
+.pr-g button{width:100%;min-height:40px;display:flex;align-items:center;gap:8px;border:0;background:transparent;border-radius:8px;padding:4px 8px;text-align:left;font-size:14px;color:var(--ink)}
+.pr-g button:hover{background:var(--bg)}
+.pr-g button[aria-current="true"]{background:var(--accent-soft);color:var(--accent);font-weight:700}
+.pr-empty{color:var(--muted);font-size:14px;padding:12px}
+.pr-main{display:grid;gap:16px;min-width:0}
+.pr-pick{display:none}
+.pr-info{display:grid;gap:10px;scroll-margin-top:calc(var(--topH) + 16px)}
+.pr-title{display:flex;justify-content:space-between;align-items:baseline;gap:12px;flex-wrap:wrap}
+.pr-title h2{font-size:clamp(22px,3vw,28px);font-weight:800}
+.pr-lesson{font-size:14px;font-weight:600;color:var(--accent)}
+.pr-d{font-size:16px}
+.pr-info .io{display:grid;grid-template-columns:1fr 1fr;gap:8px}
+.pr-info pre{margin:0;background:var(--bg);border-radius:8px;padding:8px 10px;font-size:13.5px;white-space:pre-wrap;word-break:break-word}
+.pr-hints{display:grid;gap:8px;justify-items:start}
+.pr-hints ol{margin:0;padding:0;list-style:none;display:grid;gap:6px;width:100%}
+.pr-hints li{background:var(--warm-soft);border-left:3px solid var(--warm);border-radius:0 8px 8px 0;padding:8px 12px;font-size:14.5px}
+.pr-hints li b{color:var(--warm)}
+.pr-hints .btn{min-height:40px}
+.pr-btns{display:flex;gap:8px;flex-wrap:wrap}
+.pr-btns .btn,.pr-nav .btn{min-height:44px;padding:8px 16px}
+.pr-lock{border:1px dashed var(--muted);border-radius:12px;padding:14px 16px;display:grid;gap:6px;justify-items:start;font-size:14.5px}
+.pr-lock p{color:var(--muted);margin:0}
+.pr-lock.open{border-style:solid;border-color:var(--ok);background:var(--ok-soft)}
+.pr-lock.open p{color:var(--ink)}
+.pr-sol{display:grid;gap:10px}
+.pr-solh{display:flex;gap:10px;align-items:baseline;flex-wrap:wrap}
+.pr-solh span{color:var(--muted);font-size:13.5px}
+.pr-trace{display:grid;gap:6px;justify-items:start;font-size:14px;color:var(--muted)}
+.pr-trace .btn{min-height:44px}
+.pr-nav{display:flex;justify-content:space-between;gap:8px;border-top:1px solid var(--line);padding-top:16px}
+@media (max-width:1299px){
+  .pr-wrap{grid-template-columns:minmax(0,1fr)}
+  .pr-side{display:none}
+  .pr-pick{display:grid;gap:4px;font-weight:600;font-size:14px}
+  .pr-pick select{font:inherit;font-size:15px;min-height:44px;padding:8px 10px;border:1px solid var(--muted);border-radius:10px;background:var(--surface);color:var(--ink);width:100%}
+}
+@media (max-width:560px){.pr-info .io{grid-template-columns:1fr}.pr-btns{display:grid;grid-template-columns:1fr 1fr}.pr-btns .pri{grid-column:1/-1;order:-1}.pr-nav .btn{flex:1;justify-content:center}.pr-sum{flex-wrap:wrap}.pr-sum .pbar{max-width:none;width:100%}}
+.ex-more{margin:0;font-size:13px;color:var(--ink)}
 /* ---------- Bài 6–8 ---------- */
 .cmp2{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px}
 .cmp2 .code{font-size:13px;border-radius:0 0 var(--r) var(--r)}
@@ -833,6 +950,20 @@ td.num{font-family:var(--f-mono);font-variant-numeric:tabular-nums;font-weight:6
 .sync.wait{color:var(--err)}.sync.wait::before{background:var(--err)}
 @keyframes syncp{to{opacity:.3}}
 @media (prefers-reduced-motion:reduce){.sync.busy::before{animation:none}}
+
+/* dải tiến độ 3 mức cuối bài */
+.lprog{background:var(--surface);border:1px solid var(--line);border-radius:12px;padding:14px 16px;display:grid;gap:10px}
+.lprog:empty{display:none}
+.lp-h{font-size:14px}
+.lprog ol{list-style:none;margin:0;padding:0;display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:8px}
+.lprog li{display:flex;gap:8px;align-items:flex-start;padding:8px 10px;border-radius:10px;background:var(--bg);font-size:14px;line-height:1.35}
+.lprog li small{display:block;color:var(--muted);font-size:12.5px;margin-top:2px}
+.lp-i{flex:none;width:22px;height:22px;border-radius:50%;display:grid;place-items:center;font-weight:800;font-size:13px;border:1.5px solid var(--muted);color:var(--muted)}
+.lprog li.ok{background:var(--ok-soft)}.lprog li.ok .lp-i{background:var(--ok);border-color:var(--ok);color:var(--surface)}
+.lprog li.na{opacity:1;color:var(--muted)}
+.lp-n{font-size:13px;color:var(--muted);margin:0}
+.done-btn:disabled{opacity:1;cursor:default}
+@media (max-width:620px){.lprog ol{grid-template-columns:1fr}}
 /* ---------- Bài 9–11 ---------- */
 .tt-ctl{display:flex;gap:10px;flex-wrap:wrap;align-items:stretch}
 .tv{border:2px solid var(--line);background:var(--surface);border-radius:12px;padding:10px 18px;display:grid;gap:2px;min-width:110px;text-align:left}
@@ -1160,7 +1291,8 @@ pre.a16-code{margin:0}
       <div class="ol-q"><label class="vh" for="ol-q">Tìm bài học</label><input id="ol-q" type="search" placeholder="Tìm bài học…" autocomplete="off"><button type="button" class="ol-x" id="ol-x" aria-label="Xóa tìm kiếm" hidden>×</button></div>
       <div class="side-nav" role="group" aria-label="Chế độ xem">
         <button id="nav-road" aria-pressed="false">Lộ trình</button>
-        <button id="nav-lesson" aria-pressed="true">Bài đang học</button>
+        <button id="nav-lesson" aria-pressed="true" title="Bài đang học">Bài học</button>
+        <button id="nav-prac" aria-pressed="false">Thực hành</button>
       </div>
     </div>
     <nav class="outline" id="outline" aria-label="Các chương và bài học"></nav>
@@ -1185,6 +1317,21 @@ pre.a16-code{margin:0}
         <div class="gl-tools"><input id="gl-q" type="search" placeholder="Tìm: biến, loop, tham chiếu…" aria-label="Tìm thuật ngữ"><span class="gl-at" id="gl-n"></span></div>
         <div class="gl-list" id="gl-all"></div>
       </details>
+    </div>
+
+    <!-- ===================== THỰC HÀNH ===================== -->
+    <div class="col wide" id="view-practice" hidden>
+      <header class="hero"><div class="crumb">Khóa học / Thực hành</div><h1>Thực hành <em>C++</em></h1>
+        <p class="lede">Tất cả bài tập chấm tự động của khóa ở một nơi. Chọn bài, viết code, chạy thử trên trình mô phỏng rồi nộp bài. Bí thì mở gợi ý; lời giải mở khi bạn đã làm đạt hoặc đã nộp 3 lần chưa đạt, kèm trình tự chạy từng bước.</p>
+        <p class="pr-sum" id="pr-sum" role="status"></p></header>
+      <div class="pr-wrap">
+        <aside class="pr-side" aria-label="Danh sách bài tập">
+          <div class="pr-tools"><label class="vh" for="pr-q">Tìm bài tập</label><input id="pr-q" type="search" placeholder="Tìm bài tập…" autocomplete="off">
+            <div class="pr-f" role="group" aria-label="Lọc bài tập"><button type="button" data-f="all" aria-pressed="true">Tất cả</button><button type="button" data-f="todo" aria-pressed="false">Chưa đạt</button><button type="button" data-f="done" aria-pressed="false">Đã đạt</button></div></div>
+          <div class="pr-list" id="pr-list"></div>
+        </aside>
+        <section class="pr-main" id="pr-main" aria-live="polite"></section>
+      </div>
     </div>
 
     <!-- ===================== BÀI 1 · Chương trình C++ đầu tiên ===================== -->
@@ -1719,14 +1866,15 @@ const COURSES=[
   chapters:12,
   lessons:[["l1", "Chương trình C++ đầu tiên"], ["l2", "Cài đặt trình biên dịch & IDE"], ["l3", "Nhập xuất với cin / cout"], ["l4", "Biến, khai báo, khởi tạo"], ["l5", "int, double, char, bool"], ["l6", "Hằng số const / constexpr"], ["l7", "Ép kiểu và tràn số"], ["l8", "Toán tử số học"], ["l9", "So sánh và logic"], ["l10", "Thứ tự ưu tiên"], ["l11", "Toán tử bit"], ["l12", "if / else"], ["l13", "switch"], ["l14", "while, do-while"], ["l15", "for, break, continue"], ["l16", "Định nghĩa và gọi hàm"], ["l17", "Truyền tham trị / tham chiếu"], ["l18", "Nạp chồng hàm"], ["l19", "Đệ quy"]],
   exercises:["l1-0", "l1-1", "l1-2", "l2-term", "l3-0", "l3-1", "l3-2", "l4-0", "l4-1", "l4-2", "l5-0", "l5-1", "l5-2", "l6-0", "l6-1", "l6-2", "l7-0", "l7-1", "l7-2", "l8-0", "l8-1", "l8-2", "l9-0", "l9-1", "l9-2", "l10-0", "l10-1", "l10-2", "l11-0", "l11-1", "l11-2", "l12-0", "l12-1", "l12-2", "l13-0", "l13-1", "l13-2", "l14-0", "l14-1", "l14-2", "l15-0", "l15-1", "l15-2", "l16-0", "l16-1", "l16-2", "l17-0", "l17-1", "l17-2", "l18-0", "l18-1", "l18-2", "l19-0", "l19-1", "l19-2"],
-  contentVer:"4642f2771b6a",
+  practice:["l3-0", "l3-1", "l3-2", "l4-0", "l4-1", "l4-2", "l5-0", "l5-1", "l5-2", "l6-0", "l6-1", "l6-2", "l7-0", "l7-1", "l7-2", "l8-0", "l8-1", "l8-2", "l9-0", "l9-1", "l9-2", "l10-0", "l10-1", "l10-2", "l11-0", "l11-1", "l11-2", "l12-0", "l12-1", "l12-2", "l13-0", "l13-1", "l13-2", "l14-0", "l14-1", "l14-2", "l15-0", "l15-1", "l15-2", "l16-0", "l16-1", "l16-2", "l17-0", "l17-1", "l17-2", "l18-0", "l18-1", "l18-2", "l19-0", "l19-1", "l19-2"],
+  contentVer:"717e007742b7",
   quizzes:{"l1": "quiz", "l2": "quiz2", "l3": "quiz3", "l4": "quiz4", "l5": "quiz5", "l6": "quiz6", "l7": "quiz7", "l8": "quiz8", "l9": "quiz9", "l10": "quiz10", "l11": "quiz11", "l12": "quiz12", "l13": "quiz13", "l14": "quiz14", "l15": "quiz15", "l16": "quiz16", "l17": "quiz17", "l18": "quiz18", "l19": "quiz19"}},
  {id:"csharp",name:"C# căn bản",mono:"C#",url:"csharp/index.html",status:"soon",hue:"cs",
-  desc:"Lập trình hướng đối tượng với .NET.",chapters:null,lessons:[],exercises:[],quizzes:{}},
+  desc:"Lập trình hướng đối tượng với .NET.",chapters:null,lessons:[],exercises:[],practice:[],quizzes:{}},
  {id:"python",name:"Python cho người mới",mono:"Py",url:"python/index.html",status:"soon",hue:"py",
-  desc:"Bắt đầu lập trình và xử lý dữ liệu.",chapters:null,lessons:[],exercises:[],quizzes:{}},
+  desc:"Bắt đầu lập trình và xử lý dữ liệu.",chapters:null,lessons:[],exercises:[],practice:[],quizzes:{}},
  {id:"java",name:"Java từ đầu",mono:"Java",url:"java/index.html",status:"soon",hue:"java",
-  desc:"Nền tảng Java và tư duy lập trình.",chapters:null,lessons:[],exercises:[],quizzes:{}},
+  desc:"Nền tảng Java và tư duy lập trình.",chapters:null,lessons:[],exercises:[],practice:[],quizzes:{}},
 ];
 const courseById=id=>COURSES.find(c=>c.id===id);
 
@@ -1865,11 +2013,11 @@ const AMTS=(()=>{
     for(const L of pkg.lessons)if(!/^l\d+$/.test(L.id)||typeof L.html!=="string")throw new Error("Bài "+L.id+" không hợp lệ.");
     const FV=firebase.firestore.FieldValue,col=S.db.collection("content");let k=0;const tot=pkg.lessons.length*2;
     for(const L of pkg.lessons){
-      await col.doc(docId(pkg.course,pkg.ver,L.id)).set({course:pkg.course,lesson:L.id,order:Number(L.order)||0,title:String(L.title||""),html:L.html,ver:pkg.ver,updatedAt:FV.serverTimestamp()});
+      await col.doc(docId(pkg.course,pkg.ver,L.id)).set({course:pkg.course,lesson:L.id,order:Number(L.order)||0,title:String(L.title||""),html:L.html,sol:Array.isArray(L.sol)?L.sol.map(String):[],ver:pkg.ver,updatedAt:FV.serverTimestamp()});
       onProg&&onProg(++k,tot,"upload")}
     const bad=[];
     for(const L of pkg.lessons){const s=await col.doc(docId(pkg.course,pkg.ver,L.id)).get();const d=s.exists?s.data():null;
-      if(!d||d.html!==L.html||d.ver!==pkg.ver)bad.push(L.id);onProg&&onProg(++k,tot,"verify")}
+      if(!d||d.html!==L.html||d.ver!==pkg.ver||JSON.stringify(d.sol||[])!==JSON.stringify(Array.isArray(L.sol)?L.sol.map(String):[]))bad.push(L.id);onProg&&onProg(++k,tot,"verify")}
     if(bad.length)throw new Error(`Kiểm tra sau khi tải lên thấy ${bad.length} bài chưa đúng (${bad.join(", ")}). Hãy tải lại; phiên bản đang dùng không bị ảnh hưởng.`);
     const cur=await getConfig(pkg.course,true);
     cur.versions=Object.assign({},cur.versions||{},{[pkg.ver]:{at:new Date().toISOString(),by:(S.user&&S.user.email)||"",n:pkg.lessons.length,lessons:pkg.lessons.map(L=>L.id),ok:true}});
@@ -1896,8 +2044,18 @@ const AMTS=(()=>{
     try{await ref.update({["courses."+id]:val})}
     catch(e){if(e.code!=="not-found")throw e;await ref.set({name:u.displayName||"",email:(u.email||"").toLowerCase(),photo:u.photoURL||"",courses:{[id]:val}},{merge:true})}
     S.doc=Object.assign({},S.doc||{});S.doc.courses=Object.assign({},S.doc.courses||{},{[id]:val});emit()}
-  const isDone=(p,l)=>!!p&&!!p.lessons&&(p.lessons[l]||0)>0;
-  return{S,TEACHERS,ENV,PROJECT:FB_CONFIG.projectId,init,isDone,on:f=>{subs.push(f);f(S)},getLocal,setLocal,clearLocal,merge,courseOf,saveCourse,signIn,signOut,isTeacher,allUsers,empty,
+  /* Tiến độ 3 mức của một bài: 0 chưa học · 1 Đã đọc · 2 Đã làm bài tập (đạt ≥ 2/3 bài tập) · 3 Đạt kiểm tra (bài tập ≥ 2/3 và trắc nghiệm ≥ 3/4).
+     Bài không có bài tập/trắc nghiệm thì bỏ qua điều kiện đó. "Hoàn thành" = Đạt kiểm tra HOẶC học viên tự bấm "Đánh dấu đã học xong". */
+  const PASS_EX=2/3,PASS_QUIZ=3/4;
+  function detailOf(p,l,cid){const c=courseById(cid||"cpp")||{},ex=(c.exercises||[]).filter(k=>k.startsWith(l+"-")),qid=(c.quizzes||{})[l];
+    const pass=p?ex.filter(k=>((p.ex||{})[k]||{}).pass).length:0,q=p&&qid?(p.quiz||{})[qid]:null;
+    const exOk=!ex.length||pass>=Math.ceil(ex.length*PASS_EX-1e-9),qOk=!qid||!!(q&&q.total&&(q.best||0)/q.total>=PASS_QUIZ-1e-9);
+    const read=!!(p&&p.visited&&p.visited[l]),manual=!!(p&&p.lessons&&(p.lessons[l]||0)>0);
+    const level=(ex.length||qid)&&exOk&&qOk?3:ex.length&&exOk?2:read||pass||q?1:0;
+    return{level,read,manual,exTotal:ex.length,exPass:pass,quiz:q?{best:q.best||0,total:q.total}:null,hasQuiz:!!qid,exOk,qOk}}
+  const levelOf=(p,l,cid)=>detailOf(p,l,cid).level;
+  const isDone=(p,l,cid)=>{const d=detailOf(p,l,cid);return d.manual||d.level===3};
+  return{S,TEACHERS,ENV,PROJECT:FB_CONFIG.projectId,init,isDone,levelOf,detailOf,on:f=>{subs.push(f);f(S)},getLocal,setLocal,clearLocal,merge,courseOf,saveCourse,signIn,signOut,isTeacher,allUsers,empty,
     notifyOf,setNotify,payReqOf,requestPay,allPayReq,clearPayReq,dump,restoreDoc,ready,defaultConfig,getConfig,saveConfig,isEnrolled,clearEnroll,getLesson,allEnroll,setEnroll,uploadContent,deleteVersion,docId};
 })();
 /* tiện ích dùng chung */
@@ -1935,7 +2093,7 @@ const READY=[];function onReady(f){READY.push(f)}
 /* sinh tự động từ courses/cpp/course.json — không sửa tay */
 const COURSE=[{"tier": "Cơ bản", "cls": "lv1", "note": "Làm quen cú pháp và tư duy lập trình", "chapters": [{"t": "Nhập môn", "en": "Getting Started", "sim": "Chạy code & xem luồng cout", "live": true, "l": ["Chương trình C++ đầu tiên", "Cài đặt trình biên dịch & IDE", "Nhập xuất với cin / cout"]}, {"t": "Biến và kiểu dữ liệu", "en": "Variables and Data Types", "sim": "Hộp bộ nhớ: kích thước từng kiểu theo byte", "live": true, "l": ["Biến, khai báo, khởi tạo", "int, double, char, bool", "Hằng số const / constexpr", "Ép kiểu và tràn số"]}, {"t": "Toán tử và biểu thức", "en": "Operators and Expressions", "sim": "Cây biểu thức tính từng bước", "live": true, "l": ["Toán tử số học", "So sánh và logic", "Thứ tự ưu tiên", "Toán tử bit"]}, {"t": "Điều khiển luồng", "en": "Control Flow", "sim": "Lưu đồ sáng theo dòng đang chạy", "live": true, "l": ["if / else", "switch", "while, do-while", "for, break, continue"]}, {"t": "Hàm", "en": "Functions", "sim": "Ngăn xếp lời gọi hàm (call stack)", "live": true, "l": ["Định nghĩa và gọi hàm", "Truyền tham trị / tham chiếu", "Nạp chồng hàm", "Đệ quy", "Phạm vi biến"]}]}, {"tier": "Trung cấp", "cls": "lv2", "note": "Dữ liệu, bộ nhớ và hướng đối tượng", "chapters": [{"t": "Mảng và chuỗi", "en": "Arrays and Strings", "sim": "Ô nhớ liên tiếp và chỉ số", "live": false, "l": ["Mảng một chiều", "Mảng hai chiều", "std::string", "std::vector cơ bản"]}, {"t": "Con trỏ và bộ nhớ", "en": "Pointers and Memory", "sim": "Bản đồ stack / heap với mũi tên con trỏ", "live": false, "l": ["Địa chỉ và con trỏ", "Tham chiếu", "Stack và heap", "new / delete", "Lỗi bộ nhớ thường gặp"]}, {"t": "Lập trình hướng đối tượng", "en": "Object-Oriented Programming", "sim": "Vòng đời đối tượng", "live": false, "l": ["struct và class", "Constructor / destructor", "Đóng gói", "Nạp chồng toán tử"]}, {"t": "Kế thừa và đa hình", "en": "Inheritance and Polymorphism", "sim": "Tra bảng vtable khi gọi hàm ảo", "live": false, "l": ["Kế thừa", "Hàm ảo và vtable", "Lớp trừu tượng", "Đa kế thừa"]}]}, {"tier": "Nâng cao", "cls": "lv3", "note": "C++ hiện đại và hiệu năng", "chapters": [{"t": "Template và STL", "en": "Templates and the STL", "sim": "So sánh vector / list / map khi chèn, xóa", "live": false, "l": ["Function template", "Class template", "Container", "Iterator & algorithm", "Lambda"]}, {"t": "C++ hiện đại & tài nguyên", "en": "Modern C++ and Resources", "sim": "Đếm tham chiếu shared_ptr", "live": false, "l": ["RAII", "unique_ptr, shared_ptr", "Move semantics", "Ngoại lệ", "optional, variant"]}, {"t": "Đa luồng & dự án cuối khóa", "en": "Concurrency and Final Project", "sim": "Dòng thời gian các luồng tranh chấp dữ liệu", "live": false, "l": ["std::thread", "mutex & data race", "atomic", "async / future", "Dự án tổng hợp"]}]}];
 const LESSON_MAP={"1-0": "l1", "1-1": "l2", "1-2": "l3", "2-0": "l4", "2-1": "l5", "2-2": "l6", "2-3": "l7", "3-0": "l8", "3-1": "l9", "3-2": "l10", "3-3": "l11", "4-0": "l12", "4-1": "l13", "4-2": "l14", "4-3": "l15", "5-0": "l16", "5-1": "l17", "5-2": "l18", "5-3": "l19"};
-const VIEWS=["road", "l1", "l2", "l3", "l4", "l5", "l6", "l7", "l8", "l9", "l10", "l11", "l12", "l13", "l14", "l15", "l16", "l17", "l18", "l19"];
+const VIEWS=["road", "practice", "l1", "l2", "l3", "l4", "l5", "l6", "l7", "l8", "l9", "l10", "l11", "l12", "l13", "l14", "l15", "l16", "l17", "l18", "l19"];
 const LESSON_EN={"l1": "Your First C++ Program", "l2": "Installing a Compiler and an IDE", "l3": "Input and Output with cin and cout", "l4": "Variables: Declaration, Initialization and Assignment", "l5": "Data Types: int, double, char, bool", "l6": "Constants: const and constexpr", "l7": "Type Casting and Integer Overflow", "l8": "Arithmetic Operators and Order of Evaluation", "l9": "Comparison and Logical Operators", "l10": "Operator Precedence", "l11": "Bitwise Operators", "l12": "Branching with if and else", "l13": "Selecting with switch", "l14": "while and do-while Loops", "l15": "for Loops, break and continue", "l16": "Defining and Calling Functions", "l17": "Pass by Value and Pass by Reference", "l18": "Function Overloading and Default Arguments", "l19": "Recursion: A Function That Calls Itself"};
 
 function esc(s){return s.replace(/&/g,"&amp;").replace(/</g,"&lt;").replace(/>/g,"&gt;")}
@@ -1950,7 +2108,7 @@ function deferInit(el,fn){const art=el&&el.closest&&el.closest("article[id^='vie
 function runLazy(v){const q=LAZY.get("view-"+v);if(!q)return;LAZY.delete("view-"+v);q.forEach(f=>{try{f()}catch(e){console.error(e)}})}
 ["makeAscii", "makeBitOps", "makeBits", "makeBufTry", "makeCallStack", "makeCompileGuess", "makeExprTree", "makeFibTree", "makeFlags", "makeFlowIf", "makeForBuilder", "makeLadder", "makeLineRun", "makeLineStepper", "makeLogicLab", "makeLoopTable", "makeNameCheck", "makeNest", "makeOverload", "makeRounder", "makeTrace", "makeTruth"].forEach(n=>{const f=window[n];if(typeof f!=="function")return;window[n]=function(el,...a){deferInit(el,()=>f(el,...a))}});
 {const real=makeSim2;window.makeSim2=function(root,cfg){let s=null;const ensure=()=>s||(s=real(root,cfg));deferInit(root,ensure);
-  return{get:()=>ensure().get(),set:c=>ensure().set(c),setInput:v=>ensure().setInput(v),el:root,run:()=>ensure().run()}}}
+  return{get:()=>ensure().get(),set:c=>ensure().set(c),setInput:v=>ensure().setInput(v),el:root,run:()=>ensure().run(),step:()=>ensure().step()}}}
 const LESSON_EMBED=null;
 /* ---------- Thuật ngữ tiếng Anh ---------- */
 const GLOSSARY=[["compile", "biên dịch", 1], ["preprocessing", "tiền xử lý", 1], ["linking", "liên kết", 1], ["operator", "toán tử", 1], ["error message", "thông báo lỗi", 1], ["function", "hàm", 1], ["statement", "câu lệnh", 1], ["semicolon", "dấu chấm phẩy", 1], ["compiler", "trình biên dịch", 1], ["machine code", "mã máy", 1], ["newline character", "ký tự xuống dòng", 1], ["character", "ký tự", 1], ["buffer", "bộ đệm", 1], ["escape sequence", "ký tự thoát", 1], ["string", "chuỗi", 1], ["integer", "số nguyên", 1], ["code editor", "trình soạn thảo", 2], ["command line", "dòng lệnh", 2], ["environment variable", "biến môi trường", 2], ["warning", "cảnh báo", 2], ["executable", "file chạy được", 2], ["syntax", "cú pháp", 2], ["debugging", "gỡ lỗi", 2], ["formatting", "định dạng", 3], ["whitespace", "khoảng trắng", 3], ["floating-point number", "số thực", 3], ["input stream", "luồng nhập", 3], ["variable", "biến", 3], ["declaration", "khai báo", 3], ["memory cell", "ô nhớ", 3], ["fail state", "trạng thái lỗi", 3], ["significant digits", "chữ số có nghĩa", 3], ["rounding", "làm tròn", 3], ["memory", "bộ nhớ", 3], ["address", "địa chỉ", 4], ["initialization", "khởi tạo", 4], ["assignment", "phép gán", 4], ["trace table", "bảng theo dõi", 4], ["variable name", "tên biến", 4], ["compile error", "lỗi biên dịch", 4], ["narrowing conversion", "thu hẹp kiểu", 4], ["postfix", "hậu tố", 4], ["prefix", "tiền tố", 4], ["keyword", "từ khóa", 4], ["garbage value", "giá trị rác", 4], ["undefined behavior (UB)", "hành vi không xác định", 4], ["data type", "kiểu dữ liệu", 5], ["precision", "độ chính xác", 5], ["overflow", "tràn số", 5], ["two's complement", "bù hai", 5], ["type casting", "ép kiểu", 5], ["sign bit", "bit dấu", 5], ["floating point", "dấu phẩy động", 5], ["implicit conversion", "chuyển kiểu ngầm", 5], ["integer division", "chia nguyên", 5], ["truncation", "cắt bỏ", 5], ["explicit cast", "ép kiểu tường minh", 5], ["constant", "hằng", 6], ["magic number", "số ma thuật", 6], ["preprocessor", "bộ tiền xử lý", 6], ["scope", "phạm vi", 6], ["operand", "toán hạng", 7], ["usual arithmetic conversions", "chuyển đổi số học thông thường", 7], ["library", "thư viện", 7], ["modulo (remainder)", "chia dư", 8], ["expression", "biểu thức", 8], ["expression tree", "cây biểu thức", 8], ["precedence", "độ ưu tiên", 8], ["associativity", "chiều kết hợp", 8], ["comparison operator", "toán tử so sánh", 9], ["logical operator", "toán tử logic", 9], ["condition", "điều kiện", 9], ["truth table", "bảng chân trị", 9], ["short-circuit evaluation", "ngắn mạch", 9], ["bitwise operator", "toán tử bit", 9], ["conditional (ternary) operator", "toán tử điều kiện", 10], ["bit shift", "dịch bit", 10], ["branch", "nhánh", 10], ["status flag", "cờ trạng thái", 11], ["flowchart", "lưu đồ", 12], ["branching", "rẽ nhánh", 12], ["block", "khối lệnh", 12], ["fall-through", "rơi xuống", 13], ["loop", "vòng lặp", 14], ["loop counter", "biến đếm", 14], ["iteration", "lần lặp", 14], ["infinite loop", "vòng lặp vô hạn", 14], ["off-by-one error", "lỗi lệch một", 14], ["loop body", "thân vòng lặp", 14], ["sentinel", "lính canh", 14], ["step (update)", "bước nhảy", 15], ["nested loop", "vòng lặp lồng nhau", 15], ["stopping condition", "điểm dừng", 15], ["return type", "kiểu trả về", 16], ["parameter", "tham số", 16], ["function body", "thân hàm", 16], ["function call", "lời gọi hàm", 16], ["argument", "đối số", 16], ["return value", "giá trị trả về", 16], ["call stack", "ngăn xếp lời gọi", 16], ["prototype", "nguyên mẫu", 16], ["function definition", "định nghĩa hàm", 16], ["local variable", "biến cục bộ", 16], ["copy", "bản sao", 17], ["pass by value", "truyền tham trị", 17], ["reference", "tham chiếu", 17], ["default argument", "tham số mặc định", 18], ["function overloading", "nạp chồng hàm", 18], ["ambiguous", "mơ hồ", 18], ["signature", "chữ ký", 18], ["exact match", "khớp chính xác", 18], ["promotion", "nâng kiểu", 18], ["recursive function", "hàm đệ quy", 19], ["base case", "trường hợp cơ sở", 19], ["recursive case", "bước đệ quy", 19], ["recursion", "đệ quy", 19], ["stack overflow", "tràn ngăn xếp", 19], ["operating system", "hệ điều hành", 19]];
@@ -2179,23 +2337,31 @@ function show(v){
   if(/^l\d/.test(v))lastLesson=v;
   if(/^l\d/.test(v)&&window.TRACK&&(LESSON_EMBED||LOADED.has(v)))TRACK.visit(v);
   document.getElementById("nav-road").setAttribute("aria-pressed",v==="road");
-  document.getElementById("nav-lesson").setAttribute("aria-pressed",v!=="road");
+  document.getElementById("nav-lesson").setAttribute("aria-pressed",/^l\d/.test(v));
+  document.getElementById("nav-prac").setAttribute("aria-pressed",v==="practice");
   document.querySelectorAll("#outline li[data-l]").forEach(li=>{const on=li.dataset.l===v;li.classList.toggle("cur",on);const a=li.querySelector("a");if(on)a.setAttribute("aria-current","page");else a.removeAttribute("aria-current")});
   document.querySelectorAll("#outline details.ch").forEach(d=>d.classList.remove("has-cur"));
   const cur=document.querySelector(`#outline li[data-l="${v}"]`);if(cur){const d=cur.closest("details");d.open=true;d.classList.add("has-cur")}
-  if(window.TOPNAV)TOPNAV.setActive(v==="road"?"road":"courses");
+  /* đưa bài đang học vào vùng nhìn thấy của thanh bên (không cuộn trang) */
+  if(cur)requestAnimationFrame(()=>{const sd=document.getElementById("side"),r=cur.getBoundingClientRect(),b=sd.getBoundingClientRect();
+    if(sd.clientHeight&&(r.top<b.top+40||r.bottom>b.bottom-70))sd.scrollTop+=r.top-b.top-sd.clientHeight/3});
+  if(window.TOPNAV)TOPNAV.setActive(v==="road"?"road":v==="practice"?"practice":"courses");
+  if(v==="practice"){try{PRACTICE.open()}catch(e){/* trang Thực hành chưa nạp xong: tự mở ở cuối script */}}
   try{localStorage.setItem("cpp-view",v)}catch(e){}
   if(window.closeDrawer)closeDrawer();
-  const lm=v==="road"?null:lessonMeta(v);
-  document.title=(AMTS.ENV&&AMTS.ENV.label?`[${AMTS.ENV.label}] `:"")+(v==="road"?"Lộ trình · C++ từ nền tảng · AMTS":`Bài ${lm.no}: ${lm.name} · C++ từ nền tảng · AMTS`);
+  const lm=/^l\d/.test(v)?lessonMeta(v):null;
+  document.title=(AMTS.ENV&&AMTS.ENV.label?`[${AMTS.ENV.label}] `:"")+(v==="road"?"Lộ trình · C++ từ nền tảng · AMTS":v==="practice"?"Thực hành · C++ từ nền tảng · AMTS":`Bài ${lm.no}: ${lm.name} · C++ từ nền tảng · AMTS`);
   window.scrollTo(0,0);
 }
 /* điều hướng: mỗi bài có địa chỉ riêng (#bai-N), nút Back / Forward của trình duyệt đi qua các bài đã xem */
-const hashOf=v=>v==="road"?"#lo-trinh":"#bai-"+v.slice(1);
-function viewOfHash(h){const m=/^#bai-(\d+)$/.exec(h||"");if(m&&VIEWS.includes("l"+m[1]))return "l"+m[1];return h==="#lo-trinh"?"road":null}
+const hashOf=v=>v==="road"?"#lo-trinh":v==="practice"?"#thuc-hanh":"#bai-"+v.slice(1);
+function viewOfHash(h){const m=/^#bai-(\d+)$/.exec(h||"");if(m&&VIEWS.includes("l"+m[1]))return "l"+m[1];
+  if(/^#thuc-hanh(-l\d+-\d+)?$/.test(h||"")){const x=/-(l\d+-\d+)$/.exec(h);if(x)window.PRACTICE_WANT=x[1];return "practice"}
+  return h==="#lo-trinh"?"road":null}
 function go(v){if(!VIEWS.includes(v))return;if(location.hash!==hashOf(v)){try{history.pushState(null,"",hashOf(v))}catch(e){curView=v;try{location.hash=hashOf(v)}catch(e2){}}}show(v)}
 document.getElementById("nav-road").onclick=()=>go("road");
 document.getElementById("nav-lesson").onclick=()=>go(lastLesson);
+document.getElementById("nav-prac").onclick=()=>go("practice");
 document.addEventListener("click",e=>{const a=e.target.closest("[data-go]");if(a){e.preventDefault();go(a.dataset.go)}});
 {const wantGloss=location.hash==="#tu-dien";let v=wantGloss?"road":viewOfHash(location.hash);
  if(!v){try{const s=localStorage.getItem("cpp-view");if(VIEWS.includes(s))v=s}catch(e){}}
@@ -2225,12 +2391,10 @@ const TOPNAV=(()=>{
   function setOpen(o){if(!top)return;top.classList.toggle("open",o);const b=document.getElementById("nav-menu");if(b)b.setAttribute("aria-expanded",String(o))}
   const mb=document.getElementById("nav-menu");if(mb)mb.onclick=e=>{e.stopPropagation();setOpen(!top.classList.contains("open"))};
   wireMenu("nav-docs","m-docs");
+  {const nv=document.getElementById("mainnav");if(nv)nv.addEventListener("click",e=>{if(e.target.closest("a")){setOpen(false);closeMenus()}})}
   function setActive(k){document.querySelectorAll("#mainnav [data-nav]").forEach(a=>{if(a.dataset.nav===k)a.setAttribute("aria-current","page");else a.removeAttribute("aria-current")})}
-  /* Thực hành: tới bài đầu tiên còn bài tập chưa đạt */
-  function practiceHref(){const c=COURSES.find(x=>x.status==="open");if(!c)return ROOT+"index.html";
-    const S=AMTS.S,loc=AMTS.getLocal(c.id),rem=S.user&&S.docLoaded?AMTS.courseOf(S.doc,c.id):null,p=rem?AMTS.merge(rem,loc):loc;
-    const next=c.lessons.find(([l])=>c.exercises.some(k=>k.startsWith(l+"-")&&!(p.ex[k]||{}).pass));
-    return ROOT+c.url+"#bai-"+(next?next[0].slice(1):"1")}
+  /* Thực hành: trang Thực hành của khóa đang mở */
+  function practiceHref(){const c=COURSES.find(x=>x.status==="open");if(!c)return ROOT+"index.html";return ROOT+c.url+"#thuc-hanh"}
   function render(){
     const el=document.getElementById("topacct");if(!el)return;const S=AMTS.S;
     const subs=COURSES.filter(c=>AMTS.notifyOf(c.id)),sn=seen(),fresh=subs.filter(c=>c.status==="open"&&!sn[c.id]);
@@ -3353,11 +3517,13 @@ function bufCells(buf,reads,pos,opt={}){
 function makeSim2(root,cfg){
   root.classList.add("sim","sim2");
   root.innerHTML=`<div class="sim-bar"><div class="left"><span class="fname">main.cpp</span>
-   <select aria-label="Chọn ví dụ" class="s-pre" id="${cfg.id}-pre">${cfg.presets.map((p,i)=>`<option value="${i}">${esc(p.label)}</option>`).join("")}</select></div>
+   ${cfg.presets.length>1?`<label class="pre-l"><span class="vh">Chọn ví dụ</span><select class="s-pre" id="${cfg.id}-pre">${cfg.presets.map((p,i)=>`<option value="${i}">${esc(p.label)}</option>`).join("")}</select></label>`:`<select class="s-pre" id="${cfg.id}-pre" hidden><option value="0">${esc(cfg.presets[0].label)}</option></select>`}
    <span class="s-chip idle" role="status" aria-live="polite">Chưa chạy</span></div>
    <div class="right"><button class="btn s-back" disabled title="Lùi lại một bước">← Lùi bước</button><button class="btn s-step">Từng bước</button><button class="btn pri s-run">▶ Chạy</button></div></div>
+  <div class="s-note" role="note" hidden></div>
   <div class="sim-body">
-   <div class="editor"><div class="gutter"></div><div class="ed-wrap"><pre class="ed-hl" aria-hidden="true"></pre><textarea class="ed-ta" id="${cfg.id}-ed" spellcheck="false" autocapitalize="off" autocomplete="off" aria-label="Mã nguồn C++"></textarea></div></div>
+   <div class="lcol"><div class="editor"><div class="gutter"></div><div class="ed-wrap"><pre class="ed-hl" aria-hidden="true"></pre><textarea class="ed-ta" id="${cfg.id}-ed" spellcheck="false" autocapitalize="off" autocomplete="off" aria-label="Mã nguồn C++"></textarea></div></div>
+    <div class="sim-in"><label for="${cfg.id}-in"><b>Dữ liệu đầu vào cho cin</b><small>Gõ sẵn các giá trị chương trình sẽ đọc, cách nhau bằng dấu cách hoặc xuống dòng (ví dụ: <code>4 5</code>). Để trống thì khi chạy, chương trình sẽ hỏi bạn ở khung Kết quả.</small></label><textarea class="s-in" id="${cfg.id}-in" rows="2" spellcheck="false" placeholder="Không bắt buộc"></textarea></div></div>
    <div class="rp">
     <div class="rp-tabs" role="tablist" aria-label="Khung theo dõi"><button type="button" role="tab" id="${cfg.id}-tmem" aria-controls="${cfg.id}-pmem" data-tab="mem" aria-selected="false" tabindex="-1">Bộ nhớ</button><button type="button" role="tab" id="${cfg.id}-tbuf" aria-controls="${cfg.id}-pbuf" data-tab="buf" aria-selected="false" tabindex="-1">Bộ đệm nhập</button><button type="button" role="tab" id="${cfg.id}-tout" aria-controls="${cfg.id}-pout" data-tab="out" aria-selected="true">Kết quả</button></div>
     <div class="rp-sec" data-sec="mem" id="${cfg.id}-pmem" role="tabpanel" aria-labelledby="${cfg.id}-tmem"><div class="pane-h"><span class="mem-h">Bộ nhớ</span><span class="s-line"></span></div>
@@ -3366,9 +3532,11 @@ function makeSim2(root,cfg){
     <div class="bufw"><div class="cells"></div></div></div>
     <div class="rp-sec on" data-sec="out" id="${cfg.id}-pout" role="tabpanel" aria-labelledby="${cfg.id}-tout"><div class="pane-h"><span>Console</span><span class="s-exit"></span></div>
     <div class="con" tabindex="-1"></div>
+    <div class="s-wait" hidden><label for="${cfg.id}-cin"><b>Chương trình đang chờ bạn nhập</b><small>Gõ giá trị rồi bấm Gửi (hoặc Enter). Nhiều giá trị thì cách nhau bằng dấu cách.</small></label>
+     <div class="s-wrow"><input class="con-in" id="${cfg.id}-cin" autocomplete="off" spellcheck="false" autocapitalize="off" enterkeyhint="send"><button type="button" class="btn pri s-send">Gửi</button><button type="button" class="btn eof-btn" title="Báo cho chương trình là đã hết dữ liệu nhập (EOF)">Kết thúc nhập</button></div></div>
     <div class="explain" hidden></div></div>
    </div></div>
-  <div class="sim-foot"><label class="stdin-row"><span>Dữ liệu nhập sẵn</span><textarea class="s-in" id="${cfg.id}-in" rows="1" spellcheck="false" placeholder="Để trống: chương trình sẽ hỏi trong console khi cần"></textarea></label><span><kbd>Ctrl</kbd> + <kbd>Enter</kbd> chạy</span></div>
+  <div class="sim-foot"><span><kbd>Ctrl</kbd> + <kbd>Enter</kbd> trong khung code để chạy</span></div>
   <details class="sim-scope"><summary>Trình mô phỏng hỗ trợ những gì?</summary><div>
     <p><b>Đây là trình mô phỏng để học</b>, chạy một phần của C++ ngay trên trình duyệt, không phải trình biên dịch đầy đủ. Thông báo lỗi được viết theo g++ nhưng có thể khác đôi chút.</p>
     <p><b>Có:</b> int, unsigned, short, long long (64 bit chính xác), char, bool, float, double, std::string; const, constexpr, auto; cin, cout, getline, &lt;iomanip&gt;, &lt;cmath&gt;, &lt;climits&gt;, &lt;limits&gt;; mọi toán tử số học, so sánh, logic, bit; if, switch, while, do-while, for, break, continue; hàm, nguyên mẫu, tham chiếu &amp;, nạp chồng, tham số mặc định, đệ quy, biến toàn cục.</p>
@@ -3378,6 +3546,15 @@ function makeSim2(root,cfg){
   const ed=$(".ed-ta"),hl=$(".ed-hl"),gut=$(".gutter"),con=$(".con"),mem=$(".mem"),cells=$(".cells"),exp=$(".explain"),inp=$(".s-in"),btnStep=$(".s-step"),btnRun=$(".s-run"),btnBack=$(".s-back");
   const S={M:null,tok:0,cur:0,bad:0,head:"",tail:"",waiting:null,ch:new Set(),mode:null,warns:[],k:0,feeds:[],pending:[],running:false};
   const chip=$(".s-chip");
+  function feedNow(eof){const w=S.waiting;if(!w)return;const ci=$(".con-in");S.waiting=null;
+    if(eof){if(S.mode==="step")applyFeed({eof:true});else S.M.eofIn=true}else{if(S.mode==="step")applyFeed({v:ci.value});else S.M.feed(ci.value)}
+    ci.value="";w()}
+  $(".con-in").addEventListener("keydown",e=>{if(e.key==="Enter"){e.preventDefault();feedNow(false)}else if((e.key==="d"||e.key==="z")&&e.ctrlKey){e.preventDefault();feedNow(true)}});
+  $(".s-send").onclick=()=>feedNow(false);$(".eof-btn").onclick=()=>feedNow(true);
+  /* giải thích ví dụ: ví dụ này minh họa gì, cần quan sát gì */
+  const lessonId=cfg.lesson||String(cfg.id||"").replace(/^s/,"l");
+  function showNote(i){const p=cfg.presets[i]||{},n=p.note||((typeof PRESET_NOTES!=="undefined"?PRESET_NOTES:{})[lessonId]||{})[p.label]||"",el=$(".s-note");
+    el.hidden=!n;el.innerHTML=n?`<b>${/^Lỗi|^Cảnh báo|^Bẫy/.test(p.label)?"Ví dụ này cho thấy":"Ví dụ này minh họa"}</b><p>${esc(n)}</p>`:""}
   function setChip(k,t){chip.className="s-chip "+k;chip.textContent=t}
   /* điện thoại: tab Bộ nhớ / Bộ đệm nhập / Kết quả (máy tính hiện cả ba) */
   const tabs=[...root.querySelectorAll(".rp-tabs [role=tab]")];
@@ -3407,17 +3584,15 @@ function makeSim2(root,cfg){
   function renderCon(){const M=S.M;
     let h=S.head;if(M)h+=M.out.map(x=>x.k==="i"?`<span class="in">${esc(x.s)}</span>`:esc(x.s)).join("");h+=S.tail;
     con.innerHTML=h||'<span class="con-empty">Chưa có kết quả. Bấm Chạy hoặc Từng bước để xem chương trình in ra gì.</span>';
-    if(S.waiting){const i=document.createElement("input");i.className="con-in";i.id=cfg.id+"-cin";i.setAttribute("aria-label","Nhập dữ liệu cho chương trình");i.autocomplete="off";i.spellcheck=false;
-      i.addEventListener("keydown",e=>{if(e.key==="Enter"){e.preventDefault();const w=S.waiting;S.waiting=null;if(S.mode==="step")applyFeed({v:i.value});else S.M.feed(i.value);w()}
-        else if((e.key==="d"||e.key==="z")&&e.ctrlKey){e.preventDefault();const w=S.waiting;S.waiting=null;if(S.mode==="step")applyFeed({eof:true});else S.M.eofIn=true;w()}});
-      const eb=document.createElement("button");eb.className="eof-btn";eb.type="button";eb.textContent="Kết thúc nhập (Ctrl+D)";eb.title="Báo cho chương trình là đã hết dữ liệu nhập (EOF)";
-      eb.onclick=()=>{const w=S.waiting;if(!w)return;S.waiting=null;if(S.mode==="step")applyFeed({eof:true});else S.M.eofIn=true;w()};con.appendChild(eb);
-      con.appendChild(i);tab("out");i.focus({preventScroll:true})}
+    const wb=root.querySelector(".s-wait");
+    if(S.waiting){if(wb.hidden){wb.hidden=false;const ci=wb.querySelector(".con-in");ci.value="";tab("out");ci.focus({preventScroll:true});
+      if(window.matchMedia&&matchMedia("(max-width:900px)").matches&&wb.scrollIntoView)wb.scrollIntoView({block:"nearest",behavior:REDUCE()?"auto":"smooth"})}}
+    else wb.hidden=true;
     con.scrollTop=con.scrollHeight}
   function renderAll(){btnBack.disabled=S.running||!(S.M&&S.mode==="step"&&S.k>0);
     if(S.M&&!S.M.done){if(S.waiting)setChip("wait","Đang chờ nhập dữ liệu");else if(S.running)setChip("run","Đang chạy…");else if(S.mode==="step"&&S.cur)setChip("step",`Dừng ở dòng ${S.cur}`)}paint();renderMem();renderBuf();renderCon();root.querySelector(".s-line").textContent=(S.cur&&S.M&&!S.M.done?`dòng ${S.cur}`:"")+(S.cond&&S.M&&!S.M.done?` · ${S.cond}`:"")+(S.M&&!S.M.done&&S.M.calls.length?` · sâu ${S.M.calls.length+1} tầng`:"");keepCur()}
   function reset(){S.tok++;setRunning(false);setChip("idle","Chưa chạy");S.M=null;S.cur=0;S.waiting=null;S.head="";S.tail="";S.ch=new Set();exp.hidden=true;btnStep.textContent="Từng bước";root.querySelector(".s-exit").textContent="";renderAll()}
-  function load(i){const p=cfg.presets[i];ed.value=p.code;inp.value=p.input||"";ed.scrollTop=0;S.bad=0;reset();
+  function load(i){const p=cfg.presets[i];showNote(i);ed.value=p.code;inp.value=p.input||"";ed.scrollTop=0;S.bad=0;reset();
     if(p.input)fitIn()}
   function fitIn(){inp.rows=Math.min(4,Math.max(1,inp.value.split("\n").length))}
   function compileStart(){
@@ -3505,34 +3680,49 @@ function makeSim2(root,cfg){
   btnBack.onclick=back;
   btnRun.onclick=run;btnStep.onclick=step;
   load(0);
-  return{get:()=>ed.value,set:c=>{ed.value=c;S.bad=0;reset()},setInput:v=>{inp.value=v;fitIn()},el:root,run};
+  return{get:()=>ed.value,set:c=>{ed.value=c;S.bad=0;reset()},setInput:v=>{inp.value=v;fitIn()},el:root,run,step,load,stepTo:()=>{if(!S.M||S.mode!=="step"||S.M.done)step()}};
 }
 
-/* ---------- bài tập chấm tự động: Nạp code mẫu · Chạy thử (ví dụ 1) · Nộp bài (chấm mọi test) ---------- */
-function makeEx2(el,sim,list){
-  const st=list.map(()=>null);
+/* ---------- bài tập chấm tự động (gọn): danh sách tên bài · chọn bài hiện đề · 3 nút dùng chung ----------
+   Danh sách mọi bài tập được ghi vào EXERCISES (dùng cho trang Thực hành). */
+const EXERCISES={};
+function exStateOf(id){return window.TRACK&&TRACK.exOf?TRACK.exOf(id):null}
+function exResultHTML(e,R,ok,pass,srcOk){
   const show=v=>esc(JSON.stringify(v).slice(1,-1))||'<i class="ex-none">(trống)</i>';
-  function render(){
-    el.innerHTML=list.map((e,i)=>`<div class="ex">
-      <h4>${i+1}. ${esc(e.t)}</h4><p>${esc(e.d)}</p>
+  if(R.err)return `<div class="res bad"><b>✗ Chưa đạt: code chưa biên dịch được</b><span>${esc(R.err.message)}. Bấm Chạy ở trình mô phỏng để xem dòng lỗi.</span></div>`;
+  const fails=R.res.map((x,k)=>[x,k]).filter(([x])=>!x.ok);
+  return `<div class="res ${ok?"ok":"bad"}"><b>${ok?"✓ Đạt":"✗ Chưa đạt"}: ${pass}/${R.res.length} test đúng</b>`+
+    (fails.length?`<div class="tbl ex-t"><table><thead><tr><th scope="col">Test</th><th scope="col">Input</th><th scope="col">Expected</th><th scope="col">Actual</th></tr></thead><tbody>${fails.slice(0,3).map(([x,k])=>`<tr><th scope="row">Test ${k+1}</th><td data-h="Input"><code>${show(x.T.in)}</code></td><td data-h="Expected"><code>${show(x.T.out)}</code></td><td data-h="Actual"><code>${x.crash?esc(x.crash.msg):show(x.got)}</code></td></tr>`).join("")}</tbody></table></div>${fails.length>3?`<p class="ex-more">Còn ${fails.length-3} test sai khác. Sửa các test trên trước rồi nộp lại.</p>`:""}`:"")+
+    (srcOk?"":`<div class="fail"><span>${esc(e.needMsg)}</span></div>`)+"</div>"}
+function gradeEx(e,code){const R=runTests(code,e.tests);if(R.err)return{R,ok:false,pass:0,srcOk:true,d:"lỗi biên dịch"};
+  const pass=R.res.filter(x=>x.ok).length,srcOk=!e.need||e.need.test(code);return{R,ok:pass===R.res.length&&srcOk,pass,srcOk,d:`${pass}/${R.res.length} test`}}
+function makeEx2(el,sim,list,opt){
+  opt=opt||{};const L=el.id.replace("ex-","");EXERCISES[L]=list;
+  const st=list.map(()=>null);let cur=0;
+  const mark=i=>{const x=exStateOf(L+"-"+i);return x?(x.pass?["ok","✓","đạt"]:["bad","✗","chưa đạt"]):["","","chưa nộp"]};
+  el.classList.add("exw");
+  el.innerHTML=`<div class="ex-list" role="tablist" aria-label="Chọn bài tập">${list.map((e,i)=>`<button type="button" role="tab" id="${el.id}-t${i}" aria-controls="${el.id}-p" data-pick="${i}" aria-selected="${i===0}" tabindex="${i===0?0:-1}"><span class="ex-i" aria-hidden="true"></span><span class="ex-n">${i+1}. ${esc(e.t)}</span><span class="vh ex-s"></span></button>`).join("")}</div>
+    <div class="ex ex-panel" role="tabpanel" id="${el.id}-p" aria-labelledby="${el.id}-t0"></div>
+    <div class="ex-btns"><button type="button" class="btn" data-act="load">Nạp code mẫu</button><button type="button" class="btn" data-act="try">Chạy thử</button><button type="button" class="btn pri" data-act="grade">Nộp bài</button>${opt.extraBtns||""}</div>
+    <div class="ex-st" role="status" aria-live="polite"></div>`;
+  const tabs=[...el.querySelectorAll("[data-pick]")],panel=el.querySelector(".ex-panel"),stEl=el.querySelector(".ex-st");
+  function paintList(){tabs.forEach((b,i)=>{const [c,ic,t]=mark(i);b.querySelector(".ex-i").className="ex-i "+c;b.querySelector(".ex-i").textContent=ic;b.querySelector(".ex-s").textContent=" ("+t+")"})}
+  function render(){const e=list[cur];
+    tabs.forEach((b,i)=>{b.setAttribute("aria-selected",i===cur);b.tabIndex=i===cur?0:-1});panel.setAttribute("aria-labelledby",`${el.id}-t${cur}`);
+    panel.innerHTML=`<h4>Bài ${cur+1}. ${esc(e.t)}</h4><p>${esc(e.d)}</p>
       <div class="io"><div><div class="pane-h" style="padding:0 0 4px">Ví dụ nhập</div><pre>${esc(e.tests[0].in||"(không có)")}</pre></div><div><div class="pane-h" style="padding:0 0 4px">Kết quả đúng</div><pre>${esc(e.tests[0].out)}</pre></div></div>
-      <div class="ex-st" role="status" aria-live="polite">${st[i]?st[i]:`<p class="ex-todo">Chưa nộp bài · ${e.tests.length} test sẽ được chấm.</p>`}</div>
-      <div class="ex-btns"><button class="btn" data-load="${i}">Nạp code mẫu</button><button class="btn" data-try="${i}">Chạy thử</button><button class="btn pri" data-grade="${i}">Nộp bài</button></div></div>`).join("");
-    el.querySelectorAll("[data-load]").forEach(b=>b.onclick=()=>{const e=list[+b.dataset.load];sim.set(e.start);sim.setInput(e.tests[0].in);sim.el.scrollIntoView({behavior:REDUCE()?"auto":"smooth",block:"start"})});
-    el.querySelectorAll("[data-try]").forEach(b=>b.onclick=()=>{const e=list[+b.dataset.try];sim.setInput(e.tests[0].in);sim.el.scrollIntoView({behavior:REDUCE()?"auto":"smooth",block:"start"});sim.run()});
-    el.querySelectorAll("[data-grade]").forEach(b=>b.onclick=()=>grade(+b.dataset.grade));
-  }
-  function grade(i){const e=list[i];const R=runTests(sim.get(),e.tests);
-    const exId=el.id.replace("ex-","")+"-"+i;
-    if(R.err){st[i]=`<div class="res bad"><b>Chưa đạt: code chưa biên dịch được</b><span>${esc(R.err.message)}. Bấm Chạy ở trình mô phỏng để xem dòng lỗi.</span></div>`;if(window.TRACK)TRACK.ex(exId,false,"lỗi biên dịch");render();return}
-    const pass=R.res.filter(x=>x.ok).length,srcOk=!e.need||e.need.test(sim.get()),ok=pass===R.res.length&&srcOk;
-    if(window.TRACK)TRACK.ex(exId,ok,`${pass}/${R.res.length} test`);
-    const fails=R.res.map((x,k)=>[x,k]).filter(([x])=>!x.ok);
-    st[i]=`<div class="res ${ok?"ok":"bad"}"><b>${ok?"✓ Đạt":"✗ Chưa đạt"}: ${pass}/${R.res.length} test đúng</b>`+
-      (fails.length?`<div class="tbl ex-t"><table><thead><tr><th scope="col">Test</th><th scope="col">Input</th><th scope="col">Expected</th><th scope="col">Actual</th></tr></thead><tbody>${fails.map(([x,k])=>`<tr><th scope="row">Test ${k+1}</th><td data-h="Input"><code>${show(x.T.in)}</code></td><td data-h="Expected"><code>${show(x.T.out)}</code></td><td data-h="Actual"><code>${x.crash?esc(x.crash.msg):show(x.got)}</code></td></tr>`).join("")}</tbody></table></div>`:"")+
-      (srcOk?"":`<div class="fail"><span>${esc(e.needMsg)}</span></div>`)+"</div>";
-    render()}
+      ${opt.panelExtra?opt.panelExtra(cur,e):""}`;
+    stEl.innerHTML=st[cur]||`<p class="ex-todo">Chưa nộp bài này · ${e.tests.length} test sẽ được chấm.</p>`;paintList();opt.onSelect&&opt.onSelect(cur,e)}
+  tabs.forEach((b,i)=>{b.onclick=()=>{cur=i;render()};b.onkeydown=ev=>{const d=ev.key==="ArrowRight"||ev.key==="ArrowDown"?1:ev.key==="ArrowLeft"||ev.key==="ArrowUp"?-1:0;if(!d)return;ev.preventDefault();cur=(cur+d+list.length)%list.length;render();tabs[cur].focus()}});
+  el.querySelector('[data-act="load"]').onclick=()=>{const e=list[cur];sim.set(e.start);sim.setInput(e.tests[0].in);sim.el.scrollIntoView({behavior:REDUCE()?"auto":"smooth",block:"start"})};
+  el.querySelector('[data-act="try"]').onclick=()=>{const e=list[cur];sim.setInput(e.tests[0].in);sim.el.scrollIntoView({behavior:REDUCE()?"auto":"smooth",block:"start"});sim.run()};
+  el.querySelector('[data-act="grade"]').onclick=()=>grade(cur);
+  function grade(i){const e=list[i],g=gradeEx(e,sim.get());
+    if(window.TRACK)TRACK.ex(L+"-"+i,g.ok,g.d);
+    st[i]=exResultHTML(e,g.R,g.ok,g.pass,g.srcOk);opt.onGrade&&opt.onGrade(i,g);cur=i;render()}
+  document.addEventListener("amts-progress",paintList);
   render();
+  return{select:i=>{cur=i;render()},grade,get cur(){return cur}};
 }
 
 const INC="#include <iostream>\n";/* Công cụ minh họa dùng chung cho nhiều bài. Công cụ chỉ dùng trong một bài nằm trong lesson.js của bài đó. */
@@ -3751,6 +3941,8 @@ function makeCallStack(el,{variants}){
   build();
 }/* đoạn code minh họa: lấy từ thư mục snippets của từng bài; thêm đầu khung (tên file + Sao chép) */
 const SNIP={"l3a": "#include <iostream>\n\nint main() {\n    int a, b;\n    std::cout << \"Nhập hai số: \";\n    std::cin >> a >> b;          // dữ liệu chảy từ cin vào a, rồi vào b\n    std::cout << \"Tổng: \" << a + b << std::endl;\n    return 0;\n}", "l4a": "int tuoi;              // khai báo: chưa có giá trị (rác)\nint soLuong = 10;      // khởi tạo sao chép\ndouble diem(8.5);      // khởi tạo trực tiếp\nchar xepLoai{'A'};     // khởi tạo bằng ngoặc nhọn (khuyên dùng)\nint tong{};            // { } để trống: giá trị 0", "l6bad": "double tong = gia * soLuong;\ntong = tong + tong * 0.08;\ntong = tong + 15000;\n// 0.08 là gì? 15000 là gì?\n// Đổi thuế phải sửa khắp nơi", "l6const": "const int SO_MON = 5;              // khởi tạo ngay\nconst double DIEM_DAT = 5.0;\n\nint namSinh;\nstd::cin >> namSinh;\nconst int TUOI = 2026 - namSinh;    // được: giá trị có lúc chạy\n\nSO_MON = 6;                         // lỗi: hằng không đổi được\nconst int MAX;                      // lỗi: hằng chưa khởi tạo", "l6define": "#define PI 3.14159          // không có kiểu, không có dấu ;\n#define BINH_PHUONG(x) x * x\n\nint a = BINH_PHUONG(2 + 1);  // mong 9, nhưng được 2 + 1 * 2 + 1 = 5\n\nconstexpr double PI_MOI = 3.14159;   // cách hiện đại: có kiểu, an toàn", "l6good": "constexpr double THUE_VAT = 0.08;\nconstexpr int PHI_GIAO_HANG = 15000;\n\ndouble tong = gia * soLuong;\ntong = tong + tong * THUE_VAT;\ntong = tong + PHI_GIAO_HANG;", "l10cond": "int diem = 7;\nstd::cout << (diem >= 5 ? \"Đạt\" : \"Chưa đạt\") << \"\\n\";\n\nint a = 4, b = 9;\nint lonHon = (a > b) ? a : b;          // 9\n\n// Sai: thiếu ngoặc, cout << diem >= 5 ... bị hiểu là (cout << diem) >= 5\n// std::cout << diem >= 5 ? \"Đạt\" : \"Chưa đạt\";", "l11flags": "constexpr int READ  = 1 << 0;   // 001\nconstexpr int WRITE = 1 << 1;   // 010\nconstexpr int EXEC  = 1 << 2;   // 100\n\nint quyen = READ | WRITE;       // 011: được đọc và ghi\nquyen |= EXEC;                  // bật bit:   011 | 100 = 111\nquyen &= ~WRITE;                // tắt bit:   111 & 101 = 101\nquyen ^= READ;                  // đảo bit:   101 ^ 001 = 100\nbool coTheGhi = (quyen & WRITE) != 0;   // kiểm tra bit", "l12dangle": "if (coVe)\n    if (laHocSinh)\n        std::cout << \"Giảm 50%\";\nelse                            // thuộc if (laHocSinh)!\n    std::cout << \"Mời mua vé\";", "l12dangle2": "if (coVe) {\n    if (laHocSinh) {\n        std::cout << \"Giảm 50%\";\n    }\n} else {                        // giờ mới thuộc if (coVe)\n    std::cout << \"Mời mua vé\";\n}", "l12if": "int tuoi;\nstd::cin >> tuoi;\n\nif (tuoi >= 18) {                       // điều kiện đúng thì chạy khối này\n    std::cout << \"Đủ tuổi lái xe máy\\n\";\n} else {                                // ngược lại chạy khối này\n    std::cout << \"Chưa đủ tuổi\\n\";\n}\nstd::cout << \"Kết thúc\\n\";              // luôn chạy", "l12scope": "int a = 17, b = 5;\nif (b != 0) {\n    int thuong = a / b;         // thuong sinh ra ở đây\n    std::cout << thuong;\n}                               // thuong bị hủy ở đây\n// std::cout << thuong;         // lỗi: 'thuong' was not declared in this scope", "l13group": "switch (kyTu) {\n    case 'a': case 'e': case 'i':\n    case 'o': case 'u':\n        std::cout << \"Nguyên âm\";\n        break;\n    default:\n        std::cout << \"Phụ âm\";\n}", "l13syntax": "switch (luaChon) {             // chỉ số nguyên hoặc char\n    case 1:                     // nhảy tới đây nếu luaChon == 1\n        std::cout << \"Xem điểm\";\n        break;                  // thoát khỏi switch\n    case 2:\n        std::cout << \"Đổi mật khẩu\";\n        break;\n    default:                    // không khớp case nào\n        std::cout << \"Lựa chọn không hợp lệ\";\n}", "l14do": "int diem;\ndo {\n    std::cout << \"Nhập điểm (0-10): \";\n    std::cin >> diem;\n} while (diem < 0 || diem > 10);     // sai thì hỏi lại\nstd::cout << \"Điểm hợp lệ: \" << diem;", "l14while": "int i = 1;                // 1. khởi tạo\nwhile (i <= 5) {          // 2. kiểm tra điều kiện\n    std::cout << i << \" \";\n    i++;                  // 3. cập nhật\n}\nstd::cout << \"\\nXong\";    // in: 1 2 3 4 5", "l15for": "for (int i = 1; i <= 5; i++) {\n    std::cout << i << \" \";\n}\n// in: 1 2 3 4 5", "l15while": "int i = 1;\nwhile (i <= 5) {\n    std::cout << i << \" \";\n    i++;\n}", "l16proto": "#include <iostream>\n\nint tinhTong(int a, int b);           // nguyên mẫu: báo trước hàm có tồn tại\n\nint main() {\n    std::cout << tinhTong(2, 3);      // dùng được dù thân hàm ở dưới\n}\n\nint tinhTong(int a, int b) {          // định nghĩa: thân hàm thật\n    return a + b;\n}", "l16void": "void veDuongKe(int doDai) {\n    if (doDai <= 0) return;           // thoát sớm, không vẽ gì\n    for (int i = 0; i < doDai; i++)\n        std::cout << '-';\n    std::cout << '\\n';\n}                                     // hết thân hàm: tự quay về\n\nint main() {\n    veDuongKe(10);                    // gọi như một câu lệnh\n}", "l17multi": "void chia(int a, int b, int& thuong, int& du) {\n    thuong = a / b;\n    du = a % b;\n}\n\nint main() {\n    int q, r;                      // hai “hộp đựng” kết quả\n    chia(17, 5, q, r);\n    std::cout << q << \" dư \" << r; // 3 dư 2\n}", "l17swap": "void doiCho(int& a, int& b) {   // a, b là tên khác của x, y\n    int tam = a;\n    a = b;\n    b = tam;\n}\n\nint main() {\n    int x = 3, y = 8;\n    doiCho(x, y);\n    std::cout << x << \" \" << y;    // 8 3\n}", "l18def": "void keDong(int doDai = 10, char kyTu = '-');   // mặc định ghi ở nguyên mẫu\n\nint main() {\n    keDong();          // ----------   (10, '-')\n    keDong(5);         // -----        (5, '-')\n    keDong(5, '*');    // *****        (5, '*')\n}\n\nvoid keDong(int doDai, char kyTu) {            // định nghĩa: không ghi lại\n    for (int i = 0; i < doDai; i++) std::cout << kyTu;\n    std::cout << '\\n';\n}", "l18ov": "int tong(int a, int b)            { return a + b; }\ndouble tong(double a, double b)   { return a + b; }\nint tong(int a, int b, int c)     { return a + b + c; }\n\ntong(1, 2);         // gọi bản (int, int)          → 3\ntong(1.5, 2.25);    // gọi bản (double, double)    → 3.75\ntong(1, 2, 3);      // gọi bản (int, int, int)     → 6", "l19fact": "long long giaiThua(int n) {\n    if (n <= 1)                    // trường hợp cơ sở\n        return 1;\n    return n * giaiThua(n - 1);    // bước đệ quy: n - 1 nhỏ hơn n\n}"};
+const PRESET_NOTES={"l3": {"Ví dụ: Tổng hai số (nhập tay)": "cin đọc dữ liệu từ bàn phím vào biến. Chạy rồi gõ hai số cách nhau dấu cách: xem hai số đi vào bộ đệm cin trước, rồi lần lượt vào a và b.", "Ví dụ: Đọc nhiều kiểu cùng lúc": "Một lệnh cin >> có thể đọc nhiều biến khác kiểu. Quan sát cin tự cắt dữ liệu theo dấu cách và đổi chữ “20” thành số int, “1.72” thành double.", "Ví dụ: Nhập sai kiểu": "Khi dữ liệu không khớp kiểu biến, cin rơi vào trạng thái lỗi. Xem a nhận 0, còn lệnh đọc b phía sau bị bỏ qua dù vẫn còn số 5 trong bộ đệm.", "Lỗi logic: getline bị bỏ qua": "Lỗi hay gặp khi trộn cin >> với getline: ký tự xuống dòng còn sót trong bộ đệm khiến getline đọc ngay một chuỗi rỗng. Theo dõi ô bộ đệm sau khi đọc tuổi.", "Sửa: dùng cin.ignore": "Cách sửa lỗi trên: cin.ignore bỏ phần còn sót (đến hết dòng) trước khi gọi getline. So sánh với ví dụ trước để thấy họ tên được đọc đúng.", "Ví dụ: Định dạng số thực và căn cột": "Định dạng số thực khi in: setprecision, fixed và setw giúp kết quả gọn và thẳng cột. So sánh từng dòng in ra với cách viết lệnh tương ứng.", "Ví dụ: using namespace std": "using namespace std cho phép viết cout, cin, string mà không cần std::. Chương trình chạy như bản có std::, chỉ khác cách viết.", "Lỗi: dùng << với cin": "Lỗi biên dịch: cin dùng >> (dữ liệu đi VÀO biến), cout mới dùng <<. Đọc thông báo lỗi của trình biên dịch để quen cách nó báo sai toán tử.", "Lỗi: cin >> một giá trị": "Lỗi biên dịch: cin chỉ đọc vào một biến, không đọc vào một biểu thức như a + 1. Thông báo lỗi cho biết vế phải phải là biến.", "Lỗi: thiếu <iomanip>": "Lỗi biên dịch: setprecision nằm trong thư viện <iomanip>. Thiếu #include thì tên này không tồn tại; trình biên dịch còn gợi ý thư viện cần thêm."}, "l4": {"Ví dụ: Khai báo, khởi tạo, gán": "Biến là ô nhớ có tên, có kiểu. Chạy từng bước để thấy khai báo tạo ô nhớ, khởi tạo đặt giá trị đầu tiên, còn phép gán thay giá trị cũ bằng giá trị mới.", "Ví dụ: Ba cách khởi tạo": "C++ có nhiều cách khởi tạo: =, ( ) và { }. Chú ý int d{} nhận 0, và int f = e âm thầm cắt 3.9 thành 3 mà không báo lỗi.", "Ví dụ: Tăng, giảm ++ và --": "x++ và ++x đều tăng x thêm 1, khác nhau ở giá trị trả về: x++ trả giá trị cũ, ++x trả giá trị mới. Chạy từng bước và theo dõi y, z.", "Lỗi logic: tráo đổi sai": "Lỗi logic khi đổi chỗ hai biến: gán a = b làm mất giá trị cũ của a. Chương trình vẫn chạy nhưng kết quả sai, xem bảng bộ nhớ ở từng bước.", "Sửa: tráo đổi với biến tạm": "Cách đúng để đổi chỗ: lưu tạm một giá trị trước khi ghi đè. Theo dõi biến tam giữ số 5 trong lúc a nhận giá trị của b.", "Cảnh báo: biến chưa khởi tạo": "Biến cục bộ chưa khởi tạo chứa giá trị rác. Trình biên dịch cảnh báo; kết quả in ra không đoán trước được. Luôn khởi tạo biến khi khai báo.", "Lỗi: dùng trước khi khai báo": "Lỗi biên dịch: biến phải được khai báo trước khi dùng. Trình biên dịch đọc từ trên xuống nên chưa biết diem ở dòng gán.", "Lỗi: khai báo trùng tên": "Lỗi biên dịch: trong cùng một khối không được khai báo hai biến trùng tên. Muốn đổi giá trị thì chỉ cần gán, không khai báo lại.", "Cảnh báo: thu hẹp kiểu từ biến với { }": "Khởi tạo bằng { } không cho phép mất dữ liệu (thu hẹp kiểu) như đưa 49.9 vào int. Đây là lý do nên dùng { } khi muốn được bảo vệ.", "Lỗi: sai chữ hoa, chữ thường": "Lỗi biên dịch: C++ phân biệt chữ hoa, chữ thường. soHocvien và soHocVien là hai tên khác nhau; trình biên dịch còn gợi ý tên gần đúng.", "Lỗi: tên biến có dấu cách": "Lỗi biên dịch: tên biến không được chứa dấu cách. Dùng kiểu viết soHocVien hoặc so_hoc_vien.", "Lỗi: gán cho hằng const": "Lỗi biên dịch: biến khai báo const không đổi được giá trị sau khi khởi tạo. Đây là cách trình biên dịch giúp tránh sửa nhầm hằng số."}, "l5": {"Ví dụ: sizeof các kiểu": "sizeof cho biết mỗi kiểu chiếm bao nhiêu byte bộ nhớ. Kích thước quyết định khoảng giá trị kiểu đó chứa được.", "Ví dụ: Tràn số nguyên": "int có giới hạn: vượt quá INT_MAX thì giá trị “quay vòng” sang số âm (tràn số). Xem phép nhân lương cả năm cũng bị tràn và cách dùng long long.", "Ví dụ: 0.1 + 0.2 có bằng 0.3?": "Số thực được lưu gần đúng ở hệ nhị phân, nên 0.1 + 0.2 không đúng bằng 0.3. In 17 chữ số để thấy phần sai lệch rất nhỏ.", "Ví dụ: float và double": "float chính xác khoảng 7 chữ số, double khoảng 15–16. So sánh hai dòng in để thấy vì sao nên dùng double cho tính toán thông thường.", "Ví dụ: char và mã ASCII": "char lưu một ký tự bằng mã số (ASCII). Cộng số vào char là dịch sang ký tự khác; đổi chữ thường sang hoa cũng chỉ là phép trừ mã.", "Ví dụ: bool": "bool chỉ có true/false; mọi số khác 0 khi đổi sang bool đều là true. boolalpha giúp in chữ true/false thay cho 1/0.", "Ví dụ: Chia nguyên và static_cast": "Chia hai số int luôn cho kết quả nguyên (bỏ phần thập phân). static_cast<double> đổi một vế sang số thực để được kết quả chính xác.", "Bẫy: unsigned và số âm": "unsigned không chứa số âm: 3 − 5 quay vòng thành một số rất lớn, và so sánh -1 với unsigned cho kết quả sai. Tránh trộn int với unsigned.", "Lỗi: % với số thực": "Lỗi biên dịch: phép % chỉ dùng cho số nguyên. Với số thực dùng std::fmod trong <cmath>.", "Cảnh báo: char chứa nhiều ký tự": "Cảnh báo: char chỉ chứa một ký tự; 'An' là hai ký tự nên chỉ giữ lại một. Chuỗi nhiều ký tự phải dùng std::string với dấu nháy kép."}, "l6": {"Ví dụ: Tính hóa đơn với hằng": "Hằng số (constexpr) đặt tên cho các giá trị cố định như thuế, phí giao hàng. Đổi mức thuế chỉ cần sửa một chỗ, code dễ đọc hơn.", "Ví dụ: const nhận giá trị lúc chạy": "const có thể nhận giá trị lúc chương trình chạy (từ dữ liệu nhập), sau đó không đổi được nữa. Theo dõi TUOI được tính từ năm sinh bạn nhập.", "Ví dụ: constexpr tính từ constexpr": "constexpr được tính ngay lúc biên dịch và có thể xây từ các constexpr khác. Xem số giây mỗi ngày được ghép từ các hằng nhỏ.", "Lỗi: const không khởi tạo": "Lỗi biên dịch: hằng const phải được khởi tạo ngay khi khai báo, vì sau đó không gán được nữa.", "Lỗi: gán lại hằng": "Lỗi biên dịch: không được tăng, giảm hay gán lại một hằng. Trình biên dịch chặn ngay, giúp tránh sửa nhầm.", "Lỗi: constexpr từ dữ liệu nhập": "Lỗi biên dịch: constexpr cần giá trị biết trước lúc biên dịch, nên không lấy từ dữ liệu nhập. Trường hợp này dùng const.", "Lỗi: cin vào hằng": "Lỗi biên dịch: cin không đọc được vào hằng, vì đọc vào nghĩa là thay đổi giá trị."}, "l7": {"Ví dụ: Đổi kiểu ngầm trong biểu thức": "Khi biểu thức trộn nhiều kiểu, C++ tự đổi về kiểu “rộng” hơn (int → double, char → int). Đọc từng dòng in ra để biết kết quả thuộc kiểu nào.", "Ví dụ: Cắt bỏ và làm tròn": "Ép sang int là cắt bỏ phần thập phân (không làm tròn), kể cả với số âm. Muốn làm tròn đúng thì dùng std::round.", "Lỗi logic: tràn ở phép tính trung gian": "Lỗi logic: a * a tính bằng int nên đã tràn TRƯỚC khi gán vào long long. Phải đổi một vế sang long long trước khi nhân.", "Cảnh báo: tràn số với hằng": "Cảnh báo: phép tính giữa hai hằng int vượt giới hạn bị trình biên dịch phát hiện ngay. Kết quả in ra là số đã tràn.", "Ví dụ: Giới hạn các kiểu": "numeric_limits cho biết giá trị nhỏ nhất và lớn nhất của từng kiểu. Dùng để chọn kiểu phù hợp với dữ liệu.", "Bẫy: trộn unsigned và int": "Bẫy: cộng unsigned với int âm thì int bị đổi sang unsigned, cho số khổng lồ thay vì −10. Ép kiểu rõ ràng để được kết quả đúng.", "Ví dụ: char và int qua lại": "char và int đổi qua lại theo mã ký tự. Lưu ý c + 1 in ra số vì kết quả phép cộng là int.", "Bẫy: double quá lớn ép sang int": "Bẫy: ép một số double vượt khoảng của int là hành vi không xác định. Chọn kiểu đủ lớn (long long) trước khi ép.", "Lỗi: thu hẹp kiểu với { }": "Lỗi biên dịch: { } không cho đưa 300 vào char (chỉ chứa tới 127), vì sẽ mất dữ liệu."}, "l8": {"Ví dụ: Năm phép toán với int": "Năm phép toán số học với số nguyên. Chú ý / cho thương nguyên và % cho số dư; thử đổi dữ liệu nhập để xem kết quả thay đổi.", "Ví dụ: Cùng phép toán với double": "Cùng các phép toán nhưng với double: phép chia cho kết quả thập phân. So với ví dụ trước để thấy kiểu dữ liệu quyết định kết quả.", "Ví dụ: Thứ tự ưu tiên": "Nhân, chia, chia dư được tính trước cộng, trừ; cùng mức thì tính từ trái sang phải. Dấu ngoặc thay đổi thứ tự.", "Ví dụ: Chia và chia dư với số âm": "Với số âm, phép / làm tròn về phía 0 và dấu của % theo số bị chia. Đối chiếu từng dòng để nắm quy tắc.", "Ví dụ: Tách chữ số bằng / và %": "Dùng / 10 và % 10 để tách từng chữ số của một số. Kỹ thuật này dùng rất nhiều trong bài tập về chữ số.", "Bẫy: ^ không phải lũy thừa": "Bẫy: ^ trong C++ là phép XOR bit, không phải lũy thừa. Lũy thừa dùng std::pow trong <cmath>.", "Bẫy: tính phần trăm": "Bẫy: 7 / 9 * 100 cho 0 vì phép chia nguyên chạy trước. Nhân 100 trước hoặc dùng 100.0 để được phần trăm đúng.", "Ví dụ: Gán kết hợp": "Toán tử gán kết hợp (+=, -=, *=, /=, %=) viết gọn phép “tính rồi gán lại”. Theo dõi biến tien thay đổi qua từng dòng.", "Lỗi khi chạy: chia cho 0": "Lỗi khi chạy: chia số nguyên cho 0 làm chương trình dừng đột ngột. Trình biên dịch không phát hiện được vì b chỉ biết lúc chạy."}, "l9": {"Ví dụ: Sáu toán tử so sánh": "Sáu toán tử so sánh trả về true/false (in ra 1/0). Thử nhập các cặp số khác nhau, kể cả hai số bằng nhau.", "Ví dụ: Kết hợp && || !": "Kết hợp điều kiện bằng && (và), || (hoặc), ! (phủ định). Đổi dữ liệu nhập để thấy học bổng phụ thuộc cả điểm, tuổi và hoàn cảnh.", "Ví dụ: Ngắn mạch tránh chia cho 0": "Ngắn mạch: với &&, vế trái sai thì vế phải không được tính. Đặt kiểm tra b != 0 trước giúp tránh chia cho 0.", "Lỗi khi chạy: đảo thứ tự điều kiện": "Đảo thứ tự hai vế: phép chia chạy trước khi kiểm tra b, nên chương trình bị lỗi chia cho 0. So sánh với ví dụ ngắn mạch.", "Cảnh báo: 10 < x < 20": "Cảnh báo: 10 < x < 20 không kiểm tra “x nằm giữa” mà luôn đúng. Phải viết 10 < x && x < 20.", "Cảnh báo: !x == y": "Cảnh báo: ! chạy trước ==, nên !x == y nghĩa là (!x) == y. Dùng ngoặc để thể hiện đúng ý.", "Bẫy: so sánh số thực": "Bẫy: không so sánh số thực bằng ==. So độ chênh lệch với một sai số rất nhỏ thay vào đó.", "Cảnh báo: so sánh int với unsigned": "Cảnh báo: so sánh int âm với unsigned cho kết quả sai vì -1 bị đổi thành số rất lớn.", "Ví dụ: So sánh chuỗi": "Chuỗi std::string so sánh được bằng == và theo thứ tự từ điển bằng <. Thử nhập hai tên khác nhau."}, "l10": {"Ví dụ: Ưu tiên trong biểu thức hỗn hợp": "Một biểu thức hỗn hợp được tính theo thứ tự ưu tiên: số học → so sánh → logic. Tách từng phần để tự kiểm tra kết quả.", "Ví dụ: Toán tử ?:": "Toán tử ba ngôi điều kiện ? a : b chọn một trong hai giá trị. Gọn cho các lựa chọn đơn giản như số lớn hơn, chẵn hay lẻ.", "Lỗi: cout << a < b": "Lỗi biên dịch: << ưu tiên cao hơn <, nên cout << a < b bị hiểu sai. Cần đặt so sánh trong ngoặc.", "Lỗi: ?: thiếu ngoặc trong cout": "Lỗi biên dịch: ?: ưu tiên thấp hơn <<, nên phải bọc cả biểu thức điều kiện trong ngoặc khi in.", "Ví dụ: Gán kết hợp từ phải sang trái": "Phép gán chạy từ phải sang trái và trả về giá trị vừa gán, nên viết được a = b = c = 10. Theo dõi thứ tự a, b, c thay đổi.", "Cảnh báo: i++ + i không xác định": "Cảnh báo: vừa tăng vừa đọc cùng biến trong một biểu thức (i++ + i) là không xác định. Tách thành nhiều lệnh cho rõ ràng.", "Ví dụ: Ngoặc làm rõ ý": "Ngoặc không đổi kết quả khi đã đúng thứ tự ưu tiên, nhưng giúp người đọc hiểu ý ngay. Nên dùng khi kết hợp && và ||."}, "l11": {"Ví dụ: Sáu toán tử bit": "Sáu toán tử bit làm việc trên từng bit của số nguyên. Đổi a, b sang nhị phân trên giấy rồi đối chiếu với kết quả in ra.", "Ví dụ: Cờ quyền với mặt nạ": "Dùng mỗi bit làm một “cờ”: | để bật, & ~ để tắt, & để kiểm tra. Cách lưu nhiều quyền trong một số nguyên.", "Ví dụ: Chẵn lẻ và lũy thừa của 2": "Mẹo bit: n & 1 cho biết chẵn lẻ; n & (n − 1) == 0 kiểm tra lũy thừa của 2. Thử nhiều giá trị n.", "Ví dụ: Hoán đổi bằng XOR": "Đổi chỗ hai số bằng ba phép XOR mà không cần biến tạm. Chạy từng bước để thấy a, b thay đổi.", "Ví dụ: Tách màu RGB": "Tách thành phần đỏ, xanh lá, xanh dương của một mã màu bằng dịch bit >> và mặt nạ & 0xFF.", "Cảnh báo: n & 1 == 0": "Cảnh báo: == ưu tiên cao hơn &, nên n & 1 == 0 bị hiểu sai. Đặt (n & 1) trong ngoặc.", "Bẫy: dịch quá số bit": "Bẫy: dịch bằng hoặc quá số bit của kiểu (32 với int) là không xác định; dịch phải số âm cũng cần chú ý.", "Bẫy: & thay vì &&": "Bẫy: & (bit) khác && (logic). 2 && 1 là true, nhưng 2 & 1 bằng 0 vì không có bit chung."}, "l12": {"Ví dụ: if … else": "if … else chọn một trong hai nhánh theo điều kiện. Chạy từng bước với tuổi khác nhau để thấy chỉ một nhánh được thực hiện.", "Ví dụ: Chuỗi else if xếp loại": "Chuỗi else if kiểm tra lần lượt từ trên xuống, gặp điều kiện đúng đầu tiên thì dừng. Thứ tự điều kiện quyết định kết quả xếp loại.", "Ví dụ: Phạm vi biến": "Biến khai báo trong khối { } chỉ tồn tại trong khối đó. Theo dõi bảng bộ nhớ: thuong và du biến mất khi ra khỏi khối.", "Ví dụ: if lồng nhau": "if lồng nhau để kiểm tra năm nhuận theo nhiều điều kiện. Thử 2024, 1900, 2000 và theo dõi nhánh được chọn.", "Cảnh báo: if (x = 5)": "Cảnh báo: if (x = 5) là phép GÁN chứ không phải so sánh, nên luôn đúng và làm đổi x. So sánh phải dùng ==.", "Cảnh báo: dấu ; sau if": "Cảnh báo: dấu ; ngay sau if tạo một lệnh rỗng, khối { } phía sau luôn chạy. Quan sát dòng thanh toán vẫn in dù không đủ tiền.", "Bẫy: thiếu { } với nhiều lệnh": "Bẫy: không có { }, if chỉ điều khiển MỘT lệnh ngay sau nó. Lệnh soMonTruot++ luôn chạy dù điều kiện sai.", "Cảnh báo: else lơ lửng": "Cảnh báo: else gắn với if gần nhất, không theo cách thụt lề. Dùng { } để thể hiện đúng ý.", "Lỗi: dùng biến ngoài phạm vi": "Lỗi biên dịch: b khai báo trong khối if nên không dùng được bên ngoài. Muốn dùng sau if thì khai báo trước if."}, "l13": {"Ví dụ: Menu với switch": "switch chọn nhánh theo giá trị của một biến, gọn hơn chuỗi else if khi so với nhiều hằng. Nhập 1, 2, 3 hoặc số khác để thấy default.", "Ví dụ: Gộp case (nguyên âm)": "Nhiều nhãn case liền nhau dùng chung một đoạn code. Đây là cách “rơi xuống” có chủ đích và an toàn.", "Ví dụ: Máy tính bỏ túi": "Máy tính bỏ túi: switch theo ký tự phép toán. Thử các phép + - * / và một ký tự lạ.", "Cảnh báo: quên break": "Cảnh báo: quên break thì chương trình chạy tiếp sang case bên dưới (fall-through). Nhập 3 để thấy cả “Ba” và “Bốn” được in.", "Lỗi: switch với số thực": "Lỗi biên dịch: switch chỉ nhận số nguyên hoặc ký tự, không nhận số thực. Với double phải dùng if … else if.", "Lỗi: case không phải hằng": "Lỗi biên dịch: nhãn case phải là hằng biết trước lúc biên dịch, không dùng biến.", "Lỗi: khai báo biến trong case": "Lỗi biên dịch: khai báo biến có khởi tạo ngay trong case bị “nhảy qua” khi vào case khác.", "Sửa: đặt case trong { }": "Cách sửa: bọc nội dung case trong { } để biến chỉ thuộc về case đó."}, "l14": {"Ví dụ: Đếm từ 1 đến n": "while lặp lại khối lệnh khi điều kiện còn đúng. Chạy từng bước để thấy i tăng dần và vòng lặp dừng khi i > n.", "Ví dụ: Tổng 1 + 2 + … + n": "Dùng biến tích lũy (tong) cộng dồn qua từng vòng. Đây là khuôn mẫu cơ bản của rất nhiều bài toán.", "Ví dụ: Đếm chữ số và đảo số": "Lặp theo chữ số: mỗi vòng lấy chữ số cuối bằng % 10 rồi bỏ nó bằng / 10, cho tới khi n bằng 0.", "Ví dụ: do-while hỏi lại khi nhập sai": "do-while chạy thân vòng ít nhất một lần rồi mới kiểm tra. Hợp với việc hỏi lại khi người dùng nhập sai.", "Ví dụ: Đọc đến hết dữ liệu": "Đọc tới khi hết dữ liệu: while (cin >> x) dừng khi cin không đọc được nữa. Khi chạy tay, bấm “Kết thúc nhập” để báo hết dữ liệu.", "Ví dụ: Lính canh, dừng khi gặp 0": "Dùng giá trị “lính canh” (ở đây là 0) để báo dừng đọc. Chú ý số 9 sau số 0 không được cộng.", "Lỗi: vòng lặp vô hạn": "Lỗi: quên tăng biến đếm nên điều kiện luôn đúng, vòng lặp chạy mãi. Trình mô phỏng tự dừng sau giới hạn số bước.", "Lỗi: dấu ; sau while": "Lỗi: dấu ; sau while làm thân vòng thành lệnh rỗng, vòng lặp chạy mãi mà không bao giờ tới khối { }.", "Bẫy: lệch một vòng": "Bẫy lệch một vòng: dùng < thay cho <= nên thiếu lần lặp cuối. Kiểm tra kỹ giá trị đầu và cuối của biến đếm."}, "l15": {"Ví dụ: Bảng cửu chương": "for gom khởi tạo, điều kiện và bước tăng vào một dòng. Bảng cửu chương là ví dụ điển hình của số lần lặp biết trước.", "Ví dụ: Tổng các số chẵn từ 1 đến n": "Bước tăng không nhất thiết là 1: i += 2 chỉ đi qua các số chẵn.", "Ví dụ: Đếm ngược": "Vòng for đếm ngược bằng i--. Theo dõi điều kiện i >= 1 để biết khi nào vòng dừng.", "Ví dụ: Tam giác sao (vòng lồng nhau)": "Vòng lặp lồng nhau: vòng trong chạy hết mỗi lần vòng ngoài lặp một lần. Số * mỗi dòng phụ thuộc i.", "Ví dụ: Ước nhỏ nhất lớn hơn 1 (break)": "break thoát khỏi vòng lặp ngay khi đã tìm thấy kết quả, không cần lặp tiếp.", "Ví dụ: Bỏ qua số âm (continue)": "continue bỏ qua phần còn lại của lần lặp hiện tại và sang lần kế tiếp. Ở đây số âm không được cộng.", "Lỗi: dấu ; ngay sau for": "Lỗi: dấu ; ngay sau for làm vòng lặp có thân rỗng, khối { } chỉ chạy một lần.", "Lỗi: dùng biến đếm sau vòng for": "Lỗi biên dịch: biến khai báo trong for chỉ tồn tại trong vòng lặp, không dùng được sau đó.", "Lỗi: dấu phẩy thay chấm phẩy": "Lỗi biên dịch: ba phần trong for ngăn bằng dấu chấm phẩy, không phải dấu phẩy."}, "l16": {"Ví dụ: Hàm bình phương": "Hàm là đoạn code có tên, nhận dữ liệu vào và trả kết quả ra. Chạy từng bước để thấy khi gọi hàm, một khung mới được đẩy lên ngăn xếp.", "Ví dụ: Hàm void vẽ đường kẻ": "Hàm void làm việc nhưng không trả giá trị. Gọi một lần, dùng lại được với độ dài khác nhau.", "Ví dụ: Hàm bool kiểm tra số nguyên tố": "Hàm trả về bool dùng để kiểm tra điều kiện. return thoát hàm ngay khi đã có câu trả lời.", "Ví dụ: Hàm gọi hàm": "Một hàm có thể gọi hàm khác. Theo dõi ngăn xếp có hai khung chồng lên nhau khi theTichTru gọi dienTichTron.", "Ví dụ: Nguyên mẫu, hàm đặt sau main": "Nguyên mẫu (khai báo trước) cho phép đặt phần thân hàm sau main.", "Lỗi: gọi hàm trước khi khai báo": "Lỗi biên dịch: gọi hàm trước khi trình biên dịch biết tới nó. Thêm nguyên mẫu ở đầu hoặc chuyển hàm lên trên main.", "Lỗi: quên return ở một nhánh": "Lỗi: một nhánh của hàm không có return nên giá trị trả về là rác. Trình biên dịch cảnh báo; nhập số âm để thấy.", "Lỗi: chỉ có nguyên mẫu": "Lỗi liên kết: chỉ có nguyên mẫu mà không có phần thân thì không tạo được chương trình chạy.", "Lỗi: lấy giá trị của hàm void": "Lỗi biên dịch: hàm void không trả giá trị, nên không gán kết quả của nó vào biến."}, "l17": {"Ví dụ: Tham trị không đổi biến gốc": "Truyền tham trị: hàm nhận BẢN SAO của biến. Theo dõi hai khung trên ngăn xếp: x tăng nhưng a trong main không đổi.", "Ví dụ: Tham chiếu đổi được biến gốc": "Truyền tham chiếu (int&): tham số là tên khác của chính biến gốc, nên sửa x là sửa a. So sánh với ví dụ tham trị.", "Ví dụ: Đổi chỗ hai số": "Đổi chỗ hai số qua hàm cần tham chiếu, để thay đổi giữ lại sau khi hàm kết thúc.", "Ví dụ: Trả hai kết quả (thương và dư)": "Tham chiếu giúp hàm “trả về” nhiều kết quả cùng lúc: thương và số dư được ghi thẳng vào q và r.", "Ví dụ: const string& in thẻ tên": "const string& truyền chuỗi mà không sao chép và không cho hàm sửa. Cách truyền chuỗi nên dùng.", "Ví dụ: Nhập dữ liệu qua tham chiếu": "Hàm nhận tham chiếu để ghi dữ liệu nhập thẳng vào biến của main. Thử nhập điểm sai để thấy vòng hỏi lại.", "Lỗi: truyền số vào int&": "Lỗi biên dịch: tham chiếu int& cần một biến thật, không truyền một số hằng như 5.", "Lỗi: sửa tham số const&": "Lỗi biên dịch: tham số const& không được sửa trong hàm.", "Lỗi: quên & trong hàm đổi chỗ": "Lỗi logic: quên & nên hàm chỉ đổi chỗ trên bản sao; x, y trong main vẫn như cũ."}, "l18": {"Ví dụ: Ba phiên bản tong": "Nạp chồng hàm: nhiều hàm cùng tên khác danh sách tham số. Trình biên dịch chọn bản phù hợp theo số lượng và kiểu đối số.", "Ví dụ: Mỗi kiểu một phiên bản in": "Mỗi kiểu dữ liệu một phiên bản in. Quan sát phiên bản nào được gọi với 42, 3.14, 'A' và một chuỗi.", "Ví dụ: Tham số mặc định": "Tham số mặc định: bỏ trống đối số thì hàm dùng giá trị mặc định. So sánh các lời gọi có và không có đối số.", "Ví dụ: Mặc định ghi ở nguyên mẫu": "Giá trị mặc định được ghi ở nguyên mẫu (khai báo), không lặp lại ở phần thân.", "Lỗi: chỉ khác kiểu trả về": "Lỗi biên dịch: hai hàm chỉ khác kiểu trả về không phải nạp chồng hợp lệ, vì lời gọi không phân biệt được.", "Lỗi: lời gọi mơ hồ": "Lỗi biên dịch: đối số long long đổi được sang cả int lẫn double, nên trình biên dịch không biết chọn bản nào (mơ hồ).", "Lỗi: mặc định không nằm cuối": "Lỗi biên dịch: tham số có giá trị mặc định phải nằm ở cuối danh sách.", "Lỗi: mơ hồ do tham số mặc định": "Lỗi biên dịch: ve(3) khớp cả hai phiên bản vì tham số thứ hai có giá trị mặc định, nên lời gọi bị mơ hồ."}, "l19": {"Ví dụ: Giai thừa": "Đệ quy: hàm gọi lại chính nó với bài toán nhỏ hơn, dừng ở trường hợp cơ sở. Chạy từng bước để thấy ngăn xếp cao dần rồi rút về.", "Ví dụ: Đếm ngược và đếm xuôi": "Lệnh trước lời gọi đệ quy chạy khi “đi xuống”, lệnh sau chạy khi “quay lên”, nên in ra cả đếm ngược và đếm xuôi.", "Ví dụ: Tổng các chữ số": "Mỗi lần gọi bỏ đi một chữ số cuối, cho tới khi chỉ còn một chữ số (trường hợp cơ sở).", "Ví dụ: Ước chung lớn nhất (Euclid)": "Thuật toán Euclid: UCLN(a, b) = UCLN(b, a % b), dừng khi b bằng 0. Chỉ cần vài lần gọi.", "Ví dụ: Fibonacci, đếm số lần gọi": "Fibonacci đệ quy gọi lại rất nhiều lần cùng một giá trị. Biến toàn cục soLanGoi cho thấy số lần gọi tăng rất nhanh khi n lớn.", "Ví dụ: Tháp Hà Nội": "Tháp Hà Nội: chuyển n đĩa bằng cách chuyển n − 1 đĩa sang cọc trung gian, rồi đĩa lớn nhất, rồi n − 1 đĩa trở lại.", "Lỗi: thiếu trường hợp cơ sở": "Lỗi: thiếu trường hợp cơ sở nên hàm gọi mãi tới khi tràn ngăn xếp (stack overflow).", "Lỗi: quên làm nhỏ dữ liệu": "Lỗi: gọi lại với cùng n, bài toán không nhỏ đi nên cũng không bao giờ dừng."}};
+const EX_HINTS={"l3": [["Đọc cả hai số bằng một lệnh: std::cin >> a >> b;", "In hai dòng, mỗi dòng kết thúc bằng \"\\n\": Tong rồi Hieu (a − b)."], ["Đọc tuổi bằng cin >>, nhưng họ tên có dấu cách nên phải dùng std::getline.", "Trước getline, dùng std::cin.ignore(...) để bỏ ký tự xuống dòng còn sót sau khi đọc tuổi."], ["Đọc 3 số vào 3 biến double rồi tính (a + b + c) / 3.", "In với std::fixed << std::setprecision(2) (cần #include <iomanip>)."]], "l4": [["Cần một biến tạm: tam = a; a = b; b = tam;", "In đúng định dạng: \"a = \" << a << \", b = \" << b."], ["Chu vi = 2 × (dài + rộng), diện tích = dài × rộng.", "In hai dòng: \"Chu vi: \" và \"Dien tich: \"."], ["Số giờ = tổng / 3600; phần còn lại = tổng % 3600.", "Từ phần còn lại: phút = còn lại / 60, giây = còn lại % 60."]], "l5": [["Chữ hoa cách chữ thường đúng 32 trong bảng mã: 'a' − 'A' = 32.", "In ký tự rồi mã số: static_cast<int>(hoa) để in mã."], ["Tổng 3 số nguyên chia 3 sẽ bị chia nguyên; đổi sang double trước khi chia.", "Dùng std::fixed << std::setprecision(2)."], ["Viết 9.0 / 5 (hoặc C là double) để tránh chia nguyên 9 / 5 = 1.", "In với std::fixed << std::setprecision(1)."]], "l6": [["Khai báo: constexpr double PI = 3.14159; rồi tính PI * r * r.", "In \"Dien tich: \" với std::fixed << std::setprecision(2)."], ["Khai báo thêm constexpr int PHI_GIAO_HANG = 15000;", "Tổng = giá × số lượng, cộng tổng × THUE_VAT, cộng phí giao hàng; in với setprecision(0)."], ["Ba hằng: 60 giây/phút, 60 phút/giờ, 24 giờ/ngày.", "Kết quả = số ngày × 24 × 60 × 60."]], "l7": [["static_cast<int>(x) bỏ phần thập phân (không làm tròn).", "std::round(x) trong <cmath> làm tròn tới số nguyên gần nhất."], ["a * b với hai int có thể tràn trước khi gán vào long long.", "Đổi một vế trước: static_cast<long long>(a) * b."], ["dung * 100 / tong là chia nguyên; dùng 100.0 để có phần thập phân.", "In với std::fixed << std::setprecision(1) rồi thêm ký tự %."]], "l8": [["Chữ số hàng trăm = n / 100, hàng chục = n / 10 % 10, đơn vị = n % 10.", "Cộng ba chữ số rồi in."], ["Cộng giờ hiện tại với số giờ thêm.", "Lấy phần dư khi chia cho 24: (gio + them) % 24."], ["Với mỗi mệnh giá: số tờ = tiền / mệnh giá.", "Sau đó tiền %= mệnh giá để xét mệnh giá nhỏ hơn."]], "l9": [["Chia hết dùng % == 0; ghép điều kiện bằng && và ||.", "(y % 4 == 0 && y % 100 != 0) || y % 400 == 0; in với std::boolalpha."], ["Không viết 10 <= x <= 20.", "Viết 10 <= x && x <= 20."], ["Cần đủ ba điều kiện a + b > c, a + c > b, b + c > a.", "Ghép ba điều kiện bằng && và in với std::boolalpha."]], "l10": [["Trung bình có trọng số = (m1 × 1 + m2 × 2 + m3 × 3) / (1 + 2 + 3).", "In với std::fixed << std::setprecision(2)."], ["Lớn hơn của hai số: a > b ? a : b.", "Lồng thêm một lần: so kết quả đó với c."], ["n % 2 == 0 cho biết n chẵn.", "Khi in, bọc cả biểu thức trong ngoặc: std::cout << (n % 2 == 0 ? \"chan\" : \"le\");"]], "l11": [["Dịch phải k bit để bit cần xem về vị trí 0: n >> k.", "Lấy bit cuối bằng & 1: (n >> k) & 1."], ["2 mũ n = 1 << n.", "Dòng 2: in ((1 << n) > 1000) với std::boolalpha."], ["Bật bit k: q | (1 << k); tắt: q & ~(1 << k); đảo: q ^ (1 << k).", "Mỗi dòng tính từ q ban đầu, không dùng kết quả dòng trước."]], "l12": [["Ba trường hợp: n > 0, n < 0, còn lại bằng 0.", "Dùng if … else if … else."], ["Kiểm tra điểm không hợp lệ (< 0 hoặc > 10) trước tiên.", "Sau đó xét từ cao xuống thấp: >= 8.5, >= 7.0, >= 5.0, còn lại."], ["Xét a == 0 trước, trong đó phân biệt b == 0 hay không.", "a khác 0 thì x = -b / a, in với std::fixed << std::setprecision(2)."]], "l13": [["switch (n) với case 1 … case 7 và default.", "Nhớ break sau mỗi case để không chạy sang case dưới."], ["Đọc: std::cin >> a >> phepToan >> b; với phepToan kiểu char.", "Trong case '/' và '%', kiểm tra b == 0 trước khi chia."], ["Gộp case 1, 3, 5, 7, 8, 10, 12 (31 ngày) và case 4, 6, 9, 11 (30 ngày).", "case 2: kiểm tra năm nhuận để in 29 hoặc 28; default in Khong hop le."]], "l14": [["Mỗi vòng: cộng n % 10 vào tổng, rồi n /= 10.", "Lặp while (n > 0); nếu n = 0 ngay từ đầu thì tổng là 0."], ["Đọc số đầu tiên trước vòng lặp; lặp while (x != 0).", "Trong vòng: tăng biến đếm, cộng tổng, rồi đọc số tiếp theo."], ["do { đọc điểm; nếu sai thì tăng đếm } while (điểm ngoài 0–10);", "In \"Diem: \" và \"So lan nhap sai: \" trên hai dòng."]], "l15": [["for (int i = 1; i <= 10; i++)", "Mỗi dòng: n << \" x \" << i << \" = \" << n * i."], ["n < 2 không phải số nguyên tố.", "Thử d từ 2 khi d * d <= n; gặp n % d == 0 thì kết luận NO và break."], ["Hai vòng lồng nhau: i từ 1 đến n, j từ 1 đến i.", "In dấu cách giữa các số (không in sau số cuối), hết dòng in \"\\n\"."]], "l16": [["Trong hàm: giả sử m = a, rồi so với b và c.", "main nhập ba số và in lonNhat(a, b, c)."], ["Khởi tạo long long r = 1; lặp n lần, mỗi lần r *= a.", "n = 0 thì vòng không chạy, trả về 1 là đúng."], ["Hai vòng lồng nhau: cao dòng, mỗi dòng rong ký tự.", "Hết mỗi dòng in \"\\n\"; hàm void nên không cần return giá trị."]], "l17": [["Tham số phải có &: void doiCho(int& a, int& b).", "Bên trong dùng biến tạm như hoán đổi thông thường."], ["thuong và du là tham chiếu: gán thẳng thuong = a / b; du = a % b;", "Trong main khai báo hai biến q, r rồi truyền vào hàm."], ["gio = tong / 3600, phut = tong % 3600 / 60, giay = tong % 60.", "Ba tham số cuối là int& để hàm ghi kết quả ra ngoài."]], "l18": [["Hai hàm cùng tên dienTich, khác số tham số.", "Đọc k trước, rồi đọc 1 hoặc 2 số tùy k; in với setprecision(2)."], ["Bản ba tham số có thể gọi lại bản hai tham số.", "Đọc k rồi đọc đủ k số; gọi lonNhat(a, b) hoặc lonNhat(a, b, c)."], ["Giá trị mặc định chỉ đặt ở cuối danh sách tham số.", "k = 1 gọi tinhTien(g); k = 2 gọi tinhTien(g, s); k = 3 gọi tinhTien(g, s, p)."]], "l19": [["Trường hợp cơ sở: n < 10 thì trả về n.", "Bước đệ quy: n % 10 + tongChuSo(n / 10)."], ["Trường hợp cơ sở: n == 0 thì trả về 1.", "Bước đệ quy: a * luyThua(a, n - 1)."], ["Trường hợp cơ sở: n == 0 thì không in gì (return).", "Gọi inNhiPhan(n / 2) TRƯỚC, rồi mới in n % 2."]]};
 function copyText(t){if(navigator.clipboard&&navigator.clipboard.writeText)return navigator.clipboard.writeText(t);
   return new Promise((ok,no)=>{const a=document.createElement("textarea");a.value=t;a.setAttribute("readonly","");a.style.position="fixed";a.style.opacity="0";document.body.appendChild(a);a.select();
     try{document.execCommand("copy")?ok():no()}catch(e){no(e)}a.remove()})}
@@ -7484,8 +7676,108 @@ int main() {
 ]);
 
 makeQuiz("quiz19","score19",[{"q": "Thành phần nào giúp hàm đệ quy dừng lại?", "o": ["Bước đệ quy", "Trường hợp cơ sở", "Kiểu trả về", "Tham số"], "a": 1, "e": "Trường hợp cơ sở trả lời ngay mà không gọi lại; mọi nhánh đệ quy phải tiến dần về nó."}, {"q": "Khi đang tính <code>giaiThua(4)<\/code> và vừa gọi tới <code>giaiThua(1)<\/code>, stack có bao nhiêu khung (tính cả main)?", "o": ["1", "2", "4", "5"], "a": 3, "e": "main, giaiThua(4), giaiThua(3), giaiThua(2), giaiThua(1): 5 khung."}, {"q": "Hàm đệ quy không có trường hợp cơ sở thường kết thúc bằng?", "o": ["Trả về 0", "Segmentation fault do tràn stack", "Chạy đúng nhưng chậm", "Lỗi biên dịch"], "a": 1, "e": "Khung chồng mãi tới khi hết stack, hệ điều hành dừng chương trình."}, {"q": "<code>void f(int n) { if (n == 0) return; f(n - 1); cout &lt;&lt; n; }<\/code> Gọi <code>f(3)<\/code> in ra?", "o": ["321", "123", "3", "0123"], "a": 1, "e": "Lệnh in đứng sau lời gọi đệ quy nên chạy khi “quay lên”: f(1) in trước, rồi f(2), f(3)."}]);
+/* ================= TRANG THỰC HÀNH (#thuc-hanh) =================
+   Gom mọi bài tập chấm tự động (EXERCISES, do makeEx2 của từng bài đăng ký) vào một trang:
+   danh sách + lọc, đề bài, gợi ý (hints.json của bài), trình mô phỏng dùng chung, Chạy thử / Nộp bài,
+   lời giải (solutions/*.cpp, nằm trong nội dung bảo vệ trên Firebase) và trình tự chạy từng bước.
+   Lời giải mở khi: đã làm đạt, hoặc đã nộp ít nhất UNLOCK_AFTER lần chưa đạt (giảng viên luôn xem được). */
+const SOL_EMBED=null;
+const PRACTICE=(()=>{
+  const C=courseById("cpp"),UNLOCK_AFTER=3;
+  let items=null,cur=null,sim=null,F="all",built=false;const solCache={},tries={},results={};
+  const $=id=>document.getElementById(id);
+  const lname=l=>(C.lessons.find(x=>x[0]===l)||[])[1]||"";
+  const stOf=id=>window.TRACK&&TRACK.exOf?TRACK.exOf(id):null;
+  const triesOf=id=>Math.max((stOf(id)||{}).n||0,tries[id]||0);
+  const fold=s=>String(s).toLowerCase().normalize("NFD").replace(/[̀-ͯ]/g,"").replace(/đ/g,"d");
+  function load(){if(items)return items;
+    items=(C.practice||[]).map(id=>{const m=/^(l\d+)-(\d+)$/.exec(id);if(!m)return null;const e=(EXERCISES[m[1]]||[])[+m[2]];return e?{id,l:m[1],i:+m[2],e}:null}).filter(Boolean);return items}
+  const icon=id=>{const x=stOf(id);return x?(x.pass?["ok","✓","đã đạt"]:["bad","✗","chưa đạt"]):["","","chưa nộp"]};
+  function renderSum(){const n=items.filter(x=>(stOf(x.id)||{}).pass).length;
+    $("pr-sum").innerHTML=`<span class="pbar" role="progressbar" aria-label="Bài tập đã đạt" aria-valuemin="0" aria-valuemax="${items.length}" aria-valuenow="${n}"><span style="width:${items.length?n/items.length*100:0}%"></span></span><span>Đã đạt <b>${n}/${items.length}</b> bài tập</span>`}
+  function renderList(){
+    const q=fold(($("pr-q").value||"").trim());let h="",shown=0,lastL=null;
+    items.forEach(x=>{const s=stOf(x.id),pass=!!(s&&s.pass);
+      if(F==="todo"&&pass||F==="done"&&!pass)return;
+      if(q&&!fold(x.e.t+" "+x.e.d+" bai "+x.l.slice(1)+" "+lname(x.l)).includes(q))return;
+      if(x.l!==lastL){if(lastL)h+=`</ul></div>`;h+=`<div class="pr-g"><b>Bài ${x.l.slice(1)} · ${esc(lname(x.l))}</b><ul>`;lastL=x.l}
+      const [c,ic,t]=icon(x.id);shown++;
+      h+=`<li><button type="button" data-id="${x.id}"${cur&&cur.id===x.id?' aria-current="true"':""}><span class="ex-i ${c}" aria-hidden="true">${ic}</span><span>${x.i+1}. ${esc(x.e.t)}</span><span class="vh"> (${t})</span></button></li>`});
+    if(lastL)h+=`</ul></div>`;
+    $("pr-list").innerHTML=shown?h:`<p class="pr-empty">Không có bài tập khớp bộ lọc.</p>`;
+    $("pr-list").querySelectorAll("[data-id]").forEach(b=>b.onclick=()=>{select(b.dataset.id);if(matchMedia("(max-width:1299px)").matches)$("pr-main").scrollIntoView({behavior:REDUCE()?"auto":"smooth",block:"start"})});
+    const sel=$("pr-sel");if(sel){sel.innerHTML=items.map(x=>{const ic=icon(x.id)[1]||"○";return `<option value="${x.id}"${cur&&cur.id===x.id?" selected":""}>${ic} Bài ${x.l.slice(1)} · ${x.i+1}. ${esc(x.e.t)}</option>`}).join("")}
+    renderSum()}
+  const draftKey=id=>"amts-pr:"+((AMTS.S.user&&AMTS.S.user.uid)||"khach")+":"+id;
+  function saveDraft(){if(!cur||!sim)return;try{const v=sim.get();if(v&&v!==cur.e.start)localStorage.setItem(draftKey(cur.id),v);else localStorage.removeItem(draftKey(cur.id))}catch(e){}}
+  function build(){if(built)return;built=true;load();
+    $("pr-main").innerHTML=`<div class="pr-pick"><label for="pr-sel">Chọn bài tập</label><select id="pr-sel"></select></div>
+      <div class="pr-info" id="pr-info"></div>
+      <div id="pr-sim"></div>
+      <div class="pr-btns"><button type="button" class="btn" id="pr-reset">Nạp code mẫu</button><button type="button" class="btn" id="pr-try">Chạy thử</button><button type="button" class="btn pri" id="pr-grade">Nộp bài</button></div>
+      <div class="ex-st" id="pr-res" role="status" aria-live="polite"></div>
+      <div class="pr-sol" id="pr-sol"></div>
+      <div class="pr-nav"><button type="button" class="btn" id="pr-prev">← Bài tập trước</button><button type="button" class="btn" id="pr-next">Bài tập sau →</button></div>`;
+    sim=makeSim2($("pr-sim"),{id:"spr",lesson:"",presets:[{label:"Bài tập",code:""}]});
+    $("pr-sel").onchange=e=>select(e.target.value);
+    $("pr-reset").onclick=()=>{if(sim.get()!==cur.e.start&&!confirm("Thay code hiện tại bằng code mẫu ban đầu?"))return;sim.set(cur.e.start);sim.setInput(cur.e.tests[0].in);saveDraft()};
+    $("pr-try").onclick=()=>{sim.setInput(cur.e.tests[0].in);sim.run()};
+    $("pr-grade").onclick=grade;
+    $("pr-prev").onclick=()=>step(-1);$("pr-next").onclick=()=>step(1);
+    $("pr-q").addEventListener("input",renderList);
+    document.querySelectorAll(".pr-f [data-f]").forEach(b=>b.onclick=()=>{F=b.dataset.f;document.querySelectorAll(".pr-f [data-f]").forEach(x=>x.setAttribute("aria-pressed",x===b));renderList()});
+    document.addEventListener("amts-progress",()=>{renderList();if(cur)renderSol()});
+    addEventListener("pagehide",saveDraft);
+    $("pr-sim").addEventListener("input",()=>{clearTimeout(build.t);build.t=setTimeout(saveDraft,600)})}
+  function step(d){const k=items.findIndex(x=>x.id===cur.id);const n=items[(k+d+items.length)%items.length];select(n.id);$("pr-info").scrollIntoView({behavior:REDUCE()?"auto":"smooth",block:"start"})}
+  function select(id){saveDraft();const x=items.find(y=>y.id===id)||items[0];if(!x)return;cur=x;const e=x.e,hints=((typeof EX_HINTS!=="undefined"?EX_HINTS:{})[x.l]||[])[x.i]||[];
+    $("pr-info").innerHTML=`<div class="crumb">Bài ${x.l.slice(1)} · ${esc(lname(x.l))} · Bài tập ${x.i+1}/${(EXERCISES[x.l]||[]).length}</div>
+      <div class="pr-title"><h2>${esc(e.t)}</h2><a href="#bai-${x.l.slice(1)}" data-go="${x.l}" class="pr-lesson">Xem lại bài học →</a></div>
+      <p class="pr-d">${esc(e.d)}</p>
+      <div class="io"><div><div class="pane-h" style="padding:0 0 4px">Ví dụ nhập</div><pre>${esc(e.tests[0].in||"(không có)")}</pre></div><div><div class="pane-h" style="padding:0 0 4px">Kết quả đúng</div><pre>${esc(e.tests[0].out)}</pre></div></div>
+      ${hints.length?`<div class="pr-hints"><ol id="pr-hl"></ol><button type="button" class="btn sm" id="pr-hint">Xem gợi ý 1/${hints.length}</button></div>`:""}`;
+    if(hints.length){let k=0;const b=$("pr-hint"),ol=$("pr-hl");b.onclick=()=>{ol.insertAdjacentHTML("beforeend",`<li><b>Gợi ý ${k+1}.</b> ${esc(hints[k])}</li>`);k++;if(k>=hints.length)b.remove();else b.textContent=`Xem gợi ý ${k+1}/${hints.length}`}}
+    let code=e.start;try{code=localStorage.getItem(draftKey(x.id))||e.start}catch(err){}
+    sim.set(code);sim.setInput(e.tests[0].in);
+    $("pr-res").innerHTML=results[x.id]||`<p class="ex-todo">${(stOf(x.id)||{}).pass?"Bạn đã làm đạt bài này. Có thể nộp lại để luyện thêm.":`Chưa nộp · ${e.tests.length} test sẽ được chấm.`}</p>`;
+    renderSol();renderList();
+    const h="#thuc-hanh-"+x.id;if(location.hash!==h){try{history.replaceState(null,"",h)}catch(err){}}}
+  function grade(){const x=cur,g=gradeEx(x.e,sim.get());tries[x.id]=triesOf(x.id)+1;
+    if(window.TRACK)TRACK.ex(x.id,g.ok,g.d);
+    results[x.id]=exResultHTML(x.e,g.R,g.ok,g.pass,g.srcOk);$("pr-res").innerHTML=results[x.id];saveDraft();renderSol();renderList()}
+  function unlocked(x){return AMTS.isTeacher()||!!(stOf(x.id)||{}).pass||triesOf(x.id)>=UNLOCK_AFTER}
+  function renderSol(){const x=cur,box=$("pr-sol");if(!x)return;
+    if(!unlocked(x)){const left=UNLOCK_AFTER-triesOf(x.id);
+      box.innerHTML=`<div class="pr-lock"><b>Lời giải</b><p>Lời giải mở khi bạn làm đạt bài này, hoặc sau ${UNLOCK_AFTER} lần nộp chưa đạt (còn ${left} lần). Hãy thử gợi ý trước nhé.</p></div>`;return}
+    if(box.dataset.for===x.id&&box.querySelector(".codebox"))return;
+    box.dataset.for="";box.innerHTML=`<div class="pr-lock open"><b>Lời giải</b><p>Đã mở. Xem để so sánh với cách làm của bạn, rồi chạy từng bước để hiểu chương trình chạy thế nào.</p><button type="button" class="btn" id="pr-showsol">Xem lời giải</button></div>`;
+    $("pr-showsol").onclick=()=>showSol(x)}
+  async function getSol(l){if(SOL_EMBED)return SOL_EMBED[l]||null;if(solCache[l])return solCache[l];
+    const S=await AMTS.ready();if(S.mode!=="ready"){const e=new Error("Chưa kết nối được máy chủ.");e.code="offline";throw e}
+    const cfg=await AMTS.getConfig("cpp");const d=await AMTS.getLesson("cpp",l,C.contentVer,cfg);return solCache[l]=(d&&d.sol)||null}
+  async function showSol(x){const box=$("pr-sol");box.innerHTML=`<p class="ex-todo">Đang tải lời giải…</p>`;
+    let arr;try{arr=await getSol(x.l)}catch(e){
+      box.innerHTML=`<div class="pr-lock"><b>Chưa tải được lời giải</b><p>${e.code==="permission-denied"?"Lời giải thuộc bài cần đăng nhập hoặc bài có phí. Hãy đăng nhập (hoặc kích hoạt khóa học) rồi thử lại.":e.code==="offline"?"Không kết nối được máy chủ. Kiểm tra Internet rồi thử lại.":esc(e.message||String(e))}</p><button type="button" class="btn" id="pr-showsol">Thử lại</button></div>`;
+      $("pr-showsol").onclick=()=>showSol(x);return}
+    if(cur!==x)return;const src=arr&&arr[x.i];
+    if(!src){box.innerHTML=`<div class="pr-lock"><b>Lời giải</b><p>Bài này chưa có lời giải trên máy chủ.${AMTS.isTeacher()?" Giảng viên: hãy tải file noi-dung-cpp.json mới lên.":""}</p></div>`;return}
+    box.dataset.for=x.id;
+    box.innerHTML=`<div class="pr-solh"><b>Lời giải tham khảo</b><span>Có nhiều cách đúng; đây là một cách.</span></div>
+      <div class="code" data-src></div>
+      <div class="pr-trace"><button type="button" class="btn pri" id="pr-run-sol">Xem trình tự chạy từng bước</button><p>Lời giải được nạp vào trình mô phỏng với dữ liệu ví dụ. Bấm <b>Bước tiếp →</b> để đi qua từng dòng và xem biến thay đổi trong khung Bộ nhớ. Code của bạn đã được lưu, chọn lại bài này là thấy.</p></div>`;
+    const c=box.querySelector("[data-src]");c.innerHTML=highlightLines(src).map((s,i)=>`<span class="ln" data-n="${i+1}">${s||" "}</span>`).join("");
+    c.removeAttribute("data-src");const wrap=document.createElement("div");wrap.className="codebox";const h=document.createElement("div");h.className="code-h";
+    h.innerHTML=`<span class="code-f">loi-giai.cpp</span><button type="button" class="code-copy">Sao chép</button>`;c.replaceWith(wrap);wrap.append(h,c);
+    h.querySelector("button").onclick=e=>copyText(src).then(()=>{e.target.textContent="Đã sao chép";setTimeout(()=>e.target.textContent="Sao chép",1800)},()=>{e.target.textContent="Chưa sao chép được"});
+    $("pr-run-sol").onclick=()=>{saveDraft();sim.set(src);sim.setInput(x.e.tests[0].in);$("pr-sim").scrollIntoView({behavior:REDUCE()?"auto":"smooth",block:"start"});sim.step()}}
+  function open(){build();load();if(!items.length){$("pr-main").innerHTML=`<p class="pr-empty">Chưa có bài tập.</p>`;return}
+    const want=window.PRACTICE_WANT;window.PRACTICE_WANT=null;
+    const first=(want&&items.find(x=>x.id===want))||(cur)||items.find(x=>!(stOf(x.id)||{}).pass)||items[0];select(first.id)}
+  return{open,select,get cur(){return cur}};
+})();
+if(typeof curView!=="undefined"&&curView==="practice")PRACTICE.open();
 
-const LESSON_UPDATED={"l1": "2026-10-20T04:29:49Z", "l10": "2026-10-20T03:43:09Z", "l11": "2026-10-20T03:43:09Z", "l12": "2026-10-20T03:43:09Z", "l13": "2026-10-20T11:16:06Z", "l14": "2026-10-20T03:43:09Z", "l15": "2026-10-20T03:43:09Z", "l16": "2026-10-20T03:43:09Z", "l17": "2026-10-20T03:43:09Z", "l18": "2026-10-20T03:43:09Z", "l19": "2026-10-20T03:43:09Z", "l2": "2026-10-20T03:43:09Z", "l3": "2026-10-20T03:43:09Z", "l4": "2026-10-20T03:43:09Z", "l5": "2026-10-20T03:43:09Z", "l6": "2026-10-20T03:43:09Z", "l7": "2026-10-20T03:43:09Z", "l8": "2026-10-20T03:43:09Z", "l9": "2026-10-20T03:43:09Z"};
+const LESSON_UPDATED={"l1": "2026-10-20T04:29:49Z", "l10": "2026-10-20T14:46:34Z", "l11": "2026-10-20T14:46:34Z", "l12": "2026-10-20T14:46:34Z", "l13": "2026-10-20T14:46:34Z", "l14": "2026-10-20T14:46:34Z", "l15": "2026-10-20T14:46:34Z", "l16": "2026-10-20T14:46:34Z", "l17": "2026-10-20T14:46:34Z", "l18": "2026-10-20T14:46:34Z", "l19": "2026-10-20T14:46:34Z", "l2": "2026-10-20T03:43:09Z", "l3": "2026-10-20T14:46:34Z", "l4": "2026-10-20T14:46:34Z", "l5": "2026-10-20T14:46:34Z", "l6": "2026-10-20T14:46:34Z", "l7": "2026-10-20T14:46:34Z", "l8": "2026-10-20T14:46:34Z", "l9": "2026-10-20T14:48:37Z"};
 (function(){for(const l in LESSON_UPDATED){const nx=document.querySelector(`#view-${l} div.next`);if(!nx)continue;
   const iso=LESSON_UPDATED[l],d=new Date(iso),p=document.createElement("p");p.className="updated";
   p.innerHTML=`Cập nhật lần cuối: <time datetime="${iso}">${d.toLocaleTimeString("vi-VN",{hour:"2-digit",minute:"2-digit"})}, ${d.toLocaleDateString("vi-VN",{day:"2-digit",month:"2-digit",year:"numeric"})}</time>`;nx.after(p)}})();
@@ -7521,13 +7813,15 @@ document.addEventListener("visibilitychange",()=>{if(document.visibilityState===
 const track=window.TRACK={
   visit(l){if(!LESSONS.includes(l))return;P.visited[l]=Date.now();P.lastLesson=l;persist()},
   done(l,v){P.lessons[l]=v?Date.now():-Date.now();persist();renderProgress()},
-  ex(id,pass,detail){const cur=P.ex[id];
-    if(pass)P.ex[id]={pass:true,at:Date.now(),d:String(detail||"")};
-    else if(!cur||!cur.pass)P.ex[id]={pass:false,at:Date.now(),d:String(detail||"")};
+  ex(id,pass,detail){const cur=P.ex[id],n=Math.min(999,((cur&&cur.n)||0)+1);
+    if(pass)P.ex[id]={pass:true,at:Date.now(),d:String(detail||""),n};
+    else if(!cur||!cur.pass)P.ex[id]={pass:false,at:Date.now(),d:String(detail||""),n};
+    else cur.n=n;
     persist();renderProgress()},
+  exOf(id){return P.ex[id]||null},
   quiz(id,score,total){const cur=P.quiz[id]||{};P.quiz[id]={score,total,best:Math.max(score,cur.best||0),at:Date.now()};persist();renderProgress()}
 };
-const doneCount=()=>LESSONS.filter(l=>AMTS.isDone(P,l)).length;
+const doneCount=()=>LESSONS.filter(l=>AMTS.isDone(P,l,CID)).length;
 function lastLessonShown(){return VIEWS.find(x=>!document.getElementById("view-"+x).hidden)}
 /* sidebar: tiến độ + trạng thái lưu (tài khoản nằm ở thanh điều hướng chung) */
 function renderAccount(){
@@ -7541,18 +7835,33 @@ function renderAccount(){
   else if(S.user&&S.saveErr)note=`<p class="acct-note bad-t">${escH(S.saveErr)}</p>`;
   el.innerHTML=bar+`<p class="sync" id="sync-st" role="status" aria-live="polite" hidden></p>`+note+cont;paintSync();
 }
+const LV_TXT=["chưa học","đã đọc","đã làm bài tập","đạt kiểm tra"];
 function renderProgress(){
-  document.querySelectorAll("#outline li[data-l],#road li[data-l]").forEach(li=>{const d=AMTS.isDone(P,li.dataset.l);li.classList.toggle("done",d);
-    const t=li.querySelector(".st-t");if(t)t.textContent=d?" (đã học xong)":li.classList.contains("cur")?" (bài đang học)":""});
+  document.querySelectorAll("#outline li[data-l],#road li[data-l]").forEach(li=>{const l=li.dataset.l,D=AMTS.detailOf(P,l,CID),d=D.manual||D.level===3;
+    li.classList.toggle("done",d);for(let k=1;k<=3;k++)li.classList.toggle("lv"+k,!d&&D.level===k);
+    const t=li.querySelector(".st-t");if(t)t.textContent=" ("+(D.level===3?"đạt kiểm tra":d?"đã đánh dấu học xong":LV_TXT[D.level])+(li.classList.contains("cur")?", bài đang học":"")+")"});
   document.querySelectorAll("#road [data-rp]").forEach(x=>{const ls=[...x.closest("details").querySelectorAll("li[data-l]")];if(!ls.length){x.textContent="";return}
-    const d=ls.filter(li=>AMTS.isDone(P,li.dataset.l)).length;x.textContent=d?`${d}/${ls.length} bài xong`:""});
-  document.querySelectorAll("[data-done]").forEach(b=>{const on=AMTS.isDone(P,b.dataset.done);b.classList.toggle("is-done",on);b.setAttribute("aria-pressed",on);b.textContent=on?"✓ Đã học xong bài này":"Đánh dấu đã học xong"});
+    const d=ls.filter(li=>AMTS.isDone(P,li.dataset.l,CID)).length;x.textContent=d?`${d}/${ls.length} bài xong`:""});
+  document.querySelectorAll("[data-done]").forEach(b=>{const l=b.dataset.done,D=AMTS.detailOf(P,l,CID),auto=D.level===3,on=auto||D.manual;
+    b.classList.toggle("is-done",on);b.setAttribute("aria-pressed",on);b.disabled=auto;
+    b.textContent=auto?"✓ Đạt kiểm tra":D.manual?"✓ Đã đánh dấu học xong":"Đánh dấu đã học xong";
+    b.title=auto?"Bài được tính hoàn thành tự động vì đã đạt bài tập và trắc nghiệm":D.manual?"Bấm để bỏ đánh dấu":"";
+    const box=document.querySelector(`#view-${l} .lprog`);if(box)box.innerHTML=lprogHTML(D)});
   renderAccount();
+  document.dispatchEvent(new Event("amts-progress"));
   const mp=document.getElementById("m-prog");if(mp){const n=doneCount();mp.textContent=`${n}/${LESSONS.length} bài`;mp.title=`Đã hoàn thành ${n}/${LESSONS.length} bài đang mở`}
 }
+/* dải tiến độ cuối bài: Đã đọc → Đã làm bài tập → Đạt kiểm tra */
+function lprogHTML(D){const need=Math.ceil(D.exTotal*2/3-1e-9);
+  const st=[["Đã đọc",D.read||D.level>0,""],
+    ["Đã làm bài tập",D.exTotal?D.exOk:null,D.exTotal?`${D.exPass}/${D.exTotal} bài đạt · cần ${need}`:"bài này không có bài tập"],
+    ["Đạt kiểm tra",D.level===3,D.hasQuiz?(D.quiz?`trắc nghiệm cao nhất ${D.quiz.best}/${D.quiz.total} · cần ≥ 3/4`:"chưa làm trắc nghiệm · cần ≥ 3/4"):"không có trắc nghiệm"]];
+  return `<b class="lp-h">Tiến độ bài này</b><ol>${st.map(([t,ok,s])=>`<li class="${ok?"ok":ok===null?"na":""}"><span class="lp-i" aria-hidden="true">${ok?"✓":ok===null?"–":""}</span><span><b>${t}</b>${s?`<small>${s}</small>`:""}</span><span class="vh">${ok?": đã đạt":ok===null?": không áp dụng":": chưa đạt"}</span></li>`).join("")}</ol>`+
+    (D.level<3&&D.manual?`<p class="lp-n">Bạn đã tự đánh dấu học xong bài này.</p>`:D.level<3?`<p class="lp-n">Bài được tính hoàn thành khi đạt cả bài tập và trắc nghiệm, hoặc khi bạn bấm “Đánh dấu đã học xong”.</p>`:"")}
 LESSONS.forEach(l=>{const nx=document.querySelector(`#view-${l} div.next`);if(!nx)return;
+  const pg=document.createElement("div");pg.className="lprog";pg.setAttribute("aria-live","polite");nx.before(pg);
   const b=document.createElement("button");b.className="btn done-btn";b.dataset.done=l;b.setAttribute("aria-pressed","false");
-  b.onclick=()=>track.done(l,!AMTS.isDone(P,l));nx.prepend(b)});
+  b.onclick=()=>{const D=AMTS.detailOf(P,l,CID);if(D.level===3)return;track.done(l,!D.manual)};nx.prepend(b)});
 AMTS.on(S=>{
   const uid=S.user?S.user.uid:null;
   if(uid&&uid!==lastUid&&S.docLoaded){ // vừa đăng nhập: gộp tiến độ trên máy với tiến độ trên máy chủ
