@@ -68,6 +68,20 @@ service cloud.firestore {
       allow write: if isTeacher();
     }
 
+    // Yêu cầu kiểm tra chuyển khoản ("Tôi đã chuyển khoản"): học viên tạo/sửa của mình,
+    // chỉ với email đã đăng nhập; không mở quyền học. Giảng viên xem và xóa sau khi kích hoạt.
+    match /payreq/{uid} {
+      allow read: if isOwner(uid) || isTeacher();
+      allow create, update: if isOwner(uid)
+        && request.resource.data.email == request.auth.token.email.lower()
+        && request.resource.data.keys().hasOnly(['email', 'name', 'courses'])
+        && request.resource.data.name is string && request.resource.data.name.size() <= 120
+        && request.resource.data.courses is map
+        && request.resource.data.courses.size() <= 20;
+      allow delete: if isOwner(uid);
+      allow write: if isTeacher();
+    }
+
     // Nội dung bài học: đọc theo canReadLesson, chỉ giảng viên được tải lên.
     match /content/{docId} {
       allow read: if isTeacher() || canReadLesson(resource.data);

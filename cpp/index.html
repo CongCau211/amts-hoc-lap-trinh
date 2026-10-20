@@ -14,6 +14,8 @@
 <meta property="og:title" content="C++ từ nền tảng">
 <meta property="og:description" content="Khóa C++ từ nền tảng của AMTS: 19 bài từ chương trình đầu tiên tới hàm và đệ quy, trình mô phỏng bộ nhớ và ngăn xếp lời gọi, bài tập chấm tự động.">
 <meta name="theme-color" content="#0E97A9">
+<meta property="og:image" content="https://congcau211.github.io/khoa-hoc-cpp/assets/social/og-cpp.png">
+<meta name="twitter:card" content="summary_large_image">
 <style>:root{color-scheme:light dark}body{margin:0}img{max-width:100%}[hidden]{display:none!important}</style>
 </head>
 <body>
@@ -21,7 +23,7 @@
 
 /* Layout: sổ tay kỹ thuật — sidebar mục lục cố định + cột bài học; khung code tối như cửa sổ IDE trong cả hai theme */
 :root{
-  --bg:#F1F3F7; --surface:#FFFFFF; --ink:#151B2C; --muted:#5B6579; --line:#D8DDE7; --accent:#2E50DC; --accent-ink:#FFFFFF; --accent-soft:#E4E9FD; --warm:#C9770F; --warm-soft:#FBEFDC; --ok:#17734A; --ok-soft:#DDF2E7; --err:#B42F25; --err-soft:#FBE3E0; --code-bg:#131A2A; --code-fg:#DCE3F2; --code-line:#232C42; --code-muted:#6E7A93; --syn-kw:#93AAFF; --syn-str:#F2BC6B; --syn-num:#80D8B2; --syn-com:#6E7A93; --syn-pre:#D892F2; --syn-op:#B9C3D9; --c-cpp:#2E5BFF; --c-cs:#7B3FE4; --c-py:#0E8F8A; --c-java:#E2672A; --shadow:0 1px 2px rgba(16,24,40,.05),0 4px 14px rgba(16,24,40,.06); --f-display:"Be Vietnam Pro",system-ui,-apple-system,"Segoe UI",sans-serif; --f-body:"Be Vietnam Pro",system-ui,-apple-system,"Segoe UI",sans-serif; --f-mono:"JetBrains Mono",ui-monospace,"SFMono-Regular",Consolas,monospace; --r:10px;
+  --bg:#F1F3F7; --surface:#FFFFFF; --ink:#151B2C; --muted:#5B6579; --line:#D8DDE7; --accent:#2E50DC; --accent-ink:#FFFFFF; --accent-soft:#E4E9FD; --warm:#975506; --warm-soft:#FBEFDC; --ok:#17734A; --ok-soft:#DDF2E7; --err:#B42F25; --err-soft:#FBE3E0; --code-bg:#131A2A; --code-fg:#DCE3F2; --code-line:#232C42; --code-muted:#96A3BC; --syn-kw:#93AAFF; --syn-str:#F2BC6B; --syn-num:#80D8B2; --syn-com:#96A3BC; --syn-pre:#D892F2; --syn-op:#B9C3D9; --c-cpp:#2E5BFF; --c-cs:#7B3FE4; --c-py:#0E8F8A; --c-java:#E2672A; --shadow:0 1px 2px rgba(16,24,40,.05),0 4px 14px rgba(16,24,40,.06); --f-display:"Be Vietnam Pro",system-ui,-apple-system,"Segoe UI",sans-serif; --f-body:"Be Vietnam Pro",system-ui,-apple-system,"Segoe UI",sans-serif; --f-mono:"JetBrains Mono",ui-monospace,"SFMono-Regular",Consolas,monospace; --r:10px;
 }
 @media (prefers-color-scheme: dark){:root:not([data-theme="light"]){
   --bg:#0E1320; --surface:#151C2C; --ink:#E6EAF3; --muted:#97A1B6; --line:#27314A; --accent:#7D95FF; --accent-ink:#0E1320; --accent-soft:#1F2A52; --warm:#F0AE52; --warm-soft:#3A2C17; --ok:#5ACB93; --ok-soft:#163626; --err:#F07C70; --err-soft:#3D1D1A; --code-bg:#0A0F1A; --code-line:#1A2236; --c-cpp:#7D95FF; --c-cs:#B48CF0; --c-py:#5FD3C8; --c-java:#F0915F; --shadow:0 1px 2px rgba(0,0,0,.3); color-scheme:dark}}
@@ -37,35 +39,156 @@ h1,h2,h3{font-family:var(--f-display);text-wrap:balance;line-height:1.2;margin:0
 p{margin:0}
 
 .app{display:grid;grid-template-columns:300px minmax(0,1fr);min-height:100vh}
-/* ---------- Sidebar ---------- */
-.side{background:var(--surface);border-right:1px solid var(--line);position:sticky;top:0;height:100vh;overflow-y:auto;padding-block:22px 40px;padding-left:max(18px,env(safe-area-inset-left,0px));padding-right:18px}
-.brand{display:flex;align-items:center;gap:10px;margin-bottom:6px}
-.brand-mark{width:34px;height:34px;border-radius:8px;background:var(--accent);color:var(--accent-ink);display:grid;place-items:center;font-family:var(--f-mono);font-weight:600;font-size:13px}
-.brand b{font-family:var(--f-display);font-size:17px;font-weight:800;letter-spacing:-.01em}
-.brand small{display:block;color:var(--muted);font-size:12px;line-height:1.3}
-.side-nav{display:flex;gap:6px;margin:16px 0 18px}
-.side-nav button{flex:1;border:1px solid var(--line);background:transparent;border-radius:8px;padding:7px 8px;font-size:13px;font-weight:600}
-.side-nav button[aria-pressed="true"]{background:var(--accent);border-color:var(--accent);color:var(--accent-ink)}
-.lvl{font-size:11px;font-weight:700;letter-spacing:.09em;text-transform:uppercase;color:var(--muted);margin:18px 0 6px}
-details.ch{border-radius:8px}
-details.ch summary{list-style:none;display:flex;gap:10px;align-items:baseline;padding:7px 8px;border-radius:8px;cursor:pointer;font-weight:600;font-size:14px;line-height:1.35}
-details.ch summary::-webkit-details-marker{display:none}
-details.ch summary:hover{background:var(--bg)}
-.ch-no{font-family:var(--f-mono);font-size:12px;color:var(--muted);min-width:20px}
-details.ch ul{list-style:none;margin:2px 0 8px;padding:0 0 0 38px;display:grid;gap:1px}
-details.ch li{font-size:13px;color:var(--muted);padding:3px 0;line-height:1.4;display:flex;justify-content:space-between;gap:8px}
-details.ch li.on a{color:var(--ink);font-weight:600;text-decoration:none}
-details.ch li.on a:hover{color:var(--accent)}
-details.ch li.cur{background:var(--accent-soft);border-radius:6px;margin-left:-8px;padding-left:8px}
-details.ch li.cur a{color:var(--accent);font-weight:700}
-details.ch li .soon{font-size:10.5px;font-family:var(--f-mono);opacity:.75;white-space:nowrap}
+/* ================= THANH ĐIỀU HƯỚNG CHUNG ================= */
+.top{background:var(--surface);border-bottom:1px solid var(--line);position:sticky;top:0;z-index:20}
+.top .wrap{display:flex;align-items:center;gap:20px;min-height:72px}
+.top .amts-logo{height:36px}
+.logo-a{display:flex;border-radius:999px;flex:none}
+.nav{display:flex;gap:4px;flex:1;min-width:0}
+.nav a,.nav button{display:inline-flex;align-items:center;gap:8px;padding:9px 14px;border-radius:10px;border:0;background:transparent;color:var(--muted);font-weight:600;font-size:15px;text-decoration:none;white-space:nowrap}
+.nav a:hover,.nav button:hover{background:var(--bg);color:var(--ink)}
+.nav a[aria-current="page"]{background:var(--accent-soft);color:var(--accent)}
+.navdd{position:relative}
+.menu{position:absolute;top:calc(100% + 8px);left:0;min-width:260px;background:var(--surface);border:1px solid var(--line);border-radius:12px;box-shadow:0 12px 32px rgba(16,24,40,.14);padding:6px;display:grid;z-index:30}
+.menu[hidden]{display:none}
+.menu a,.menu button{display:flex;flex-direction:column;align-items:flex-start;gap:1px;text-align:left;padding:9px 12px;border-radius:8px;border:0;background:transparent;color:var(--ink);font-size:14px;font-weight:600;text-decoration:none;width:100%}
+.menu a:hover,.menu button:hover{background:var(--bg)}
+.menu small{font-weight:400;color:var(--muted);font-size:12.5px}
+.menu.right{left:auto;right:0}
+.menu .who{padding:10px 12px 12px;border-bottom:1px solid var(--line);margin-bottom:4px}
+.tright{display:flex;align-items:center;gap:10px;margin-left:auto;flex:none}
+.iconbtn{position:relative;width:42px;height:42px;border-radius:50%;border:0;background:transparent;display:grid;place-items:center;color:var(--ink)}
+.iconbtn:hover{background:var(--bg)}
+.iconbtn .dot{position:absolute;top:8px;right:9px;width:9px;height:9px;border-radius:50%;background:var(--err);border:2px solid var(--surface)}
+.avabtn{display:flex;align-items:center;gap:6px;border:0;background:transparent;padding:3px;border-radius:999px;color:var(--muted)}
+.avabtn .ava{width:38px;height:38px;background:var(--accent-soft);color:var(--accent);font-size:16px}
+.notif{padding:10px 12px;font-size:14px;display:grid;gap:8px;max-width:320px}
+.notif p{margin:0}
+.notif .new{color:var(--ok);font-weight:600}
+.top .wrap{max-width:none;padding-left:max(24px,env(safe-area-inset-left,0px));padding-right:max(24px,env(safe-area-inset-right,0px))}
+.menu .m-h{display:block;font-size:13px;padding:2px 12px 6px;color:var(--muted)}
+.menubtn{display:none;border:1px solid var(--line);background:var(--surface);border-radius:10px;min-height:40px;padding:0 14px;font-weight:600;font-size:14px;color:var(--ink)}
+.tacct{display:flex;align-items:center;gap:6px}
+.nav a,.nav button{min-height:44px}
+@media (max-width:860px){
+  .top.compact .wrap{flex-wrap:nowrap;padding-block:8px}
+  .top.compact .nav{display:none;position:absolute;left:0;right:0;top:100%;flex-direction:column;background:var(--surface);border-bottom:1px solid var(--line);padding:8px 16px 12px;box-shadow:0 12px 24px rgba(16,24,40,.12);overflow:visible;margin:0}
+  .top.compact.open .nav{display:flex}
+  .top.compact .menubtn{display:inline-flex;align-items:center}
+  .top.compact .navdd .menu{left:0;right:auto}
+}
+.tacct .note{background:none;border:0;padding:0;margin:0;font-size:13px;color:var(--muted);border-radius:0}
+.tacct .note:empty{display:none}
+/* ---------- Khung trang khóa học: thanh điều hướng chung (72px) + sidebar 300px + cột bài tối đa 880px ---------- */
+:root{--topH:72px}
+.top.compact{z-index:50}
+.top .wrap{min-height:var(--topH)}
+.vh{position:absolute!important;width:1px;height:1px;padding:0;margin:-1px;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap;border:0}
 
+/* ---------- Sidebar: phần đầu cố định, danh sách tự cuộn, chân (công tắc thuật ngữ) luôn nhìn thấy ---------- */
+.side{background:var(--surface);border-right:1px solid var(--line);position:sticky;top:calc(var(--topH) + 1px);height:calc(100vh - var(--topH) - 1px);height:calc(100dvh - var(--topH) - 1px);display:flex;flex-direction:column;min-height:0}
+.sb-top{padding:18px 20px 10px max(20px,env(safe-area-inset-left,0px));display:grid;gap:12px;flex:none}
+.sb-head{display:flex;align-items:center;justify-content:space-between;gap:8px;margin:-6px 0 -4px}
+.sb-back{display:inline-flex;align-items:center;gap:6px;min-height:44px;color:var(--accent);font-weight:600;font-size:14px;text-decoration:none;border-radius:8px}
+.sb-back:hover{text-decoration:underline;text-underline-offset:3px}
+.brand{display:grid;gap:2px}
+.brand b{font-family:var(--f-display);font-size:20px;font-weight:800;letter-spacing:-.01em;line-height:1.25}
+.brand small{color:var(--muted);font-size:12.5px;line-height:1.35}
+.ol-q{position:relative}
+.ol-q input{width:100%;font:inherit;font-size:14.5px;min-height:44px;padding:8px 38px 8px 12px;border:1px solid var(--muted);border-radius:10px;background:var(--bg);color:var(--ink)}
+.ol-q input::-webkit-search-cancel-button{display:none}
+.ol-x{position:absolute;right:2px;top:2px;width:40px;height:40px;border:0;background:transparent;border-radius:8px;font-size:20px;line-height:1;color:var(--muted)}
+.ol-x:hover{color:var(--ink);background:var(--line)}
+.side-nav{display:grid;grid-template-columns:1fr 1fr;gap:8px}
+.side-nav button{min-height:44px;border:1px solid var(--accent);background:var(--surface);color:var(--accent);border-radius:10px;padding:6px 8px;font-size:14px;font-weight:700}
+.side-nav button:hover{background:var(--accent-soft)}
+.side-nav button[aria-pressed="true"]{background:var(--accent);border-color:var(--accent);color:var(--accent-ink)}
+.outline{flex:1;min-height:0;overflow-y:auto;overscroll-behavior:contain;padding:4px 12px 16px max(12px,env(safe-area-inset-left,0px));scrollbar-width:thin}
+.ol-empty{margin:0 20px 12px;font-size:13.5px;color:var(--muted)}
+.sb-foot{flex:none;border-top:1px solid var(--line);padding:10px 20px max(12px,env(safe-area-inset-bottom,0px));background:var(--surface)}
+.sb-foot .en-row{margin:0;min-height:44px;color:var(--ink);font-size:14px}
+
+/* tiến độ + trạng thái lưu */
+.acct{display:grid;gap:6px;margin:0;padding:0;border:0;background:transparent}
+.acct .pnum{order:-1;font-size:13px}
+
+/* ---------- Danh sách chương / bài ---------- */
+.lvl{font-size:11.5px;font-weight:700;letter-spacing:.09em;text-transform:uppercase;color:var(--muted);margin:16px 8px 4px}
+.lvl:first-child{margin-top:4px}
+details.ch{border-radius:10px}
+details.ch summary{list-style:none;display:flex;gap:10px;align-items:center;min-height:44px;padding:6px 8px;border-radius:10px;cursor:pointer;font-weight:600;font-size:14.5px;line-height:1.35}
+details.ch summary::-webkit-details-marker{display:none}
+details.ch summary::after{content:"";margin-left:auto;flex:none;width:7px;height:7px;border-right:1.8px solid var(--muted);border-bottom:1.8px solid var(--muted);transform:rotate(-45deg);transition:transform .15s}
+details.ch[open] summary::after{transform:rotate(45deg)}
+details.ch summary:hover{background:var(--bg)}
+details.ch.has-cur>summary{background:var(--accent-soft);color:var(--accent)}
+.ch-no{font-family:var(--f-mono);font-size:12.5px;color:var(--muted);min-width:20px}
+details.ch.has-cur .ch-no{color:var(--accent)}
+details.ch ul{list-style:none;margin:2px 0 6px;padding:0 0 0 14px;display:grid;gap:2px}
+details.ch li{font-size:14px;color:var(--muted);line-height:1.4;display:flex;align-items:center;gap:8px;border-radius:10px;min-height:40px;padding:2px 8px}
+details.ch li a{flex:1;min-width:0;display:flex;align-items:center;gap:8px;color:var(--ink);text-decoration:none;min-height:40px}
+details.ch li a:hover{color:var(--accent)}
+details.ch li .st{flex:none;width:16px;text-align:center;font-weight:800;color:var(--muted);font-size:13px}
+details.ch li .st::before{content:"○"}
+details.ch li.done .st{color:var(--ok)}
+details.ch li.done .st::before{content:"✓"}
+details.ch li.cur{background:var(--accent-soft)}
+details.ch li.cur a{color:var(--accent);font-weight:700}
+details.ch li.cur .st{color:var(--accent)}
+details.ch li.cur .st::before{content:"›";font-size:17px;line-height:1}
+details.ch li.cur.done .st::before{content:"✓"}
+details.ch li.soon-l{color:var(--muted)}
+details.ch li.soon-l .st::before{content:"–"}
+details.ch li .soon{font-size:11.5px;font-weight:600;white-space:nowrap;color:var(--muted);border:1px solid var(--line);border-radius:999px;padding:1px 8px}
+.lk{flex:none;display:inline-flex;align-items:center;gap:4px;font-size:11.5px;font-weight:700;white-space:nowrap;color:var(--muted);background:var(--bg);border:1px solid var(--line);border-radius:999px;padding:1px 8px 1px 6px}
+.lk svg{width:12px;height:12px}
+.lk.paid{color:var(--warm);background:var(--warm-soft);border-color:transparent}
+.outline li[hidden],.outline details[hidden],.outline .lvl[hidden]{display:none}
+.outline mark{background:var(--warm-soft);color:inherit;border-radius:3px}
+
+/* ---------- Ẩn / hiện sidebar trên máy tính ---------- */
+.logo-link{display:flex;border-radius:999px}
+.sb-toggle{width:44px;height:44px;border-radius:10px;border:1px solid transparent;background:transparent;display:grid;place-items:center;color:var(--muted);flex:none;padding:0}
+.sb-toggle:hover{background:var(--bg);border-color:var(--line);color:var(--ink)}
+.sb-toggle .ic-x{display:none}
+.sb-float{display:none}
+@media (min-width:901px){
+  .app{transition:grid-template-columns .22s ease}
+  .side{transition:opacity .15s ease}
+  .app.sb-collapsed{grid-template-columns:0 minmax(0,1fr)}
+  .app.sb-collapsed .side{overflow:hidden;border-right:0;opacity:0;visibility:hidden}
+  .sb-float{position:fixed;top:calc(var(--topH) + 13px);left:calc(env(safe-area-inset-left,0px) + 12px);z-index:15;align-items:center;gap:6px;background:var(--surface);border:1px solid var(--line);border-radius:12px;padding:0 14px 0 0;box-shadow:var(--shadow-sm,0 4px 14px rgba(10,20,40,.08));font-size:14px;font-weight:600}
+  .app.sb-collapsed .sb-float{display:flex}
+  .app.sb-collapsed .main{padding-top:84px}
+  .main{padding-left:max(32px,env(safe-area-inset-left,0px));padding-right:max(32px,env(safe-area-inset-right,0px));padding-top:32px}
+}
+@media (prefers-reduced-motion:reduce){.app,.side,details.ch summary::after{transition:none!important}}
+
+/* ---------- Dưới 900px: thanh "Danh sách bài học" + ngăn kéo ---------- */
+.lbar{display:none}
+.scrim{display:none;position:fixed;inset:0;z-index:55;background:rgba(8,14,28,.42)}
+@media (max-width:900px){
+  .app,.app.sb-collapsed{grid-template-columns:minmax(0,1fr);align-content:start}
+  .lbar{display:flex;position:sticky;top:0;z-index:40;align-items:center;justify-content:space-between;gap:10px;min-height:48px;padding:2px max(16px,env(safe-area-inset-right,0px)) 2px max(8px,env(safe-area-inset-left,0px));background:color-mix(in srgb,var(--surface) 94%,transparent);backdrop-filter:saturate(1.4) blur(10px);-webkit-backdrop-filter:saturate(1.4) blur(10px);border-bottom:1px solid var(--line)}
+  .lbar-btn{display:inline-flex;align-items:center;gap:8px;min-height:44px;padding:0 10px;border:0;background:transparent;border-radius:10px;color:var(--accent);font-weight:700;font-size:15px}
+  .lbar-btn:active{background:var(--accent-soft)}
+  .lbar-n{font-size:13.5px;color:var(--muted);font-variant-numeric:tabular-nums;white-space:nowrap}
+  .side{position:fixed;z-index:60;top:0;bottom:0;left:0;width:min(300px,calc(100vw - 32px));height:auto;transform:translateX(-102%);visibility:hidden;transition:transform .24s ease,visibility 0s linear .24s;box-shadow:0 10px 40px rgba(10,20,40,.22)}
+  .sb-top{padding-top:max(14px,env(safe-area-inset-top,0px))}
+  .app.drawer .side{transform:none;visibility:visible;transition:transform .24s ease}
+  .app.drawer .scrim{display:block}
+  .side .sb-toggle{border-color:var(--accent);color:var(--accent)}
+  .side .sb-toggle .ic-panel{display:none}.side .sb-toggle .ic-x{display:block}
+  .main{padding-top:20px}
+}
+@media (max-width:900px){.top.compact{position:relative}}
+@media (max-width:860px){:root{--topH:60px}}
 /* ---------- Main ---------- */
 .main{min-width:0;padding-block:28px 80px;padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px))}
 .col{max-width:880px;margin:0 auto;display:grid;grid-template-columns:minmax(0,1fr);gap:40px}
 .crumb{font-family:var(--f-mono);font-size:12.5px;color:var(--muted);letter-spacing:.02em}
 .hero{display:grid;gap:14px}
-.hero h1{font-size:clamp(30px,5vw,46px);font-weight:800;letter-spacing:-.025em}
+.hero h1{font-size:clamp(30px,4.4vw,48px);font-weight:800;letter-spacing:-.025em}
 .hero h1 em{font-style:normal;color:var(--accent)}
 .lede{font-size:18px;color:var(--muted);max-width:62ch}
 .meta{display:flex;flex-wrap:wrap;gap:8px}
@@ -74,14 +197,16 @@ details.ch li .soon{font-size:10.5px;font-family:var(--f-mono);opacity:.75;white
 .chip.lv2{background:var(--warm-soft);border-color:transparent;color:var(--warm)}
 .chip.lv3{background:var(--err-soft);border-color:transparent;color:var(--err)}
 
-.goals{background:var(--surface);border:1px solid var(--line);border-radius:var(--r);padding:18px 22px}
-.goals h3{font-size:13px;letter-spacing:.08em;text-transform:uppercase;color:var(--muted);margin-bottom:8px}
-.goals ul{margin:0;padding-left:20px;display:grid;gap:4px}
+.goals{background:var(--accent-soft);border:0;border-radius:16px;padding:20px 24px}
+.goals h3{font-size:19px;font-weight:700;color:var(--ink);margin-bottom:10px}
+.goals ul{margin:0;padding:0;list-style:none;display:grid;gap:6px}
+.goals li{position:relative;padding-left:24px}
+.goals li::before{content:"✓";position:absolute;left:2px;top:0;font-weight:800;color:var(--accent)}
 
 section.part{display:grid;gap:16px}
 .part-head{display:flex;gap:14px;align-items:baseline;border-top:2px solid var(--ink);padding-top:14px}
 .part-head .num{font-family:var(--f-mono);font-size:13px;color:var(--accent);font-weight:600}
-.part-head h2{font-size:clamp(22px,3.2vw,28px);font-weight:800;letter-spacing:-.015em}
+.part-head h2{font-size:clamp(22px,3vw,30px);font-weight:800;letter-spacing:-.015em}
 .prose{display:grid;gap:12px;max-width:68ch}
 .prose code{background:var(--accent-soft);color:var(--accent);padding:1px 6px;border-radius:5px;font-size:.88em}
 .note{border-left:3px solid var(--warm);background:var(--warm-soft);padding:12px 16px;border-radius:0 8px 8px 0;font-size:15px}
@@ -138,15 +263,36 @@ section.part{display:grid;gap:16px}
 .btn:disabled{opacity:.45;cursor:default}
 
 /* mục lục trong bài */
-.ltoc{border:1px solid var(--line);border-radius:var(--r);background:var(--surface);padding:12px 16px}
-.ltoc b{display:block;font-size:12px;letter-spacing:.08em;text-transform:uppercase;color:var(--muted);margin-bottom:6px}
-.ltoc ol{list-style:none;margin:0;padding:0;display:flex;flex-wrap:wrap;gap:6px}
-.ltoc button{border:1px solid var(--line);background:var(--bg);border-radius:999px;padding:4px 11px;font-size:13.5px;line-height:1.4;text-align:left}
-.ltoc button:hover{border-color:var(--accent);color:var(--accent)}
-.ltoc button span{font-family:var(--f-mono);font-size:11.5px;color:var(--accent);margin-right:6px}
-.ltoc button.gl{font-style:italic}
-.part-head,.gloss{scroll-margin-top:16px}
-@media (max-width:900px){.part-head,.gloss{scroll-margin-top:72px}.ltoc ol{flex-wrap:nowrap;overflow-x:auto;padding-bottom:4px;scrollbar-width:thin}.ltoc li{flex:none}}
+/* Trong bài này: một control 48px, mở ra danh sách mục; dính dưới thanh điều hướng khi cuộn */
+.ltoc{position:sticky;top:calc(var(--topH) + 10px);z-index:12;border:1px solid var(--line);border-radius:12px;background:var(--surface);box-shadow:0 1px 0 rgba(16,24,40,.02)}
+.ltoc summary{list-style:none;display:flex;align-items:center;gap:10px;min-height:48px;padding:6px 16px;cursor:pointer;color:var(--accent);font-size:14.5px;border-radius:12px}
+.ltoc summary::-webkit-details-marker{display:none}
+.ltoc summary b{font-weight:700;white-space:nowrap}
+.ltoc summary::after{content:"";order:1;flex:none;width:7px;height:7px;border-right:1.8px solid currentColor;border-bottom:1.8px solid currentColor;transform:rotate(45deg) translateY(-2px);transition:transform .15s}
+.ltoc[open] summary::after{transform:rotate(-135deg) translateY(-2px)}
+.ltoc-cur{order:2;min-width:0;flex:1;font-weight:600;color:var(--ink);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.ltoc[open] summary{border-bottom:1px solid var(--line);border-radius:12px 12px 0 0}
+.ltoc ol{list-style:none;margin:0;padding:6px;display:grid;gap:2px;max-height:min(60vh,420px);overflow-y:auto}
+.ltoc a{display:flex;align-items:center;gap:10px;min-height:44px;padding:6px 12px;border-radius:8px;color:var(--ink);text-decoration:none;font-size:14.5px;line-height:1.35}
+.ltoc a:hover{background:var(--bg)}
+.ltoc a[aria-current]{background:var(--accent-soft);color:var(--accent);font-weight:700}
+.ltoc a span{font-family:var(--f-mono);font-size:12px;color:var(--accent);min-width:34px}
+.ltoc a.gl{font-style:italic}
+@media (prefers-reduced-motion:reduce){.ltoc summary::after{transition:none}}
+.part-head,.gloss{scroll-margin-top:calc(var(--topH) + 76px)}
+@media (max-width:900px){.ltoc{top:56px}.part-head,.gloss{scroll-margin-top:118px}}
+/* khung code có đầu: tên file + Sao chép */
+.codebox{display:grid;grid-template-columns:minmax(0,1fr);border-radius:var(--r);overflow:hidden;background:var(--code-bg)}
+.codebox .code{border-radius:0;padding-top:4px}
+.code-h{display:flex;align-items:center;justify-content:space-between;gap:10px;padding:4px 6px 0 18px;color:var(--code-muted);font-family:var(--f-mono);font-size:12.5px}
+.code-copy{min-height:40px;border:0;background:transparent;color:var(--code-fg);font:inherit;font-size:12.5px;padding:0 12px;border-radius:8px}
+.code-copy:hover{background:color-mix(in srgb,var(--code-fg) 12%,transparent)}
+.code-copy:focus-visible{outline-color:var(--code-fg)}
+/* hình minh họa trong bài (thư mục images/ của bài) */
+.lfig{margin:0;display:grid;gap:8px}
+.lfig img{display:block;width:100%;height:auto;border-radius:12px;border:1px solid var(--line)}
+.lfig a{display:block;border-radius:12px}
+.lfig figcaption{font-size:13.5px;color:var(--muted)}
 /* ---------- Simulator ---------- */
 .sim{border:1px solid var(--line);border-radius:14px;overflow:hidden;background:var(--surface)}
 .sim-bar{display:flex;flex-wrap:wrap;gap:8px;align-items:center;justify-content:space-between;padding:10px 12px;border-bottom:1px solid var(--line)}
@@ -197,21 +343,37 @@ select{font:inherit;font-size:13.5px;padding:7px 10px;border-radius:8px;border:1
 
 /* quiz */
 .quiz{display:grid;gap:14px}
-.q{background:var(--surface);border:1px solid var(--line);border-radius:var(--r);padding:16px 18px;display:grid;gap:10px}
-.q p.qt{font-weight:600}
-.q .opts{display:grid;gap:6px}
-.q .opts button{text-align:left;border:1px solid var(--line);background:var(--bg);border-radius:8px;padding:8px 12px;font-size:14.5px}
-.q .opts button code{font-size:13px}
-.q .opts button.right{border-color:var(--ok);background:var(--ok-soft)}
-.q .opts button.wrong{border-color:var(--err);background:var(--err-soft)}
-.q .fb{font-size:14px;color:var(--muted)}
-.score{font-family:var(--f-mono);font-size:13px;color:var(--muted)}
+.q{background:var(--surface);border:1px solid var(--line);border-radius:var(--r);padding:16px 18px;display:grid;gap:10px;margin:0;min-width:0}
+.q legend.qt{float:left;width:100%;padding:0;margin-bottom:10px;font-weight:600;font-size:16px}
+.q legend.qt+*{clear:both}
+.q .opts{display:grid;gap:8px}
+.opt{display:flex;align-items:center;gap:12px;min-height:44px;border:1px solid var(--muted);background:var(--surface);border-radius:10px;padding:8px 12px;font-size:15px;line-height:1.45;cursor:pointer;flex-wrap:wrap}
+.opt:hover{background:var(--accent-soft)}
+.opt input{flex:none;width:20px;height:20px;margin:0;accent-color:var(--accent);cursor:inherit}
+.opt .o-t{flex:1;min-width:0;overflow-wrap:anywhere}
+.opt code{font-size:13.5px;white-space:pre-wrap}
+.opt:has(input:checked){border-color:var(--accent);box-shadow:inset 0 0 0 1px var(--accent);background:var(--accent-soft)}
+.opt:has(input:focus-visible){outline:2px solid var(--accent);outline-offset:2px}
+.opt:has(input:disabled){cursor:default}
+.opt:has(input:disabled):hover{background:var(--surface)}
+.opt.right,.opt.right:hover,.opt.right:has(input:checked){border-color:var(--ok);box-shadow:inset 0 0 0 1px var(--ok);background:var(--ok-soft)}
+.opt.wrong,.opt.wrong:hover,.opt.wrong:has(input:checked){border-color:var(--err);box-shadow:inset 0 0 0 1px var(--err);background:var(--err-soft)}
+.o-tag{display:inline-flex;align-items:center;gap:4px;font-size:12.5px;font-weight:700;white-space:nowrap}
+.opt.right .o-tag{color:var(--ok)}.opt.wrong .o-tag{color:var(--err)}
+.q .fb{font-size:14.5px;color:var(--ink);margin:0}
+.q .fb b{display:inline-flex;align-items:center;gap:4px}
+.q.q-ok{border-color:color-mix(in srgb,var(--ok) 45%,var(--line))}.q.q-bad{border-color:color-mix(in srgb,var(--err) 45%,var(--line))}
+.score{display:flex;flex-wrap:wrap;align-items:center;gap:10px 14px;font-size:14.5px;color:var(--muted)}
+.score .btn{min-height:44px;padding:8px 18px}
+.score .btn:disabled{opacity:1;background:var(--bg);border-color:var(--line);color:var(--muted)}
+.qz-hint{flex-basis:100%;font-size:13px}
+.qz-st b{color:var(--ink)}
 
 /* roadmap */
 .road-intro{display:grid;gap:10px}
 .tier{display:grid;gap:12px}
 .tier-h{display:flex;align-items:baseline;gap:12px;flex-wrap:wrap}
-.tier-h h2{font-size:22px;font-weight:800}
+.tier-h h2{font-size:24px;font-weight:800}
 .tier-h span{color:var(--muted);font-size:14px}
 .cards{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px}
 .card{background:var(--surface);border:1px solid var(--line);border-radius:var(--r);padding:16px 18px;display:grid;gap:8px;align-content:start}
@@ -230,6 +392,51 @@ select{font:inherit;font-size:13.5px;padding:7px 10px;border-radius:8px;border:1
 .h1-en{font-size:clamp(16px,2.2vw,19px);font-style:italic;color:var(--muted);margin:4px 0 0;font-weight:500}
 .card h3 .h-en{font-size:13px}
 html.no-en .en,html.no-en .h-en,html.no-en .h1-en,html.no-en .gloss{display:none}
+.rrows{display:grid;gap:10px}
+.rrow{background:var(--surface);border:1px solid var(--line);border-radius:12px}
+.rrow summary{list-style:none;display:flex;align-items:center;gap:12px;min-height:56px;padding:8px 18px;cursor:pointer;border-radius:12px}
+.rrow summary::-webkit-details-marker{display:none}
+.rrow summary:hover{background:var(--bg)}
+.rrow summary::after{content:"";flex:none;width:7px;height:7px;border-right:1.8px solid var(--muted);border-bottom:1.8px solid var(--muted);transform:rotate(45deg);transition:transform .15s;margin-left:4px}
+.rrow[open] summary::after{transform:rotate(-135deg)}
+.r-no{font-family:var(--f-mono);font-weight:600;font-size:13px;color:var(--muted);min-width:22px}
+.r-t{flex:1;min-width:0;display:flex;flex-wrap:wrap;align-items:baseline;gap:2px 10px}
+.r-t b{font-size:16px}
+.r-t .h-en{font-size:13px;margin:0}
+.r-p{font-size:12.5px;color:var(--ok);white-space:nowrap;font-variant-numeric:tabular-nums}
+.r-st{font-size:12.5px;font-weight:600;white-space:nowrap;color:var(--muted);border:1px solid var(--line);border-radius:999px;padding:2px 10px}
+.r-st.on{color:var(--ok);background:var(--ok-soft);border-color:transparent}
+.r-body{padding:4px 18px 16px 52px;display:grid;gap:10px}
+.r-body ul{list-style:none;margin:0;padding:0;display:grid;gap:2px}
+.r-body li{display:flex;align-items:center;gap:8px;min-height:40px;font-size:14.5px;color:var(--muted)}
+.r-body li a{display:flex;align-items:center;gap:8px;color:var(--ink);text-decoration:none;font-weight:600;min-height:40px}
+.r-body li a:hover{color:var(--accent)}
+.r-body .st{width:16px;text-align:center;font-weight:800;color:var(--muted)}
+.r-body .st::before{content:"○"}
+.r-body li.done .st{color:var(--ok)}.r-body li.done .st::before{content:"✓"}
+.r-body li.soon-l .st::before{content:"–"}
+.r-body .soon{font-size:11.5px;font-weight:600;border:1px solid var(--line);border-radius:999px;padding:1px 8px}
+.r-body .simtag{font-size:13.5px;border-top:1px dashed var(--line);padding-top:10px;margin:0}
+.r-body .simtag b{font-family:var(--f-mono);font-size:11px;letter-spacing:.06em;text-transform:uppercase;color:var(--accent);margin-right:8px}
+@media (max-width:560px){.rrow summary{flex-wrap:wrap;padding:10px 14px;gap:6px 10px}.r-t{flex-basis:calc(100% - 70px)}.r-p{order:3;margin-left:32px}.r-st{order:4}.rrow summary::after{order:2}.r-body{padding:2px 14px 14px 14px}}
+@media (prefers-reduced-motion:reduce){.rrow summary::after{transition:none}}
+/* bảng thuật ngữ (accordion → bảng; điện thoại: danh sách cặp) */
+.gl-t{width:calc(100% - 36px);margin:0 18px 16px;border-collapse:collapse;font-size:14.5px}
+.gl-t th{text-align:left;font-size:12.5px;font-weight:700;color:var(--muted);padding:8px 10px;border-bottom:1px solid var(--line)}
+.gl-t td{padding:6px 10px;border-bottom:1px solid var(--line);vertical-align:middle}
+.gl-t tr:last-child td{border-bottom:0}
+.gl-t .gl-en{font-style:italic;font-weight:600;color:var(--accent)}
+.gl-t .gl-at{text-align:right;white-space:nowrap;width:1%}
+.gl-go{min-height:40px;border:1px solid var(--line);background:var(--surface);border-radius:8px;padding:0 12px;font-size:13px;font-weight:600;color:var(--accent)}
+.gl-go:hover{background:var(--accent-soft);border-color:var(--accent)}
+@media (max-width:560px){
+  .gl-t thead{display:none}
+  .gl-t,.gl-t tbody{display:block}
+  .gl-t tr{display:grid;grid-template-columns:minmax(0,1fr) auto;gap:0 10px;padding:8px 0;border-bottom:1px solid var(--line)}
+  .gl-t tr:last-child{border-bottom:0}
+  .gl-t td{border:0;padding:0 4px}
+  .gl-t td.gl-at{grid-row:1/3;grid-column:2;align-self:center}
+}
 .gloss{background:var(--surface);border:1px solid var(--line);border-radius:var(--r);padding:0}
 .gloss summary{cursor:pointer;padding:14px 18px;display:flex;gap:10px;align-items:baseline;flex-wrap:wrap;list-style:none}
 .gloss summary::-webkit-details-marker{display:none}
@@ -450,6 +657,51 @@ html.no-en .en,html.no-en .h-en,html.no-en .h1-en,html.no-en .gloss{display:none
 .types .bar.fl{background:var(--warm)}
 .types td:nth-child(2){font-family:var(--f-mono);font-variant-numeric:tabular-nums}
 
+
+/* ---------- Thiết kế 20/10: trạng thái, nút 44px, tab trên điện thoại, kết quả bài tập ---------- */
+.sim-bar .btn,.ex-btns .btn{min-height:44px;padding:8px 16px}
+.sim-bar select{min-height:44px}
+.btn.pri.stop{background:var(--err);border-color:var(--err);color:var(--surface)}
+.btn:disabled,.sim-bar .btn:disabled{opacity:1;background:var(--bg);color:var(--muted);border-color:var(--line);cursor:not-allowed}
+.s-chip{display:inline-flex;align-items:center;gap:6px;font-size:12.5px;font-weight:700;border-radius:999px;padding:3px 10px;background:var(--bg);color:var(--muted);border:1px solid var(--line);white-space:nowrap}
+.s-chip::before{content:"";width:7px;height:7px;border-radius:50%;background:currentColor}
+.s-chip.run,.s-chip.step{background:var(--accent-soft);color:var(--accent);border-color:transparent}
+.s-chip.wait{background:var(--warm-soft);color:var(--warm);border-color:transparent}
+.s-chip.ok{background:var(--ok-soft);color:var(--ok);border-color:transparent}
+.s-chip.err{background:var(--err-soft);color:var(--err);border-color:transparent}
+.s-chip.unsup{background:var(--warm-soft);color:var(--warm);border-color:transparent}
+.con .con-empty{color:var(--code-muted);font-family:var(--f-body)}
+.explain{border-left:3px solid var(--err);background:var(--err-soft)}
+.explain.good{border-left-color:var(--ok);background:var(--ok-soft)}
+.explain.warn{border-left-color:var(--warm);background:var(--warm-soft)}
+.rp-tabs{display:none}
+.rp-sec{display:contents}
+@media (max-width:560px){
+  .sim-bar{display:grid;grid-template-columns:minmax(0,1fr)}
+  .sim-bar .right{display:grid;grid-template-columns:1fr 1fr 1fr;gap:6px}
+  .sim-bar .right .btn{justify-content:center;padding:8px 6px;font-size:13.5px}
+  .rp-tabs{display:flex;gap:4px;padding:8px 10px 0;border-bottom:1px solid var(--line)}
+  .rp-tabs button{flex:1;min-height:44px;border:0;background:transparent;border-bottom:2px solid transparent;font-size:14px;font-weight:600;color:var(--muted);padding:0 4px}
+  .rp-tabs button[aria-selected="true"]{color:var(--accent);border-bottom-color:var(--accent)}
+  .rp-sec:not(.on){display:none}
+  .rp-sec.on{display:flex;flex-direction:column}
+  .rp-sec .mem{max-height:none}
+}
+/* bài tập */
+.ex-todo{font-size:13.5px;color:var(--muted);margin:0}
+.ex-st:empty{display:none}
+.res{font-size:14px;padding:10px 12px}
+.res b{font-size:14.5px}
+.ex-t{margin:0;border:0;background:transparent;overflow:visible}
+.ex-t table{width:100%;min-width:0!important;font-size:13px;border-collapse:collapse}
+.ex-t thead{display:none}
+.ex-t table,.ex-t tbody,.ex-t tr{display:block}
+.ex-t tr{padding:6px 0;border-top:1px solid color-mix(in srgb,var(--err) 25%,transparent)}
+.ex-t th,.ex-t td{display:grid;grid-template-columns:72px minmax(0,1fr);gap:8px;padding:2px 0;border:0;background:transparent;text-align:left;text-transform:none;letter-spacing:0;font-size:13px;color:var(--ink)}
+.ex-t th{font-weight:700;display:block}
+.ex-t td::before{content:attr(data-h);font-weight:600;color:var(--muted)}
+.ex-t code{white-space:pre-wrap;word-break:break-word;font-size:12.5px}
+.ex-none{color:var(--muted)}
 /* ---------- Bài 6–8 ---------- */
 .cmp2{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px}
 .cmp2 .code{font-size:13px;border-radius:0 0 var(--r) var(--r)}
@@ -513,7 +765,6 @@ td.num{font-family:var(--f-mono);font-variant-numeric:tabular-nums;font-weight:6
 .et-warn{font-size:13.5px;color:var(--warm)}
 
 /* ---------- Tài khoản & tiến độ ---------- */
-.acct{display:grid;gap:8px;margin:14px 0 4px;padding:12px;border:1px solid var(--line);border-radius:10px;background:var(--bg)}
 .acct:empty{display:none}
 .gbtn{display:flex;align-items:center;justify-content:center;gap:10px;width:100%;border:1px solid var(--line);background:var(--surface);border-radius:8px;padding:9px 10px;font-weight:600;font-size:14px}
 .gbtn:hover{border-color:var(--accent)}
@@ -535,10 +786,27 @@ td.num{font-family:var(--f-mono);font-variant-numeric:tabular-nums;font-weight:6
 .acct-btns{display:flex;gap:6px;flex-wrap:wrap}
 .btn.sm{padding:5px 10px;font-size:12.5px}
 .linkbtn{border:0;background:none;padding:0;text-align:left;color:var(--accent);font-weight:600;font-size:13px}
-details.ch li.done span:first-child,details.ch li.done a{position:relative}
-details.ch li.done a::after{content:" ✓";color:var(--ok);font-weight:800}
 .done-btn.is-done{border-color:var(--ok);background:var(--ok-soft);color:var(--ok)}
 .next{align-items:center}
+/* cuối bài: Bài trước · Đánh dấu đã học xong ··· Bài tiếp */
+.next .byline:not(.up){display:none}
+.next .byline.up{order:3;margin-left:auto}
+.next .prev{order:1}
+.next .done-btn{order:2;min-height:46px}
+.next .btn{min-height:46px}
+.next .nx{order:3;margin-left:auto;background:var(--surface);color:var(--accent);border-color:var(--accent)}
+.next .nx:hover{background:var(--accent-soft)}
+.next .done-btn:not(.is-done){background:var(--accent);border-color:var(--accent);color:var(--accent-ink)}
+@media (max-width:560px){
+  .next{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+  .next .done-btn{grid-column:1/-1;order:0}
+  .next .prev{order:1}
+  .next .nx{order:2;margin-left:0}
+  .next:not(:has(.prev)) .nx,.next:not(:has(.nx)) .prev{grid-column:1/-1}
+  .next .byline.up{grid-column:1/-1;order:3;margin-left:0}
+  .next>*{min-width:0}
+  .next .btn{white-space:normal;text-align:center;justify-content:center}
+}
 .t-stats{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:12px}
 .t-stats div{background:var(--surface);border:1px solid var(--line);border-radius:var(--r);padding:14px 16px;display:grid}
 .t-stats b{font-size:28px;font-family:var(--f-display);font-variant-numeric:tabular-nums}
@@ -796,54 +1064,32 @@ pre.a16-code{margin:0}
 .sim-scope summary{cursor:pointer;padding:8px 14px;color:var(--muted);font-weight:600}
 .sim-scope div{padding:0 14px 12px;display:grid;gap:6px;color:var(--muted)}
 .sim-scope b{color:var(--ink)}
-/* ---------- Ẩn / hiện thanh bên ---------- */
-.org{justify-content:space-between}
-.logo-link{display:flex;border-radius:999px}
-.logo-link:hover .amts-logo{filter:brightness(1.06)}
-.sb-toggle{width:34px;height:34px;border-radius:8px;border:1px solid transparent;background:transparent;display:grid;place-items:center;color:var(--muted);flex:none;padding:0}
-.sb-toggle:hover{background:var(--bg);border-color:var(--line);color:var(--ink)}
-.sb-float{display:none}
-.amts-logo.sm{height:26px}
-@media (min-width:901px){
-  .app{transition:grid-template-columns .22s ease}
-  .side{transition:opacity .15s ease}
-  .app.sb-collapsed{grid-template-columns:0 minmax(0,1fr)}
-  .app.sb-collapsed .side{overflow:hidden;padding-left:0;padding-right:0;border-right:0;opacity:0;visibility:hidden}
-  .sb-float{position:fixed;top:calc(env(safe-area-inset-top,0px) + 12px);left:calc(env(safe-area-inset-left,0px) + 12px);z-index:20;align-items:center;gap:8px;background:var(--surface);border:1px solid var(--line);border-radius:12px;padding:4px 10px 4px 4px;box-shadow:0 4px 14px rgba(10,20,40,.08)}
-  .app.sb-collapsed .sb-float{display:flex}
-  .app.sb-collapsed .main{padding-top:76px}
-}
-@media (prefers-reduced-motion:reduce){.app,.side{transition:none!important}}
-
+/* thiết kế 20/10: skeleton khi đang kiểm tra quyền, thông tin chuyển khoản có cấu trúc, chờ xác nhận */
+.lg-skel{width:100%;gap:10px}
+.lg-skel .lg-load{animation:none;color:var(--ink)}
+.sk{display:block;height:14px;width:100%;border-radius:6px;background:linear-gradient(90deg,var(--line) 0,var(--bg) 50%,var(--line) 100%);background-size:200% 100%;animation:skm 1.3s linear infinite}
+.sk.w80{width:80%}.sk.w60{width:60%}.sk.w40{width:40%}
+@keyframes skm{to{background-position:-200% 0}}
+@media (prefers-reduced-motion:reduce){.sk{animation:none}}
+.lg-btns .btn,.lg-btns .gbtn{min-height:44px}
+.lg-dl{margin:4px 0 0;width:100%;display:grid;border:1px solid var(--line);border-radius:12px;overflow:hidden}
+.lg-dl div{display:grid;grid-template-columns:170px minmax(0,1fr);gap:4px 14px;align-items:center;padding:10px 14px;border-top:1px solid var(--line)}
+.lg-dl div:first-child{border-top:0}
+.lg-dl dt{font-size:13.5px;color:var(--muted)}
+.lg-dl dd{margin:0;display:flex;flex-wrap:wrap;align-items:center;gap:8px 12px;font-size:15.5px;overflow-wrap:anywhere;min-width:0}
+.lg-dl code{font-size:15px;color:var(--ink)}
+.lg-cp{min-height:36px}
+.lg-warn{background:var(--warm-soft);color:var(--ink)!important;border-left:3px solid var(--warm);padding:10px 14px;border-radius:0 8px 8px 0;width:100%}
+.lg-pend{background:var(--accent-soft);color:var(--ink)!important;padding:12px 14px;border-radius:10px;width:100%}
+.lg-pend b{color:var(--accent)!important}
+@media (max-width:560px){.lg-dl div{grid-template-columns:minmax(0,1fr)}.lg-card{padding:20px 16px}.lg-btns{width:100%}.lg-btns>*{flex:1 1 100%;justify-content:center}}
+.lg-pend[tabindex="-1"]:focus{outline:none}
 /* các khối một cột không bị nội dung dài kéo giãn (quan trọng trên điện thoại) */
 .hero,.part,.prose,.route,.route ol,.ospanel,.figure,.ex,.quiz,.q,.trace,.tr-card,.tier,.lr-side,.fi-log,.fl-code,.right-pane,.ls-right,.tasks,.checklist,.ide,.road-intro,.goals,.goals ul{grid-template-columns:minmax(0,1fr)}
 .prose code,.goals code,.q code,.ex p code,.note code,.tbl td code,.callout code{overflow-wrap:anywhere}
-.mobile-top{display:none}
-.mbar{display:none;position:sticky;top:0;z-index:40;align-items:center;gap:10px;min-height:56px;padding:6px max(12px,env(safe-area-inset-right,0px)) 6px max(8px,env(safe-area-inset-left,0px));padding-top:max(6px,env(safe-area-inset-top,0px));background:color-mix(in srgb,var(--surface) 92%,transparent);backdrop-filter:saturate(1.4) blur(10px);-webkit-backdrop-filter:saturate(1.4) blur(10px);border-bottom:1px solid var(--line)}
-.mbar-btn{width:44px;height:44px;border:0;background:transparent;border-radius:10px;display:grid;place-items:center;color:var(--ink);flex:none;padding:0}
-.mbar-btn:active{background:var(--bg)}
-.mbar .amts-logo{height:24px}
-.mbar-t{flex:1;min-width:0;display:grid;line-height:1.2}
-.mbar-t small{font-size:11px;color:var(--muted);font-family:var(--f-mono);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
-.mbar-t b{font-size:14px;font-weight:700;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
-.mring{--p:0;width:40px;height:40px;border-radius:50%;flex:none;display:grid;place-items:center;background:conic-gradient(var(--ok) calc(var(--p)*1%),var(--line) 0);font-size:9.5px;font-weight:700;font-family:var(--f-mono);border:0;padding:0;color:var(--ink);letter-spacing:-.03em}
-.mring span{width:33px;height:33px;border-radius:50%;background:var(--surface);display:grid;place-items:center}
-.scrim{display:none;position:fixed;inset:0;z-index:55;background:rgba(8,14,28,.42)}
-.sb-toggle .ic-x{display:none}
-@media (prefers-reduced-motion:reduce){.side{transition:none!important}}
 @media (max-width:900px){
-  .app,.app.sb-collapsed{grid-template-columns:minmax(0,1fr);align-content:start}
-  .mbar{display:flex}
-  .side{position:fixed;z-index:60;top:0;bottom:0;left:0;width:min(86vw,340px);height:auto;transform:translateX(-102%);visibility:hidden;transition:transform .24s ease,visibility 0s linear .24s;box-shadow:0 10px 40px rgba(10,20,40,.22);padding-top:max(16px,env(safe-area-inset-top,0px));padding-bottom:max(28px,env(safe-area-inset-bottom,0px));overscroll-behavior:contain}
-  .app.drawer .side{transform:none;visibility:visible;transition:transform .24s ease}
-  .app.drawer .scrim{display:block}
-  .side .sb-toggle .ic-panel{display:none}.side .sb-toggle .ic-x{display:block}
-  .main{padding-top:20px}
   .tbl table{min-width:480px}
-  details.ch summary{padding:10px 8px}
-  details.ch li{padding:6px 0;font-size:14px}
   .lede{font-size:17px!important}
-  .hero h1{font-size:30px}
   .anatomy,.sim-body{grid-template-columns:1fr}
   .right-pane{border-left:0;border-top:1px solid var(--line)}
   .ex-grid{grid-template-columns:1fr}
@@ -878,34 +1124,50 @@ pre.a16-code{margin:0}
 }
 </style>
 
+<header class="top compact" id="top" data-root="../"><div class="wrap">
+  <a class="logo-a" href="../index.html" title="Về trang chủ"><span class="amts-logo" role="img" aria-label="AMTS · Về trang chủ"></span></a>
+  <nav class="nav" id="mainnav" aria-label="Điều hướng chính">
+    <a href="../index.html#khoa-hoc" data-nav="courses"><svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 5.5A1.5 1.5 0 0 1 4.5 4H10a2 2 0 0 1 2 2v13a1.5 1.5 0 0 0-1.5-1.5h-6A1.5 1.5 0 0 1 3 16z"/><path d="M21 5.5A1.5 1.5 0 0 0 19.5 4H14a2 2 0 0 0-2 2v13a1.5 1.5 0 0 1 1.5-1.5h6a1.5 1.5 0 0 0 1.5-1.5z"/></svg>Khóa học</a>
+    <a href="../cpp/index.html#lo-trinh" data-nav="road"><svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="6" cy="5" r="2.2"/><circle cx="18" cy="19" r="2.2"/><path d="M6 7.2V12a3 3 0 0 0 3 3h6a3 3 0 0 1 3 3v-1"/><path d="M18 3v8"/></svg>Lộ trình</a>
+    <a href="../cpp/index.html" id="nav-practice" data-nav="practice"><svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m8 8-4 4 4 4"/><path d="m16 8 4 4-4 4"/><path d="m13.5 5-3 14"/></svg>Thực hành</a>
+    <div class="navdd"><button type="button" id="nav-docs" aria-haspopup="true" aria-expanded="false" aria-controls="m-docs"><svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M14 3H7a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2V8z"/><path d="M14 3v5h5M9 13h6M9 17h4"/></svg>Tài liệu</button>
+      <div class="menu" id="m-docs" hidden>
+        <a href="../cpp/index.html#tu-dien">Từ điển thuật ngữ Anh – Việt<small>Thuật ngữ lập trình C++ kèm bài học có chúng</small></a>
+        <a href="../cpp/index.html#bai-2">Cài đặt trình biên dịch và IDE<small>Windows, macOS, Linux · Bài 2 khóa C++</small></a>
+        <a href="../cpp/index.html#lo-trinh" data-nav="road">Lộ trình C++ 12 chương<small>Các chương đang mở và sắp mở</small></a>
+      </div></div>
+  </nav>
+  <div class="tright"><button type="button" class="menubtn" id="nav-menu" aria-controls="mainnav" aria-expanded="false">Menu</button><div class="tacct" id="topacct"></div></div>
+</div></header>
+
+<div class="lbar" id="mbar">
+  <button class="lbar-btn" id="m-open" aria-controls="side" aria-expanded="false"><svg width="20" height="20" viewBox="0 0 22 22" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" aria-hidden="true"><path d="M3.5 6h15M3.5 11h15M3.5 16h15"/></svg>Danh sách bài học</button>
+  <span class="lbar-n" id="m-prog" aria-live="off">0 bài</span>
+</div>
 <div class="app">
-  <header class="mbar" id="mbar">
-    <button class="mbar-btn" id="m-open" aria-controls="side" aria-expanded="false" aria-label="Mở mục lục"><svg width="22" height="22" viewBox="0 0 22 22" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" aria-hidden="true"><path d="M3.5 6h15M3.5 11h15M3.5 16h15"/></svg></button>
-    <a class="logo-link" href="../index.html" title="Về trang chủ"><span class="amts-logo" role="img" aria-label="AMTS · Về trang chủ"></span></a>
-    <div class="mbar-t"><small id="m-crumb">C++ từ nền tảng</small><b id="m-title">Lộ trình</b></div>
-    <button class="mring" id="m-prog" aria-label="Tiến độ học" title="Tiến độ học"><span>0</span></button>
-  </header>
   <div class="scrim" id="scrim"></div>
   <div class="sb-float" id="sb-float">
-    <button class="sb-toggle" id="sb-show" aria-controls="side" aria-expanded="false" aria-label="Hiện thanh bên" title="Hiện thanh bên"><svg width="20" height="20" viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.6" aria-hidden="true"><rect x="2.5" y="3.5" width="15" height="13" rx="2.5"/><path d="M7.5 3.5v13"/></svg></button>
-    <a class="logo-link" href="../index.html" title="Về trang chủ"><span class="amts-logo sm" role="img" aria-label="AMTS · Về trang chủ"></span></a>
+    <button class="sb-toggle" id="sb-show" aria-controls="side" aria-expanded="false" aria-label="Hiện danh sách bài học" title="Hiện danh sách bài học"><svg width="20" height="20" viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.6" aria-hidden="true"><rect x="2.5" y="3.5" width="15" height="13" rx="2.5"/><path d="M7.5 3.5v13"/></svg></button><span>Danh sách bài học</span>
   </div>
-  <aside class="side" id="side">
-    <div class="org">
-      <a class="logo-link" href="../index.html" title="Về trang chủ"><span class="amts-logo" role="img" aria-label="AMTS · Về trang chủ"></span></a>
-      <button class="sb-toggle" id="sb-hide" aria-controls="side" aria-expanded="true" aria-label="Ẩn thanh bên" title="Ẩn thanh bên"><svg class="ic-panel" width="20" height="20" viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.6" aria-hidden="true"><rect x="2.5" y="3.5" width="15" height="13" rx="2.5"/><path d="M7.5 3.5v13"/></svg><svg class="ic-x" width="20" height="20" viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" aria-hidden="true"><path d="M5 5l10 10M15 5L5 15"/></svg></button>
+  <aside class="side" id="side" aria-label="Danh sách bài học">
+    <div class="sb-top">
+      <div class="sb-head">
+        <a class="sb-back" href="../index.html#khoa-hoc"><span aria-hidden="true">←</span> Tất cả khóa học</a>
+        <button class="sb-toggle" id="sb-hide" aria-controls="side" aria-expanded="true" aria-label="Ẩn danh sách bài học" title="Ẩn danh sách bài học"><svg class="ic-panel" width="20" height="20" viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.6" aria-hidden="true"><rect x="2.5" y="3.5" width="15" height="13" rx="2.5"/><path d="M7.5 3.5v13"/></svg><svg class="ic-x" width="20" height="20" viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" aria-hidden="true"><path d="M5 5l10 10M15 5L5 15"/></svg></button>
+      </div>
+      <div class="brand"><b>C++ từ nền tảng</b><small>12 chương · Đã mở 19 bài học</small></div>
+      <div class="acct" id="acct"></div>
+      <div class="ol-q"><label class="vh" for="ol-q">Tìm bài học</label><input id="ol-q" type="search" placeholder="Tìm bài học…" autocomplete="off"><button type="button" class="ol-x" id="ol-x" aria-label="Xóa tìm kiếm" hidden>×</button></div>
+      <div class="side-nav" role="group" aria-label="Chế độ xem">
+        <button id="nav-road" aria-pressed="false">Lộ trình</button>
+        <button id="nav-lesson" aria-pressed="true">Bài đang học</button>
+      </div>
     </div>
-    <div class="brand">
-      <div class="brand-mark">C++</div>
-      <div><b>C++ từ nền tảng</b><small>12 chương · Đã mở 19 bài học</small></div>
+    <nav class="outline" id="outline" aria-label="Các chương và bài học"></nav>
+    <p class="ol-empty" id="ol-empty" role="status" hidden></p>
+    <div class="sb-foot">
+      <div class="en-row"><span id="en-lb">Thuật ngữ tiếng Anh</span><button class="en-sw" id="en-sw" role="switch" aria-checked="true" aria-labelledby="en-lb"></button></div>
     </div>
-    <div class="acct" id="acct"></div>
-    <div class="side-nav" role="group" aria-label="Chế độ xem">
-      <button id="nav-road" aria-pressed="false">Lộ trình</button>
-      <button id="nav-lesson" aria-pressed="true">Bài đang học</button>
-    </div>
-    <div class="en-row"><span id="en-lb">Hiện thuật ngữ tiếng Anh</span><button class="en-sw" id="en-sw" role="switch" aria-checked="true" aria-labelledby="en-lb"></button></div>
-    <div class="outline" id="outline"></div>
   </aside>
 
   <main class="main">
@@ -996,7 +1258,7 @@ Lệnh trên chạy cả 4 giai đoạn cùng lúc. Nhấn “Bước tiếp” 
 <div data-m="m7" class="score" id="score">Điểm: 0 / 4</div>
 <div data-m="m8" class="next">
         <span class="byline"><span class="amts-logo" aria-hidden="true"></span>Chương 1 · Bài 1/3</span>
-        <button class="btn pri" data-go="l2">Bài tiếp: Cài đặt trình biên dịch &amp; IDE →</button>
+        <button class="btn pri nx" data-go="l2">Bài tiếp: Cài đặt trình biên dịch &amp; IDE →</button>
       </div></div></article>
     <!-- ===================== BÀI 2 · Cài đặt trình biên dịch &amp; IDE ===================== -->
     <article class="col" id="view-l2" hidden><div class="lgate" aria-live="polite"></div><div class="park" hidden><div data-m="m0" class="ostabs" role="tablist" aria-label="Hệ điều hành">
@@ -1139,9 +1401,9 @@ Lệnh trên chạy cả 4 giai đoạn cùng lúc. Nhấn “Bước tiếp” 
 <div data-m="m8" class="quiz" id="quiz2"></div>
 <div data-m="m9" class="score" id="score2"></div>
 <div data-m="m10" class="next">
-        <button class="btn" data-go="l1">← Bài 1</button>
+        <button class="btn prev" data-go="l1">← Bài 1</button>
         <span class="byline"><span class="amts-logo" aria-hidden="true"></span>Chương 1 · Bài 2/3</span>
-        <button class="btn pri" data-go="l3">Bài tiếp: Nhập xuất với cin / cout →</button>
+        <button class="btn pri nx" data-go="l3">Bài tiếp: Nhập xuất với cin / cout →</button>
       </div></div></article>
     <!-- ===================== BÀI 3 · Nhập xuất với cin / cout ===================== -->
     <article class="col" id="view-l3" hidden><div class="lgate" aria-live="polite"></div><div class="park" hidden><div data-m="m0" class="code" data-snip="l3a"></div>
@@ -1194,9 +1456,9 @@ Lệnh trên chạy cả 4 giai đoạn cùng lúc. Nhấn “Bước tiếp” 
 <div data-m="m6" class="quiz" id="quiz3"></div>
 <div data-m="m7" class="score" id="score3"></div>
 <div data-m="m8" class="next">
-        <button class="btn" data-go="l2">← Bài 2</button>
+        <button class="btn prev" data-go="l2">← Bài 2</button>
         <span class="byline"><span class="amts-logo" aria-hidden="true"></span>Chương 1 · Bài 3/3</span>
-        <button class="btn pri" data-go="l4">Bài tiếp: Chương 2 · Biến, khai báo, khởi tạo →</button>
+        <button class="btn pri nx" data-go="l4">Bài tiếp: Chương 2 · Biến, khai báo, khởi tạo →</button>
       </div></div></article>
     <!-- ===================== BÀI 4 · Biến, khai báo, khởi tạo ===================== -->
     <article class="col" id="view-l4" hidden><div class="lgate" aria-live="polite"></div><div class="park" hidden><div data-m="m0" class="code" data-snip="l4a"></div>
@@ -1207,9 +1469,9 @@ Lệnh trên chạy cả 4 giai đoạn cùng lúc. Nhấn “Bước tiếp” 
 <div data-m="m5" class="quiz" id="quiz4"></div>
 <div data-m="m6" class="score" id="score4"></div>
 <div data-m="m7" class="next">
-        <button class="btn" data-go="l3">← Bài 3</button>
+        <button class="btn prev" data-go="l3">← Bài 3</button>
         <span class="byline"><span class="amts-logo" aria-hidden="true"></span>Chương 2 · Bài 1/4</span>
-        <button class="btn pri" data-go="l5">Bài tiếp: int, double, char, bool →</button>
+        <button class="btn pri nx" data-go="l5">Bài tiếp: int, double, char, bool →</button>
       </div></div></article>
     <!-- ===================== BÀI 5 · int, double, char, bool ===================== -->
     <article class="col" id="view-l5" hidden><div class="lgate" aria-live="polite"></div><div class="park" hidden><div data-m="m0" class="figure" id="bits-l5"></div>
@@ -1219,9 +1481,9 @@ Lệnh trên chạy cả 4 giai đoạn cùng lúc. Nhấn “Bước tiếp” 
 <div data-m="m4" class="quiz" id="quiz5"></div>
 <div data-m="m5" class="score" id="score5"></div>
 <div data-m="m6" class="next">
-        <button class="btn" data-go="l4">← Bài 4</button>
+        <button class="btn prev" data-go="l4">← Bài 4</button>
         <span class="byline"><span class="amts-logo" aria-hidden="true"></span>Chương 2 · Bài 2/4</span>
-        <button class="btn pri" data-go="l6">Bài tiếp: Hằng số const / constexpr →</button>
+        <button class="btn pri nx" data-go="l6">Bài tiếp: Hằng số const / constexpr →</button>
       </div></div></article>
     <!-- ===================== BÀI 6 · Hằng số const / constexpr ===================== -->
     <article class="col" id="view-l6" hidden><div class="lgate" aria-live="polite"></div><div class="park" hidden><div data-m="m0" class="cmp2">
@@ -1236,9 +1498,9 @@ Lệnh trên chạy cả 4 giai đoạn cùng lúc. Nhấn “Bước tiếp” 
 <div data-m="m6" class="quiz" id="quiz6"></div>
 <div data-m="m7" class="score" id="score6"></div>
 <div data-m="m8" class="next">
-        <button class="btn" data-go="l5">← Bài 5</button>
+        <button class="btn prev" data-go="l5">← Bài 5</button>
         <span class="byline"><span class="amts-logo" aria-hidden="true"></span>Chương 2 · Bài 3/4</span>
-        <button class="btn pri" data-go="l7">Bài tiếp: Ép kiểu và tràn số →</button>
+        <button class="btn pri nx" data-go="l7">Bài tiếp: Ép kiểu và tràn số →</button>
       </div></div></article>
     <!-- ===================== BÀI 7 · Ép kiểu và tràn số ===================== -->
     <article class="col" id="view-l7" hidden><div class="lgate" aria-live="polite"></div><div class="park" hidden><div data-m="m0" class="figure ladder" id="ladder-l7"></div>
@@ -1248,9 +1510,9 @@ Lệnh trên chạy cả 4 giai đoạn cùng lúc. Nhấn “Bước tiếp” 
 <div data-m="m4" class="quiz" id="quiz7"></div>
 <div data-m="m5" class="score" id="score7"></div>
 <div data-m="m6" class="next">
-        <button class="btn" data-go="l6">← Bài 6</button>
+        <button class="btn prev" data-go="l6">← Bài 6</button>
         <span class="byline"><span class="amts-logo" aria-hidden="true"></span>Chương 2 · Bài 4/4</span>
-        <button class="btn pri" data-go="l8">Bài tiếp: Chương 3 · Toán tử số học →</button>
+        <button class="btn pri nx" data-go="l8">Bài tiếp: Chương 3 · Toán tử số học →</button>
       </div></div></article>
     <!-- ===================== BÀI 8 · Toán tử số học ===================== -->
     <article class="col" id="view-l8" hidden><div class="lgate" aria-live="polite"></div><div class="park" hidden><div data-m="m0" class="figure exprtree" id="etree-l8"></div>
@@ -1259,9 +1521,9 @@ Lệnh trên chạy cả 4 giai đoạn cùng lúc. Nhấn “Bước tiếp” 
 <div data-m="m3" class="quiz" id="quiz8"></div>
 <div data-m="m4" class="score" id="score8"></div>
 <div data-m="m5" class="next">
-        <button class="btn" data-go="l7">← Bài 7</button>
+        <button class="btn prev" data-go="l7">← Bài 7</button>
         <span class="byline"><span class="amts-logo" aria-hidden="true"></span>Chương 3 · Bài 1/4</span>
-        <button class="btn pri" data-go="l9">Bài tiếp: So sánh và logic →</button>
+        <button class="btn pri nx" data-go="l9">Bài tiếp: So sánh và logic →</button>
       </div></div></article>
     <!-- ===================== BÀI 9 · So sánh và logic ===================== -->
     <article class="col" id="view-l9" hidden><div class="lgate" aria-live="polite"></div><div class="park" hidden><div data-m="m0" class="figure" id="truth-l9"></div>
@@ -1272,9 +1534,9 @@ Lệnh trên chạy cả 4 giai đoạn cùng lúc. Nhấn “Bước tiếp” 
 <div data-m="m5" class="quiz" id="quiz9"></div>
 <div data-m="m6" class="score" id="score9"></div>
 <div data-m="m7" class="next">
-        <button class="btn" data-go="l8">← Bài 8</button>
+        <button class="btn prev" data-go="l8">← Bài 8</button>
         <span class="byline"><span class="amts-logo" aria-hidden="true"></span>Chương 3 · Bài 2/4</span>
-        <button class="btn pri" data-go="l10">Bài tiếp: Thứ tự ưu tiên →</button>
+        <button class="btn pri nx" data-go="l10">Bài tiếp: Thứ tự ưu tiên →</button>
       </div></div></article>
     <!-- ===================== BÀI 10 · Thứ tự ưu tiên ===================== -->
     <article class="col" id="view-l10" hidden><div class="lgate" aria-live="polite"></div><div class="park" hidden><div data-m="m0" class="figure exprtree" id="etree-l10"></div>
@@ -1285,9 +1547,9 @@ Lệnh trên chạy cả 4 giai đoạn cùng lúc. Nhấn “Bước tiếp” 
 <div data-m="m5" class="quiz" id="quiz10"></div>
 <div data-m="m6" class="score" id="score10"></div>
 <div data-m="m7" class="next">
-        <button class="btn" data-go="l9">← Bài 9</button>
+        <button class="btn prev" data-go="l9">← Bài 9</button>
         <span class="byline"><span class="amts-logo" aria-hidden="true"></span>Chương 3 · Bài 3/4</span>
-        <button class="btn pri" data-go="l11">Bài tiếp: Toán tử bit →</button>
+        <button class="btn pri nx" data-go="l11">Bài tiếp: Toán tử bit →</button>
       </div></div></article>
     <!-- ===================== BÀI 11 · Toán tử bit ===================== -->
     <article class="col" id="view-l11" hidden><div class="lgate" aria-live="polite"></div><div class="park" hidden><div data-m="m0" class="figure" id="bitops-l11"></div>
@@ -1298,9 +1560,9 @@ Lệnh trên chạy cả 4 giai đoạn cùng lúc. Nhấn “Bước tiếp” 
 <div data-m="m5" class="quiz" id="quiz11"></div>
 <div data-m="m6" class="score" id="score11"></div>
 <div data-m="m7" class="next">
-        <button class="btn" data-go="l10">← Bài 10</button>
+        <button class="btn prev" data-go="l10">← Bài 10</button>
         <span class="byline"><span class="amts-logo" aria-hidden="true"></span>Chương 3 · Bài 4/4</span>
-        <button class="btn pri" data-go="l12">Bài tiếp: Chương 4 · if / else →</button>
+        <button class="btn pri nx" data-go="l12">Bài tiếp: Chương 4 · if / else →</button>
       </div></div></article>
     <!-- ===================== BÀI 12 · if / else ===================== -->
     <article class="col" id="view-l12" hidden><div class="lgate" aria-live="polite"></div><div class="park" hidden><div data-m="m0" class="code" data-snip="l12if"></div>
@@ -1315,9 +1577,9 @@ Lệnh trên chạy cả 4 giai đoạn cùng lúc. Nhấn “Bước tiếp” 
 <div data-m="m6" class="quiz" id="quiz12"></div>
 <div data-m="m7" class="score" id="score12"></div>
 <div data-m="m8" class="next">
-        <button class="btn" data-go="l11">← Bài 11</button>
+        <button class="btn prev" data-go="l11">← Bài 11</button>
         <span class="byline"><span class="amts-logo" aria-hidden="true"></span>Chương 4 · Bài 1/4</span>
-        <button class="btn pri" data-go="l13">Bài tiếp: switch →</button>
+        <button class="btn pri nx" data-go="l13">Bài tiếp: switch →</button>
       </div></div></article>
     <!-- ===================== BÀI 13 · switch ===================== -->
     <article class="col" id="view-l13" hidden><div class="lgate" aria-live="polite"></div><div class="park" hidden><div data-m="m0" class="code" data-snip="l13syntax"></div>
@@ -1328,9 +1590,9 @@ Lệnh trên chạy cả 4 giai đoạn cùng lúc. Nhấn “Bước tiếp” 
 <div data-m="m5" class="quiz" id="quiz13"></div>
 <div data-m="m6" class="score" id="score13"></div>
 <div data-m="m7" class="next">
-        <button class="btn" data-go="l12">← Bài 12</button>
+        <button class="btn prev" data-go="l12">← Bài 12</button>
         <span class="byline"><span class="amts-logo" aria-hidden="true"></span>Chương 4 · Bài 2/4</span>
-        <button class="btn pri" data-go="l14">Bài tiếp: while, do-while →</button>
+        <button class="btn pri nx" data-go="l14">Bài tiếp: while, do-while →</button>
       </div></div></article>
     <!-- ===================== BÀI 14 · while, do-while ===================== -->
     <article class="col" id="view-l14" hidden><div class="lgate" aria-live="polite"></div><div class="park" hidden><div data-m="m0" class="loop-intro">
@@ -1356,9 +1618,9 @@ Lệnh trên chạy cả 4 giai đoạn cùng lúc. Nhấn “Bước tiếp” 
 <div data-m="m5" class="quiz" id="quiz14"></div>
 <div data-m="m6" class="score" id="score14"></div>
 <div data-m="m7" class="next">
-        <button class="btn" data-go="l13">← Bài 13</button>
+        <button class="btn prev" data-go="l13">← Bài 13</button>
         <span class="byline"><span class="amts-logo" aria-hidden="true"></span>Chương 4 · Bài 3/4</span>
-        <button class="btn pri" data-go="l15">Bài tiếp: for, break, continue →</button>
+        <button class="btn pri nx" data-go="l15">Bài tiếp: for, break, continue →</button>
       </div></div></article>
     <!-- ===================== BÀI 15 · for, break, continue ===================== -->
     <article class="col" id="view-l15" hidden><div class="lgate" aria-live="polite"></div><div class="park" hidden><div data-m="m0" class="for-cmp">
@@ -1373,9 +1635,9 @@ Lệnh trên chạy cả 4 giai đoạn cùng lúc. Nhấn “Bước tiếp” 
 <div data-m="m6" class="quiz" id="quiz15"></div>
 <div data-m="m7" class="score" id="score15"></div>
 <div data-m="m8" class="next">
-        <button class="btn" data-go="l14">← Bài 14</button>
+        <button class="btn prev" data-go="l14">← Bài 14</button>
         <span class="byline"><span class="amts-logo" aria-hidden="true"></span>Chương 4 · Bài 4/4</span>
-        <button class="btn pri" data-go="l16">Bài tiếp: Chương 5 · Định nghĩa và gọi hàm →</button>
+        <button class="btn pri nx" data-go="l16">Bài tiếp: Chương 5 · Định nghĩa và gọi hàm →</button>
       </div></div></article>
     <!-- ===================== BÀI 16 · Định nghĩa và gọi hàm ===================== -->
     <article class="col" id="view-l16" hidden><div class="lgate" aria-live="polite"></div><div class="park" hidden><div data-m="m0" class="figure anat16" id="anat-l16">
@@ -1393,9 +1655,9 @@ Lệnh trên chạy cả 4 giai đoạn cùng lúc. Nhấn “Bước tiếp” 
 <div data-m="m6" class="quiz" id="quiz16"></div>
 <div data-m="m7" class="score" id="score16"></div>
 <div data-m="m8" class="next">
-        <button class="btn" data-go="l15">← Bài 15</button>
+        <button class="btn prev" data-go="l15">← Bài 15</button>
         <span class="byline"><span class="amts-logo" aria-hidden="true"></span>Chương 5 · Bài 1/5</span>
-        <button class="btn pri" data-go="l17">Bài tiếp: Truyền tham trị / tham chiếu →</button>
+        <button class="btn pri nx" data-go="l17">Bài tiếp: Truyền tham trị / tham chiếu →</button>
       </div></div></article>
     <!-- ===================== BÀI 17 · Truyền tham trị / tham chiếu ===================== -->
     <article class="col" id="view-l17" hidden><div class="lgate" aria-live="polite"></div><div class="park" hidden><div data-m="m0" class="figure" id="cs-l17"></div>
@@ -1406,9 +1668,9 @@ Lệnh trên chạy cả 4 giai đoạn cùng lúc. Nhấn “Bước tiếp” 
 <div data-m="m5" class="quiz" id="quiz17"></div>
 <div data-m="m6" class="score" id="score17"></div>
 <div data-m="m7" class="next">
-        <button class="btn" data-go="l16">← Bài 16</button>
+        <button class="btn prev" data-go="l16">← Bài 16</button>
         <span class="byline"><span class="amts-logo" aria-hidden="true"></span>Chương 5 · Bài 2/5</span>
-        <button class="btn pri" data-go="l18">Bài tiếp: Nạp chồng hàm →</button>
+        <button class="btn pri nx" data-go="l18">Bài tiếp: Nạp chồng hàm →</button>
       </div></div></article>
     <!-- ===================== BÀI 18 · Nạp chồng hàm ===================== -->
     <article class="col" id="view-l18" hidden><div class="lgate" aria-live="polite"></div><div class="park" hidden><div data-m="m0" class="code" data-snip="l18ov"></div>
@@ -1419,9 +1681,9 @@ Lệnh trên chạy cả 4 giai đoạn cùng lúc. Nhấn “Bước tiếp” 
 <div data-m="m5" class="quiz" id="quiz18"></div>
 <div data-m="m6" class="score" id="score18"></div>
 <div data-m="m7" class="next">
-        <button class="btn" data-go="l17">← Bài 17</button>
+        <button class="btn prev" data-go="l17">← Bài 17</button>
         <span class="byline"><span class="amts-logo" aria-hidden="true"></span>Chương 5 · Bài 3/5</span>
-        <button class="btn pri" data-go="l19">Bài tiếp: Đệ quy →</button>
+        <button class="btn pri nx" data-go="l19">Bài tiếp: Đệ quy →</button>
       </div></div></article>
     <!-- ===================== BÀI 19 · Đệ quy ===================== -->
     <article class="col" id="view-l19" hidden><div class="lgate" aria-live="polite"></div><div class="park" hidden><div data-m="m0" class="rec-anat">
@@ -1438,8 +1700,8 @@ Lệnh trên chạy cả 4 giai đoạn cùng lúc. Nhấn “Bước tiếp” 
 <div data-m="m5" class="quiz" id="quiz19"></div>
 <div data-m="m6" class="score" id="score19"></div>
 <div data-m="m7" class="next">
-        <button class="btn" data-go="l18">← Bài 18</button>
-        <span class="byline"><span class="amts-logo" aria-hidden="true"></span>Tiếp theo: Phạm vi biến</span>
+        <button class="btn prev" data-go="l18">← Bài 18</button>
+        <span class="byline up"><span class="amts-logo" aria-hidden="true"></span>Tiếp theo: Phạm vi biến</span>
       </div></div></article>
   </main>
 </div>
@@ -1457,7 +1719,7 @@ const COURSES=[
   chapters:12,
   lessons:[["l1", "Chương trình C++ đầu tiên"], ["l2", "Cài đặt trình biên dịch & IDE"], ["l3", "Nhập xuất với cin / cout"], ["l4", "Biến, khai báo, khởi tạo"], ["l5", "int, double, char, bool"], ["l6", "Hằng số const / constexpr"], ["l7", "Ép kiểu và tràn số"], ["l8", "Toán tử số học"], ["l9", "So sánh và logic"], ["l10", "Thứ tự ưu tiên"], ["l11", "Toán tử bit"], ["l12", "if / else"], ["l13", "switch"], ["l14", "while, do-while"], ["l15", "for, break, continue"], ["l16", "Định nghĩa và gọi hàm"], ["l17", "Truyền tham trị / tham chiếu"], ["l18", "Nạp chồng hàm"], ["l19", "Đệ quy"]],
   exercises:["l1-0", "l1-1", "l1-2", "l2-term", "l3-0", "l3-1", "l3-2", "l4-0", "l4-1", "l4-2", "l5-0", "l5-1", "l5-2", "l6-0", "l6-1", "l6-2", "l7-0", "l7-1", "l7-2", "l8-0", "l8-1", "l8-2", "l9-0", "l9-1", "l9-2", "l10-0", "l10-1", "l10-2", "l11-0", "l11-1", "l11-2", "l12-0", "l12-1", "l12-2", "l13-0", "l13-1", "l13-2", "l14-0", "l14-1", "l14-2", "l15-0", "l15-1", "l15-2", "l16-0", "l16-1", "l16-2", "l17-0", "l17-1", "l17-2", "l18-0", "l18-1", "l18-2", "l19-0", "l19-1", "l19-2"],
-  contentVer:"c17d1b382287",
+  contentVer:"4642f2771b6a",
   quizzes:{"l1": "quiz", "l2": "quiz2", "l3": "quiz3", "l4": "quiz4", "l5": "quiz5", "l6": "quiz6", "l7": "quiz7", "l8": "quiz8", "l9": "quiz9", "l10": "quiz10", "l11": "quiz11", "l12": "quiz12", "l13": "quiz13", "l14": "quiz14", "l15": "quiz15", "l16": "quiz16", "l17": "quiz17", "l18": "quiz18", "l19": "quiz19"}},
  {id:"csharp",name:"C# căn bản",mono:"C#",url:"csharp/index.html",status:"soon",hue:"cs",
   desc:"Lập trình hướng đối tượng với .NET.",chapters:null,lessons:[],exercises:[],quizzes:{}},
@@ -1562,7 +1824,7 @@ const AMTS=(()=>{
   async function allUsers(){const snap=await S.db.collection("users").get();return snap.docs.map(d=>({uid:d.id,...d.data()}))}
 
   /* ---- quyền truy cập bài học: config/{khóa}, enroll/{uid}, content/{khóa}-{bài} ---- */
-  const DEF_CFG={paidMode:false,loginFrom:16,paid:{},price:"",payInfo:"",contentVer:"",activeVer:"",versions:{}};
+  const DEF_CFG={paidMode:false,loginFrom:16,paid:{},price:"",payInfo:"",bankName:"",accName:"",accNo:"",payContact:"",contentVer:"",activeVer:"",versions:{}};
   const defaultConfig=()=>JSON.parse(JSON.stringify(DEF_CFG));
   const cfgCache={};let enr=null,readyP=null;
   function ready(){return readyP||(readyP=new Promise(res=>{const ok=()=>S.mode==="unavailable"||S.mode==="error"||(S.mode==="ready"&&S.authKnown);
@@ -1572,7 +1834,7 @@ const AMTS=(()=>{
     const s=await S.db.collection("config").doc(id).get();
     const c=Object.assign(defaultConfig(),s.exists?s.data():{});c.exists=s.exists;return cfgCache[id]=c}
   async function saveConfig(id,c){
-    const d={paidMode:!!c.paidMode,loginFrom:Number(c.loginFrom)||9999,paid:Object.assign({},c.paid||{}),price:String(c.price||"").slice(0,200),payInfo:String(c.payInfo||"").slice(0,2000),contentVer:String(c.contentVer||""),activeVer:String(c.activeVer||""),versions:cleanVersions(c.versions),updatedAt:firebase.firestore.FieldValue.serverTimestamp(),updatedBy:(S.user&&S.user.email)||""};
+    const d={paidMode:!!c.paidMode,loginFrom:Number(c.loginFrom)||9999,paid:Object.assign({},c.paid||{}),price:String(c.price||"").slice(0,200),payInfo:String(c.payInfo||"").slice(0,2000),bankName:String(c.bankName||"").slice(0,120),accName:String(c.accName||"").slice(0,120),accNo:String(c.accNo||"").slice(0,60),payContact:String(c.payContact||"").slice(0,300),contentVer:String(c.contentVer||""),activeVer:String(c.activeVer||""),versions:cleanVersions(c.versions),updatedAt:firebase.firestore.FieldValue.serverTimestamp(),updatedBy:(S.user&&S.user.email)||""};
     await S.db.collection("config").doc(id).set(d);cfgCache[id]=Object.assign(defaultConfig(),d,{exists:true});return cfgCache[id]}
   async function isEnrolled(id){
     if(!S.user)return false;
@@ -1617,6 +1879,15 @@ const AMTS=(()=>{
   async function deleteVersion(id,ver,lessons){
     const col=S.db.collection("content");for(const l of lessons)await col.doc(docId(id,ver,l)).delete();
     if(ver){const cur=await getConfig(id,true);const v=Object.assign({},cur.versions||{});delete v[ver];cur.versions=v;await saveConfig(id,cur)}}
+  /* "Tôi đã chuyển khoản": học viên gửi yêu cầu kiểm tra (payreq/{uid}); không tự mở quyền học */
+  async function payReqOf(id){if(!S.user||!S.db)return null;try{const s=await S.db.collection("payreq").doc(S.user.uid).get();const c=s.exists&&s.data().courses;return c&&c[id]?c[id]:null}catch(e){return null}}
+  async function requestPay(id){const u=S.user;if(!u||!S.db){const e=new Error("Cần đăng nhập");e.code="login";throw e}
+    const ref=S.db.collection("payreq").doc(u.uid);let cur={};try{const s=await ref.get();if(s.exists)cur=s.data().courses||{}}catch(e){}
+    const courses=Object.assign({},cur,{[id]:firebase.firestore.FieldValue.serverTimestamp()});
+    await ref.set({email:(u.email||"").toLowerCase(),name:u.displayName||"",courses});return true}
+  async function allPayReq(){const s=await S.db.collection("payreq").get();const m={};s.docs.forEach(d=>m[d.id]=d.data());return m}
+  async function clearPayReq(uid,id){const ref=S.db.collection("payreq").doc(uid);const s=await ref.get();if(!s.exists)return;const d=s.data(),c=Object.assign({},d.courses||{});delete c[id];
+    if(Object.keys(c).length)await ref.set(Object.assign({},d,{courses:c}));else await ref.delete()}
   /* "Nhận thông báo" cho khóa sắp ra mắt: lưu trong users/{uid}.courses.{khóa}.notify (không cần đổi rules) */
   const notifyOf=id=>!!(S.doc&&S.doc.courses&&S.doc.courses[id]&&S.doc.courses[id].notify);
   async function setNotify(id,on){const u=S.user;if(!u||!S.db){const e=new Error("Cần đăng nhập");e.code="login";throw e}
@@ -1627,7 +1898,7 @@ const AMTS=(()=>{
     S.doc=Object.assign({},S.doc||{});S.doc.courses=Object.assign({},S.doc.courses||{},{[id]:val});emit()}
   const isDone=(p,l)=>!!p&&!!p.lessons&&(p.lessons[l]||0)>0;
   return{S,TEACHERS,ENV,PROJECT:FB_CONFIG.projectId,init,isDone,on:f=>{subs.push(f);f(S)},getLocal,setLocal,clearLocal,merge,courseOf,saveCourse,signIn,signOut,isTeacher,allUsers,empty,
-    notifyOf,setNotify,dump,restoreDoc,ready,defaultConfig,getConfig,saveConfig,isEnrolled,clearEnroll,getLesson,allEnroll,setEnroll,uploadContent,deleteVersion,docId};
+    notifyOf,setNotify,payReqOf,requestPay,allPayReq,clearPayReq,dump,restoreDoc,ready,defaultConfig,getConfig,saveConfig,isEnrolled,clearEnroll,getLesson,allEnroll,setEnroll,uploadContent,deleteVersion,docId};
 })();
 /* tiện ích dùng chung */
 const escH=s=>String(s??"").replace(/[&<>"']/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c]));
@@ -1647,11 +1918,14 @@ const READY=[];function onReady(f){READY.push(f)}
   const mq=matchMedia("(max-width:900px)"),openB=document.getElementById("m-open"),scrim=document.getElementById("scrim");
   function drawer(o){app.classList.toggle("drawer",o);openB.setAttribute("aria-expanded",String(o));document.documentElement.style.overflow=o?"hidden":"";
     if(o)hide.focus({preventScroll:true});else if(mq.matches)openB.focus({preventScroll:true})}
+  /* giữ focus trong ngăn kéo khi đang mở (Tab vòng lại) */
+  document.getElementById("side").addEventListener("keydown",e=>{if(e.key!=="Tab"||!app.classList.contains("drawer"))return;
+    const f=[...document.querySelectorAll("#side a[href],#side button:not([disabled]),#side input,#side summary")].filter(x=>x.offsetParent!==null);if(!f.length)return;
+    if(e.shiftKey&&document.activeElement===f[0]){e.preventDefault();f[f.length-1].focus()}else if(!e.shiftKey&&document.activeElement===f[f.length-1]){e.preventDefault();f[0].focus()}});
   window.closeDrawer=()=>{if(app.classList.contains("drawer")){app.classList.remove("drawer");openB.setAttribute("aria-expanded","false");document.documentElement.style.overflow=""}};
   openB.onclick=()=>drawer(true);scrim.onclick=()=>drawer(false);
   document.addEventListener("keydown",e=>{if(e.key==="Escape"&&app.classList.contains("drawer"))drawer(false)});
   const onMq=()=>{if(!mq.matches)window.closeDrawer()};if(mq.addEventListener)mq.addEventListener("change",onMq);else if(mq.addListener)mq.addListener(onMq);
-  document.getElementById("m-prog").onclick=()=>drawer(true);
   hide.onclick=()=>{if(mq.matches){drawer(false);return}set(!app.classList.contains("sb-collapsed"),true)};
   showB.onclick=()=>set(false,true);
   let c=false;try{c=localStorage.getItem("amts-sidebar")==="hidden"}catch(e){}
@@ -1686,11 +1960,11 @@ function addGloss(l){
   const seen=new Map();art.querySelectorAll("span.en").forEach(x=>{const k=x.textContent;if(!seen.has(k))seen.set(k,x)});
   if(!seen.size)return;
   const box=document.createElement("details");box.className="gloss";
-  box.innerHTML=`<summary><b>Thuật ngữ trong bài</b><small>Glossary · ${seen.size} thuật ngữ</small></summary><div class="gl-list"></div>`;
-  const list=box.querySelector(".gl-list");
-  seen.forEach((el,en)=>{const b=document.createElement("button");b.type="button";
-    b.innerHTML=`<span class="gl-en" lang="en">${esc(en)}</span><span class="gl-vi">${esc(el.dataset.vi||"")}</span>`;
-    b.onclick=()=>flashTerm(el);list.appendChild(b)});
+  box.innerHTML=`<summary><b>Thuật ngữ trong bài</b><small>Glossary · ${seen.size} thuật ngữ</small></summary><table class="gl-t"><thead><tr><th scope="col">Tiếng Việt</th><th scope="col" lang="en">English</th><th scope="col"><span class="vh">Vị trí trong bài</span></th></tr></thead><tbody></tbody></table>`;
+  const list=box.querySelector("tbody");
+  seen.forEach((el,en)=>{const tr=document.createElement("tr");
+    tr.innerHTML=`<td class="gl-vi">${esc(el.dataset.vi||"")}</td><td class="gl-en" lang="en">${esc(en)}</td><td class="gl-at"><button type="button" class="gl-go">Xem trong bài</button></td>`;
+    tr.querySelector("button").onclick=()=>flashTerm(el);list.appendChild(tr)});
   const nx=art.querySelector(":scope > div.next");art.insertBefore(box,nx||null);
 }
 function renderGlossAll(){
@@ -1699,7 +1973,7 @@ function renderGlossAll(){
   const rows=GLOSSARY.filter(([en,vi])=>!q||en.toLowerCase().includes(q)||vi.toLowerCase().includes(q)||norm(vi.toLowerCase()).includes(nq))
     .sort((a,b)=>a[0].localeCompare(b[0],"en",{sensitivity:"base"}));
   document.getElementById("gl-n").textContent=`${rows.length} / ${GLOSSARY.length} thuật ngữ`;
-  box.innerHTML=rows.length?rows.map(([en,vi,n])=>`<button type="button" data-l="l${n}" data-en="${esc(en)}"><span class="gl-en" lang="en">${esc(en)}</span><span class="gl-vi">${esc(vi)}</span><span class="gl-at">Bài ${n}</span></button>`).join(""):"";
+  box.innerHTML=rows.length?`<table class="gl-t"><thead><tr><th scope="col" lang="en">English</th><th scope="col">Tiếng Việt</th><th scope="col">Bài học</th></tr></thead><tbody>${rows.map(([en,vi,n])=>`<tr><td class="gl-en" lang="en">${esc(en)}</td><td class="gl-vi">${esc(vi)}</td><td class="gl-at"><button type="button" class="gl-go" data-l="l${n}" data-en="${esc(en)}" aria-label="${esc(en)}: xem trong Bài ${n}">Bài ${n}</button></td></tr>`).join("")}</tbody></table>`:"";
   if(!rows.length)box.innerHTML=`<p class="gl-empty">Không có thuật ngữ khớp “${esc(q)}”.</p>`;
   box.querySelectorAll("button[data-l]").forEach(b=>b.onclick=()=>{const l=b.dataset.l,en=b.dataset.en;go(l);
     let k=0;const t=setInterval(()=>{const el=[...document.querySelectorAll(`#view-${l} span.en`)].find(x=>x.textContent===en);
@@ -1741,20 +2015,31 @@ function mountLesson(l,html){
   if(park&&!park.children.length)park.remove();
   if(gate){gate.hidden=true;gate.innerHTML=""}
   LOADED.add(l);
+  if(typeof fillSnips==='function')fillSnips(art);
   addGloss(l);addToc(l);
 }
-/* mục lục trong bài: các mục N.1, N.2… và bảng thuật ngữ; bấm để cuộn tới */
+/* mục lục trong bài: một nút "Trong bài này" (48px) mở ra danh sách mục; tự đánh dấu mục đang đọc */
 function addToc(l){
   const art=document.getElementById("view-"+l);if(!art||art.querySelector(":scope > .ltoc"))return;
   const heads=[...art.querySelectorAll(":scope > section.part .part-head")];if(heads.length<3)return;
-  const nav=document.createElement("nav");nav.className="ltoc";nav.setAttribute("aria-label","Mục lục trong bài");
+  const box=document.createElement("details");box.className="ltoc";
   const items=heads.map(h=>{const num=(h.querySelector(".num")||{}).textContent||"",h2=h.querySelector("h2");
     const t=h2?[...h2.childNodes].filter(n=>!(n.classList&&n.classList.contains("h-en"))).map(n=>n.textContent).join("").trim():"";return{el:h,num,t}});
-  const gl=art.querySelector(":scope > .gloss");if(gl)items.push({el:gl,num:"",t:"Thuật ngữ",gl:true});
-  nav.innerHTML=`<b>Trong bài này</b><ol>${items.map((x,i)=>`<li><button type="button" data-i="${i}"${x.gl?' class="gl"':""}>${x.num?`<span>${esc(x.num)}</span>`:""}${esc(x.t)}</button></li>`).join("")}</ol>`;
-  nav.querySelectorAll("button").forEach(b=>b.onclick=()=>{const x=items[+b.dataset.i];if(x.gl)x.el.open=true;x.el.scrollIntoView({behavior:"smooth",block:"start"})});
-  const after=art.querySelector(":scope > .goals")||art.querySelector(":scope > header.hero");if(after)after.after(nav);
+  const gl=art.querySelector(":scope > .gloss");if(gl)items.push({el:gl,num:"",t:"Thuật ngữ trong bài",gl:true});
+  box.innerHTML=`<summary><b>Trong bài này</b><span class="ltoc-cur" aria-live="off"></span></summary><nav aria-label="Mục lục trong bài"><ol>${items.map((x,i)=>`<li><a href="#" data-i="${i}"${x.gl?' class="gl"':""}>${x.num?`<span>${esc(x.num)}</span>`:""}${esc(x.t)}</a></li>`).join("")}</ol></nav>`;
+  box.querySelectorAll("a").forEach(a=>a.onclick=e=>{e.preventDefault();const x=items[+a.dataset.i];if(x.gl)x.el.open=true;box.open=false;x.el.scrollIntoView({behavior:"smooth",block:"start"})});
+  box._items=items;box._k=-2;
+  const after=art.querySelector(":scope > .goals")||art.querySelector(":scope > header.hero");if(after)after.after(box);
+  trackToc();
 }
+function trackToc(){const art=curView&&document.getElementById("view-"+curView),box=art&&art.querySelector(":scope > .ltoc");if(!box||!box._items)return;
+  const y=Math.min(220,innerHeight*.35);let k=-1;box._items.forEach((x,i)=>{if(x.el.getBoundingClientRect().top<y)k=i});
+  if(k===box._k)return;box._k=k;
+  box.querySelectorAll("a").forEach((a,i)=>{if(i===k)a.setAttribute("aria-current","location");else a.removeAttribute("aria-current")});
+  box.querySelector(".ltoc-cur").textContent=k>=0?(box._items[k].num?box._items[k].num+" ":"")+box._items[k].t:`${box._items.length} mục`}
+{let raf=0;addEventListener("scroll",()=>{if(raf)return;raf=requestAnimationFrame(()=>{raf=0;trackToc()})},{passive:true});
+ document.addEventListener("click",e=>{document.querySelectorAll(".ltoc[open]").forEach(d=>{if(!d.contains(e.target))d.open=false})});
+ document.addEventListener("keydown",e=>{if(e.key!=="Escape")return;const d=document.querySelector(".ltoc[open]");if(d){d.open=false;d.querySelector("summary").focus()}})}
 const LOCK_SVG='<svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="4.5" y="10.5" width="15" height="10" rx="2.5"/><path d="M8 10.5V7.5a4 4 0 0 1 8 0v3"/></svg>';
 function accessOf(l,cfg){const no=+l.slice(1);if(cfg.paidMode&&cfg.paid&&cfg.paid[l])return "paid";return no>=(+cfg.loginFrom||9999)?"login":"public"}
 function gateShow(l,kind,cfg,extra){
@@ -1762,18 +2047,37 @@ function gateShow(l,kind,cfg,extra){
   const m=lessonMeta(l),S=AMTS.S;cfg=cfg||{};
   const head=`<header class="hero"><div class="crumb">Chương ${m.ch} · ${esc(m.chName)} / Bài ${m.no}</div><h1>${esc(m.name)}</h1></header>`;
   const gbtn=`<button class="gbtn lg-in"><span class="g">G</span>Đăng nhập bằng Google</button>`;
-  const price=cfg.price?`<p class="lg-price">Học phí: <b>${escH(cfg.price)}</b></p>`:"";
+  const back=`<button class="btn" data-go="road">Về lộ trình</button>`;
+  const from=+cfg.loginFrom||m.no;
+  const email=(S.user&&S.user.email||"").toLowerCase();
+  const cp=(v,lb)=>`<button type="button" class="btn sm lg-cp" data-cp="${escH(v)}" aria-label="Sao chép ${lb}">Sao chép</button>`;
   let body="";
-  if(kind==="loading")body=`<div class="lg-card"><p class="lg-load">Đang tải bài học…</p></div>`;
-  else if(kind==="login")body=`<div class="lg-card">${LOCK_SVG}<h2>Đăng nhập để tiếp tục</h2><p>Từ bài này trở đi, bạn cần đăng nhập bằng tài khoản Google để học. Đăng nhập miễn phí và giúp lưu tiến độ, học tiếp trên mọi thiết bị.</p>${gbtn}<p class="lg-msg bad-t" aria-live="polite"></p></div>`;
-  else if(kind==="paid-login")body=`<div class="lg-card paid">${LOCK_SVG}<h2>Bài học có phí</h2><p>Bài này thuộc phần có phí của khóa học. Hãy đăng nhập bằng Google trước; sau khi đăng ký và được giảng viên kích hoạt, bạn học được toàn bộ các bài có phí.</p>${price}${gbtn}<p class="lg-msg bad-t" aria-live="polite"></p></div>`;
-  else if(kind==="paid")body=`<div class="lg-card paid">${LOCK_SVG}<h2>Bài học có phí</h2><p>Tài khoản <b>${escH(S.user&&S.user.email||"")}</b> chưa được kích hoạt cho phần có phí của khóa học.</p>${price}${cfg.payInfo?`<div class="lg-pay">${escH(cfg.payInfo)}</div>`:""}<p>Khi chuyển khoản, ghi nội dung là email của bạn: <code>${escH(S.user&&S.user.email||"")}</code>. Sau khi giảng viên kích hoạt, bấm <b>Kiểm tra lại</b>.</p><div class="lg-btns"><button class="btn pri lg-re">Kiểm tra lại</button></div><p class="lg-msg" aria-live="polite"></p></div>`;
-  else if(kind==="missing")body=`<div class="lg-card"><h2>Bài học đang được cập nhật</h2><p>Nội dung bài này chưa có trên máy chủ. Vui lòng quay lại sau.</p>${AMTS.isTeacher()?`<p class="bad-t">Giảng viên: hãy tải file <code>noi-dung-cpp.json</code> lên ở mục “Nội dung bài học” trong Trang giảng viên.</p>`:""}</div>`;
-  else body=`<div class="lg-card"><h2>Chưa tải được bài học</h2><p>${kind==="offline"?"Không kết nối được máy chủ bài học. Kiểm tra Internet rồi thử lại.":escH(extra||"Đã có lỗi khi tải bài học.")}</p><div class="lg-btns"><button class="btn pri lg-re">Thử lại</button></div></div>`;
+  if(kind==="loading")body=`<div class="lg-card lg-skel" aria-busy="true"><p class="lg-load" role="status">Đang kiểm tra quyền học…</p><span class="sk w60"></span><span class="sk"></span><span class="sk w80"></span><span class="sk w40"></span></div>`;
+  else if(kind==="login")body=`<div class="lg-card">${LOCK_SVG}<h2>Đăng nhập để học từ Bài ${from}.</h2><p>Đăng nhập bằng tài khoản Google là miễn phí, giúp lưu tiến độ và học tiếp trên mọi thiết bị.</p><div class="lg-btns">${gbtn}${back}</div><p class="lg-msg bad-t" aria-live="polite"></p></div>`;
+  else if(kind==="paid-login")body=`<div class="lg-card paid">${LOCK_SVG}<h2>Bài học có phí</h2><p>Bài này thuộc phần có phí của khóa học. Hãy đăng nhập bằng Google trước; sau khi chuyển khoản và được giảng viên kích hoạt, bạn học được toàn bộ các bài có phí.</p>${cfg.price?`<p class="lg-price">Học phí: <b>${escH(cfg.price)}</b></p>`:""}<div class="lg-btns">${gbtn}${back}</div><p class="lg-msg bad-t" aria-live="polite"></p></div>`;
+  else if(kind==="paid"){const pend=extra&&extra.pending;
+    const rows=[cfg.price&&["Học phí",`<b>${escH(cfg.price)}</b>`],cfg.bankName&&["Ngân hàng",escH(cfg.bankName)],cfg.accName&&["Người nhận",escH(cfg.accName)],
+      cfg.accNo&&["Số tài khoản",`<code>${escH(cfg.accNo)}</code>${cp(cfg.accNo,"số tài khoản")}`],["Nội dung chuyển khoản",`<code>${escH(email)}</code>${cp(email,"nội dung chuyển khoản")}`]].filter(Boolean);
+    const hasPay=cfg.bankName||cfg.accNo||cfg.payInfo;
+    body=`<div class="lg-card paid">${LOCK_SVG}<h2>Bài học có phí</h2><p>Tài khoản <b>${escH(email)}</b> chưa được kích hoạt phần có phí của khóa học.</p>
+      ${hasPay?`<dl class="lg-dl">${rows.map(([k,v])=>`<div><dt>${k}</dt><dd>${v}</dd></div>`).join("")}</dl>${cfg.payInfo?`<div class="lg-pay">${escH(cfg.payInfo)}</div>`:""}`
+        :`<p class="lg-warn">Giảng viên chưa cập nhật thông tin chuyển khoản.${cfg.payContact?"":" Vui lòng liên hệ giảng viên để đăng ký."}</p>`}
+      ${cfg.payContact?`<p class="lg-contact">Liên hệ: ${escH(cfg.payContact)}</p>`:""}
+      ${pend?`<p class="lg-pend" role="status"><b>Đang chờ xác nhận.</b> Bạn đã báo chuyển khoản${pend.at?" lúc "+escH(pend.at):""}. Giảng viên sẽ kiểm tra và kích hoạt; sau đó bấm <b>Kiểm tra lại</b>.</p>`:""}
+      <div class="lg-btns">${pend||!hasPay?"":`<button class="btn pri lg-paid">Tôi đã chuyển khoản</button>`}<button class="btn${pend?" pri":""} lg-re">Kiểm tra lại</button></div><p class="lg-msg" aria-live="polite"></p></div>`}
+  else if(kind==="missing")body=`<div class="lg-card"><h2>Bài học đang được cập nhật</h2><p>Nội dung bài này chưa có trên máy chủ. Vui lòng quay lại sau.</p>${AMTS.isTeacher()?`<p class="bad-t">Giảng viên: hãy tải file <code>noi-dung-cpp.json</code> lên ở mục “Nội dung bài học” trong Trang giảng viên.</p>`:""}<div class="lg-btns">${back}</div></div>`;
+  else body=`<div class="lg-card"><h2>Chưa tải được bài học</h2><p>${kind==="offline"?"Không kết nối được máy chủ nên chưa kiểm tra được quyền học. Kiểm tra Internet rồi thử lại.":escH(extra||"Đã có lỗi khi tải bài học.")}</p><div class="lg-btns"><button class="btn pri lg-re">Thử lại</button>${back}</div></div>`;
   gate.hidden=false;gate.innerHTML=head+body;
-  const bi=gate.querySelector(".lg-in");if(bi)bi.onclick=async()=>{const r=await AMTS.signIn();const mm=gate.querySelector(".lg-msg");if(mm)mm.textContent=r};
+  const msg=gate.querySelector(".lg-msg");
+  const bi=gate.querySelector(".lg-in");if(bi)bi.onclick=async()=>{const r=await AMTS.signIn();if(msg)msg.textContent=r};
   const br=gate.querySelector(".lg-re");if(br)br.onclick=()=>{AMTS.clearEnroll();if(kind==="offline")location.reload();else openLesson(l,true)};
+  gate.querySelectorAll(".lg-cp").forEach(b=>b.onclick=()=>{const t=b.textContent;(typeof copyText==="function"?copyText(b.dataset.cp):Promise.reject()).then(()=>{b.textContent="Đã sao chép"},()=>{b.textContent="Chưa sao chép được"}).finally(()=>setTimeout(()=>b.textContent=t,1800))});
+  const bp=gate.querySelector(".lg-paid");if(bp)bp.onclick=async()=>{bp.disabled=true;bp.textContent="Đang gửi…";
+    try{await AMTS.requestPay("cpp");gateShow(l,"paid",cfg,{pending:{at:new Date().toLocaleString("vi-VN",{hour:"2-digit",minute:"2-digit",day:"2-digit",month:"2-digit"})}});const f=document.querySelector(`#view-${l} .lg-pend`);if(f){f.setAttribute("tabindex","-1");f.focus()}}
+    catch(e){bp.disabled=false;bp.textContent="Tôi đã chuyển khoản";if(msg){msg.className="lg-msg bad-t";msg.textContent="Chưa gửi được: "+(e.message||e.code)+". Thử lại sau."}}};
 }
+async function payState(){const r=await AMTS.payReqOf("cpp");if(!r)return null;
+  const d=r.toDate?r.toDate():null;return{pending:{at:d?d.toLocaleString("vi-VN",{hour:"2-digit",minute:"2-digit",day:"2-digit",month:"2-digit"}):""}}}
 const LOADING=new Set();
 async function openLesson(l,fresh){
   if(LESSON_EMBED||LOADED.has(l)||!document.getElementById("view-"+l))return;
@@ -1790,7 +2094,7 @@ async function openLesson_(l,fresh){
   const need=accessOf(l,cfg),teacher=AMTS.isTeacher();
   if(!teacher){
     if(need!=="public"&&!S.user){gateShow(l,need==="paid"?"paid-login":"login",cfg);return}
-    if(need==="paid"&&!(await AMTS.isEnrolled("cpp"))){gateShow(l,"paid",cfg);return}
+    if(need==="paid"&&!(await AMTS.isEnrolled("cpp"))){gateShow(l,"paid",cfg,await payState());return}
   }
   try{const cv=courseById("cpp").contentVer,d=await AMTS.getLesson("cpp",l,cv,cfg);
     if(!d||!d.html){gateShow(l,"missing",cfg);return}
@@ -1800,7 +2104,7 @@ async function openLesson_(l,fresh){
   }catch(e){
     if(e.code==="permission-denied"){
       if(need==="public"||(need==="login"&&S.user))gateShow(l,"missing",cfg);
-      else if(need==="paid")gateShow(l,!S.user?"paid-login":(await AMTS.isEnrolled("cpp"))?"missing":"paid",cfg);
+      else if(need==="paid"){if(!S.user)gateShow(l,"paid-login",cfg);else if(await AMTS.isEnrolled("cpp"))gateShow(l,"missing",cfg);else gateShow(l,"paid",cfg,await payState())}
       else gateShow(l,"login",cfg);return}
     gateShow(l,"error",cfg,e.message||e.code)}
 }
@@ -1808,8 +2112,9 @@ async function openLesson_(l,fresh){
 function renderLocks(cfg){
   if(LESSON_EMBED||!cfg)return;const S=AMTS.S,teacher=AMTS.isTeacher();
   document.querySelectorAll("#outline li[data-l]").forEach(li=>{const l=li.dataset.l,need=accessOf(l,cfg);
-    let tag="";if(!teacher){if(need==="paid")tag=`<span class="lk paid" title="Bài có phí">có phí</span>`;else if(need==="login"&&!S.user)tag=`<span class="lk" title="Cần đăng nhập">đăng nhập</span>`}
-    else if(need==="paid")tag=`<span class="lk paid" title="Bài có phí">có phí</span>`;
+    const LK='<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><rect x="4.5" y="10.5" width="15" height="10" rx="2.5"/><path d="M8 10.5V7.5a4 4 0 0 1 8 0v3"/></svg>';
+    let tag="";if(!teacher){if(need==="paid")tag=`<span class="lk paid" title="Bài có phí">${LK}Có phí</span>`;else if(need==="login"&&!S.user)tag=`<span class="lk" title="Cần đăng nhập">${LK}Đăng nhập</span>`}
+    else if(need==="paid")tag=`<span class="lk paid" title="Bài có phí">${LK}Có phí</span>`;
     let x=li.querySelector(".lk");if(x)x.remove();if(tag)li.insertAdjacentHTML("beforeend",tag)});
 }
 AMTS.on(S=>{
@@ -1822,11 +2127,11 @@ AMTS.on(S=>{
   COURSE.forEach(t=>{
     h+=`<div class="lvl">${t.tier}</div>`;
     t.chapters.forEach(c=>{n++;
-      h+=`<details class="ch" ${n===1?"open":""}><summary><span class="ch-no">${String(n).padStart(2,"0")}</span><span>${c.t}</span></summary><ul>`;
+      h+=`<details class="ch" ${n===1?"open":""}><summary><span class="ch-no">${String(n).padStart(2,"0")}</span><span class="ch-t">${c.t}</span></summary><ul>`;
       c.l.forEach((l,i)=>{
         const L=LESSON_MAP[`${n}-${i}`];
-        if(L) h+=`<li class="on" data-l="${L}"><a href="#bai-${L.slice(1)}" data-go="${L}">${i+1}. ${esc(l)}</a></li>`;
-        else h+=`<li><span>${i+1}. ${esc(l)}</span><span class="soon">sắp có</span></li>`;
+        if(L) h+=`<li class="on" data-l="${L}"><a href="#bai-${L.slice(1)}" data-go="${L}"><span class="st" aria-hidden="true"></span><span class="lt">Bài ${L.slice(1)} · ${esc(l)}</span><span class="vh st-t"></span></a></li>`;
+        else h+=`<li class="soon-l"><span class="st" aria-hidden="true"></span><span class="lt">${esc(l)}</span><span class="soon">Sắp có</span></li>`;
       });
       h+=`</ul></details>`;
     });
@@ -1834,15 +2139,34 @@ AMTS.on(S=>{
   document.getElementById("outline").innerHTML=h;
   let road="",k=0;
   COURSE.forEach(t=>{
-    road+=`<section class="tier"><div class="tier-h"><span class="chip ${t.cls}">${t.tier}</span><h2>${t.note}</h2></div><div class="cards">`;
-    t.chapters.forEach(c=>{k++;
-      road+=`<div class="card ${c.live?"live":""}"><div class="top"><span class="no">Chương ${k}</span><span class="chip">${c.l.length} bài</span></div><h3>${c.t}<span class="h-en" lang="en">${c.en||""}</span></h3><ul>${c.l.map(x=>`<li>${esc(x)}</li>`).join("")}</ul><div class="simtag"><b>Mô phỏng</b>${c.sim}</div></div>`;
+    road+=`<section class="tier"><div class="tier-h"><h2>${t.tier}</h2><span>${t.note}</span></div><div class="rrows">`;
+    t.chapters.forEach(c=>{k++;const n=k;
+      const ls=c.l.map((x,i)=>[LESSON_MAP[`${n}-${i}`],x]),open=ls.filter(x=>x[0]).length;
+      const st=open===c.l.length?`<span class="r-st on">Đang mở</span>`:open?`<span class="r-st on">Đang mở ${open}/${c.l.length} bài</span>`:`<span class="r-st">Sắp mở</span>`;
+      road+=`<details class="rrow${open?" live":""}" data-ch="${n}"><summary><span class="r-no">${String(n).padStart(2,"0")}</span><span class="r-t"><b>${c.t}</b><span class="h-en" lang="en">${c.en||""}</span></span><span class="r-p" data-rp="${n}"></span>${st}</summary>
+        <div class="r-body"><ul>${ls.map(([L,x])=>L?`<li data-l="${L}"><a href="#bai-${L.slice(1)}" data-go="${L}"><span class="st" aria-hidden="true"></span>Bài ${L.slice(1)} · ${esc(x)}<span class="vh st-t"></span></a></li>`:`<li class="soon-l"><span class="st" aria-hidden="true"></span>${esc(x)}<span class="soon">Sắp có</span></li>`).join("")}</ul>
+        <p class="simtag"><b>Mô phỏng</b>${c.sim}</p></div></details>`;
     });
     road+=`</div></section>`;
   });
   document.getElementById("road").innerHTML=road;
   document.getElementById("road-gl").onclick=()=>{const g=document.getElementById("gloss-all");g.open=true;g.scrollIntoView({behavior:"smooth"});setTimeout(()=>document.getElementById("gl-q").focus({preventScroll:true}),400)};
   renderGlossAll();document.getElementById("gl-q").addEventListener("input",renderGlossAll);
+  /* tìm bài trong sidebar (không phân biệt dấu) */
+  const fold=s=>s.toLowerCase().normalize("NFD").replace(/[\u0300-\u036f]/g,"").replace(/đ/g,"d");
+  const qi=document.getElementById("ol-q"),qx=document.getElementById("ol-x"),emp=document.getElementById("ol-empty");
+  function filterOutline(){const raw=qi.value.trim(),q=fold(raw);qx.hidden=!raw;let hits=0;
+    document.querySelectorAll("#outline details.ch").forEach(d=>{
+      const chHit=!!q&&fold(d.querySelector(".ch-t").textContent).includes(q);let any=false;
+      d.querySelectorAll("li").forEach(li=>{const m=!q||chHit||fold(li.querySelector(".lt").textContent).includes(q);li.hidden=!m;if(m){any=true;if(q)hits++}});
+      d.hidden=!!q&&!any;
+      if(q){if(d.dataset.o===undefined)d.dataset.o=d.open?"1":"";if(any)d.open=true}
+      else if(d.dataset.o!==undefined){d.open=d.dataset.o==="1"||d.classList.contains("has-cur");delete d.dataset.o}});
+    document.querySelectorAll("#outline .lvl").forEach(t=>{let n=t.nextElementSibling,vis=false;while(n&&!n.classList.contains("lvl")){if(!n.hidden)vis=true;n=n.nextElementSibling}t.hidden=!vis});
+    emp.hidden=!q||hits>0;emp.textContent=q&&!hits?`Không có bài nào khớp “${raw}”.`:(q?"":"")}
+  qi.addEventListener("input",filterOutline);
+  qx.onclick=()=>{qi.value="";filterOutline();qi.focus()};
+  qi.addEventListener("keydown",e=>{if(e.key==="Escape"&&qi.value){e.stopPropagation();qi.value="";filterOutline()}});
   {let on=true;try{on=localStorage.getItem("amts-en")!=="0"}catch(e){}setEN(on);
    document.getElementById("en-sw").onclick=e=>setEN(e.currentTarget.getAttribute("aria-checked")!=="true")}
 })();
@@ -1856,12 +2180,13 @@ function show(v){
   if(/^l\d/.test(v)&&window.TRACK&&(LESSON_EMBED||LOADED.has(v)))TRACK.visit(v);
   document.getElementById("nav-road").setAttribute("aria-pressed",v==="road");
   document.getElementById("nav-lesson").setAttribute("aria-pressed",v!=="road");
-  document.querySelectorAll("#outline li[data-l]").forEach(li=>li.classList.toggle("cur",li.dataset.l===v));
-  const cur=document.querySelector(`#outline li[data-l="${v}"]`);if(cur)cur.closest("details").open=true;
+  document.querySelectorAll("#outline li[data-l]").forEach(li=>{const on=li.dataset.l===v;li.classList.toggle("cur",on);const a=li.querySelector("a");if(on)a.setAttribute("aria-current","page");else a.removeAttribute("aria-current")});
+  document.querySelectorAll("#outline details.ch").forEach(d=>d.classList.remove("has-cur"));
+  const cur=document.querySelector(`#outline li[data-l="${v}"]`);if(cur){const d=cur.closest("details");d.open=true;d.classList.add("has-cur")}
+  if(window.TOPNAV)TOPNAV.setActive(v==="road"?"road":"courses");
   try{localStorage.setItem("cpp-view",v)}catch(e){}
   if(window.closeDrawer)closeDrawer();
-  const lm=v==="road"?null:lessonMeta(v),tt=v==="road"?["C++ từ nền tảng","Lộ trình khóa học"]:[`Bài ${lm.no} · Chương ${lm.ch}`,lm.name];
-  document.getElementById("m-crumb").textContent=tt[0];document.getElementById("m-title").textContent=tt[1];
+  const lm=v==="road"?null:lessonMeta(v);
   document.title=(AMTS.ENV&&AMTS.ENV.label?`[${AMTS.ENV.label}] `:"")+(v==="road"?"Lộ trình · C++ từ nền tảng · AMTS":`Bài ${lm.no}: ${lm.name} · C++ từ nền tảng · AMTS`);
   window.scrollTo(0,0);
 }
@@ -1879,7 +2204,61 @@ document.addEventListener("click",e=>{const a=e.target.closest("[data-go]");if(a
  show(v);
  if(wantGloss)setTimeout(()=>{const g=document.getElementById("gloss-all");if(g){g.open=true;g.scrollIntoView()}},50);
  const onNav=()=>{const x=viewOfHash(location.hash)||"road";if(x!==curView)show(x)};
- window.addEventListener("popstate",onNav);window.addEventListener("hashchange",onNav);}/* ================= HIGHLIGHTER ================= */
+ window.addEventListener("popstate",onNav);window.addEventListener("hashchange",onNav);}/* ================= THANH ĐIỀU HƯỚNG CHUNG (trang chủ + trang khóa học) =================
+   Khung HTML: platform/partials/topnav.html · CSS: platform/css/07-topnav.css */
+const IC={doc:'<svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M14 3H7a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2V8z"/><path d="M14 3v5h5M9 13h6M9 17h4"/></svg>',
+  book:'<svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="4" y="3" width="16" height="18" rx="2"/><path d="M8 7h8M8 11h8M8 15h5"/></svg>',
+  bell:'<svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M6 9a6 6 0 1 1 12 0c0 6 2.5 7.5 2.5 7.5h-17S6 15 6 9z"/><path d="M10 20a2 2 0 0 0 4 0"/></svg>',
+  check:'<svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m5 12.5 4.5 4.5L19 7.5"/></svg>',
+  arrow:'<span aria-hidden="true">→</span>',chev:'<svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true" style="width:16px;height:16px"><path d="m6 9 6 6 6-6"/></svg>'};
+const TOPNAV=(()=>{
+  const top=document.getElementById("top"),ROOT=(top&&top.dataset.root)||"";
+  const opts={signOut:null};
+  const seen=()=>{try{return JSON.parse(localStorage.getItem("amts-notif-seen")||"{}")}catch(e){return{}}};
+  function wireMenu(bid,mid,onOpen){const b=document.getElementById(bid),m=document.getElementById(mid);if(!b||!m)return;
+    b.onclick=e=>{e.stopPropagation();const o=m.hidden;closeMenus();if(o){m.hidden=false;b.setAttribute("aria-expanded","true");onOpen&&onOpen();const f=m.querySelector("a,button");if(f&&e.detail===0)f.focus()}}}
+  function closeMenus(except){document.querySelectorAll(".menu").forEach(m=>{if(m!==except)m.hidden=true});
+    document.querySelectorAll("[aria-haspopup]").forEach(b=>{if(!except||b.getAttribute("aria-controls")!==except.id)b.setAttribute("aria-expanded","false")})}
+  document.addEventListener("click",e=>{if(!e.target.closest(".menu"))closeMenus();if(top&&!e.target.closest("#top"))setOpen(false)});
+  document.addEventListener("keydown",e=>{if(e.key!=="Escape")return;const open=document.querySelector(".menu:not([hidden])");
+    if(open){const b=document.querySelector(`[aria-controls="${open.id}"]`);closeMenus();if(b)b.focus()}else if(top&&top.classList.contains("open")){setOpen(false);document.getElementById("nav-menu").focus()}});
+  function setOpen(o){if(!top)return;top.classList.toggle("open",o);const b=document.getElementById("nav-menu");if(b)b.setAttribute("aria-expanded",String(o))}
+  const mb=document.getElementById("nav-menu");if(mb)mb.onclick=e=>{e.stopPropagation();setOpen(!top.classList.contains("open"))};
+  wireMenu("nav-docs","m-docs");
+  function setActive(k){document.querySelectorAll("#mainnav [data-nav]").forEach(a=>{if(a.dataset.nav===k)a.setAttribute("aria-current","page");else a.removeAttribute("aria-current")})}
+  /* Thực hành: tới bài đầu tiên còn bài tập chưa đạt */
+  function practiceHref(){const c=COURSES.find(x=>x.status==="open");if(!c)return ROOT+"index.html";
+    const S=AMTS.S,loc=AMTS.getLocal(c.id),rem=S.user&&S.docLoaded?AMTS.courseOf(S.doc,c.id):null,p=rem?AMTS.merge(rem,loc):loc;
+    const next=c.lessons.find(([l])=>c.exercises.some(k=>k.startsWith(l+"-")&&!(p.ex[k]||{}).pass));
+    return ROOT+c.url+"#bai-"+(next?next[0].slice(1):"1")}
+  function render(){
+    const el=document.getElementById("topacct");if(!el)return;const S=AMTS.S;
+    const subs=COURSES.filter(c=>AMTS.notifyOf(c.id)),sn=seen(),fresh=subs.filter(c=>c.status==="open"&&!sn[c.id]);
+    const notif=`<div class="navdd"><button class="iconbtn" id="b-bell" aria-haspopup="true" aria-expanded="false" aria-controls="m-bell" aria-label="Thông báo${fresh.length?` (${fresh.length} mới)`:""}">${IC.bell}${fresh.length?'<span class="dot" aria-hidden="true"></span>':""}</button>
+      <div class="menu right notif" id="m-bell" hidden><b class="m-h">Thông báo</b>${subs.length?subs.map(c=>c.status==="open"?`<p class="new">${escH(c.name)} đã mở! <a href="${escH(ROOT+c.url)}">Vào học →</a></p>`:`<p>Bạn sẽ được báo khi <b>${escH(c.name)}</b> mở.</p>`).join("")
+        :`<p>Bạn chưa có thông báo mới.</p><p class="note">Bấm “Nhận thông báo” ở một khóa sắp ra mắt để được báo khi khóa mở.</p>`}</div></div>`;
+    let h="";
+    if(S.mode==="unavailable")h="";
+    else if(S.mode==="loading"||S.mode==="off")h=`<span class="note">Đang kết nối…</span>`;
+    else if(S.mode==="error")h=`<span class="note bad-t">${escH(S.err)}</span>`;
+    else if(!S.user)h=notif+`<button class="gbtn" id="btn-in"><span class="g">G</span>Đăng nhập</button>`;
+    else{const u=S.user;
+      h=notif+`<div class="navdd"><button class="avabtn" id="b-me" aria-haspopup="true" aria-expanded="false" aria-controls="m-me" aria-label="Tài khoản: ${escH(u.displayName||u.email||"")}">${avatarHTML(u)}${IC.chev}</button>
+        <div class="menu right" id="m-me" hidden><div class="who">${avatarHTML(u)}<div><b>${escH(u.displayName||"Học viên")}</b><small>${escH(u.email||"")}</small></div></div>
+          ${AMTS.isTeacher()?`<a href="${ROOT}index.html#giang-vien">Trang giảng viên<small>Tiến độ học viên, học phí, nội dung</small></a>`:""}
+          ${S.saveErr?`<p class="note bad-t" style="padding:6px 12px">${escH(S.saveErr)}</p>`:""}
+          <button type="button" id="btn-out">Đăng xuất</button></div></div>`}
+    el.innerHTML=h+`<span class="note bad-t" id="acct-msg" aria-live="polite"></span>`;
+    const bi=document.getElementById("btn-in");if(bi)bi.onclick=async()=>{const m=await AMTS.signIn();document.getElementById("acct-msg").textContent=m};
+    const bo=document.getElementById("btn-out");if(bo)bo.onclick=async()=>{if(opts.signOut)return opts.signOut();await AMTS.signOut();if(window.renderAll)renderAll();else render()};
+    wireMenu("b-bell","m-bell",()=>{const s=seen();subs.forEach(c=>{if(c.status==="open")s[c.id]=1});try{localStorage.setItem("amts-notif-seen",JSON.stringify(s))}catch(e){}});
+    wireMenu("b-me","m-me");
+    const pr=document.getElementById("nav-practice");if(pr)pr.href=practiceHref();
+  }
+  return{render,setActive,closeMenus,wireMenu,opts,practiceHref,ROOT};
+})();
+const closeMenus=TOPNAV.closeMenus,wireMenu=TOPNAV.wireMenu;
+/* ================= HIGHLIGHTER ================= */
 const KW=new Set("int return void using namespace include char double float bool if else for while do switch case default break continue const constexpr auto class struct true false long short unsigned signed sizeof static_cast".split(" "));
 function lex(src){
   const out=[];let i=0;const n=src.length;
@@ -1905,20 +2284,34 @@ function highlightLines(src){
     });
   });
   return lines;
-}function makeQuiz(boxId,scoreId,QZ){
-  const qAns=QZ.map(()=>-1),box=document.getElementById(boxId),score=document.getElementById(scoreId);
+}/* Trắc nghiệm cuối bài: radio thật, chấm khi bấm "Kiểm tra đáp án"; chưa chấm thì không hiện điểm */
+function makeQuiz(boxId,scoreId,QZ){
+  const qAns=QZ.map(()=>-1),box=document.getElementById(boxId),score=document.getElementById(scoreId);let graded=false;
+  const OK='<svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m5 12.5 4.5 4.5L19 7.5"/></svg>',
+        NO='<svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" aria-hidden="true"><path d="M6 6l12 12M18 6 6 18"/></svg>';
+  if(score){score.setAttribute("role","status");score.setAttribute("aria-live","polite")}
   function render(){
-    box.innerHTML=QZ.map((q,i)=>`<div class="q"><p class="qt">${i+1}. ${q.q}</p><div class="opts">${q.o.map((o,j)=>{
-      let c="";if(qAns[i]>=0){if(j===q.a)c="right";else if(j===qAns[i])c="wrong"}
-      return `<button class="${c}" data-q="${i}" data-o="${j}" ${qAns[i]>=0?"disabled":""}>${o}</button>`}).join("")}</div>${qAns[i]>=0?`<p class="fb">${qAns[i]===q.a?"<b style='color:var(--ok)'>Chính xác.</b> ":"<b style='color:var(--err)'>Chưa đúng.</b> "}${q.e}</p>`:""}</div>`).join("");
-    box.querySelectorAll("[data-q]").forEach(b=>b.onclick=()=>{qAns[+b.dataset.q]=+b.dataset.o;render()});
-    const sc=qAns.filter((a,i)=>a===QZ[i].a).length,done=qAns.filter(a=>a>=0).length;
-    if(done===QZ.length&&window.TRACK)TRACK.quiz(boxId,sc,QZ.length);
-    score.innerHTML=`Điểm: ${sc} / ${QZ.length}${done===QZ.length?' · <button class="btn" style="padding:3px 10px;font-size:12.5px">Làm lại</button>':""}`;
-    const r=score.querySelector("button");if(r)r.onclick=()=>{qAns.fill(-1);render()};
+    box.innerHTML=QZ.map((q,i)=>{const nm=`${boxId}-q${i}`,ok=graded&&qAns[i]===q.a;
+      return `<fieldset class="q${graded?(ok?" q-ok":" q-bad"):""}"><legend class="qt">${i+1}. ${q.q}</legend><div class="opts">${q.o.map((o,j)=>{
+        let c="",tag="";if(graded){if(j===q.a){c=" right";tag=`<span class="o-tag">${OK}Đáp án đúng</span>`}else if(j===qAns[i]){c=" wrong";tag=`<span class="o-tag">${NO}Bạn chọn</span>`}}
+        return `<label class="opt${c}"><input type="radio" name="${nm}" value="${j}"${qAns[i]===j?" checked":""}${graded?" disabled":""}><span class="o-t">${o}</span>${tag}</label>`}).join("")}</div>${graded?`<p class="fb"><b class="${ok?"ok-t":"bad-t"}">${ok?OK+" Chính xác.":NO+" Chưa đúng."}</b> ${q.e}</p>`:""}</fieldset>`}).join("");
+    box.querySelectorAll("input[type=radio]").forEach(r=>r.onchange=()=>{const i=+r.name.split("-q").pop();qAns[i]=+r.value;paint()});
+    paint();
+  }
+  function paint(){
+    const done=qAns.filter(a=>a>=0).length,sc=qAns.filter((a,i)=>a===QZ[i].a).length;
+    if(!score)return;
+    if(!graded){
+      score.innerHTML=`<span class="qz-st">Đã trả lời ${done}/${QZ.length} câu · Chưa chấm điểm</span><button type="button" class="btn pri qz-check"${done<QZ.length?" disabled":""}>Kiểm tra đáp án</button>${done<QZ.length?`<small class="qz-hint">Trả lời đủ ${QZ.length} câu để chấm.</small>`:""}`;
+      const b=score.querySelector(".qz-check");b.onclick=()=>{graded=true;if(window.TRACK)TRACK.quiz(boxId,sc,QZ.length);render();score.querySelector(".qz-again").focus()};
+    }else{
+      score.innerHTML=`<span class="qz-st"><b>Kết quả: đúng ${sc}/${QZ.length} câu</b>${sc===QZ.length?" · Rất tốt!":""}</span><button type="button" class="btn qz-again">Làm lại</button>`;
+      score.querySelector(".qz-again").onclick=()=>{graded=false;qAns.fill(-1);render();const f=box.querySelector("input");if(f)f.focus()};
+    }
   }
   render();
-}/* ================= ENGINE 2: mini C++ cho Bài 3 trở đi ================= */
+}
+/* ================= ENGINE 2: mini C++ cho Bài 3 trở đi ================= */
 const SIZES={char:1,bool:1,short:2,int:4,unsigned:4,float:4,"long long":8,double:8,string:32};
 const INTG=new Set(["char","bool","short","int","unsigned","long long"]);
 const isNumT=t=>INTG.has(t)||t==="double"||t==="float";
@@ -2961,17 +3354,19 @@ function makeSim2(root,cfg){
   root.classList.add("sim","sim2");
   root.innerHTML=`<div class="sim-bar"><div class="left"><span class="fname">main.cpp</span>
    <select aria-label="Chọn ví dụ" class="s-pre" id="${cfg.id}-pre">${cfg.presets.map((p,i)=>`<option value="${i}">${esc(p.label)}</option>`).join("")}</select></div>
-   <div class="right"><button class="btn s-back" disabled title="Lùi lại một bước">← Lùi</button><button class="btn s-step">Từng bước</button><button class="btn pri s-run">▶ Chạy</button></div></div>
+   <span class="s-chip idle" role="status" aria-live="polite">Chưa chạy</span></div>
+   <div class="right"><button class="btn s-back" disabled title="Lùi lại một bước">← Lùi bước</button><button class="btn s-step">Từng bước</button><button class="btn pri s-run">▶ Chạy</button></div></div>
   <div class="sim-body">
    <div class="editor"><div class="gutter"></div><div class="ed-wrap"><pre class="ed-hl" aria-hidden="true"></pre><textarea class="ed-ta" id="${cfg.id}-ed" spellcheck="false" autocapitalize="off" autocomplete="off" aria-label="Mã nguồn C++"></textarea></div></div>
    <div class="rp">
-    <div class="pane-h"><span class="mem-h">Bộ nhớ</span><span class="s-line"></span></div>
-    <div class="mem"></div>
-    <div class="pane-h"><span>Bộ đệm nhập (cin)</span><span class="s-cst"></span></div>
-    <div class="bufw"><div class="cells"></div></div>
-    <div class="pane-h"><span>Console</span><span class="s-exit"></span></div>
+    <div class="rp-tabs" role="tablist" aria-label="Khung theo dõi"><button type="button" role="tab" id="${cfg.id}-tmem" aria-controls="${cfg.id}-pmem" data-tab="mem" aria-selected="false" tabindex="-1">Bộ nhớ</button><button type="button" role="tab" id="${cfg.id}-tbuf" aria-controls="${cfg.id}-pbuf" data-tab="buf" aria-selected="false" tabindex="-1">Bộ đệm nhập</button><button type="button" role="tab" id="${cfg.id}-tout" aria-controls="${cfg.id}-pout" data-tab="out" aria-selected="true">Kết quả</button></div>
+    <div class="rp-sec" data-sec="mem" id="${cfg.id}-pmem" role="tabpanel" aria-labelledby="${cfg.id}-tmem"><div class="pane-h"><span class="mem-h">Bộ nhớ</span><span class="s-line"></span></div>
+    <div class="mem"></div></div>
+    <div class="rp-sec" data-sec="buf" id="${cfg.id}-pbuf" role="tabpanel" aria-labelledby="${cfg.id}-tbuf"><div class="pane-h"><span>Bộ đệm nhập (cin)</span><span class="s-cst"></span></div>
+    <div class="bufw"><div class="cells"></div></div></div>
+    <div class="rp-sec on" data-sec="out" id="${cfg.id}-pout" role="tabpanel" aria-labelledby="${cfg.id}-tout"><div class="pane-h"><span>Console</span><span class="s-exit"></span></div>
     <div class="con" tabindex="-1"></div>
-    <div class="explain" hidden></div>
+    <div class="explain" hidden></div></div>
    </div></div>
   <div class="sim-foot"><label class="stdin-row"><span>Dữ liệu nhập sẵn</span><textarea class="s-in" id="${cfg.id}-in" rows="1" spellcheck="false" placeholder="Để trống: chương trình sẽ hỏi trong console khi cần"></textarea></label><span><kbd>Ctrl</kbd> + <kbd>Enter</kbd> chạy</span></div>
   <details class="sim-scope"><summary>Trình mô phỏng hỗ trợ những gì?</summary><div>
@@ -2981,7 +3376,15 @@ function makeSim2(root,cfg){
     <p><b>Giới hạn:</b> 1 000 000 bước chạy, 3 000 tầng gọi hàm, 200 000 ký tự đầu ra.</p></div></details>`;
   const $=s=>root.querySelector(s);
   const ed=$(".ed-ta"),hl=$(".ed-hl"),gut=$(".gutter"),con=$(".con"),mem=$(".mem"),cells=$(".cells"),exp=$(".explain"),inp=$(".s-in"),btnStep=$(".s-step"),btnRun=$(".s-run"),btnBack=$(".s-back");
-  const S={M:null,tok:0,cur:0,bad:0,head:"",tail:"",waiting:null,ch:new Set(),mode:null,warns:[],k:0,feeds:[],pending:[]};
+  const S={M:null,tok:0,cur:0,bad:0,head:"",tail:"",waiting:null,ch:new Set(),mode:null,warns:[],k:0,feeds:[],pending:[],running:false};
+  const chip=$(".s-chip");
+  function setChip(k,t){chip.className="s-chip "+k;chip.textContent=t}
+  /* điện thoại: tab Bộ nhớ / Bộ đệm nhập / Kết quả (máy tính hiện cả ba) */
+  const tabs=[...root.querySelectorAll(".rp-tabs [role=tab]")];
+  function tab(k,focus){tabs.forEach(b=>{const on=b.dataset.tab===k;b.setAttribute("aria-selected",on);b.tabIndex=on?0:-1;if(on&&focus)b.focus()});
+    root.querySelectorAll(".rp-sec").forEach(x=>x.classList.toggle("on",x.dataset.sec===k))}
+  tabs.forEach((b,i)=>{b.onclick=()=>tab(b.dataset.tab);b.onkeydown=e=>{const d=e.key==="ArrowRight"?1:e.key==="ArrowLeft"?-1:0;if(!d)return;e.preventDefault();tab(tabs[(i+d+tabs.length)%tabs.length].dataset.tab,true)}});
+  function setRunning(on){S.running=on;btnRun.textContent=on?"■ Dừng":"▶ Chạy";btnRun.classList.toggle("stop",on);btnStep.disabled=on;if(on)btnBack.disabled=true}
   function applyFeed(f){if(f.eof)S.M.eofIn=true;else S.M.feed(f.v);S.feeds.push(f)}
   function paint(){const L=highlightLines(ed.value);
     hl.innerHTML=L.map((s,i)=>`<span class="row${i+1===S.cur?" cur":""}${i+1===S.bad?" bad":""}">${s||" "}</span>`).join("");
@@ -3003,16 +3406,17 @@ function makeSim2(root,cfg){
     st.innerHTML=M.failed?`<span class="bad-t">cin: lỗi${M.eof?" (hết dữ liệu)":" (fail)"}</span>`:`<span class="ok-t">cin: bình thường</span>`}
   function renderCon(){const M=S.M;
     let h=S.head;if(M)h+=M.out.map(x=>x.k==="i"?`<span class="in">${esc(x.s)}</span>`:esc(x.s)).join("");h+=S.tail;
-    con.innerHTML=h;
+    con.innerHTML=h||'<span class="con-empty">Chưa có kết quả. Bấm Chạy hoặc Từng bước để xem chương trình in ra gì.</span>';
     if(S.waiting){const i=document.createElement("input");i.className="con-in";i.id=cfg.id+"-cin";i.setAttribute("aria-label","Nhập dữ liệu cho chương trình");i.autocomplete="off";i.spellcheck=false;
       i.addEventListener("keydown",e=>{if(e.key==="Enter"){e.preventDefault();const w=S.waiting;S.waiting=null;if(S.mode==="step")applyFeed({v:i.value});else S.M.feed(i.value);w()}
         else if((e.key==="d"||e.key==="z")&&e.ctrlKey){e.preventDefault();const w=S.waiting;S.waiting=null;if(S.mode==="step")applyFeed({eof:true});else S.M.eofIn=true;w()}});
       const eb=document.createElement("button");eb.className="eof-btn";eb.type="button";eb.textContent="Kết thúc nhập (Ctrl+D)";eb.title="Báo cho chương trình là đã hết dữ liệu nhập (EOF)";
       eb.onclick=()=>{const w=S.waiting;if(!w)return;S.waiting=null;if(S.mode==="step")applyFeed({eof:true});else S.M.eofIn=true;w()};con.appendChild(eb);
-      con.appendChild(i);i.focus({preventScroll:true})}
+      con.appendChild(i);tab("out");i.focus({preventScroll:true})}
     con.scrollTop=con.scrollHeight}
-  function renderAll(){btnBack.disabled=!(S.M&&S.mode==="step"&&S.k>0);paint();renderMem();renderBuf();renderCon();root.querySelector(".s-line").textContent=(S.cur&&S.M&&!S.M.done?`dòng ${S.cur}`:"")+(S.cond&&S.M&&!S.M.done?` · ${S.cond}`:"")+(S.M&&!S.M.done&&S.M.calls.length?` · sâu ${S.M.calls.length+1} tầng`:"");keepCur()}
-  function reset(){S.tok++;S.M=null;S.cur=0;S.waiting=null;S.head="";S.tail="";S.ch=new Set();exp.hidden=true;btnStep.textContent="Từng bước";root.querySelector(".s-exit").textContent="";renderAll()}
+  function renderAll(){btnBack.disabled=S.running||!(S.M&&S.mode==="step"&&S.k>0);
+    if(S.M&&!S.M.done){if(S.waiting)setChip("wait","Đang chờ nhập dữ liệu");else if(S.running)setChip("run","Đang chạy…");else if(S.mode==="step"&&S.cur)setChip("step",`Dừng ở dòng ${S.cur}`)}paint();renderMem();renderBuf();renderCon();root.querySelector(".s-line").textContent=(S.cur&&S.M&&!S.M.done?`dòng ${S.cur}`:"")+(S.cond&&S.M&&!S.M.done?` · ${S.cond}`:"")+(S.M&&!S.M.done&&S.M.calls.length?` · sâu ${S.M.calls.length+1} tầng`:"");keepCur()}
+  function reset(){S.tok++;setRunning(false);setChip("idle","Chưa chạy");S.M=null;S.cur=0;S.waiting=null;S.head="";S.tail="";S.ch=new Set();exp.hidden=true;btnStep.textContent="Từng bước";root.querySelector(".s-exit").textContent="";renderAll()}
   function load(i){const p=cfg.presets[i];ed.value=p.code;inp.value=p.input||"";ed.scrollTop=0;S.bad=0;reset();
     if(p.input)fitIn()}
   function fitIn(){inp.rows=Math.min(4,Math.max(1,inp.value.split("\n").length))}
@@ -3031,9 +3435,11 @@ function makeSim2(root,cfg){
       renderAll();
       exp.hidden=false;exp.className="explain"+(uns?" warn":"");exp.innerHTML=uns?`<b>Trình mô phỏng chưa hỗ trợ tính năng này${S.bad?` (dòng ${S.bad})`:""}</b><span>${esc(err.vi)}</span><span>Đây không phải lỗi C++: code có thể vẫn đúng với g++ trên máy thật. Xem mục “Trình mô phỏng hỗ trợ những gì?” bên dưới.</span>`:`<b>${err.kind==="link"?"Lỗi liên kết":"Lỗi biên dịch"}${S.bad?` ở dòng ${S.bad}`:""}</b><span>${esc(err.vi)}</span>`;
       root.querySelector(".s-exit").textContent=uns?"chưa mô phỏng được":"không tạo được file chạy";
+      setRunning(false);setChip(uns?"unsup":"err",uns?"Chưa hỗ trợ":err.kind==="link"?"Lỗi liên kết":"Lỗi biên dịch");tab("out");
       cfg.onResult&&cfg.onResult(null);return false}
   }
-  function finish(r){const M=S.M;S.cur=0;S.waiting=null;
+  function finish(r){const M=S.M;S.cur=0;S.waiting=null;setRunning(false);
+    setChip(r.s==="crash"?"err":"ok",r.s==="crash"?`Lỗi khi chạy · dòng ${r.line}`:"Đã chạy xong");
     const out=M.out.map(x=>x.s).join("");const nl=out&&!out.endsWith("\n")?"\n":"";
     if(r.s==="crash"){S.tail=nl+`<span class="e">${esc(M.crash.msg)}</span>`;S.bad=r.line}
     else S.tail=nl+`<span class="${M.exit===0?"ok":"e"}">[Chương trình kết thúc, mã thoát ${M.exit}]</span>`;
@@ -3054,7 +3460,8 @@ function makeSim2(root,cfg){
   }
   function waitInput(){return new Promise(res=>{S.waiting=res;renderAll()})}
   async function run(){
-    if(!compileStart())return;const tok=S.tok;S.mode="run";renderAll();
+    if(S.running){S.tok++;S.waiting=null;setRunning(false);S.cur=0;renderAll();setChip("idle","Đã dừng · bấm Chạy để chạy lại");root.querySelector(".s-exit").textContent="đã dừng";return}
+    if(!compileStart())return;const tok=S.tok;S.mode="run";setRunning(true);renderAll();
     for(let k=0;;k++){
       if(tok!==S.tok)return;
       const r=S.M.step();S.ch=r.ch||new Set();S.cur=r.line||0;noteCond(r);
@@ -3101,25 +3508,28 @@ function makeSim2(root,cfg){
   return{get:()=>ed.value,set:c=>{ed.value=c;S.bad=0;reset()},setInput:v=>{inp.value=v;fitIn()},el:root,run};
 }
 
-/* ---------- bài tập chấm tự động ---------- */
+/* ---------- bài tập chấm tự động: Nạp code mẫu · Chạy thử (ví dụ 1) · Nộp bài (chấm mọi test) ---------- */
 function makeEx2(el,sim,list){
   const st=list.map(()=>null);
+  const show=v=>esc(JSON.stringify(v).slice(1,-1))||'<i class="ex-none">(trống)</i>';
   function render(){
     el.innerHTML=list.map((e,i)=>`<div class="ex">
       <h4>${i+1}. ${esc(e.t)}</h4><p>${esc(e.d)}</p>
       <div class="io"><div><div class="pane-h" style="padding:0 0 4px">Ví dụ nhập</div><pre>${esc(e.tests[0].in||"(không có)")}</pre></div><div><div class="pane-h" style="padding:0 0 4px">Kết quả đúng</div><pre>${esc(e.tests[0].out)}</pre></div></div>
-      ${st[i]?st[i]:""}
-      <div class="ex-btns"><button class="btn" data-load="${i}">Nạp code mẫu</button><button class="btn pri" data-grade="${i}">Chấm bài (${e.tests.length} test)</button></div></div>`).join("");
+      <div class="ex-st" role="status" aria-live="polite">${st[i]?st[i]:`<p class="ex-todo">Chưa nộp bài · ${e.tests.length} test sẽ được chấm.</p>`}</div>
+      <div class="ex-btns"><button class="btn" data-load="${i}">Nạp code mẫu</button><button class="btn" data-try="${i}">Chạy thử</button><button class="btn pri" data-grade="${i}">Nộp bài</button></div></div>`).join("");
     el.querySelectorAll("[data-load]").forEach(b=>b.onclick=()=>{const e=list[+b.dataset.load];sim.set(e.start);sim.setInput(e.tests[0].in);sim.el.scrollIntoView({behavior:REDUCE()?"auto":"smooth",block:"start"})});
+    el.querySelectorAll("[data-try]").forEach(b=>b.onclick=()=>{const e=list[+b.dataset.try];sim.setInput(e.tests[0].in);sim.el.scrollIntoView({behavior:REDUCE()?"auto":"smooth",block:"start"});sim.run()});
     el.querySelectorAll("[data-grade]").forEach(b=>b.onclick=()=>grade(+b.dataset.grade));
   }
   function grade(i){const e=list[i];const R=runTests(sim.get(),e.tests);
     const exId=el.id.replace("ex-","")+"-"+i;
-    if(R.err){st[i]=`<div class="res bad">Code chưa biên dịch được: ${esc(R.err.message)}. Bấm Chạy ở trình mô phỏng để xem chi tiết.</div>`;if(window.TRACK)TRACK.ex(exId,false,"lỗi biên dịch");render();return}
-    const pass=R.res.filter(x=>x.ok).length,srcOk=!e.need||e.need.test(sim.get());
-    if(window.TRACK)TRACK.ex(exId,pass===R.res.length&&srcOk,`${pass}/${R.res.length} test`);
-    st[i]=`<div class="res ${pass===R.res.length&&srcOk?"ok":"bad"}"><b>${pass===R.res.length&&srcOk?"✓ Đạt":"Chưa đạt"}: ${pass}/${R.res.length} test</b>`+
-      R.res.map((x,k)=>x.ok?"":`<div class="fail"><span>Test ${k+1}, nhập: <code>${esc(JSON.stringify(x.T.in).slice(1,-1))}</code></span><span>Cần ra: <code>${esc(JSON.stringify(x.T.out).slice(1,-1))}</code></span><span>Bạn ra: <code>${x.crash?esc(x.crash.msg):esc(JSON.stringify(x.got).slice(1,-1))}</code></span></div>`).join("")+
+    if(R.err){st[i]=`<div class="res bad"><b>Chưa đạt: code chưa biên dịch được</b><span>${esc(R.err.message)}. Bấm Chạy ở trình mô phỏng để xem dòng lỗi.</span></div>`;if(window.TRACK)TRACK.ex(exId,false,"lỗi biên dịch");render();return}
+    const pass=R.res.filter(x=>x.ok).length,srcOk=!e.need||e.need.test(sim.get()),ok=pass===R.res.length&&srcOk;
+    if(window.TRACK)TRACK.ex(exId,ok,`${pass}/${R.res.length} test`);
+    const fails=R.res.map((x,k)=>[x,k]).filter(([x])=>!x.ok);
+    st[i]=`<div class="res ${ok?"ok":"bad"}"><b>${ok?"✓ Đạt":"✗ Chưa đạt"}: ${pass}/${R.res.length} test đúng</b>`+
+      (fails.length?`<div class="tbl ex-t"><table><thead><tr><th scope="col">Test</th><th scope="col">Input</th><th scope="col">Expected</th><th scope="col">Actual</th></tr></thead><tbody>${fails.map(([x,k])=>`<tr><th scope="row">Test ${k+1}</th><td data-h="Input"><code>${show(x.T.in)}</code></td><td data-h="Expected"><code>${show(x.T.out)}</code></td><td data-h="Actual"><code>${x.crash?esc(x.crash.msg):show(x.got)}</code></td></tr>`).join("")}</tbody></table></div>`:"")+
       (srcOk?"":`<div class="fail"><span>${esc(e.needMsg)}</span></div>`)+"</div>";
     render()}
   render();
@@ -3339,9 +3749,21 @@ function makeCallStack(el,{variants}){
   R.addEventListener("input",()=>{k=+R.value;render()});
   el.querySelectorAll("[data-v]").forEach(b=>b.onclick=()=>{vi=+b.dataset.v;build()});
   build();
-}/* đoạn code minh họa: lấy từ thư mục snippets của từng bài */
+}/* đoạn code minh họa: lấy từ thư mục snippets của từng bài; thêm đầu khung (tên file + Sao chép) */
 const SNIP={"l3a": "#include <iostream>\n\nint main() {\n    int a, b;\n    std::cout << \"Nhập hai số: \";\n    std::cin >> a >> b;          // dữ liệu chảy từ cin vào a, rồi vào b\n    std::cout << \"Tổng: \" << a + b << std::endl;\n    return 0;\n}", "l4a": "int tuoi;              // khai báo: chưa có giá trị (rác)\nint soLuong = 10;      // khởi tạo sao chép\ndouble diem(8.5);      // khởi tạo trực tiếp\nchar xepLoai{'A'};     // khởi tạo bằng ngoặc nhọn (khuyên dùng)\nint tong{};            // { } để trống: giá trị 0", "l6bad": "double tong = gia * soLuong;\ntong = tong + tong * 0.08;\ntong = tong + 15000;\n// 0.08 là gì? 15000 là gì?\n// Đổi thuế phải sửa khắp nơi", "l6const": "const int SO_MON = 5;              // khởi tạo ngay\nconst double DIEM_DAT = 5.0;\n\nint namSinh;\nstd::cin >> namSinh;\nconst int TUOI = 2026 - namSinh;    // được: giá trị có lúc chạy\n\nSO_MON = 6;                         // lỗi: hằng không đổi được\nconst int MAX;                      // lỗi: hằng chưa khởi tạo", "l6define": "#define PI 3.14159          // không có kiểu, không có dấu ;\n#define BINH_PHUONG(x) x * x\n\nint a = BINH_PHUONG(2 + 1);  // mong 9, nhưng được 2 + 1 * 2 + 1 = 5\n\nconstexpr double PI_MOI = 3.14159;   // cách hiện đại: có kiểu, an toàn", "l6good": "constexpr double THUE_VAT = 0.08;\nconstexpr int PHI_GIAO_HANG = 15000;\n\ndouble tong = gia * soLuong;\ntong = tong + tong * THUE_VAT;\ntong = tong + PHI_GIAO_HANG;", "l10cond": "int diem = 7;\nstd::cout << (diem >= 5 ? \"Đạt\" : \"Chưa đạt\") << \"\\n\";\n\nint a = 4, b = 9;\nint lonHon = (a > b) ? a : b;          // 9\n\n// Sai: thiếu ngoặc, cout << diem >= 5 ... bị hiểu là (cout << diem) >= 5\n// std::cout << diem >= 5 ? \"Đạt\" : \"Chưa đạt\";", "l11flags": "constexpr int READ  = 1 << 0;   // 001\nconstexpr int WRITE = 1 << 1;   // 010\nconstexpr int EXEC  = 1 << 2;   // 100\n\nint quyen = READ | WRITE;       // 011: được đọc và ghi\nquyen |= EXEC;                  // bật bit:   011 | 100 = 111\nquyen &= ~WRITE;                // tắt bit:   111 & 101 = 101\nquyen ^= READ;                  // đảo bit:   101 ^ 001 = 100\nbool coTheGhi = (quyen & WRITE) != 0;   // kiểm tra bit", "l12dangle": "if (coVe)\n    if (laHocSinh)\n        std::cout << \"Giảm 50%\";\nelse                            // thuộc if (laHocSinh)!\n    std::cout << \"Mời mua vé\";", "l12dangle2": "if (coVe) {\n    if (laHocSinh) {\n        std::cout << \"Giảm 50%\";\n    }\n} else {                        // giờ mới thuộc if (coVe)\n    std::cout << \"Mời mua vé\";\n}", "l12if": "int tuoi;\nstd::cin >> tuoi;\n\nif (tuoi >= 18) {                       // điều kiện đúng thì chạy khối này\n    std::cout << \"Đủ tuổi lái xe máy\\n\";\n} else {                                // ngược lại chạy khối này\n    std::cout << \"Chưa đủ tuổi\\n\";\n}\nstd::cout << \"Kết thúc\\n\";              // luôn chạy", "l12scope": "int a = 17, b = 5;\nif (b != 0) {\n    int thuong = a / b;         // thuong sinh ra ở đây\n    std::cout << thuong;\n}                               // thuong bị hủy ở đây\n// std::cout << thuong;         // lỗi: 'thuong' was not declared in this scope", "l13group": "switch (kyTu) {\n    case 'a': case 'e': case 'i':\n    case 'o': case 'u':\n        std::cout << \"Nguyên âm\";\n        break;\n    default:\n        std::cout << \"Phụ âm\";\n}", "l13syntax": "switch (luaChon) {             // chỉ số nguyên hoặc char\n    case 1:                     // nhảy tới đây nếu luaChon == 1\n        std::cout << \"Xem điểm\";\n        break;                  // thoát khỏi switch\n    case 2:\n        std::cout << \"Đổi mật khẩu\";\n        break;\n    default:                    // không khớp case nào\n        std::cout << \"Lựa chọn không hợp lệ\";\n}", "l14do": "int diem;\ndo {\n    std::cout << \"Nhập điểm (0-10): \";\n    std::cin >> diem;\n} while (diem < 0 || diem > 10);     // sai thì hỏi lại\nstd::cout << \"Điểm hợp lệ: \" << diem;", "l14while": "int i = 1;                // 1. khởi tạo\nwhile (i <= 5) {          // 2. kiểm tra điều kiện\n    std::cout << i << \" \";\n    i++;                  // 3. cập nhật\n}\nstd::cout << \"\\nXong\";    // in: 1 2 3 4 5", "l15for": "for (int i = 1; i <= 5; i++) {\n    std::cout << i << \" \";\n}\n// in: 1 2 3 4 5", "l15while": "int i = 1;\nwhile (i <= 5) {\n    std::cout << i << \" \";\n    i++;\n}", "l16proto": "#include <iostream>\n\nint tinhTong(int a, int b);           // nguyên mẫu: báo trước hàm có tồn tại\n\nint main() {\n    std::cout << tinhTong(2, 3);      // dùng được dù thân hàm ở dưới\n}\n\nint tinhTong(int a, int b) {          // định nghĩa: thân hàm thật\n    return a + b;\n}", "l16void": "void veDuongKe(int doDai) {\n    if (doDai <= 0) return;           // thoát sớm, không vẽ gì\n    for (int i = 0; i < doDai; i++)\n        std::cout << '-';\n    std::cout << '\\n';\n}                                     // hết thân hàm: tự quay về\n\nint main() {\n    veDuongKe(10);                    // gọi như một câu lệnh\n}", "l17multi": "void chia(int a, int b, int& thuong, int& du) {\n    thuong = a / b;\n    du = a % b;\n}\n\nint main() {\n    int q, r;                      // hai “hộp đựng” kết quả\n    chia(17, 5, q, r);\n    std::cout << q << \" dư \" << r; // 3 dư 2\n}", "l17swap": "void doiCho(int& a, int& b) {   // a, b là tên khác của x, y\n    int tam = a;\n    a = b;\n    b = tam;\n}\n\nint main() {\n    int x = 3, y = 8;\n    doiCho(x, y);\n    std::cout << x << \" \" << y;    // 8 3\n}", "l18def": "void keDong(int doDai = 10, char kyTu = '-');   // mặc định ghi ở nguyên mẫu\n\nint main() {\n    keDong();          // ----------   (10, '-')\n    keDong(5);         // -----        (5, '-')\n    keDong(5, '*');    // *****        (5, '*')\n}\n\nvoid keDong(int doDai, char kyTu) {            // định nghĩa: không ghi lại\n    for (int i = 0; i < doDai; i++) std::cout << kyTu;\n    std::cout << '\\n';\n}", "l18ov": "int tong(int a, int b)            { return a + b; }\ndouble tong(double a, double b)   { return a + b; }\nint tong(int a, int b, int c)     { return a + b + c; }\n\ntong(1, 2);         // gọi bản (int, int)          → 3\ntong(1.5, 2.25);    // gọi bản (double, double)    → 3.75\ntong(1, 2, 3);      // gọi bản (int, int, int)     → 6", "l19fact": "long long giaiThua(int n) {\n    if (n <= 1)                    // trường hợp cơ sở\n        return 1;\n    return n * giaiThua(n - 1);    // bước đệ quy: n - 1 nhỏ hơn n\n}"};
-document.querySelectorAll("[data-snip]").forEach(el=>{if(!SNIP[el.dataset.snip])return;el.innerHTML=highlightLines(SNIP[el.dataset.snip]).map((s,i)=>`<span class="ln" data-n="${i+1}">${s||" "}</span>`).join("")});
+function copyText(t){if(navigator.clipboard&&navigator.clipboard.writeText)return navigator.clipboard.writeText(t);
+  return new Promise((ok,no)=>{const a=document.createElement("textarea");a.value=t;a.setAttribute("readonly","");a.style.position="fixed";a.style.opacity="0";document.body.appendChild(a);a.select();
+    try{document.execCommand("copy")?ok():no()}catch(e){no(e)}a.remove()})}
+function fillSnips(root){(root||document).querySelectorAll("[data-snip]").forEach(el=>{const src=SNIP[el.dataset.snip];if(!src||el.dataset.filled)return;el.dataset.filled="1";
+  el.innerHTML=highlightLines(src).map((s,i)=>`<span class="ln" data-n="${i+1}">${s||" "}</span>`).join("");
+  const box=document.createElement("div");box.className="codebox";const h=document.createElement("div");h.className="code-h";
+  const name=/\bint\s+main\s*\(/.test(src)?"main.cpp":"C++";
+  h.innerHTML=`<span class="code-f">${name}</span><button type="button" class="code-copy">Sao chép</button><span class="vh" role="status" aria-live="polite"></span>`;
+  const b=h.querySelector("button"),st=h.querySelector("[role=status]");let t=0;
+  b.onclick=()=>copyText(src).then(()=>{b.textContent="Đã sao chép";st.textContent="Đã sao chép đoạn code";clearTimeout(t);t=setTimeout(()=>{b.textContent="Sao chép";st.textContent=""},1800)},()=>{b.textContent="Chưa sao chép được";clearTimeout(t);t=setTimeout(()=>b.textContent="Sao chép",2200)});
+  if(el.hasAttribute("data-m")){box.setAttribute("data-m",el.getAttribute("data-m"));el.removeAttribute("data-m")}
+  el.replaceWith(box);box.append(h,el)})}
+fillSnips();
 /* ===================== BÀI 1 · Chương trình C++ đầu tiên ===================== */
 /* Bài 1 · Chương trình C++ đầu tiên
    Mã riêng của bài: ví dụ cho trình mô phỏng, công cụ minh họa, bài tập chấm tự động.
@@ -7063,7 +7485,7 @@ int main() {
 
 makeQuiz("quiz19","score19",[{"q": "Thành phần nào giúp hàm đệ quy dừng lại?", "o": ["Bước đệ quy", "Trường hợp cơ sở", "Kiểu trả về", "Tham số"], "a": 1, "e": "Trường hợp cơ sở trả lời ngay mà không gọi lại; mọi nhánh đệ quy phải tiến dần về nó."}, {"q": "Khi đang tính <code>giaiThua(4)<\/code> và vừa gọi tới <code>giaiThua(1)<\/code>, stack có bao nhiêu khung (tính cả main)?", "o": ["1", "2", "4", "5"], "a": 3, "e": "main, giaiThua(4), giaiThua(3), giaiThua(2), giaiThua(1): 5 khung."}, {"q": "Hàm đệ quy không có trường hợp cơ sở thường kết thúc bằng?", "o": ["Trả về 0", "Segmentation fault do tràn stack", "Chạy đúng nhưng chậm", "Lỗi biên dịch"], "a": 1, "e": "Khung chồng mãi tới khi hết stack, hệ điều hành dừng chương trình."}, {"q": "<code>void f(int n) { if (n == 0) return; f(n - 1); cout &lt;&lt; n; }<\/code> Gọi <code>f(3)<\/code> in ra?", "o": ["321", "123", "3", "0123"], "a": 1, "e": "Lệnh in đứng sau lời gọi đệ quy nên chạy khi “quay lên”: f(1) in trước, rồi f(2), f(3)."}]);
 
-const LESSON_UPDATED={"l1": "2026-10-20T04:29:49Z", "l10": "2026-10-20T03:43:09Z", "l11": "2026-10-20T03:43:09Z", "l12": "2026-10-20T03:43:09Z", "l13": "2026-10-20T03:43:09Z", "l14": "2026-10-20T03:43:09Z", "l15": "2026-10-20T03:43:09Z", "l16": "2026-10-20T03:43:09Z", "l17": "2026-10-20T03:43:09Z", "l18": "2026-10-20T03:43:09Z", "l19": "2026-10-20T03:43:09Z", "l2": "2026-10-20T03:43:09Z", "l3": "2026-10-20T03:43:09Z", "l4": "2026-10-20T03:43:09Z", "l5": "2026-10-20T03:43:09Z", "l6": "2026-10-20T03:43:09Z", "l7": "2026-10-20T03:43:09Z", "l8": "2026-10-20T03:43:09Z", "l9": "2026-10-20T03:43:09Z"};
+const LESSON_UPDATED={"l1": "2026-10-20T04:29:49Z", "l10": "2026-10-20T03:43:09Z", "l11": "2026-10-20T03:43:09Z", "l12": "2026-10-20T03:43:09Z", "l13": "2026-10-20T11:16:06Z", "l14": "2026-10-20T03:43:09Z", "l15": "2026-10-20T03:43:09Z", "l16": "2026-10-20T03:43:09Z", "l17": "2026-10-20T03:43:09Z", "l18": "2026-10-20T03:43:09Z", "l19": "2026-10-20T03:43:09Z", "l2": "2026-10-20T03:43:09Z", "l3": "2026-10-20T03:43:09Z", "l4": "2026-10-20T03:43:09Z", "l5": "2026-10-20T03:43:09Z", "l6": "2026-10-20T03:43:09Z", "l7": "2026-10-20T03:43:09Z", "l8": "2026-10-20T03:43:09Z", "l9": "2026-10-20T03:43:09Z"};
 (function(){for(const l in LESSON_UPDATED){const nx=document.querySelector(`#view-${l} div.next`);if(!nx)continue;
   const iso=LESSON_UPDATED[l],d=new Date(iso),p=document.createElement("p");p.className="updated";
   p.innerHTML=`Cập nhật lần cuối: <time datetime="${iso}">${d.toLocaleTimeString("vi-VN",{hour:"2-digit",minute:"2-digit"})}, ${d.toLocaleDateString("vi-VN",{day:"2-digit",month:"2-digit",year:"numeric"})}</time>`;nx.after(p)}})();
@@ -7107,28 +7529,26 @@ const track=window.TRACK={
 };
 const doneCount=()=>LESSONS.filter(l=>AMTS.isDone(P,l)).length;
 function lastLessonShown(){return VIEWS.find(x=>!document.getElementById("view-"+x).hidden)}
+/* sidebar: tiến độ + trạng thái lưu (tài khoản nằm ở thanh điều hướng chung) */
 function renderAccount(){
   const el=document.getElementById("acct");if(!el)return;const S=AMTS.S;
-  const n=doneCount(),bar=`<div class="pbar" role="progressbar" aria-valuemin="0" aria-valuemax="${LESSONS.length}" aria-valuenow="${n}"><span style="width:${n/LESSONS.length*100}%"></span></div><div class="pnum">Đã hoàn thành ${n}/${LESSONS.length} bài đang mở</div>`;
-  const cont=P.lastLesson&&P.lastLesson!==lastLessonShown()?`<button class="linkbtn" data-go="${P.lastLesson}">Tiếp tục: ${escH(LESSON_NAMES[P.lastLesson]||"")} →</button>`:"";
-  let h="";
-  if(S.mode==="unavailable")h=`${bar}<p class="acct-note">Tiến độ đang lưu trên trình duyệt này. Đăng nhập Google hoạt động trên bản đăng ở website (GitHub Pages).</p>`;
-  else if(S.mode==="loading"||S.mode==="off")h=`${bar}<p class="acct-note">Đang kết nối dịch vụ đăng nhập…</p>`;
-  else if(S.mode==="error")h=`${bar}<p class="acct-note bad-t">${escH(S.err)}</p>`;
-  else if(!S.user)h=`<button class="gbtn" id="btn-signin"><span class="g">G</span>Đăng nhập bằng Google</button><p class="acct-note">Đăng nhập để lưu tiến độ và học tiếp trên mọi thiết bị.</p>${bar}`;
-  else{const u=S.user;
-    h=`<div class="who">${avatarHTML(u)}<div><b>${escH(u.displayName||"Học viên")}</b><small>${escH(u.email||"")}</small></div></div>${bar}
-      <div class="acct-btns">${AMTS.isTeacher()?`<a class="btn pri sm" href="../index.html#giang-vien">Trang giảng viên</a>`:""}<button class="btn sm" id="btn-signout">Đăng xuất</button></div>
-      ${S.saveErr?`<p class="acct-note bad-t">${escH(S.saveErr)}</p>`:""}`}
-  el.innerHTML=h+`<p class="sync" id="sync-st" role="status" aria-live="polite" hidden></p>`+cont+`<p class="acct-note bad-t" id="acct-msg" aria-live="polite"></p>`;paintSync();
-  const si=document.getElementById("btn-signin");if(si)si.onclick=async()=>{const m=await AMTS.signIn();const b=document.getElementById("acct-msg");if(b)b.textContent=m};
-  const so=document.getElementById("btn-signout");if(so)so.onclick=async()=>{await pushNow();await AMTS.signOut();P=AMTS.empty();try{localStorage.setItem("cpp-view","road")}catch(e){}location.hash="#lo-trinh";location.reload()};
+  const n=doneCount(),bar=`<div class="pbar" role="progressbar" aria-label="Tiến độ khóa C++" aria-valuemin="0" aria-valuemax="${LESSONS.length}" aria-valuenow="${n}"><span style="width:${n/LESSONS.length*100}%"></span></div><div class="pnum">Đã hoàn thành ${n}/${LESSONS.length} bài đang mở</div>`;
+  const cont=P.lastLesson&&P.lastLesson!==lastLessonShown()?`<button class="linkbtn" data-go="${P.lastLesson}">Tiếp tục: Bài ${P.lastLesson.slice(1)} · ${escH(LESSON_NAMES[P.lastLesson]||"")} →</button>`:"";
+  let note="";
+  if(S.mode==="unavailable")note=`<p class="acct-note">Tiến độ đang lưu trên trình duyệt này. Đăng nhập Google hoạt động trên bản đăng ở website.</p>`;
+  else if(S.mode==="loading"||S.mode==="off")note=`<p class="acct-note">Đang kết nối dịch vụ đăng nhập…</p>`;
+  else if(S.mode==="error")note=`<p class="acct-note bad-t">${escH(S.err)}</p>`;
+  else if(S.user&&S.saveErr)note=`<p class="acct-note bad-t">${escH(S.saveErr)}</p>`;
+  el.innerHTML=bar+`<p class="sync" id="sync-st" role="status" aria-live="polite" hidden></p>`+note+cont;paintSync();
 }
 function renderProgress(){
-  document.querySelectorAll("#outline li[data-l]").forEach(li=>li.classList.toggle("done",AMTS.isDone(P,li.dataset.l)));
-  document.querySelectorAll("[data-done]").forEach(b=>{const on=AMTS.isDone(P,b.dataset.done);b.classList.toggle("is-done",on);b.setAttribute("aria-pressed",on);b.textContent=on?"✓ Đã hoàn thành bài này":"Đánh dấu đã học xong"});
+  document.querySelectorAll("#outline li[data-l],#road li[data-l]").forEach(li=>{const d=AMTS.isDone(P,li.dataset.l);li.classList.toggle("done",d);
+    const t=li.querySelector(".st-t");if(t)t.textContent=d?" (đã học xong)":li.classList.contains("cur")?" (bài đang học)":""});
+  document.querySelectorAll("#road [data-rp]").forEach(x=>{const ls=[...x.closest("details").querySelectorAll("li[data-l]")];if(!ls.length){x.textContent="";return}
+    const d=ls.filter(li=>AMTS.isDone(P,li.dataset.l)).length;x.textContent=d?`${d}/${ls.length} bài xong`:""});
+  document.querySelectorAll("[data-done]").forEach(b=>{const on=AMTS.isDone(P,b.dataset.done);b.classList.toggle("is-done",on);b.setAttribute("aria-pressed",on);b.textContent=on?"✓ Đã học xong bài này":"Đánh dấu đã học xong"});
   renderAccount();
-  const mp=document.getElementById("m-prog");if(mp){const n=doneCount();mp.style.setProperty("--p",n/LESSONS.length*100);mp.firstChild.textContent=n+"/"+LESSONS.length;mp.setAttribute("aria-label",`Tiến độ: ${n}/${LESSONS.length} bài. Mở mục lục`)}
+  const mp=document.getElementById("m-prog");if(mp){const n=doneCount();mp.textContent=`${n}/${LESSONS.length} bài`;mp.title=`Đã hoàn thành ${n}/${LESSONS.length} bài đang mở`}
 }
 LESSONS.forEach(l=>{const nx=document.querySelector(`#view-${l} div.next`);if(!nx)return;
   const b=document.createElement("button");b.className="btn done-btn";b.dataset.done=l;b.setAttribute("aria-pressed","false");
@@ -7140,9 +7560,10 @@ AMTS.on(S=>{
     lastUid=uid;pushNow();
   }
   if(!uid&&lastUid){P=AMTS.empty();lastUid=null}
-  renderProgress();
+  renderProgress();TOPNAV.render();
 });
-renderProgress();
+TOPNAV.opts.signOut=async()=>{await pushNow();await AMTS.signOut();P=AMTS.empty();try{localStorage.setItem("cpp-view","road")}catch(e){}location.hash="#lo-trinh";location.reload()};
+renderProgress();TOPNAV.render();
 {const v=lastLessonShown();if(v&&/^l\d/.test(v)&&(LESSON_EMBED||LOADED.has(v)))track.visit(v)}
 AMTS.init();
 
