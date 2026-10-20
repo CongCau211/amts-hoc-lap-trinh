@@ -55,6 +55,16 @@ p{margin:0}
 .btn.pri{background:var(--accent);color:var(--accent-ink);border-color:var(--accent)}
 .btn:disabled{opacity:.45;cursor:default}
 
+/* mục lục trong bài */
+.ltoc{border:1px solid var(--line);border-radius:var(--r);background:var(--surface);padding:12px 16px}
+.ltoc b{display:block;font-size:12px;letter-spacing:.08em;text-transform:uppercase;color:var(--muted);margin-bottom:6px}
+.ltoc ol{list-style:none;margin:0;padding:0;display:flex;flex-wrap:wrap;gap:6px}
+.ltoc button{border:1px solid var(--line);background:var(--bg);border-radius:999px;padding:4px 11px;font-size:13.5px;line-height:1.4;text-align:left}
+.ltoc button:hover{border-color:var(--accent);color:var(--accent)}
+.ltoc button span{font-family:var(--f-mono);font-size:11.5px;color:var(--accent);margin-right:6px}
+.ltoc button.gl{font-style:italic}
+.part-head,.gloss{scroll-margin-top:16px}
+@media (max-width:900px){.part-head,.gloss{scroll-margin-top:72px}.ltoc ol{flex-wrap:nowrap;overflow-x:auto;padding-bottom:4px;scrollbar-width:thin}.ltoc li{flex:none}}
 
 :root{--c-cpp:#2E50DC;--c-cs:#7A3FC4;--c-py:#2F7EB8;--c-java:#C9541F}
 @media (prefers-color-scheme: dark){:root:not([data-theme="light"]){--c-cpp:#7D95FF;--c-cs:#B48CF0;--c-py:#79B8E8;--c-java:#F0915F}}
@@ -228,10 +238,10 @@ const COURSES=[
  {id:"cpp",name:"C++ Từ Nền Tảng",mono:"C++",url:"cpp/index.html",status:"open",hue:"cpp",
   desc:"Đang mở từ chương trình đầu tiên tới hàm và đệ quy, có trình mô phỏng bộ nhớ chạy ngay trên web. Mảng, con trỏ, hướng đối tượng, STL và đa luồng đang được biên soạn.",
   chapters:12,
-  lessons:[["l1","Chương trình C++ đầu tiên"],["l2","Cài đặt trình biên dịch & IDE"],["l3","Nhập xuất với cin / cout"],["l4","Biến, khai báo, khởi tạo"],["l5","int, double, char, bool"],["l6","Hằng số const / constexpr"],["l7","Ép kiểu và tràn số"],["l8","Toán tử số học"],["l9","So sánh và logic"],["l10","Thứ tự ưu tiên"],["l11","Toán tử bit"],["l12","if / else"],["l13","switch"],["l14","while, do-while"],["l15","for, break, continue"],["l16","Định nghĩa và gọi hàm"],["l17","Tham trị và tham chiếu"],["l18","Nạp chồng hàm"],["l19","Đệ quy"]],
-  exercises:["l1-0","l1-1","l1-2","l2-term",...["l3","l4","l5","l6","l7","l8","l9","l10","l11","l12","l13","l14","l15","l16","l17","l18","l19"].flatMap(l=>[0,1,2].map(i=>`${l}-${i}`))],
-  contentVer:"b7a1f5f6e6c8",
-  quizzes:{l1:"quiz",l2:"quiz2",l3:"quiz3",l4:"quiz4",l5:"quiz5",l6:"quiz6",l7:"quiz7",l8:"quiz8",l9:"quiz9",l10:"quiz10",l11:"quiz11",l12:"quiz12",l13:"quiz13",l14:"quiz14",l15:"quiz15",l16:"quiz16",l17:"quiz17",l18:"quiz18",l19:"quiz19"}},
+  lessons:[["l1", "Chương trình C++ đầu tiên"], ["l2", "Cài đặt trình biên dịch & IDE"], ["l3", "Nhập xuất với cin / cout"], ["l4", "Biến, khai báo, khởi tạo"], ["l5", "int, double, char, bool"], ["l6", "Hằng số const / constexpr"], ["l7", "Ép kiểu và tràn số"], ["l8", "Toán tử số học"], ["l9", "So sánh và logic"], ["l10", "Thứ tự ưu tiên"], ["l11", "Toán tử bit"], ["l12", "if / else"], ["l13", "switch"], ["l14", "while, do-while"], ["l15", "for, break, continue"], ["l16", "Định nghĩa và gọi hàm"], ["l17", "Truyền tham trị / tham chiếu"], ["l18", "Nạp chồng hàm"], ["l19", "Đệ quy"]],
+  exercises:["l1-0", "l1-1", "l1-2", "l2-term", "l3-0", "l3-1", "l3-2", "l4-0", "l4-1", "l4-2", "l5-0", "l5-1", "l5-2", "l6-0", "l6-1", "l6-2", "l7-0", "l7-1", "l7-2", "l8-0", "l8-1", "l8-2", "l9-0", "l9-1", "l9-2", "l10-0", "l10-1", "l10-2", "l11-0", "l11-1", "l11-2", "l12-0", "l12-1", "l12-2", "l13-0", "l13-1", "l13-2", "l14-0", "l14-1", "l14-2", "l15-0", "l15-1", "l15-2", "l16-0", "l16-1", "l16-2", "l17-0", "l17-1", "l17-2", "l18-0", "l18-1", "l18-2", "l19-0", "l19-1", "l19-2"],
+  contentVer:"561749b022dc",
+  quizzes:{"l1": "quiz", "l2": "quiz2", "l3": "quiz3", "l4": "quiz4", "l5": "quiz5", "l6": "quiz6", "l7": "quiz7", "l8": "quiz8", "l9": "quiz9", "l10": "quiz10", "l11": "quiz11", "l12": "quiz12", "l13": "quiz13", "l14": "quiz14", "l15": "quiz15", "l16": "quiz16", "l17": "quiz17", "l18": "quiz18", "l19": "quiz19"}},
  {id:"csharp",name:"C# Căn Bản",mono:"C#",url:"csharp/index.html",status:"soon",hue:"cs",
   desc:"Lập trình hướng đối tượng với .NET: kiểu dữ liệu, lớp, LINQ và ứng dụng Console thực tế.",chapters:null,lessons:[],exercises:[],quizzes:{}},
  {id:"python",name:"Python Cho Người Mới",mono:"Py",url:"python/index.html",status:"soon",hue:"py",
@@ -565,30 +575,52 @@ function exportCSV(){
   const lines=[head.map(q).join(",")].concat(rows.map(({r,s})=>[r.name,r.email,c.name,s.done.length,s.done.map(l=>"Bài "+(c.lessons.findIndex(x=>x[0]===l)+1)).join("; "),`${s.exPass}/${c.exercises.length}`,s.qavg??"",(c.lessons.find(x=>x[0]===s.p.lastLesson)||[])[1]||"",fmtTime(s.upd),fmtTime(r.createdAt)].map(q).join(",")));
   download(`tien-do-${c.id}-${today()}.csv`,"﻿"+lines.join("\r\n"),"text/csv;charset=utf-8");
 }
-function plain(v){if(v&&typeof v.toDate==="function")return v.toDate().toISOString();if(Array.isArray(v))return v.map(plain);if(v&&typeof v==="object"){const o={};for(const k in v)o[k]=plain(v[k]);return o}return v}
+/* Sao lưu: Timestamp của Firestore ghi thành {"$ts":"ISO"} để khôi phục lại đúng kiểu thời gian */
+function plain(v){if(v&&typeof v.toDate==="function")return {$ts:v.toDate().toISOString()};if(Array.isArray(v))return v.map(plain);if(v&&typeof v==="object"){const o={};for(const k in v)o[k]=plain(v[k]);return o}return v}
+const TS_KEYS=/^(createdAt|lastSeen|updatedAt|uploadedAt|savedAt|at_[\w-]+)$/;
+function revive(v,key){
+  const TS=window.firebase&&firebase.firestore&&firebase.firestore.Timestamp,mk=iso=>{const d=new Date(iso);return isNaN(d)?iso:(TS?TS.fromDate(d):d)};
+  if(v&&typeof v==="object"&&!Array.isArray(v)&&Object.keys(v).length===1&&typeof v.$ts==="string")return mk(v.$ts);
+  if(typeof v==="string"&&key&&TS_KEYS.test(key)&&/^\d{4}-\d\d-\d\dT/.test(v))return mk(v);   // bản sao lưu cũ (v2): thời gian là chuỗi
+  if(Array.isArray(v))return v.map(x=>revive(x));
+  if(v&&typeof v==="object"){const o={};for(const k in v)o[k]=revive(v[k],k);return o}
+  return v}
 async function exportJSON(){
   const msg=document.getElementById("t-msg");msg.textContent="Đang lấy dữ liệu mới nhất…";
   try{ALL=await AMTS.allUsers();renderTeacher();
     const [config,enroll,content]=await Promise.all(["config","enroll","content"].map(c=>AMTS.dump(c)));
-    const data={app:"AMTS Học Lập Trình",format:"amts-backup-v2",firebaseProject:"amts-cpp",exportedAt:new Date().toISOString(),exportedBy:AMTS.S.user.email,
-      note:"users: tiến độ học viên · config: cài đặt truy cập/học phí · enroll: danh sách kích hoạt · content: phần chữ bài học",
+    const data={app:"AMTS Học Lập Trình",format:"amts-backup-v3",firebaseProject:"amts-cpp",exportedAt:new Date().toISOString(),exportedBy:AMTS.S.user.email,
+      note:"users: tiến độ học viên · config: cài đặt truy cập/học phí · enroll: danh sách kích hoạt · content: phần chữ bài học. Thời gian dạng {\"$ts\": ISO}. KHÔNG gồm: tài khoản đăng nhập (Firebase Authentication), quy tắc Firestore, mã nguồn.",
       counts:{users:ALL.length,config:Object.keys(config).length,enroll:Object.keys(enroll).length,content:Object.keys(content).length},
       courses:COURSES.map(c=>({id:c.id,name:c.name})),users:ALL.map(plain),config:plain(config),enroll:plain(enroll),content:plain(content)};
     download(`amts-sao-luu-${today()}.json`,JSON.stringify(data,null,1),"application/json");
     msg.textContent=`Đã tạo bản sao lưu: ${ALL.length} học viên, ${Object.keys(content).length} bài học, ${Object.keys(enroll).length} tài khoản kích hoạt.`}
   catch(e){msg.textContent="Không sao lưu được: "+(e.code==="permission-denied"?"Firestore từ chối truy cập. Hãy dán bộ quy tắc firestore.rules mới.":(e.message||e.code))}
 }
+/* kiểm tra cấu trúc file trước khi ghi bất cứ thứ gì */
+function checkBackup(d){
+  const E=[],isObj=x=>x&&typeof x==="object"&&!Array.isArray(x);
+  if(!isObj(d))return["File không phải bản sao lưu của AMTS."];
+  if(!/^amts-backup-v[23]$/.test(d.format||""))E.push(`Định dạng “${d.format||"?"}” không được hỗ trợ (cần amts-backup-v2 hoặc v3).`);
+  if(!Array.isArray(d.users))E.push("Thiếu danh sách users.");
+  else d.users.forEach((u,i)=>{if(!isObj(u)||typeof u.uid!=="string"||!u.uid)E.push(`users[${i}] thiếu uid.`);else if(u.courses!==undefined&&!isObj(u.courses))E.push(`users[${i}].courses sai kiểu.`)});
+  for(const c of ["config","enroll","content"])if(d[c]!==undefined&&!isObj(d[c]))E.push(`Mục ${c} sai kiểu.`);
+  for(const id in d.content||{}){const x=d.content[id];if(!isObj(x)||typeof x.html!=="string"||typeof x.lesson!=="string"||typeof x.course!=="string")E.push(`content/${id} thiếu html, lesson hoặc course.`)}
+  for(const id in d.config||{}){const x=d.config[id];if(!isObj(x)||(x.paid!==undefined&&!isObj(x.paid)))E.push(`config/${id} sai cấu trúc.`)}
+  return E.slice(0,8)}
 async function restoreJSON(f){
   const msg=document.getElementById("t-msg");let d;
   try{d=JSON.parse(await f.text())}catch(e){msg.textContent="File không đọc được (không phải JSON).";return}
-  if(!d||!Array.isArray(d.users)){msg.textContent="File này không phải bản sao lưu của AMTS.";return}
+  const errs=checkBackup(d);
+  if(errs.length){msg.textContent="Không khôi phục: file sao lưu không hợp lệ. "+errs.join(" ");return}
   const n={users:d.users.length,config:Object.keys(d.config||{}).length,enroll:Object.keys(d.enroll||{}).length,content:Object.keys(d.content||{}).length};
-  if(!confirm(`Khôi phục từ bản sao lưu ngày ${(d.exportedAt||"?").slice(0,10)}?\n\n• ${n.users} học viên (tiến độ)\n• ${n.config} cài đặt khóa học\n• ${n.enroll} tài khoản kích hoạt\n• ${n.content} bài học\n\nDữ liệu hiện có trùng tên sẽ bị GHI ĐÈ bằng dữ liệu trong file.`))return;
+  const other=d.firebaseProject&&d.firebaseProject!=="amts-cpp"?`\n\n⚠ File được tạo từ dự án Firebase “${d.firebaseProject}”, khác dự án hiện tại.`:"";
+  if(!confirm(`Khôi phục từ bản sao lưu ngày ${(d.exportedAt||"?").slice(0,10)}?\n\n• ${n.users} học viên (tiến độ)\n• ${n.config} cài đặt khóa học\n• ${n.enroll} tài khoản kích hoạt\n• ${n.content} bài học\n\nCách khôi phục: mục nào có trong file sẽ GHI ĐÈ mục cùng tên trên máy chủ. Mục đang có trên máy chủ nhưng không có trong file được GIỮ NGUYÊN. Đây không phải đưa toàn bộ hệ thống về đúng thời điểm sao lưu.\nKhông gồm tài khoản đăng nhập, quy tắc Firestore và mã nguồn.${other}`))return;
   let k=0;const tot=n.users+n.config+n.enroll+n.content;const tick=()=>msg.textContent=`Đang khôi phục ${++k}/${tot}…`;
   try{
-    for(const u of d.users){const {uid,...rest}=u;if(!uid)continue;await AMTS.restoreDoc("users",uid,rest);tick()}
-    for(const col of ["config","enroll","content"])for(const id in (d[col]||{})){await AMTS.restoreDoc(col,id,d[col][id]);tick()}
-    msg.textContent=`Đã khôi phục ${k} mục. Đang tải lại…`;loadTeacher()}
+    for(const u of d.users){const {uid,...rest}=u;await AMTS.restoreDoc("users",uid,revive(rest));tick()}
+    for(const col of ["config","enroll","content"])for(const id in (d[col]||{})){await AMTS.restoreDoc(col,id,revive(d[col][id]));tick()}
+    msg.textContent=`Đã khôi phục ${k} mục (ghi đè các mục trùng tên). Đang tải lại…`;loadTeacher()}
   catch(e){msg.textContent=`Dừng ở mục ${k}/${tot}: `+(e.code==="permission-denied"?"Firestore từ chối. Hãy dán bộ quy tắc firestore.rules mới (cho phép giảng viên khôi phục).":(e.message||e.code))}
 }
 document.getElementById("t-rf").addEventListener("change",e=>{const f=e.target.files[0];e.target.value="";if(f)restoreJSON(f)});
