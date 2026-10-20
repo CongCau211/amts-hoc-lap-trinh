@@ -7,12 +7,12 @@
 <meta name="claude:viewport-fit-sides" content="cover">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Be+Vietnam+Pro:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;600&display=swap">
-<meta name="description" content="Học lập trình C++ từ nền tảng cùng AMTS: bài học có hình minh họa, trình mô phỏng chạy ngay trên trình duyệt, bài tập chấm tự động và theo dõi tiến độ.">
+<meta name="description" content="Học lập trình cùng AMTS: C++ từ nền tảng, cấu trúc dữ liệu và giải thuật; bài học có hình minh họa, trình mô phỏng chạy ngay trên trình duyệt, bài tập chấm tự động và theo dõi tiến độ.">
 <meta property="og:type" content="website">
 <meta property="og:locale" content="vi_VN">
 <meta property="og:site_name" content="AMTS Học Lập Trình">
 <meta property="og:title" content="AMTS Học Lập Trình">
-<meta property="og:description" content="Học lập trình C++ từ nền tảng cùng AMTS: bài học có hình minh họa, trình mô phỏng chạy ngay trên trình duyệt, bài tập chấm tự động và theo dõi tiến độ.">
+<meta property="og:description" content="Học lập trình cùng AMTS: C++ từ nền tảng, cấu trúc dữ liệu và giải thuật; bài học có hình minh họa, trình mô phỏng chạy ngay trên trình duyệt, bài tập chấm tự động và theo dõi tiến độ.">
 <meta name="theme-color" content="#0E97A9">
 <link rel="icon" href="assets/brand/favicon.png">
 <link rel="apple-touch-icon" href="assets/brand/apple-touch-icon.png">
@@ -484,18 +484,26 @@ footer{margin-top:56px;border-top:1px solid var(--line);padding-block:20px 40px;
 
 <script>
 /* ================= AMTS · LÕI DÙNG CHUNG (danh mục khóa học + tài khoản + tiến độ) =================
-   Thêm khóa học mới: thêm một mục vào COURSES, đặt status:"open", url trỏ tới thư mục của khóa. */
+   Thêm khóa học mới: thêm một mục vào COURSES (status:"soon", url "<khóa>/index.html", cuối mục là chỗ giữ CATALOG của khóa).
+   Khi courses/<khóa>/course.json có ít nhất một bài đã viết, build điền danh mục bài và tự chuyển khóa sang status:"open". */
 const COURSES=[
  {id:"cpp",name:"C++ từ nền tảng",mono:"C++",url:"cpp/index.html",status:"open",hue:"cpp",
   desc:"Xây nền tảng vững chắc với bài học có hình minh họa và trình mô phỏng trực quan.",
+  status:"open",
   chapters:12,
-  lessons:[["l1", "Chương trình C++ đầu tiên"], ["l2", "Cài đặt trình biên dịch & IDE"], ["l3", "Nhập xuất với cin / cout"], ["l4", "Biến, khai báo, khởi tạo"], ["l5", "int, double, char, bool"], ["l6", "Hằng số const / constexpr"], ["l7", "Ép kiểu và tràn số"], ["l8", "Toán tử số học"], ["l9", "So sánh và logic"], ["l10", "Thứ tự ưu tiên"], ["l11", "Toán tử bit"], ["l12", "if / else"], ["l13", "switch"], ["l14", "while, do-while"], ["l15", "for, break, continue"], ["l16", "Định nghĩa và gọi hàm"], ["l17", "Truyền tham trị / tham chiếu"], ["l18", "Nạp chồng hàm"], ["l19", "Đệ quy"]],
-  exercises:["l1-0", "l1-1", "l1-2", "l2-term", "l3-0", "l3-1", "l3-2", "l4-0", "l4-1", "l4-2", "l5-0", "l5-1", "l5-2", "l6-0", "l6-1", "l6-2", "l7-0", "l7-1", "l7-2", "l8-0", "l8-1", "l8-2", "l9-0", "l9-1", "l9-2", "l10-0", "l10-1", "l10-2", "l11-0", "l11-1", "l11-2", "l12-0", "l12-1", "l12-2", "l13-0", "l13-1", "l13-2", "l14-0", "l14-1", "l14-2", "l15-0", "l15-1", "l15-2", "l16-0", "l16-1", "l16-2", "l17-0", "l17-1", "l17-2", "l18-0", "l18-1", "l18-2", "l19-0", "l19-1", "l19-2"],
-  practice:["l3-0", "l3-1", "l3-2", "l4-0", "l4-1", "l4-2", "l5-0", "l5-1", "l5-2", "l6-0", "l6-1", "l6-2", "l7-0", "l7-1", "l7-2", "l8-0", "l8-1", "l8-2", "l9-0", "l9-1", "l9-2", "l10-0", "l10-1", "l10-2", "l11-0", "l11-1", "l11-2", "l12-0", "l12-1", "l12-2", "l13-0", "l13-1", "l13-2", "l14-0", "l14-1", "l14-2", "l15-0", "l15-1", "l15-2", "l16-0", "l16-1", "l16-2", "l17-0", "l17-1", "l17-2", "l18-0", "l18-1", "l18-2", "l19-0", "l19-1", "l19-2"],
-  contentVer:"ce7f6c7fa77d",
-  quizzes:{"l1": "quiz", "l2": "quiz2", "l3": "quiz3", "l4": "quiz4", "l5": "quiz5", "l6": "quiz6", "l7": "quiz7", "l8": "quiz8", "l9": "quiz9", "l10": "quiz10", "l11": "quiz11", "l12": "quiz12", "l13": "quiz13", "l14": "quiz14", "l15": "quiz15", "l16": "quiz16", "l17": "quiz17", "l18": "quiz18", "l19": "quiz19"}},
+  lessons:[["l1", "Chương trình C++ đầu tiên"], ["l2", "Cài đặt trình biên dịch & IDE"], ["l3", "Nhập xuất với cin / cout"], ["l4", "Biến, khai báo, khởi tạo"], ["l5", "int, double, char, bool"], ["l6", "Hằng số const / constexpr"], ["l7", "Ép kiểu và tràn số"], ["l8", "Toán tử số học"], ["l9", "So sánh và logic"], ["l10", "Thứ tự ưu tiên"], ["l11", "Toán tử bit"], ["l12", "if / else"], ["l13", "switch"], ["l14", "while, do-while"], ["l15", "for, break, continue"], ["l16", "Định nghĩa và gọi hàm"], ["l17", "Truyền tham trị / tham chiếu"], ["l18", "Nạp chồng hàm"], ["l19", "Đệ quy"], ["l20", "Phạm vi biến"], ["l21", "Mảng một chiều"], ["l22", "Mảng hai chiều"], ["l23", "string"], ["l24", "vector cơ bản"]],
+  exercises:["l1-0", "l1-1", "l1-2", "l2-term", "l3-0", "l3-1", "l3-2", "l4-0", "l4-1", "l4-2", "l5-0", "l5-1", "l5-2", "l6-0", "l6-1", "l6-2", "l7-0", "l7-1", "l7-2", "l8-0", "l8-1", "l8-2", "l9-0", "l9-1", "l9-2", "l10-0", "l10-1", "l10-2", "l11-0", "l11-1", "l11-2", "l12-0", "l12-1", "l12-2", "l13-0", "l13-1", "l13-2", "l14-0", "l14-1", "l14-2", "l15-0", "l15-1", "l15-2", "l16-0", "l16-1", "l16-2", "l17-0", "l17-1", "l17-2", "l18-0", "l18-1", "l18-2", "l19-0", "l19-1", "l19-2", "l20-0", "l20-1", "l20-2", "l21-0", "l21-1", "l21-2", "l22-0", "l22-1", "l22-2", "l23-0", "l23-1", "l23-2", "l24-0", "l24-1", "l24-2"],
+  practice:["l3-0", "l3-1", "l3-2", "l4-0", "l4-1", "l4-2", "l5-0", "l5-1", "l5-2", "l6-0", "l6-1", "l6-2", "l7-0", "l7-1", "l7-2", "l8-0", "l8-1", "l8-2", "l9-0", "l9-1", "l9-2", "l10-0", "l10-1", "l10-2", "l11-0", "l11-1", "l11-2", "l12-0", "l12-1", "l12-2", "l13-0", "l13-1", "l13-2", "l14-0", "l14-1", "l14-2", "l15-0", "l15-1", "l15-2", "l16-0", "l16-1", "l16-2", "l17-0", "l17-1", "l17-2", "l18-0", "l18-1", "l18-2", "l19-0", "l19-1", "l19-2", "l20-0", "l20-1", "l20-2", "l21-0", "l21-1", "l21-2", "l22-0", "l22-1", "l22-2", "l23-0", "l23-1", "l23-2", "l24-0", "l24-1", "l24-2"],
+  contentVer:"d0912db68772",
+  quizzes:{"l1": "quiz", "l2": "quiz2", "l3": "quiz3", "l4": "quiz4", "l5": "quiz5", "l6": "quiz6", "l7": "quiz7", "l8": "quiz8", "l9": "quiz9", "l10": "quiz10", "l11": "quiz11", "l12": "quiz12", "l13": "quiz13", "l14": "quiz14", "l15": "quiz15", "l16": "quiz16", "l17": "quiz17", "l18": "quiz18", "l19": "quiz19", "l20": "quiz20", "l21": "quiz21", "l22": "quiz22", "l23": "quiz23", "l24": "quiz24"}},
  {id:"algo",name:"Cấu trúc dữ liệu & Giải thuật",mono:"Algo",url:"algo/index.html",status:"soon",hue:"algo",
-  desc:"Tư duy giải thuật, phân tích độ phức tạp và các kỹ thuật kinh điển để thi học sinh giỏi, phỏng vấn.",chapters:null,lessons:[],exercises:[],practice:[],quizzes:{}},
+  desc:"Tư duy giải thuật, phân tích độ phức tạp và các kỹ thuật kinh điển để thi học sinh giỏi, phỏng vấn.",status:"open",
+  chapters:14,
+  lessons:[["l1", "Giải thuật là gì? Từ công thức nấu ăn đến chương trình"], ["l2", "Mô tả giải thuật bằng các bước, mã giả và lưu đồ"], ["l3", "Tính đúng: bất biến vòng lặp và kiểm thử"], ["l4", "Đo thời gian chạy bằng cách đếm phép toán"], ["l5", "Độ phức tạp Big-O, Big-Θ, Big-Ω"], ["l6", "Độ phức tạp bộ nhớ và cách đọc giới hạn của đề bài"], ["l7", "Mảng, vector và chỉ số"], ["l8", "Duyệt mảng: đếm, tính tổng, tìm lớn nhất và nhỏ nhất"], ["l9", "Mảng cộng dồn (prefix sum)"], ["l10", "Mảng hiệu (difference array)"], ["l11", "Kỹ thuật hai con trỏ"], ["l12", "Kỹ thuật cửa sổ trượt"], ["l13", "Tìm kiếm tuần tự"], ["l14", "Tìm kiếm nhị phân"], ["l15", "Tìm kiếm nhị phân trên đáp án"], ["l16", "Sắp xếp chọn, chèn và nổi bọt"], ["l17", "Sắp xếp trộn (merge sort)"], ["l18", "Sắp xếp nhanh (quick sort)"], ["l19", "Sắp xếp đếm, tính ổn định và hàm sort() của STL"], ["l20", "Ôn đệ quy: điều kiện dừng và cây lời gọi"]],
+  exercises:["l1-0", "l1-1", "l1-2", "l2-0", "l2-1", "l2-2", "l3-0", "l3-1", "l3-2", "l4-0", "l4-1", "l4-2", "l5-0", "l5-1", "l5-2", "l6-0", "l6-1", "l6-2", "l7-0", "l7-1", "l7-2", "l8-0", "l8-1", "l8-2", "l9-0", "l9-1", "l9-2", "l10-0", "l10-1", "l10-2", "l11-0", "l11-1", "l11-2", "l12-0", "l12-1", "l12-2", "l13-0", "l13-1", "l13-2", "l14-0", "l14-1", "l14-2", "l15-0", "l15-1", "l15-2", "l16-0", "l16-1", "l16-2", "l17-0", "l17-1", "l17-2", "l18-0", "l18-1", "l18-2", "l19-0", "l19-1", "l19-2", "l20-0", "l20-1", "l20-2"],
+  practice:["l1-0", "l1-1", "l1-2", "l2-0", "l2-1", "l2-2", "l3-0", "l3-1", "l3-2", "l4-0", "l4-1", "l4-2", "l5-0", "l5-1", "l5-2", "l6-0", "l6-1", "l6-2", "l7-0", "l7-1", "l7-2", "l8-0", "l8-1", "l8-2", "l9-0", "l9-1", "l9-2", "l10-0", "l10-1", "l10-2", "l11-0", "l11-1", "l11-2", "l12-0", "l12-1", "l12-2", "l13-0", "l13-1", "l13-2", "l14-0", "l14-1", "l14-2", "l15-0", "l15-1", "l15-2", "l16-0", "l16-1", "l16-2", "l17-0", "l17-1", "l17-2", "l18-0", "l18-1", "l18-2", "l19-0", "l19-1", "l19-2", "l20-0", "l20-1", "l20-2"],
+  contentVer:"21e2d7bfdb64",
+  quizzes:{"l1": "quiz1", "l2": "quiz2", "l3": "quiz3", "l4": "quiz4", "l5": "quiz5", "l6": "quiz6", "l7": "quiz7", "l8": "quiz8", "l9": "quiz9", "l10": "quiz10", "l11": "quiz11", "l12": "quiz12", "l13": "quiz13", "l14": "quiz14", "l15": "quiz15", "l16": "quiz16", "l17": "quiz17", "l18": "quiz18", "l19": "quiz19", "l20": "quiz20"}},
  {id:"sql",name:"Cơ sở dữ liệu & SQL",mono:"SQL",url:"sql/index.html",status:"soon",hue:"sql",
   desc:"Thiết kế cơ sở dữ liệu và viết truy vấn SQL, từ bảng đầu tiên đến tối ưu hiệu năng.",chapters:null,lessons:[],exercises:[],practice:[],quizzes:{}},
  {id:"csharp",name:"C# căn bản",mono:"C#",url:"csharp/index.html",status:"soon",hue:"cs",
@@ -716,7 +724,7 @@ const TOPNAV=(()=>{
   {const nv=document.getElementById("mainnav");if(nv)nv.addEventListener("click",e=>{if(e.target.closest("a")){setOpen(false);closeMenus()}})}
   function setActive(k){document.querySelectorAll("#mainnav [data-nav]").forEach(a=>{if(a.dataset.nav===k)a.setAttribute("aria-current","page");else a.removeAttribute("aria-current")})}
   /* Thực hành: trang Thực hành của khóa đang mở */
-  function practiceHref(){const c=COURSES.find(x=>x.status==="open");if(!c)return ROOT+"index.html";return ROOT+c.url+"#thuc-hanh"}
+  function practiceHref(){const c=(typeof CID!=="undefined"&&courseById(CID))||COURSES.find(x=>x.status==="open");if(!c)return ROOT+"index.html";return ROOT+c.url+"#thuc-hanh"}
   function render(){
     const el=document.getElementById("topacct");if(!el)return;const S=AMTS.S;
     const subs=COURSES.filter(c=>AMTS.notifyOf(c.id)),sn=seen(),fresh=subs.filter(c=>c.status==="open"&&!sn[c.id]);
