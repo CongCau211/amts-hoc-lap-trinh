@@ -21,26 +21,12 @@
 
 /* Layout: sổ tay kỹ thuật — sidebar mục lục cố định + cột bài học; khung code tối như cửa sổ IDE trong cả hai theme */
 :root{
-  --bg:#F1F3F7; --surface:#FFFFFF; --ink:#151B2C; --muted:#5B6579; --line:#D8DDE7;
-  --accent:#2E50DC; --accent-ink:#FFFFFF; --accent-soft:#E4E9FD;
-  --warm:#C9770F; --warm-soft:#FBEFDC; --ok:#1C8656; --ok-soft:#DDF2E7; --err:#C3362B; --err-soft:#FBE3E0;
-  --code-bg:#131A2A; --code-fg:#DCE3F2; --code-line:#232C42; --code-muted:#6E7A93;
-  --syn-kw:#93AAFF; --syn-str:#F2BC6B; --syn-num:#80D8B2; --syn-com:#6E7A93; --syn-pre:#D892F2; --syn-op:#B9C3D9;
-  --f-display:"Be Vietnam Pro",system-ui,-apple-system,"Segoe UI",sans-serif;
-  --f-body:"Be Vietnam Pro",system-ui,-apple-system,"Segoe UI",sans-serif;
-  --f-mono:"JetBrains Mono",ui-monospace,"SFMono-Regular",Consolas,monospace;
-  --r:10px;
+  --bg:#F1F3F7; --surface:#FFFFFF; --ink:#151B2C; --muted:#5B6579; --line:#D8DDE7; --accent:#2E50DC; --accent-ink:#FFFFFF; --accent-soft:#E4E9FD; --warm:#C9770F; --warm-soft:#FBEFDC; --ok:#17734A; --ok-soft:#DDF2E7; --err:#B42F25; --err-soft:#FBE3E0; --code-bg:#131A2A; --code-fg:#DCE3F2; --code-line:#232C42; --code-muted:#6E7A93; --syn-kw:#93AAFF; --syn-str:#F2BC6B; --syn-num:#80D8B2; --syn-com:#6E7A93; --syn-pre:#D892F2; --syn-op:#B9C3D9; --c-cpp:#2E5BFF; --c-cs:#7B3FE4; --c-py:#0E8F8A; --c-java:#E2672A; --shadow:0 1px 2px rgba(16,24,40,.05),0 4px 14px rgba(16,24,40,.06); --f-display:"Be Vietnam Pro",system-ui,-apple-system,"Segoe UI",sans-serif; --f-body:"Be Vietnam Pro",system-ui,-apple-system,"Segoe UI",sans-serif; --f-mono:"JetBrains Mono",ui-monospace,"SFMono-Regular",Consolas,monospace; --r:10px;
 }
 @media (prefers-color-scheme: dark){:root:not([data-theme="light"]){
-  --bg:#0E1320; --surface:#151C2C; --ink:#E6EAF3; --muted:#97A1B6; --line:#27314A;
-  --accent:#7D95FF; --accent-ink:#0E1320; --accent-soft:#1F2A52;
-  --warm:#F0AE52; --warm-soft:#3A2C17; --ok:#5ACB93; --ok-soft:#163626; --err:#F07C70; --err-soft:#3D1D1A;
-  --code-bg:#0A0F1A; --code-line:#1A2236; color-scheme:dark}}
+  --bg:#0E1320; --surface:#151C2C; --ink:#E6EAF3; --muted:#97A1B6; --line:#27314A; --accent:#7D95FF; --accent-ink:#0E1320; --accent-soft:#1F2A52; --warm:#F0AE52; --warm-soft:#3A2C17; --ok:#5ACB93; --ok-soft:#163626; --err:#F07C70; --err-soft:#3D1D1A; --code-bg:#0A0F1A; --code-line:#1A2236; --c-cpp:#7D95FF; --c-cs:#B48CF0; --c-py:#5FD3C8; --c-java:#F0915F; --shadow:0 1px 2px rgba(0,0,0,.3); color-scheme:dark}}
 :root[data-theme="dark"]{
-  --bg:#0E1320; --surface:#151C2C; --ink:#E6EAF3; --muted:#97A1B6; --line:#27314A;
-  --accent:#7D95FF; --accent-ink:#0E1320; --accent-soft:#1F2A52;
-  --warm:#F0AE52; --warm-soft:#3A2C17; --ok:#5ACB93; --ok-soft:#163626; --err:#F07C70; --err-soft:#3D1D1A;
-  --code-bg:#0A0F1A; --code-line:#1A2236; color-scheme:dark}
+  --bg:#0E1320; --surface:#151C2C; --ink:#E6EAF3; --muted:#97A1B6; --line:#27314A; --accent:#7D95FF; --accent-ink:#0E1320; --accent-soft:#1F2A52; --warm:#F0AE52; --warm-soft:#3A2C17; --ok:#5ACB93; --ok-soft:#163626; --err:#F07C70; --err-soft:#3D1D1A; --code-bg:#0A0F1A; --code-line:#1A2236; --c-cpp:#7D95FF; --c-cs:#B48CF0; --c-py:#5FD3C8; --c-java:#F0915F; --shadow:0 1px 2px rgba(0,0,0,.3); color-scheme:dark}
 
 *{box-sizing:border-box}
 body{background:var(--bg);color:var(--ink);font-family:var(--f-body);font-size:16px;line-height:1.65;margin:0}
@@ -1735,7 +1721,7 @@ const SANITIZE={
     "figure","figcaption","a","img","details","summary","abbr","time",
     "svg","g","path","rect","circle","ellipse","line","polyline","polygon","text","tspan","defs","marker","title","desc","use"],
   ALLOWED_ATTR:["class","id","lang","title","role","style","href","target","rel","src","alt","width","height","colspan","rowspan","scope","start","datetime",
-    "aria-label","aria-hidden","aria-describedby","data-mount","data-vi","data-snip",
+    "aria-label","aria-hidden","aria-describedby","loading","decoding","data-mount","data-vi","data-snip",
     "viewbox","xmlns","d","x","y","x1","y1","x2","y2","cx","cy","r","rx","ry","dx","dy","points","fill","stroke","stroke-width","stroke-dasharray","stroke-linecap","stroke-linejoin",
     "opacity","fill-opacity","transform","font-family","font-size","font-weight","text-anchor","dominant-baseline","marker-end","marker-start","refx","refy","markerwidth","markerheight","orient","preserveaspectratio"],
   ALLOW_DATA_ATTR:false,ALLOW_UNKNOWN_PROTOCOLS:false,RETURN_DOM_FRAGMENT:true};

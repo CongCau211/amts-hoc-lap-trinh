@@ -20,26 +20,12 @@
 <style>
 /* Trang chủ: thanh điều hướng · lời chào + "Tiếp tục học" · khám phá khóa học (tìm kiếm, lọc, thẻ có ảnh) · thực hành · khu giảng viên */
 :root{
-  --bg:#F1F3F7; --surface:#FFFFFF; --ink:#151B2C; --muted:#5B6579; --line:#D8DDE7;
-  --accent:#2E50DC; --accent-ink:#FFFFFF; --accent-soft:#E4E9FD;
-  --warm:#C9770F; --warm-soft:#FBEFDC; --ok:#1C8656; --ok-soft:#DDF2E7; --err:#C3362B; --err-soft:#FBE3E0;
-  --code-bg:#131A2A; --code-fg:#DCE3F2; --code-line:#232C42; --code-muted:#6E7A93;
-  --syn-kw:#93AAFF; --syn-str:#F2BC6B; --syn-num:#80D8B2; --syn-com:#6E7A93; --syn-pre:#D892F2; --syn-op:#B9C3D9;
-  --f-display:"Be Vietnam Pro",system-ui,-apple-system,"Segoe UI",sans-serif;
-  --f-body:"Be Vietnam Pro",system-ui,-apple-system,"Segoe UI",sans-serif;
-  --f-mono:"JetBrains Mono",ui-monospace,"SFMono-Regular",Consolas,monospace;
-  --r:10px;
+  --bg:#F1F3F7; --surface:#FFFFFF; --ink:#151B2C; --muted:#5B6579; --line:#D8DDE7; --accent:#2E50DC; --accent-ink:#FFFFFF; --accent-soft:#E4E9FD; --warm:#C9770F; --warm-soft:#FBEFDC; --ok:#17734A; --ok-soft:#DDF2E7; --err:#B42F25; --err-soft:#FBE3E0; --code-bg:#131A2A; --code-fg:#DCE3F2; --code-line:#232C42; --code-muted:#6E7A93; --syn-kw:#93AAFF; --syn-str:#F2BC6B; --syn-num:#80D8B2; --syn-com:#6E7A93; --syn-pre:#D892F2; --syn-op:#B9C3D9; --c-cpp:#2E5BFF; --c-cs:#7B3FE4; --c-py:#0E8F8A; --c-java:#E2672A; --shadow:0 1px 2px rgba(16,24,40,.05),0 4px 14px rgba(16,24,40,.06); --f-display:"Be Vietnam Pro",system-ui,-apple-system,"Segoe UI",sans-serif; --f-body:"Be Vietnam Pro",system-ui,-apple-system,"Segoe UI",sans-serif; --f-mono:"JetBrains Mono",ui-monospace,"SFMono-Regular",Consolas,monospace; --r:10px;
 }
 @media (prefers-color-scheme: dark){:root:not([data-theme="light"]){
-  --bg:#0E1320; --surface:#151C2C; --ink:#E6EAF3; --muted:#97A1B6; --line:#27314A;
-  --accent:#7D95FF; --accent-ink:#0E1320; --accent-soft:#1F2A52;
-  --warm:#F0AE52; --warm-soft:#3A2C17; --ok:#5ACB93; --ok-soft:#163626; --err:#F07C70; --err-soft:#3D1D1A;
-  --code-bg:#0A0F1A; --code-line:#1A2236; color-scheme:dark}}
+  --bg:#0E1320; --surface:#151C2C; --ink:#E6EAF3; --muted:#97A1B6; --line:#27314A; --accent:#7D95FF; --accent-ink:#0E1320; --accent-soft:#1F2A52; --warm:#F0AE52; --warm-soft:#3A2C17; --ok:#5ACB93; --ok-soft:#163626; --err:#F07C70; --err-soft:#3D1D1A; --code-bg:#0A0F1A; --code-line:#1A2236; --c-cpp:#7D95FF; --c-cs:#B48CF0; --c-py:#5FD3C8; --c-java:#F0915F; --shadow:0 1px 2px rgba(0,0,0,.3); color-scheme:dark}}
 :root[data-theme="dark"]{
-  --bg:#0E1320; --surface:#151C2C; --ink:#E6EAF3; --muted:#97A1B6; --line:#27314A;
-  --accent:#7D95FF; --accent-ink:#0E1320; --accent-soft:#1F2A52;
-  --warm:#F0AE52; --warm-soft:#3A2C17; --ok:#5ACB93; --ok-soft:#163626; --err:#F07C70; --err-soft:#3D1D1A;
-  --code-bg:#0A0F1A; --code-line:#1A2236; color-scheme:dark}
+  --bg:#0E1320; --surface:#151C2C; --ink:#E6EAF3; --muted:#97A1B6; --line:#27314A; --accent:#7D95FF; --accent-ink:#0E1320; --accent-soft:#1F2A52; --warm:#F0AE52; --warm-soft:#3A2C17; --ok:#5ACB93; --ok-soft:#163626; --err:#F07C70; --err-soft:#3D1D1A; --code-bg:#0A0F1A; --code-line:#1A2236; --c-cpp:#7D95FF; --c-cs:#B48CF0; --c-py:#5FD3C8; --c-java:#F0915F; --shadow:0 1px 2px rgba(0,0,0,.3); color-scheme:dark}
 
 *{box-sizing:border-box}
 body{background:var(--bg);color:var(--ink);font-family:var(--f-body);font-size:16px;line-height:1.65;margin:0}
@@ -88,9 +74,6 @@ a.btn{text-decoration:none}
 .pbar{height:8px;border-radius:999px;background:var(--line);overflow:hidden}
 .pbar span{display:block;height:100%;background:var(--ok);border-radius:999px}
 .pnum{font-size:12.5px;color:var(--muted);font-variant-numeric:tabular-nums}
-:root{--c-cpp:#2E5BFF;--c-cs:#7B3FE4;--c-py:#0E8F8A;--c-java:#E2672A;--shadow:0 1px 2px rgba(16,24,40,.05),0 4px 14px rgba(16,24,40,.06)}
-@media (prefers-color-scheme: dark){:root:not([data-theme="light"]){--c-cpp:#7D95FF;--c-cs:#B48CF0;--c-py:#5FD3C8;--c-java:#F0915F;--shadow:0 1px 2px rgba(0,0,0,.3)}}
-:root[data-theme="dark"]{--c-cpp:#7D95FF;--c-cs:#B48CF0;--c-py:#5FD3C8;--c-java:#F0915F;--shadow:0 1px 2px rgba(0,0,0,.3)}
 body{background:var(--bg)}
 .ic{width:20px;height:20px;flex:none}
 /* ---- đầu trang ---- */
@@ -124,7 +107,8 @@ body{background:var(--bg)}
 .greet h1{font-size:clamp(30px,4.6vw,48px);font-weight:800;letter-spacing:-.03em;line-height:1.1}
 .greet p{font-size:clamp(17px,2vw,22px);color:var(--muted);margin-top:8px}
 .resume{display:grid;grid-template-columns:minmax(0,37%) minmax(0,1fr);background:linear-gradient(90deg,var(--accent-soft),var(--surface) 75%);border:1px solid var(--line);border-radius:16px;overflow:hidden;box-shadow:var(--shadow)}
-.resume .art svg{display:block;width:100%;height:100%;min-height:200px}
+.resume .art{position:relative;min-height:200px}
+.resume .art svg,.resume .art img{position:absolute;inset:0;display:block;width:100%;height:100%;object-fit:cover}
 .r-body{display:grid;grid-template-columns:minmax(0,1fr) auto;gap:10px 28px;align-items:center;padding:26px 28px}
 .r-main{display:grid;gap:10px;min-width:0}
 .kicker{justify-self:start;font-size:12px;font-weight:700;letter-spacing:.04em;text-transform:uppercase;color:var(--accent);background:var(--accent-soft);border-radius:999px;padding:4px 10px}
@@ -155,7 +139,7 @@ body{background:var(--bg)}
 .course{background:var(--surface);border:1px solid var(--line);border-radius:14px;overflow:hidden;display:grid;grid-template-rows:auto 1fr;box-shadow:var(--shadow);min-width:0;transition:transform .15s,box-shadow .15s}
 .course:hover{transform:translateY(-2px);box-shadow:0 10px 26px rgba(16,24,40,.1)}
 .course .art{aspect-ratio:2.25/1;overflow:hidden}
-.course .art svg{display:block;width:100%;height:100%}
+.course .art svg,.course .art img{display:block;width:100%;height:100%;object-fit:cover}
 .course .art>span{display:block;height:100%}.course .a-s{display:none!important}
 .c-body{padding:16px 18px 18px;display:grid;grid-template-rows:auto auto 1fr auto;gap:10px;min-width:0}
 .c-title{display:flex;align-items:center;gap:8px;flex-wrap:wrap}
@@ -191,6 +175,7 @@ footer{margin-top:56px;border-top:1px solid var(--line);background:var(--surface
 .f-grid a:hover{color:var(--accent)}
 .f-grid .amts-logo{height:30px;margin-bottom:10px}
 @media (max-width:1100px){.cgrid{grid-template-columns:repeat(2,minmax(0,1fr))}.r-body{grid-template-columns:1fr}.cta{justify-self:start}}
+@media (max-width:960px){.resume{grid-template-columns:1fr}.resume .art{min-height:0;aspect-ratio:12/5}}
 @media (max-width:860px){
   .top .wrap{flex-wrap:wrap;gap:6px 12px;min-height:0;padding-block:10px 6px}
   .nav{order:3;flex-basis:100%;overflow-x:auto;scrollbar-width:none;margin:0 -4px}
@@ -198,7 +183,7 @@ footer{margin-top:56px;border-top:1px solid var(--line);background:var(--surface
   .nav a,.nav button{padding:8px 11px;font-size:14px}
   .navdd{position:static}
   .navdd .menu{left:16px;right:16px;min-width:0}
-  .resume{grid-template-columns:1fr}.resume .art svg{min-height:0;height:150px}
+
   .r-body{padding:20px}.cta{width:100%}
   .f-grid{grid-template-columns:1fr 1fr}.f-grid>div:first-child{grid-column:1/-1}}
 @media (max-width:620px){.cgrid{grid-template-columns:1fr}.course.soon{grid-template-columns:104px minmax(0,1fr);grid-template-rows:auto}.course.soon .art{aspect-ratio:auto;height:100%}.course.soon .a-w{display:none!important}.course.soon .a-s{display:block!important}.course.soon .c-body{padding:12px 14px;gap:6px}.course.soon .c-body>span{display:none}.course.soon .c-title h3{font-size:17px}.course.soon .c-body>p{font-size:14px}.course.soon .btn-o{padding:8px 10px;font-size:14px}.ex-tools{width:100%}.search{width:100%}.seg{width:100%}.seg button{flex:1;padding:9px 6px}
@@ -540,6 +525,12 @@ function progressOf(id){
 }
 let PUB={},pubAsked=false;
 /* ---------- ảnh minh họa từng ngôn ngữ (SVG tự vẽ, không dùng logo chính thức) ---------- */
+/* ảnh của designer (assets/courses/<khóa>/card|card-square|hero) — build điền vào; khóa nào chưa có thì dùng ảnh do code vẽ bên dưới */
+const ASSETS={};
+function artFor(c,slot,uid){const a=(ASSETS[c.id]||{})[slot];
+  if(a&&a.svg)return a.svg;
+  if(a&&a.src)return `<img src="${escH(a.src)}" alt="" loading="lazy" decoding="async">`;
+  return slot==="card-square"?artSQ(c.hue,uid):artSVG(c.hue,uid,slot==="hero")}
 const ART={
   cpp:{a:"#4D7BFF",b:"#1534A6",c:"#9DB6FF",mono:"C++",code:["#include <iostream>","int main() {","  std::cout << \"Hi\";","  return 0;","}"]},
   cs:{a:"#9A5BF5",b:"#4517A0",c:"#C9A7FF",mono:"C#",code:["class App {","  static void Main() {","    Console.Write(1);","  }","}"]},
@@ -587,7 +578,7 @@ function renderResume(){
   const ss=open.map(c=>({c,...statsOf(c)})).sort((a,b)=>b.lastAt-a.lastAt);const x=ss.find(y=>y.started)||ss[0],c=x.c;
   const pct=x.total?Math.round(x.done/x.total*100):0,href=c.url+(x.last?"#bai-"+x.last[0].slice(1):"#bai-1");
   document.getElementById("greet-p").textContent=x.started?"Tiếp tục hành trình lập trình của bạn cùng AMTS.":"Bắt đầu hành trình lập trình của bạn cùng AMTS.";
-  document.getElementById("resume").innerHTML=`<div class="art">${artSVG(c.hue,"r",true)}</div>
+  document.getElementById("resume").innerHTML=`<div class="art">${artFor(c,"hero","r")}</div>
     <div class="r-body"><div class="r-main"><span class="kicker">${x.started?"Khóa học của bạn":"Bắt đầu ngay"}</span><h2>${escH(c.name)}</h2>
       ${x.started?`<p class="r-last">${IC.doc}${x.last?`Bài gần nhất: Bài ${x.last[0].slice(1)} · ${escH(x.last[1])}`:"Chưa mở bài nào"}</p>`:`<p class="r-last">${IC.doc}Bài 1 · ${escH(c.lessons[0][1])}</p>`}
       <div class="r-prog"><div class="pbar" role="progressbar" aria-label="Tiến độ ${escH(c.name)}" aria-valuemin="0" aria-valuemax="${x.total}" aria-valuenow="${x.done}"><span style="width:${pct}%"></span></div><b>${pct}%</b>
@@ -603,13 +594,13 @@ function renderCourses(){
   const S=AMTS.S;
   document.getElementById("courses").innerHTML=list.length?list.map(c=>{const open=c.status==="open";
     if(open){const x=statsOf(c),href=c.url+(x.last?"#bai-"+x.last[0].slice(1):"");
-      return `<article class="course" style="--hue:var(--c-${c.hue})"><div class="art">${artSVG(c.hue,c.id)}</div><div class="c-body">
+      return `<article class="course" style="--hue:var(--c-${c.hue})"><div class="art">${artFor(c,"card",c.id)}</div><div class="c-body">
         <div class="c-title"><h3>${escH(c.name)}</h3><span class="chip open">Đang mở</span></div><p>${escH(c.desc)}</p>
         <div class="c-meta">${IC.book}${c.chapters?`${c.chapters} chương · `:""}Đã mở ${x.total} bài học</div>
         <div class="c-foot">${isPaid(c)?`<span class="price paid">Có bài có phí</span>`:`<span class="price">Miễn phí</span>`}<a class="btn-p" href="${escH(href)}">${x.started?"Học tiếp":"Xem khóa học"} ${IC.arrow}</a></div>
         ${PUB[c.id]&&accessLine(c,PUB[c.id])?`<p class="c-fee">${escH(accessLine(c,PUB[c.id]))}</p>`:""}</div></article>`}
     const on=AMTS.notifyOf(c.id);
-    return `<article class="course soon" style="--hue:var(--c-${c.hue})"><div class="art"><span class="a-w">${artSVG(c.hue,c.id)}</span><span class="a-s">${artSQ(c.hue,c.id)}</span></div><div class="c-body">
+    return `<article class="course soon" style="--hue:var(--c-${c.hue})"><div class="art"><span class="a-w">${artFor(c,"card",c.id)}</span><span class="a-s">${artFor(c,"card-square",c.id)}</span></div><div class="c-body">
       <div class="c-title"><h3>${escH(c.name)}</h3><span class="chip">Sắp ra mắt</span></div><p>${escH(c.desc)}</p><span></span>
       <div class="c-foot"><button type="button" class="btn-o${on?" on":""}" data-notify="${c.id}" aria-pressed="${on}">${on?IC.check+"Sẽ báo khi khóa mở":IC.bell+"Nhận thông báo"}</button></div>
       ${cmsg[c.id]?`<p class="c-msg" role="status">${escH(cmsg[c.id])}</p>`:""}</div></article>`}).join("")
