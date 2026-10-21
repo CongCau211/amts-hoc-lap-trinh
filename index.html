@@ -3,16 +3,18 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<link rel="preload" as="font" type="font/woff2" crossorigin href="assets/fonts/be-vietnam-pro-latin-400-normal.woff2">
+<link rel="preload" as="font" type="font/woff2" crossorigin href="assets/fonts/be-vietnam-pro-vietnamese-400-normal.woff2">
+<link rel="preload" as="script" href="assets/app/common.d422e1ab2e.js">
+<link rel="preload" as="script" href="assets/app/home.1a7587f1f9.js">
 <title>AMTS Học Lập Trình</title>
 <meta name="claude:viewport-fit-sides" content="cover">
-<link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://cdn.jsdelivr.net">
 <link rel="preconnect" href="https://firestore.googleapis.com">
 <link rel="preconnect" href="https://securetoken.googleapis.com">
 <link rel="preload" as="script" href="https://cdn.jsdelivr.net/npm/firebase@10.14.1/firebase-app-compat.js">
 <link rel="preload" as="script" href="https://cdn.jsdelivr.net/npm/firebase@10.14.1/firebase-auth-compat.js">
 <link rel="preload" as="script" href="https://cdn.jsdelivr.net/npm/firebase@10.14.1/firebase-firestore-compat.js">
-<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Be+Vietnam+Pro:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;600&display=swap">
 <meta name="description" content="Học lập trình cùng AMTS: C++ từ nền tảng, cấu trúc dữ liệu và giải thuật; bài học có hình minh họa, trình mô phỏng chạy ngay trên trình duyệt, bài tập chấm tự động và theo dõi tiến độ.">
 <meta property="og:type" content="website">
 <meta property="og:locale" content="vi_VN">
@@ -28,14 +30,38 @@
 </head>
 <body>
 <style>
+/* Phông chữ tự lưu trên trang (SIL Open Font License 1.1): Be Vietnam Pro, JetBrains Mono — chỉ bộ ký tự latin, latin-ext, vietnamese.
+   build.py thay assets/fonts/ bằng đường dẫn tới assets/fonts/ */
+@font-face{font-family:'Be Vietnam Pro';font-style:normal;font-display:swap;font-weight:400;src:url(assets/fonts/be-vietnam-pro-vietnamese-400-normal.woff2) format('woff2');unicode-range:U+0102-0103,U+0110-0111,U+0128-0129,U+0168-0169,U+01A0-01A1,U+01AF-01B0,U+0300-0301,U+0303-0304,U+0308-0309,U+0323,U+0329,U+1EA0-1EF9,U+20AB}
+@font-face{font-family:'Be Vietnam Pro';font-style:normal;font-display:swap;font-weight:400;src:url(assets/fonts/be-vietnam-pro-latin-ext-400-normal.woff2) format('woff2');unicode-range:U+0100-02BA,U+02BD-02C5,U+02C7-02CC,U+02CE-02D7,U+02DD-02FF,U+0304,U+0308,U+0329,U+1D00-1DBF,U+1E00-1E9F,U+1EF2-1EFF,U+2020,U+20A0-20AB,U+20AD-20C0,U+2113,U+2C60-2C7F,U+A720-A7FF}
+@font-face{font-family:'Be Vietnam Pro';font-style:normal;font-display:swap;font-weight:400;src:url(assets/fonts/be-vietnam-pro-latin-400-normal.woff2) format('woff2');unicode-range:U+0000-00FF,U+0131,U+0152-0153,U+02BB-02BC,U+02C6,U+02DA,U+02DC,U+0304,U+0308,U+0329,U+2000-206F,U+20AC,U+2122,U+2191,U+2193,U+2212,U+2215,U+FEFF,U+FFFD}
+@font-face{font-family:'Be Vietnam Pro';font-style:normal;font-display:swap;font-weight:500;src:url(assets/fonts/be-vietnam-pro-vietnamese-500-normal.woff2) format('woff2');unicode-range:U+0102-0103,U+0110-0111,U+0128-0129,U+0168-0169,U+01A0-01A1,U+01AF-01B0,U+0300-0301,U+0303-0304,U+0308-0309,U+0323,U+0329,U+1EA0-1EF9,U+20AB}
+@font-face{font-family:'Be Vietnam Pro';font-style:normal;font-display:swap;font-weight:500;src:url(assets/fonts/be-vietnam-pro-latin-ext-500-normal.woff2) format('woff2');unicode-range:U+0100-02BA,U+02BD-02C5,U+02C7-02CC,U+02CE-02D7,U+02DD-02FF,U+0304,U+0308,U+0329,U+1D00-1DBF,U+1E00-1E9F,U+1EF2-1EFF,U+2020,U+20A0-20AB,U+20AD-20C0,U+2113,U+2C60-2C7F,U+A720-A7FF}
+@font-face{font-family:'Be Vietnam Pro';font-style:normal;font-display:swap;font-weight:500;src:url(assets/fonts/be-vietnam-pro-latin-500-normal.woff2) format('woff2');unicode-range:U+0000-00FF,U+0131,U+0152-0153,U+02BB-02BC,U+02C6,U+02DA,U+02DC,U+0304,U+0308,U+0329,U+2000-206F,U+20AC,U+2122,U+2191,U+2193,U+2212,U+2215,U+FEFF,U+FFFD}
+@font-face{font-family:'Be Vietnam Pro';font-style:normal;font-display:swap;font-weight:600;src:url(assets/fonts/be-vietnam-pro-vietnamese-600-normal.woff2) format('woff2');unicode-range:U+0102-0103,U+0110-0111,U+0128-0129,U+0168-0169,U+01A0-01A1,U+01AF-01B0,U+0300-0301,U+0303-0304,U+0308-0309,U+0323,U+0329,U+1EA0-1EF9,U+20AB}
+@font-face{font-family:'Be Vietnam Pro';font-style:normal;font-display:swap;font-weight:600;src:url(assets/fonts/be-vietnam-pro-latin-ext-600-normal.woff2) format('woff2');unicode-range:U+0100-02BA,U+02BD-02C5,U+02C7-02CC,U+02CE-02D7,U+02DD-02FF,U+0304,U+0308,U+0329,U+1D00-1DBF,U+1E00-1E9F,U+1EF2-1EFF,U+2020,U+20A0-20AB,U+20AD-20C0,U+2113,U+2C60-2C7F,U+A720-A7FF}
+@font-face{font-family:'Be Vietnam Pro';font-style:normal;font-display:swap;font-weight:600;src:url(assets/fonts/be-vietnam-pro-latin-600-normal.woff2) format('woff2');unicode-range:U+0000-00FF,U+0131,U+0152-0153,U+02BB-02BC,U+02C6,U+02DA,U+02DC,U+0304,U+0308,U+0329,U+2000-206F,U+20AC,U+2122,U+2191,U+2193,U+2212,U+2215,U+FEFF,U+FFFD}
+@font-face{font-family:'Be Vietnam Pro';font-style:normal;font-display:swap;font-weight:700;src:url(assets/fonts/be-vietnam-pro-vietnamese-700-normal.woff2) format('woff2');unicode-range:U+0102-0103,U+0110-0111,U+0128-0129,U+0168-0169,U+01A0-01A1,U+01AF-01B0,U+0300-0301,U+0303-0304,U+0308-0309,U+0323,U+0329,U+1EA0-1EF9,U+20AB}
+@font-face{font-family:'Be Vietnam Pro';font-style:normal;font-display:swap;font-weight:700;src:url(assets/fonts/be-vietnam-pro-latin-ext-700-normal.woff2) format('woff2');unicode-range:U+0100-02BA,U+02BD-02C5,U+02C7-02CC,U+02CE-02D7,U+02DD-02FF,U+0304,U+0308,U+0329,U+1D00-1DBF,U+1E00-1E9F,U+1EF2-1EFF,U+2020,U+20A0-20AB,U+20AD-20C0,U+2113,U+2C60-2C7F,U+A720-A7FF}
+@font-face{font-family:'Be Vietnam Pro';font-style:normal;font-display:swap;font-weight:700;src:url(assets/fonts/be-vietnam-pro-latin-700-normal.woff2) format('woff2');unicode-range:U+0000-00FF,U+0131,U+0152-0153,U+02BB-02BC,U+02C6,U+02DA,U+02DC,U+0304,U+0308,U+0329,U+2000-206F,U+20AC,U+2122,U+2191,U+2193,U+2212,U+2215,U+FEFF,U+FFFD}
+@font-face{font-family:'Be Vietnam Pro';font-style:normal;font-display:swap;font-weight:800;src:url(assets/fonts/be-vietnam-pro-vietnamese-800-normal.woff2) format('woff2');unicode-range:U+0102-0103,U+0110-0111,U+0128-0129,U+0168-0169,U+01A0-01A1,U+01AF-01B0,U+0300-0301,U+0303-0304,U+0308-0309,U+0323,U+0329,U+1EA0-1EF9,U+20AB}
+@font-face{font-family:'Be Vietnam Pro';font-style:normal;font-display:swap;font-weight:800;src:url(assets/fonts/be-vietnam-pro-latin-ext-800-normal.woff2) format('woff2');unicode-range:U+0100-02BA,U+02BD-02C5,U+02C7-02CC,U+02CE-02D7,U+02DD-02FF,U+0304,U+0308,U+0329,U+1D00-1DBF,U+1E00-1E9F,U+1EF2-1EFF,U+2020,U+20A0-20AB,U+20AD-20C0,U+2113,U+2C60-2C7F,U+A720-A7FF}
+@font-face{font-family:'Be Vietnam Pro';font-style:normal;font-display:swap;font-weight:800;src:url(assets/fonts/be-vietnam-pro-latin-800-normal.woff2) format('woff2');unicode-range:U+0000-00FF,U+0131,U+0152-0153,U+02BB-02BC,U+02C6,U+02DA,U+02DC,U+0304,U+0308,U+0329,U+2000-206F,U+20AC,U+2122,U+2191,U+2193,U+2212,U+2215,U+FEFF,U+FFFD}
+@font-face{font-family:'JetBrains Mono';font-style:normal;font-display:swap;font-weight:400;src:url(assets/fonts/jetbrains-mono-vietnamese-400-normal.woff2) format('woff2');unicode-range:U+0102-0103,U+0110-0111,U+0128-0129,U+0168-0169,U+01A0-01A1,U+01AF-01B0,U+0300-0301,U+0303-0304,U+0308-0309,U+0323,U+0329,U+1EA0-1EF9,U+20AB}
+@font-face{font-family:'JetBrains Mono';font-style:normal;font-display:swap;font-weight:400;src:url(assets/fonts/jetbrains-mono-latin-ext-400-normal.woff2) format('woff2');unicode-range:U+0100-02BA,U+02BD-02C5,U+02C7-02CC,U+02CE-02D7,U+02DD-02FF,U+0304,U+0308,U+0329,U+1D00-1DBF,U+1E00-1E9F,U+1EF2-1EFF,U+2020,U+20A0-20AB,U+20AD-20C0,U+2113,U+2C60-2C7F,U+A720-A7FF}
+@font-face{font-family:'JetBrains Mono';font-style:normal;font-display:swap;font-weight:400;src:url(assets/fonts/jetbrains-mono-latin-400-normal.woff2) format('woff2');unicode-range:U+0000-00FF,U+0131,U+0152-0153,U+02BB-02BC,U+02C6,U+02DA,U+02DC,U+0304,U+0308,U+0329,U+2000-206F,U+20AC,U+2122,U+2191,U+2193,U+2212,U+2215,U+FEFF,U+FFFD}
+@font-face{font-family:'JetBrains Mono';font-style:normal;font-display:swap;font-weight:600;src:url(assets/fonts/jetbrains-mono-vietnamese-600-normal.woff2) format('woff2');unicode-range:U+0102-0103,U+0110-0111,U+0128-0129,U+0168-0169,U+01A0-01A1,U+01AF-01B0,U+0300-0301,U+0303-0304,U+0308-0309,U+0323,U+0329,U+1EA0-1EF9,U+20AB}
+@font-face{font-family:'JetBrains Mono';font-style:normal;font-display:swap;font-weight:600;src:url(assets/fonts/jetbrains-mono-latin-ext-600-normal.woff2) format('woff2');unicode-range:U+0100-02BA,U+02BD-02C5,U+02C7-02CC,U+02CE-02D7,U+02DD-02FF,U+0304,U+0308,U+0329,U+1D00-1DBF,U+1E00-1E9F,U+1EF2-1EFF,U+2020,U+20A0-20AB,U+20AD-20C0,U+2113,U+2C60-2C7F,U+A720-A7FF}
+@font-face{font-family:'JetBrains Mono';font-style:normal;font-display:swap;font-weight:600;src:url(assets/fonts/jetbrains-mono-latin-600-normal.woff2) format('woff2');unicode-range:U+0000-00FF,U+0131,U+0152-0153,U+02BB-02BC,U+02C6,U+02DA,U+02DC,U+0304,U+0308,U+0329,U+2000-206F,U+20AC,U+2122,U+2191,U+2193,U+2212,U+2215,U+FEFF,U+FFFD}
+
 /* Trang chủ: thanh điều hướng · lời chào + "Tiếp tục học" · khám phá khóa học (tìm kiếm, lọc, thẻ có ảnh) · thực hành · khu giảng viên */
 :root{
-  --bg:#F1F3F7; --surface:#FFFFFF; --ink:#151B2C; --muted:#5B6579; --line:#D8DDE7; --accent:#2E50DC; --accent-ink:#FFFFFF; --accent-soft:#E4E9FD; --warm:#975506; --warm-soft:#FBEFDC; --ok:#17734A; --ok-soft:#DDF2E7; --err:#B42F25; --err-soft:#FBE3E0; --code-bg:#131A2A; --code-fg:#DCE3F2; --code-line:#232C42; --code-muted:#96A3BC; --syn-kw:#93AAFF; --syn-str:#F2BC6B; --syn-num:#80D8B2; --syn-com:#96A3BC; --syn-pre:#D892F2; --syn-op:#B9C3D9; --c-cpp:#2E5BFF; --c-cs:#7B3FE4; --c-py:#0E8F8A; --c-java:#E2672A; --c-kcd:#C25A0A; --shadow:0 1px 2px rgba(16,24,40,.05),0 4px 14px rgba(16,24,40,.06); --f-display:"Be Vietnam Pro",system-ui,-apple-system,"Segoe UI",sans-serif; --f-body:"Be Vietnam Pro",system-ui,-apple-system,"Segoe UI",sans-serif; --f-mono:"JetBrains Mono",ui-monospace,"SFMono-Regular",Consolas,monospace; --r:10px;
+  --bg:#F1F3F7; --surface:#FFFFFF; --ink:#151B2C; --muted:#5B6579; --line:#D8DDE7; --accent:#2E50DC; --accent-ink:#FFFFFF; --accent-soft:#E4E9FD; --warm:#975506; --warm-soft:#FBEFDC; --ok:#17734A; --ok-soft:#DDF2E7; --err:#B42F25; --err-soft:#FBE3E0; --code-bg:#131A2A; --code-fg:#DCE3F2; --code-line:#232C42; --code-muted:#96A3BC; --syn-kw:#93AAFF; --syn-str:#F2BC6B; --syn-num:#80D8B2; --syn-com:#96A3BC; --syn-pre:#D892F2; --syn-op:#B9C3D9; --c-cpp:#2E5BFF; --c-cs:#7B3FE4; --c-py:#0E8F8A; --c-java:#E2672A; --c-kcd:#C25A0A; --c-nentang:#2F7D4F; --c-mcu8051:#0B78B8; --c-mpu8086:#A0561A; --shadow:0 1px 2px rgba(16,24,40,.05),0 4px 14px rgba(16,24,40,.06); --f-display:"Be Vietnam Pro",system-ui,-apple-system,"Segoe UI",sans-serif; --f-body:"Be Vietnam Pro",system-ui,-apple-system,"Segoe UI",sans-serif; --f-mono:"JetBrains Mono",ui-monospace,"SFMono-Regular",Consolas,monospace; --r:10px;
 }
 @media (prefers-color-scheme: dark){:root:not([data-theme="light"]){
-  --bg:#0E1320; --surface:#151C2C; --ink:#E6EAF3; --muted:#97A1B6; --line:#27314A; --accent:#7D95FF; --accent-ink:#0E1320; --accent-soft:#1F2A52; --warm:#F0AE52; --warm-soft:#3A2C17; --ok:#5ACB93; --ok-soft:#163626; --err:#F07C70; --err-soft:#3D1D1A; --code-bg:#0A0F1A; --code-line:#1A2236; --c-cpp:#7D95FF; --c-cs:#B48CF0; --c-py:#5FD3C8; --c-java:#F0915F; --c-kcd:#F5A04A; --shadow:0 1px 2px rgba(0,0,0,.3); color-scheme:dark}}
+  --bg:#0E1320; --surface:#151C2C; --ink:#E6EAF3; --muted:#97A1B6; --line:#27314A; --accent:#7D95FF; --accent-ink:#0E1320; --accent-soft:#1F2A52; --warm:#F0AE52; --warm-soft:#3A2C17; --ok:#5ACB93; --ok-soft:#163626; --err:#F07C70; --err-soft:#3D1D1A; --code-bg:#0A0F1A; --code-line:#1A2236; --c-cpp:#7D95FF; --c-cs:#B48CF0; --c-py:#5FD3C8; --c-java:#F0915F; --c-kcd:#F5A04A; --c-nentang:#6FD39B; --c-mcu8051:#5BC0F0; --c-mpu8086:#EDA868; --shadow:0 1px 2px rgba(0,0,0,.3); color-scheme:dark}}
 :root[data-theme="dark"]{
-  --bg:#0E1320; --surface:#151C2C; --ink:#E6EAF3; --muted:#97A1B6; --line:#27314A; --accent:#7D95FF; --accent-ink:#0E1320; --accent-soft:#1F2A52; --warm:#F0AE52; --warm-soft:#3A2C17; --ok:#5ACB93; --ok-soft:#163626; --err:#F07C70; --err-soft:#3D1D1A; --code-bg:#0A0F1A; --code-line:#1A2236; --c-cpp:#7D95FF; --c-cs:#B48CF0; --c-py:#5FD3C8; --c-java:#F0915F; --c-kcd:#F5A04A; --shadow:0 1px 2px rgba(0,0,0,.3); color-scheme:dark}
+  --bg:#0E1320; --surface:#151C2C; --ink:#E6EAF3; --muted:#97A1B6; --line:#27314A; --accent:#7D95FF; --accent-ink:#0E1320; --accent-soft:#1F2A52; --warm:#F0AE52; --warm-soft:#3A2C17; --ok:#5ACB93; --ok-soft:#163626; --err:#F07C70; --err-soft:#3D1D1A; --code-bg:#0A0F1A; --code-line:#1A2236; --c-cpp:#7D95FF; --c-cs:#B48CF0; --c-py:#5FD3C8; --c-java:#F0915F; --c-kcd:#F5A04A; --c-nentang:#6FD39B; --c-mcu8051:#5BC0F0; --c-mpu8086:#EDA868; --shadow:0 1px 2px rgba(0,0,0,.3); color-scheme:dark}
 
 *{box-sizing:border-box}
 body{background:var(--bg);color:var(--ink);font-family:var(--f-body);font-size:16px;line-height:1.65;margin:0}
@@ -266,6 +292,17 @@ html.sy-open{overflow:hidden}
 .sy-l{margin:8px 14px 12px;padding-left:34px;display:grid;gap:4px;font-size:14.5px;line-height:1.45}
 .sy-l li::marker{color:var(--muted);font-family:var(--f-mono);font-size:12.5px}
 .sy-l li.hit{background:var(--warm-soft);border-radius:4px}
+.sy-l.coded{list-style:none;padding-left:0;gap:8px}
+.sy-l.coded li{display:grid;grid-template-columns:auto 1fr;column-gap:10px;align-items:baseline}
+.sy-code{font-family:var(--f-mono);font-size:12px;color:var(--muted);white-space:nowrap}
+.sy-l:not(.coded) .sy-lt{font-weight:400}
+.sy-lt{font-weight:600;min-width:0}
+.sy-ld,.sy-lab{grid-column:2;color:var(--muted);font-size:13.5px;min-width:0}
+.sy-lab i{font-style:normal;color:var(--ink);font-weight:500}
+.sy-sec{margin:10px 0 0;border:1px solid var(--line);border-radius:12px;padding:0 14px}
+.sy-sec summary{cursor:pointer;padding:10px 0;font-weight:600}
+.sy-sec ul{margin:0 0 12px;padding-left:20px;display:grid;gap:4px;font-size:14px;line-height:1.5}
+.syl-b.busy{opacity:.7;cursor:progress}
 .sy-f{display:flex;gap:10px;justify-content:flex-end;padding:12px 22px max(14px,env(safe-area-inset-bottom,0px));border-top:1px solid var(--line);background:var(--surface)}
 .sy-f .btn-o{width:auto}
 .sy-f .btn-p{min-height:44px}
@@ -488,718 +525,8 @@ footer{margin-top:56px;border-top:1px solid var(--line);padding-block:20px 40px;
   <div><b>Dữ liệu của bạn</b><p>Chưa đăng nhập: tiến độ chỉ lưu trên trình duyệt này. Đăng nhập Google: tiến độ được lưu để học tiếp trên mọi thiết bị và để giảng viên theo dõi kết quả học tập.</p></div>
 </div></footer>
 
-<script>
-/* ================= AMTS · LÕI DÙNG CHUNG (danh mục khóa học + tài khoản + tiến độ) =================
-   Thêm khóa học mới: thêm một mục vào COURSES (status:"soon", url "<khóa>/index.html", cuối mục là chỗ giữ CATALOG của khóa).
-   Khi courses/<khóa>/course.json có ít nhất một bài đã viết, build điền danh mục bài và tự chuyển khóa sang status:"open". */
-const COURSES=[
- {id:"cpp",name:"C++ từ nền tảng",mono:"C++",url:"cpp/index.html",status:"open",hue:"cpp",
-  desc:"Xây nền tảng vững chắc với bài học có hình minh họa và trình mô phỏng trực quan.",
-  status:"open",
-  chapters:12,
-  lessons:[["l1", "Chương trình C++ đầu tiên"], ["l2", "Cài đặt trình biên dịch & IDE"], ["l3", "Nhập xuất với cin / cout"], ["l4", "Biến, khai báo, khởi tạo"], ["l5", "int, double, char, bool"], ["l6", "Hằng số const / constexpr"], ["l7", "Ép kiểu và tràn số"], ["l8", "Toán tử số học"], ["l9", "So sánh và logic"], ["l10", "Thứ tự ưu tiên"], ["l11", "Toán tử bit"], ["l12", "if / else"], ["l13", "switch"], ["l14", "while, do-while"], ["l15", "for, break, continue"], ["l16", "Định nghĩa và gọi hàm"], ["l17", "Truyền tham trị / tham chiếu"], ["l18", "Nạp chồng hàm"], ["l19", "Đệ quy"], ["l20", "Phạm vi biến"], ["l21", "Mảng một chiều"], ["l22", "Mảng hai chiều"], ["l23", "string"], ["l24", "vector cơ bản"]],
-  exercises:["l1-0", "l1-1", "l1-2", "l2-term", "l3-0", "l3-1", "l3-2", "l4-0", "l4-1", "l4-2", "l5-0", "l5-1", "l5-2", "l6-0", "l6-1", "l6-2", "l7-0", "l7-1", "l7-2", "l8-0", "l8-1", "l8-2", "l9-0", "l9-1", "l9-2", "l10-0", "l10-1", "l10-2", "l11-0", "l11-1", "l11-2", "l12-0", "l12-1", "l12-2", "l13-0", "l13-1", "l13-2", "l14-0", "l14-1", "l14-2", "l15-0", "l15-1", "l15-2", "l16-0", "l16-1", "l16-2", "l17-0", "l17-1", "l17-2", "l18-0", "l18-1", "l18-2", "l19-0", "l19-1", "l19-2", "l20-0", "l20-1", "l20-2", "l21-0", "l21-1", "l21-2", "l22-0", "l22-1", "l22-2", "l23-0", "l23-1", "l23-2", "l24-0", "l24-1", "l24-2"],
-  practice:["l3-0", "l3-1", "l3-2", "l4-0", "l4-1", "l4-2", "l5-0", "l5-1", "l5-2", "l6-0", "l6-1", "l6-2", "l7-0", "l7-1", "l7-2", "l8-0", "l8-1", "l8-2", "l9-0", "l9-1", "l9-2", "l10-0", "l10-1", "l10-2", "l11-0", "l11-1", "l11-2", "l12-0", "l12-1", "l12-2", "l13-0", "l13-1", "l13-2", "l14-0", "l14-1", "l14-2", "l15-0", "l15-1", "l15-2", "l16-0", "l16-1", "l16-2", "l17-0", "l17-1", "l17-2", "l18-0", "l18-1", "l18-2", "l19-0", "l19-1", "l19-2", "l20-0", "l20-1", "l20-2", "l21-0", "l21-1", "l21-2", "l22-0", "l22-1", "l22-2", "l23-0", "l23-1", "l23-2", "l24-0", "l24-1", "l24-2"],
-  contentVer:"fb552b7708e8",
-  langs:["cpp"],
-  quizzes:{"l1": "quiz", "l2": "quiz2", "l3": "quiz3", "l4": "quiz4", "l5": "quiz5", "l6": "quiz6", "l7": "quiz7", "l8": "quiz8", "l9": "quiz9", "l10": "quiz10", "l11": "quiz11", "l12": "quiz12", "l13": "quiz13", "l14": "quiz14", "l15": "quiz15", "l16": "quiz16", "l17": "quiz17", "l18": "quiz18", "l19": "quiz19", "l20": "quiz20", "l21": "quiz21", "l22": "quiz22", "l23": "quiz23", "l24": "quiz24"}},
- {id:"algo",name:"Cấu trúc dữ liệu & Giải thuật",mono:"Algo",url:"algo/index.html",status:"soon",hue:"algo",
-  desc:"Tư duy giải thuật, phân tích độ phức tạp và các kỹ thuật kinh điển để thi học sinh giỏi, phỏng vấn.",status:"open",
-  chapters:14,
-  lessons:[["l1", "Giải thuật là gì? Từ công thức nấu ăn đến chương trình"], ["l2", "Mô tả giải thuật bằng các bước, mã giả và lưu đồ"], ["l3", "Tính đúng: bất biến vòng lặp và kiểm thử"], ["l4", "Đo thời gian chạy bằng cách đếm phép toán"], ["l5", "Độ phức tạp Big-O, Big-Θ, Big-Ω"], ["l6", "Độ phức tạp bộ nhớ và cách đọc giới hạn của đề bài"], ["l7", "Mảng, vector và chỉ số"], ["l8", "Duyệt mảng: đếm, tính tổng, tìm lớn nhất và nhỏ nhất"], ["l9", "Mảng cộng dồn (prefix sum)"], ["l10", "Mảng hiệu (difference array)"], ["l11", "Kỹ thuật hai con trỏ"], ["l12", "Kỹ thuật cửa sổ trượt"], ["l13", "Tìm kiếm tuần tự"], ["l14", "Tìm kiếm nhị phân"], ["l15", "Tìm kiếm nhị phân trên đáp án"], ["l16", "Sắp xếp chọn, chèn và nổi bọt"], ["l17", "Sắp xếp trộn (merge sort)"], ["l18", "Sắp xếp nhanh (quick sort)"], ["l19", "Sắp xếp đếm, tính ổn định và hàm sort() của STL"], ["l20", "Ôn đệ quy: điều kiện dừng và cây lời gọi"]],
-  exercises:["l1-0", "l1-1", "l1-2", "l2-0", "l2-1", "l2-2", "l3-0", "l3-1", "l3-2", "l4-0", "l4-1", "l4-2", "l5-0", "l5-1", "l5-2", "l6-0", "l6-1", "l6-2", "l7-0", "l7-1", "l7-2", "l8-0", "l8-1", "l8-2", "l9-0", "l9-1", "l9-2", "l10-0", "l10-1", "l10-2", "l11-0", "l11-1", "l11-2", "l12-0", "l12-1", "l12-2", "l13-0", "l13-1", "l13-2", "l14-0", "l14-1", "l14-2", "l15-0", "l15-1", "l15-2", "l16-0", "l16-1", "l16-2", "l17-0", "l17-1", "l17-2", "l18-0", "l18-1", "l18-2", "l19-0", "l19-1", "l19-2", "l20-0", "l20-1", "l20-2"],
-  practice:["l1-0", "l1-1", "l1-2", "l2-0", "l2-1", "l2-2", "l3-0", "l3-1", "l3-2", "l4-0", "l4-1", "l4-2", "l5-0", "l5-1", "l5-2", "l6-0", "l6-1", "l6-2", "l7-0", "l7-1", "l7-2", "l8-0", "l8-1", "l8-2", "l9-0", "l9-1", "l9-2", "l10-0", "l10-1", "l10-2", "l11-0", "l11-1", "l11-2", "l12-0", "l12-1", "l12-2", "l13-0", "l13-1", "l13-2", "l14-0", "l14-1", "l14-2", "l15-0", "l15-1", "l15-2", "l16-0", "l16-1", "l16-2", "l17-0", "l17-1", "l17-2", "l18-0", "l18-1", "l18-2", "l19-0", "l19-1", "l19-2", "l20-0", "l20-1", "l20-2"],
-  contentVer:"69354d2e84d9",
-  langs:["cpp", "py", "cs"],
-  quizzes:{"l1": "quiz1", "l2": "quiz2", "l3": "quiz3", "l4": "quiz4", "l5": "quiz5", "l6": "quiz6", "l7": "quiz7", "l8": "quiz8", "l9": "quiz9", "l10": "quiz10", "l11": "quiz11", "l12": "quiz12", "l13": "quiz13", "l14": "quiz14", "l15": "quiz15", "l16": "quiz16", "l17": "quiz17", "l18": "quiz18", "l19": "quiz19", "l20": "quiz20"}},
- {id:"sql",name:"Cơ sở dữ liệu & SQL",mono:"SQL",url:"sql/index.html",status:"soon",hue:"sql",
-  desc:"Thiết kế cơ sở dữ liệu và viết truy vấn SQL, từ bảng đầu tiên đến tối ưu hiệu năng.",chapters:null,lessons:[],exercises:[],practice:[],quizzes:{}},
- {id:"kcd",name:"Khí cụ điện thực hành",mono:"KCĐ",url:"kcd/index.html",status:"soon",hue:"kcd",
-  desc:"Từ nhận biết thiết bị đến thiết kế tủ điều khiển: relay, contactor, timer, bảo vệ, mạch động cơ, có mô phỏng mạch trên web.",chapters:null,lessons:[],exercises:[],practice:[],quizzes:{}},
- {id:"csharp",name:"C# căn bản",mono:"C#",url:"csharp/index.html",status:"soon",hue:"cs",
-  desc:"Lập trình hướng đối tượng với .NET.",chapters:null,lessons:[],exercises:[],practice:[],quizzes:{}},
- {id:"python",name:"Python cho người mới",mono:"Py",url:"python/index.html",status:"soon",hue:"py",
-  desc:"Bắt đầu lập trình và xử lý dữ liệu.",chapters:null,lessons:[],exercises:[],practice:[],quizzes:{}},
- {id:"java",name:"Java từ đầu",mono:"Java",url:"java/index.html",status:"soon",hue:"java",
-  desc:"Nền tảng Java và tư duy lập trình.",chapters:null,lessons:[],exercises:[],practice:[],quizzes:{}},
-];
-const courseById=id=>COURSES.find(c=>c.id===id);
-
-const AMTS=(()=>{
-  const FB_CONFIG={"apiKey": "AIzaSyBEz_fVVa2JgZyyXeZ7ziiO0vha1jzk82s", "authDomain": "amts-cpp.firebaseapp.com", "projectId": "amts-cpp", "storageBucket": "amts-cpp.firebasestorage.app", "messagingSenderId": "1008205171330", "appId": "1:1008205171330:web:ca3019bf0ff5adbbe9429b"};
-  const TEACHERS=["congcau0910@gmail.com"];
-  const ENV={"name": "prod", "label": ""};
-  const FB_VER="10.14.1";
-  const LEGACY=["lessons","visited","ex","quiz","lastLesson"]; // dạng dữ liệu cũ (chỉ có khóa C++)
-  const S={mode:"off",user:null,auth:null,db:null,doc:null,err:"",saveErr:""};
-  const subs=[];
-  const emit=()=>subs.forEach(f=>{try{f(S)}catch(e){console.error(e)}});
-  const empty=()=>({lessons:{},visited:{},ex:{},quiz:{},lastLesson:null});
-
-  /* ---- lưu trên trình duyệt, theo từng khóa ---- */
-  const LKEY=id=>"amts-progress-"+id;
-  function getLocal(id){
-    try{let s=localStorage.getItem(LKEY(id));
-      if(!s&&id==="cpp"){s=localStorage.getItem("cpp-progress");if(s){localStorage.setItem(LKEY(id),s);localStorage.removeItem("cpp-progress")}}
-      const o=s?JSON.parse(s):null;return o&&typeof o==="object"?Object.assign(empty(),o):empty()}catch(e){return empty()}
-  }
-  function setLocal(id,p){try{localStorage.setItem(LKEY(id),JSON.stringify(p))}catch(e){}}
-  function clearLocal(){try{COURSES.forEach(c=>localStorage.removeItem(LKEY(c.id)));localStorage.removeItem("cpp-progress");
-    // nội dung bài đã nhớ trên máy (amts-c:…): xóa hết khi đăng xuất để máy dùng chung không còn bài có phí
-    Object.keys(localStorage).filter(k=>k.startsWith("amts-c")).forEach(k=>localStorage.removeItem(k))}catch(e){}}
-
-  /* ---- gộp hai bản tiến độ (không làm mất kết quả nào) ---- */
-  function merge(a,b){
-    a=Object.assign(empty(),a);b=Object.assign(empty(),b);
-    // lessons[l] > 0: thời điểm đánh dấu xong; < 0: thời điểm bỏ đánh dấu. Thao tác mới hơn thắng.
-    for(const k in b.lessons){const x=b.lessons[k],y=a.lessons[k];if(y===undefined||Math.abs(x||0)>Math.abs(y||0))a.lessons[k]=x}
-    for(const k in b.visited)a.visited[k]=Math.max(a.visited[k]||0,b.visited[k]||0);
-    for(const k in b.ex){const x=b.ex[k],y=a.ex[k];if(!y||(x.pass&&!y.pass)||(x.pass===y.pass&&(x.at||0)>(y.at||0)))a.ex[k]=x}
-    for(const k in b.quiz){const x=b.quiz[k],y=a.quiz[k];if(!y)a.quiz[k]=x;else{const l=(x.at||0)>(y.at||0)?x:y;a.quiz[k]={...l,best:Math.max(x.best||0,y.best||0)}}}
-    // ngôn ngữ lập trình học viên chọn cho khóa (khóa nhiều ngôn ngữ): lựa chọn mới hơn thắng
-    if(b.lang&&b.lang.l&&(!a.lang||(b.lang.at||0)>(a.lang.at||0)))a.lang={l:String(b.lang.l).slice(0,8),at:Number(b.lang.at)||0};
-    if(b.lastLesson&&(!a.lastLesson||(b.visited[b.lastLesson]||0)>(a.visited[a.lastLesson]||0)))a.lastLesson=b.lastLesson;
-    return a;
-  }
-  /* ---- đọc tiến độ một khóa từ tài liệu học viên (hiểu cả dạng cũ) ---- */
-  function courseOf(doc,id){
-    if(!doc)return null;
-    if(doc.courses&&doc.courses[id])return Object.assign(empty(),doc.courses[id]);
-    if(id==="cpp"&&LEGACY.some(k=>k in doc))return Object.assign(empty(),{lessons:doc.lessons||{},visited:doc.visited||{},ex:doc.ex||{},quiz:doc.quiz||{},lastLesson:doc.lastLesson||null});
-    return null;
-  }
-  const hasLegacy=doc=>!!doc&&LEGACY.some(k=>k in doc);
-
-  const isTeacher=()=>!!(S.user&&S.user.emailVerified&&TEACHERS.includes((S.user.email||"").toLowerCase()));
-  const allowedHere=()=>(location.protocol==="https:"&&!/claude|anthropic/i.test(location.hostname))||["localhost","127.0.0.1"].includes(location.hostname);
-  function loadScript(src){return new Promise((res,rej)=>{const s=document.createElement("script");s.src=src;s.async=false;s.onload=res;s.onerror=()=>rej(new Error(src));document.head.appendChild(s)})}
-
-  async function init(){
-    if(!allowedHere()){S.mode="unavailable";emit();return}
-    S.mode="loading";emit();
-    try{
-      // ba thư viện tải song song (async=false giữ đúng thứ tự chạy app → auth → firestore)
-      await Promise.all(["app","auth","firestore"].map(m=>loadScript(`https://cdn.jsdelivr.net/npm/firebase@${FB_VER}/firebase-${m}-compat.js`)));
-      firebase.initializeApp(FB_CONFIG);S.auth=firebase.auth();S.db=firebase.firestore();S.mode="ready";
-      // Biết đã đăng nhập hay chưa là đủ để kiểm tra quyền mở bài: báo ngay (authKnown).
-      // Tiến độ users/{uid} đọc song song; đọc xong mới đặt docLoaded (saveCourse chờ cờ này nên không ghi đè máy chủ).
-      S.auth.onAuthStateChanged(u=>{
-        S.user=u;S.saveErr="";S.doc=null;S.docLoaded=false;enr=null;S.authKnown=true;emit();
-        if(!u)return;const uid=u.uid;
-        S.db.collection("users").doc(uid).get().then(snap=>{if(!S.user||S.user.uid!==uid)return;S.doc=snap.exists?snap.data():null;S.docLoaded=true;emit()},
-          e=>{if(!S.user||S.user.uid!==uid)return;S.docLoaded=false;S.saveErr=e.code==="permission-denied"?"Firestore đang từ chối truy cập: hãy dán quy tắc bảo mật mới (firestore.rules) trong Firebase Console.":"Chưa tải được tiến độ từ máy chủ. Tiến độ vẫn được giữ trên trình duyệt này.";emit()});
-      });
-    }catch(e){console.error(e);S.mode="error";S.err="Không kết nối được dịch vụ đăng nhập. Kiểm tra Internet rồi tải lại trang.";emit()}
-  }
-  /* ---- ghi tiến độ một khóa; các khóa khác giữ nguyên ----
-     Ghi trong transaction: đọc bản trên máy chủ, gộp với bản trên máy này rồi mới ghi,
-     nên hai thiết bị học cùng lúc không ghi đè mất kết quả của nhau. Trả về bản đã gộp (hoặc null nếu lỗi). */
-  async function saveCourse(id,data){
-    const u=S.user;if(!u||!S.db||!S.docLoaded)return null;
-    const FV=firebase.firestore.FieldValue,ref=S.db.collection("users").doc(u.uid);
-    const profile={name:u.displayName||"",email:(u.email||"").toLowerCase(),photo:u.photoURL||"",lastSeen:FV.serverTimestamp()};
-    const clean=x=>Object.assign({lessons:x.lessons||{},visited:x.visited||{},ex:x.ex||{},quiz:x.quiz||{},lastLesson:x.lastLesson||null},x.lang&&x.lang.l?{lang:{l:String(x.lang.l).slice(0,8),at:Number(x.lang.at)||0}}:{});
-    try{
-      let merged=null,docAfter=null;
-      await S.db.runTransaction(async tx=>{
-        const snap=await tx.get(ref);const doc=snap.exists?snap.data():null;
-        const remote=courseOf(doc,id);merged=clean(remote?merge(remote,data):Object.assign(empty(),data));
-        if(!doc){tx.set(ref,{...profile,createdAt:FV.serverTimestamp(),courses:{[id]:{...merged,updatedAt:FV.serverTimestamp()}}});docAfter={...profile,courses:{[id]:merged}};return}
-        const upd={...profile,["courses."+id]:{...merged,updatedAt:FV.serverTimestamp()}};
-        if(hasLegacy(doc)){ // chuyển dữ liệu cũ (dạng phẳng) vào courses.cpp rồi xóa các trường cũ trong cùng một lần ghi
-          if(id!=="cpp")upd["courses.cpp"]={...courseOf(doc,"cpp"),updatedAt:FV.serverTimestamp()};
-          LEGACY.forEach(k=>upd[k]=FV.delete())}
-        tx.update(ref,upd);
-        const nd={...doc};LEGACY.forEach(k=>delete nd[k]);nd.courses=Object.assign({},doc.courses,hasLegacy(doc)&&id!=="cpp"?{cpp:courseOf(doc,"cpp")}:{},{[id]:merged});docAfter=nd});
-      S.doc=docAfter;
-      if(S.saveErr){S.saveErr="";emit()}
-      return merged;
-    }catch(e){S.saveErr=e.code==="permission-denied"?"Firestore đang từ chối ghi: hãy dán quy tắc bảo mật mới (firestore.rules) trong Firebase Console.":"Chưa lưu được lên máy chủ, sẽ tự thử lại sau ít phút.";emit();return null}
-  }
-  async function signIn(){
-    try{const p=new firebase.auth.GoogleAuthProvider();p.setCustomParameters({prompt:"select_account"});await S.auth.signInWithPopup(p);return ""}
-    catch(e){if(e.code==="auth/popup-closed-by-user"||e.code==="auth/cancelled-popup-request")return "";
-      const M={"auth/popup-blocked":"Trình duyệt đã chặn cửa sổ đăng nhập. Hãy cho phép cửa sổ bật lên (popup) cho trang này rồi thử lại.","auth/unauthorized-domain":`Tên miền ${location.hostname} chưa được thêm vào Authorized domains trong Firebase.`,"auth/network-request-failed":"Lỗi mạng, hãy kiểm tra Internet.","auth/operation-not-allowed":"Đăng nhập Google chưa được bật trong Firebase Authentication."};
-      return M[e.code]||("Không đăng nhập được: "+(e.message||e.code))}
-  }
-  async function signOut(){await S.auth.signOut();clearLocal()}
-  async function allUsers(){const snap=await S.db.collection("users").get();return snap.docs.map(d=>({uid:d.id,...d.data()}))}
-
-  /* ---- quyền truy cập bài học: config/{khóa}, enroll/{uid}, content/{khóa}-{bài} ---- */
-  const DEF_CFG={paidMode:false,loginFrom:16,paid:{},price:"",payInfo:"",bankName:"",accName:"",accNo:"",payContact:"",contentVer:"",activeVer:"",versions:{}};
-  const defaultConfig=()=>JSON.parse(JSON.stringify(DEF_CFG));
-  const cfgCache={};let enr=null,readyP=null;
-  function ready(){return readyP||(readyP=new Promise(res=>{const ok=()=>S.mode==="unavailable"||S.mode==="error"||(S.mode==="ready"&&S.authKnown);
-    if(ok())res(S);else subs.push(()=>{if(ok())res(S)})}))}
-  async function getConfig(id,fresh){
-    if(!fresh&&cfgCache[id])return cfgCache[id];
-    const s=await S.db.collection("config").doc(id).get();
-    const c=Object.assign(defaultConfig(),s.exists?s.data():{});c.exists=s.exists;return cfgCache[id]=c}
-  async function saveConfig(id,c){
-    const d={paidMode:!!c.paidMode,loginFrom:Number(c.loginFrom)||9999,paid:Object.assign({},c.paid||{}),price:String(c.price||"").slice(0,200),payInfo:String(c.payInfo||"").slice(0,2000),bankName:String(c.bankName||"").slice(0,120),accName:String(c.accName||"").slice(0,120),accNo:String(c.accNo||"").slice(0,60),payContact:String(c.payContact||"").slice(0,300),contentVer:String(c.contentVer||""),activeVer:String(c.activeVer||""),versions:cleanVersions(c.versions),updatedAt:firebase.firestore.FieldValue.serverTimestamp(),updatedBy:(S.user&&S.user.email)||""};
-    await S.db.collection("config").doc(id).set(d);cfgCache[id]=Object.assign(defaultConfig(),d,{exists:true});return cfgCache[id]}
-  async function isEnrolled(id){
-    if(!S.user)return false;
-    if(enr===null){try{const s=await S.db.collection("enroll").doc(S.user.uid).get();enr=s.exists?s.data():{}}catch(e){enr={}}}
-    return enr[id]===true}
-  const clearEnroll=()=>{enr=null};
-  /* Nội dung theo phiên bản: content/{khóa}@{phiên bản}-{bài}. Trang đọc đúng phiên bản nó được build cùng;
-     chưa có thì dùng bản mới nhất đã kiểm tra (activeVer), rồi tới bản cũ không phiên bản ({khóa}-{bài}). */
-  const docId=(id,ver,l)=>ver?`${id}@${ver}-${l}`:`${id}-${l}`;
-  function cleanVersions(v){const o={};if(v&&typeof v==="object")for(const k in v){if(!/^[\w.-]{1,40}$/.test(k))continue;const x=v[k]||{};
-    o[k]={at:x.at||null,by:String(x.by||"").slice(0,120),n:Number(x.n)||0,lessons:Array.isArray(x.lessons)?x.lessons.filter(y=>/^l\d+$/.test(y)).slice(0,500):[],ok:x.ok===true}}return o}
-  /* only: "exact" = chỉ đúng phiên bản; "rest" = bỏ qua đúng phiên bản (đã thử rồi); không ghi = thử lần lượt cả ba */
-  async function getLesson(id,l,ver,cfg,only){
-    const tries=only==="rest"?[]:[[ver,"exact"]];if(only!=="exact"){if(cfg&&cfg.activeVer&&cfg.activeVer!==ver)tries.push([cfg.activeVer,"active"]);tries.push(["","legacy"])}
-    let denied=null;
-    for(const [v,from] of tries){if(from!=="legacy"&&!v)continue;
-      try{const s=await S.db.collection("content").doc(docId(id,v,l)).get();if(s.exists){const d=s.data();if(d&&d.html)return Object.assign({},d,{_from:from,_ver:v||d.ver||""})}}
-      catch(e){if(e.code!=="permission-denied")throw e;denied=e}}
-    if(denied)throw denied;return null}
-  async function allEnroll(){const s=await S.db.collection("enroll").get();const m={};s.docs.forEach(d=>m[d.id]=d.data());return m}
-  async function setEnroll(uid,id,on,info){const FV=firebase.firestore.FieldValue;
-    await S.db.collection("enroll").doc(uid).set({[id]:!!on,email:(info&&info.email)||"",name:(info&&info.name)||"",["at_"+id]:FV.serverTimestamp(),["by_"+id]:(S.user&&S.user.email)||""},{merge:true})}
-  /* ---- sao lưu / khôi phục toàn bộ (chỉ giảng viên) ---- */
-  async function dump(col){const s=await S.db.collection(col).get();const m={};s.docs.forEach(d=>m[d.id]=d.data());return m}
-  async function restoreDoc(col,id,data){await S.db.collection(col).doc(id).set(data)}
-  /* Tải một phiên bản nội dung lên (không ghi đè phiên bản đang dùng), đọc lại kiểm tra đủ bài, rồi ghi vào danh sách phiên bản */
-  /* lời giải theo ngôn ngữ khác C++ (khóa nhiều ngôn ngữ): {py:[...], cs:[...]} */
-  const solsOf=L=>{const o={};const x=L.sols&&typeof L.sols==="object"?L.sols:{};["cs","py"].forEach(k=>{if(Array.isArray(x[k]))o[k]=x[k].map(String)});return o};
-  /* so sánh khi kiểm tra lại: Firestore KHÔNG giữ thứ tự khóa của map (đọc lại có thể ra {py, cs}), nên sắp khóa trước khi so */
-  const solsKey=o=>JSON.stringify(Object.keys(o||{}).sort().map(k=>[k,o[k]]));
-  async function uploadContent(pkg,onProg){
-    if(!pkg||!pkg.course||!Array.isArray(pkg.lessons)||!pkg.ver||!/^[\w.-]{1,40}$/.test(pkg.ver))throw new Error("File không đúng định dạng nội dung bài học.");
-    for(const L of pkg.lessons)if(!/^l\d+$/.test(L.id)||typeof L.html!=="string")throw new Error("Bài "+L.id+" không hợp lệ.");
-    const FV=firebase.firestore.FieldValue,col=S.db.collection("content");let k=0;const tot=pkg.lessons.length*2;
-    for(const L of pkg.lessons){
-      await col.doc(docId(pkg.course,pkg.ver,L.id)).set({course:pkg.course,lesson:L.id,order:Number(L.order)||0,title:String(L.title||""),html:L.html,sol:Array.isArray(L.sol)?L.sol.map(String):[],sols:solsOf(L),ver:pkg.ver,updatedAt:FV.serverTimestamp()});
-      onProg&&onProg(++k,tot,"upload")}
-    const bad=[];
-    for(const L of pkg.lessons){const s=await col.doc(docId(pkg.course,pkg.ver,L.id)).get();const d=s.exists?s.data():null;
-      if(!d||d.html!==L.html||d.ver!==pkg.ver||JSON.stringify(d.sol||[])!==JSON.stringify(Array.isArray(L.sol)?L.sol.map(String):[])||solsKey(d.sols)!==solsKey(solsOf(L)))bad.push(L.id);onProg&&onProg(++k,tot,"verify")}
-    if(bad.length)throw new Error(`Kiểm tra sau khi tải lên thấy ${bad.length} bài chưa đúng (${bad.join(", ")}). Hãy tải lại; phiên bản đang dùng không bị ảnh hưởng.`);
-    const cur=await getConfig(pkg.course,true);
-    cur.versions=Object.assign({},cur.versions||{},{[pkg.ver]:{at:new Date().toISOString(),by:(S.user&&S.user.email)||"",n:pkg.lessons.length,lessons:pkg.lessons.map(L=>L.id),ok:true}});
-    cur.activeVer=pkg.ver;cur.contentVer=pkg.ver;await saveConfig(pkg.course,cur);
-    return pkg.lessons.length}
-  /* Xóa một phiên bản cũ ("" = bản không phiên bản {khóa}-{bài}) */
-  async function deleteVersion(id,ver,lessons){
-    const col=S.db.collection("content");for(const l of lessons)await col.doc(docId(id,ver,l)).delete();
-    if(ver){const cur=await getConfig(id,true);const v=Object.assign({},cur.versions||{});delete v[ver];cur.versions=v;await saveConfig(id,cur)}}
-  /* "Tôi đã chuyển khoản": học viên gửi yêu cầu kiểm tra (payreq/{uid}); không tự mở quyền học */
-  async function payReqOf(id){if(!S.user||!S.db)return null;try{const s=await S.db.collection("payreq").doc(S.user.uid).get();const c=s.exists&&s.data().courses;return c&&c[id]?c[id]:null}catch(e){return null}}
-  async function requestPay(id){const u=S.user;if(!u||!S.db){const e=new Error("Cần đăng nhập");e.code="login";throw e}
-    const ref=S.db.collection("payreq").doc(u.uid);let cur={};try{const s=await ref.get();if(s.exists)cur=s.data().courses||{}}catch(e){}
-    const courses=Object.assign({},cur,{[id]:firebase.firestore.FieldValue.serverTimestamp()});
-    await ref.set({email:(u.email||"").toLowerCase(),name:u.displayName||"",courses});return true}
-  async function allPayReq(){const s=await S.db.collection("payreq").get();const m={};s.docs.forEach(d=>m[d.id]=d.data());return m}
-  async function clearPayReq(uid,id){const ref=S.db.collection("payreq").doc(uid);const s=await ref.get();if(!s.exists)return;const d=s.data(),c=Object.assign({},d.courses||{});delete c[id];
-    if(Object.keys(c).length)await ref.set(Object.assign({},d,{courses:c}));else await ref.delete()}
-  /* "Nhận thông báo" cho khóa sắp ra mắt: lưu trong users/{uid}.courses.{khóa}.notify (không cần đổi rules) */
-  const notifyOf=id=>!!(S.doc&&S.doc.courses&&S.doc.courses[id]&&S.doc.courses[id].notify);
-  async function setNotify(id,on){const u=S.user;if(!u||!S.db){const e=new Error("Cần đăng nhập");e.code="login";throw e}
-    const ref=S.db.collection("users").doc(u.uid),cur=(S.doc&&S.doc.courses&&S.doc.courses[id])||{};
-    const val=Object.assign({},cur,{notify:!!on,notifyAt:Date.now()});
-    try{await ref.update({["courses."+id]:val})}
-    catch(e){if(e.code!=="not-found")throw e;await ref.set({name:u.displayName||"",email:(u.email||"").toLowerCase(),photo:u.photoURL||"",courses:{[id]:val}},{merge:true})}
-    S.doc=Object.assign({},S.doc||{});S.doc.courses=Object.assign({},S.doc.courses||{},{[id]:val});emit()}
-  /* Tiến độ 3 mức của một bài: 0 chưa học · 1 Đã đọc · 2 Đã làm bài tập (đạt ≥ 2/3 bài tập) · 3 Đạt kiểm tra (bài tập ≥ 2/3 và trắc nghiệm ≥ 3/4).
-     Bài không có bài tập/trắc nghiệm thì bỏ qua điều kiện đó. "Hoàn thành" = Đạt kiểm tra HOẶC học viên tự bấm "Đánh dấu đã học xong". */
-  const PASS_EX=2/3,PASS_QUIZ=3/4;
-  function detailOf(p,l,cid){const c=courseById(cid||"cpp")||{},ex=(c.exercises||[]).filter(k=>k.startsWith(l+"-")),qid=(c.quizzes||{})[l];
-    const pass=p?ex.filter(k=>((p.ex||{})[k]||{}).pass).length:0,q=p&&qid?(p.quiz||{})[qid]:null;
-    const exOk=!ex.length||pass>=Math.ceil(ex.length*PASS_EX-1e-9),qOk=!qid||!!(q&&q.total&&(q.best||0)/q.total>=PASS_QUIZ-1e-9);
-    const read=!!(p&&p.visited&&p.visited[l]),manual=!!(p&&p.lessons&&(p.lessons[l]||0)>0);
-    const level=(ex.length||qid)&&exOk&&qOk?3:ex.length&&exOk?2:read||pass||q?1:0;
-    return{level,read,manual,exTotal:ex.length,exPass:pass,quiz:q?{best:q.best||0,total:q.total}:null,hasQuiz:!!qid,exOk,qOk}}
-  const levelOf=(p,l,cid)=>detailOf(p,l,cid).level;
-  const isDone=(p,l,cid)=>{const d=detailOf(p,l,cid);return d.manual||d.level===3};
-  return{S,TEACHERS,ENV,PROJECT:FB_CONFIG.projectId,init,isDone,levelOf,detailOf,on:f=>{subs.push(f);f(S)},getLocal,setLocal,clearLocal,merge,courseOf,saveCourse,signIn,signOut,isTeacher,allUsers,empty,
-    notifyOf,setNotify,payReqOf,requestPay,allPayReq,clearPayReq,dump,restoreDoc,ready,defaultConfig,getConfig,saveConfig,isEnrolled,clearEnroll,getLesson,allEnroll,setEnroll,uploadContent,deleteVersion,docId};
-})();
-/* tiện ích dùng chung */
-const escH=s=>String(s??"").replace(/[&<>"']/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c]));
-function avatarHTML(u){const ini=(u.displayName||u.email||"?").trim()[0].toUpperCase();
-  return `<span class="ava">${escH(ini)}${u.photoURL?`<img src="${escH(u.photoURL)}" alt="" referrerpolicy="no-referrer" onerror="this.remove()">`:""}</span>`}
-
-/* ================= THANH ĐIỀU HƯỚNG CHUNG (trang chủ + trang khóa học) =================
-   Khung HTML: platform/partials/topnav.html · CSS: platform/css/07-topnav.css */
-const IC={doc:'<svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M14 3H7a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2V8z"/><path d="M14 3v5h5M9 13h6M9 17h4"/></svg>',
-  book:'<svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="4" y="3" width="16" height="18" rx="2"/><path d="M8 7h8M8 11h8M8 15h5"/></svg>',
-  bell:'<svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M6 9a6 6 0 1 1 12 0c0 6 2.5 7.5 2.5 7.5h-17S6 15 6 9z"/><path d="M10 20a2 2 0 0 0 4 0"/></svg>',
-  check:'<svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m5 12.5 4.5 4.5L19 7.5"/></svg>',
-  arrow:'<span aria-hidden="true">→</span>',chev:'<svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true" style="width:16px;height:16px"><path d="m6 9 6 6 6-6"/></svg>'};
-const TOPNAV=(()=>{
-  const top=document.getElementById("top"),ROOT=(top&&top.dataset.root)||"";
-  const opts={signOut:null};
-  const seen=()=>{try{return JSON.parse(localStorage.getItem("amts-notif-seen")||"{}")}catch(e){return{}}};
-  function wireMenu(bid,mid,onOpen){const b=document.getElementById(bid),m=document.getElementById(mid);if(!b||!m)return;
-    b.onclick=e=>{e.stopPropagation();const o=m.hidden;closeMenus();if(o){m.hidden=false;b.setAttribute("aria-expanded","true");onOpen&&onOpen();const f=m.querySelector("a,button");if(f&&e.detail===0)f.focus()}}}
-  function closeMenus(except){document.querySelectorAll(".menu").forEach(m=>{if(m!==except)m.hidden=true});
-    document.querySelectorAll("[aria-haspopup]").forEach(b=>{if(!except||b.getAttribute("aria-controls")!==except.id)b.setAttribute("aria-expanded","false")})}
-  document.addEventListener("click",e=>{if(!e.target.closest(".menu"))closeMenus();if(top&&!e.target.closest("#top"))setOpen(false)});
-  document.addEventListener("keydown",e=>{if(e.key!=="Escape")return;const open=document.querySelector(".menu:not([hidden])");
-    if(open){const b=document.querySelector(`[aria-controls="${open.id}"]`);closeMenus();if(b)b.focus()}else if(top&&top.classList.contains("open")){setOpen(false);document.getElementById("nav-menu").focus()}});
-  function setOpen(o){if(!top)return;top.classList.toggle("open",o);const b=document.getElementById("nav-menu");if(b)b.setAttribute("aria-expanded",String(o))}
-  const mb=document.getElementById("nav-menu");if(mb)mb.onclick=e=>{e.stopPropagation();setOpen(!top.classList.contains("open"))};
-  wireMenu("nav-docs","m-docs");
-  {const nv=document.getElementById("mainnav");if(nv)nv.addEventListener("click",e=>{if(e.target.closest("a")){setOpen(false);closeMenus()}})}
-  function setActive(k){document.querySelectorAll("#mainnav [data-nav]").forEach(a=>{if(a.dataset.nav===k)a.setAttribute("aria-current","page");else a.removeAttribute("aria-current")})}
-  /* Thực hành: trang Thực hành của khóa đang mở */
-  function practiceHref(){const c=(typeof CID!=="undefined"&&courseById(CID))||COURSES.find(x=>x.status==="open");if(!c)return ROOT+"index.html";return ROOT+c.url+"#thuc-hanh"}
-  function render(){
-    const el=document.getElementById("topacct");if(!el)return;const S=AMTS.S;
-    const subs=COURSES.filter(c=>AMTS.notifyOf(c.id)),sn=seen(),fresh=subs.filter(c=>c.status==="open"&&!sn[c.id]);
-    const notif=`<div class="navdd"><button class="iconbtn" id="b-bell" aria-haspopup="true" aria-expanded="false" aria-controls="m-bell" aria-label="Thông báo${fresh.length?` (${fresh.length} mới)`:""}">${IC.bell}${fresh.length?'<span class="dot" aria-hidden="true"></span>':""}</button>
-      <div class="menu right notif" id="m-bell" hidden><b class="m-h">Thông báo</b>${subs.length?subs.map(c=>c.status==="open"?`<p class="new">${escH(c.name)} đã mở! <a href="${escH(ROOT+c.url)}">Vào học →</a></p>`:`<p>Bạn sẽ được báo khi <b>${escH(c.name)}</b> mở.</p>`).join("")
-        :`<p>Bạn chưa có thông báo mới.</p><p class="note">Bấm “Nhận thông báo” ở một khóa sắp ra mắt để được báo khi khóa mở.</p>`}</div></div>`;
-    let h="";
-    if(S.mode==="unavailable")h="";
-    else if(S.mode==="loading"||S.mode==="off")h=`<span class="note">Đang kết nối…</span>`;
-    else if(S.mode==="error")h=`<span class="note bad-t">${escH(S.err)}</span>`;
-    else if(!S.user)h=notif+`<button class="gbtn" id="btn-in"><span class="g">G</span>Đăng nhập</button>`;
-    else{const u=S.user;
-      h=notif+`<div class="navdd"><button class="avabtn" id="b-me" aria-haspopup="true" aria-expanded="false" aria-controls="m-me" aria-label="Tài khoản: ${escH(u.displayName||u.email||"")}">${avatarHTML(u)}${IC.chev}</button>
-        <div class="menu right" id="m-me" hidden><div class="who">${avatarHTML(u)}<div><b>${escH(u.displayName||"Học viên")}</b><small>${escH(u.email||"")}</small></div></div>
-          ${AMTS.isTeacher()?`<a href="${ROOT}index.html#giang-vien">Trang giảng viên<small>Tiến độ học viên, học phí, nội dung</small></a>`:""}
-          ${S.saveErr?`<p class="note bad-t" style="padding:6px 12px">${escH(S.saveErr)}</p>`:""}
-          <button type="button" id="btn-out">Đăng xuất</button></div></div>`}
-    el.innerHTML=h+`<span class="note bad-t" id="acct-msg" aria-live="polite"></span>`;
-    const bi=document.getElementById("btn-in");if(bi)bi.onclick=async()=>{const m=await AMTS.signIn();document.getElementById("acct-msg").textContent=m};
-    const bo=document.getElementById("btn-out");if(bo)bo.onclick=async()=>{if(opts.signOut)return opts.signOut();await AMTS.signOut();if(window.renderAll)renderAll();else render()};
-    wireMenu("b-bell","m-bell",()=>{const s=seen();subs.forEach(c=>{if(c.status==="open")s[c.id]=1});try{localStorage.setItem("amts-notif-seen",JSON.stringify(s))}catch(e){}});
-    wireMenu("b-me","m-me");
-    const pr=document.getElementById("nav-practice");if(pr)pr.href=practiceHref();
-  }
-  return{render,setActive,closeMenus,wireMenu,opts,practiceHref,ROOT};
-})();
-const closeMenus=TOPNAV.closeMenus,wireMenu=TOPNAV.wireMenu;
-
-/* ================= TRANG CHỦ ================= */
-function progressOf(id){
-  const local=AMTS.getLocal(id),S=AMTS.S;
-  const remote=S.user&&S.docLoaded?AMTS.courseOf(S.doc,id):null;
-  return remote?AMTS.merge(remote,local):local;
-}
-let PUB={},pubAsked=false;
-/* ---------- ảnh minh họa từng ngôn ngữ (SVG tự vẽ, không dùng logo chính thức) ---------- */
-/* ảnh của designer (assets/courses/<khóa>/card|card-square|hero) — build điền vào; khóa nào chưa có thì dùng ảnh do code vẽ bên dưới */
-const ASSETS={"cpp": {"card": {"src": "assets/courses/cpp/card.webp"}, "card-square": {"src": "assets/courses/cpp/card-square.webp"}, "hero": {"src": "assets/courses/cpp/hero.webp"}}, "algo": {"card": {"src": "assets/courses/algo/card.webp"}, "card-square": {"src": "assets/courses/algo/card-square.webp"}, "hero": {"src": "assets/courses/algo/hero.webp"}}, "sql": {"card": {"src": "assets/courses/sql/card.webp"}, "card-square": {"src": "assets/courses/sql/card-square.webp"}, "hero": {"src": "assets/courses/sql/hero.webp"}}, "kcd": {"card": {"src": "assets/courses/kcd/card.webp"}, "card-square": {"src": "assets/courses/kcd/card-square.webp"}, "hero": {"src": "assets/courses/kcd/hero.webp"}}, "csharp": {"card": {"src": "assets/courses/csharp/card.webp"}, "card-square": {"src": "assets/courses/csharp/card-square.webp"}, "hero": {"src": "assets/courses/csharp/hero.webp"}}, "python": {"card": {"src": "assets/courses/python/card.webp"}, "card-square": {"src": "assets/courses/python/card-square.webp"}, "hero": {"src": "assets/courses/python/hero.webp"}}, "java": {"card": {"src": "assets/courses/java/card.webp"}, "card-square": {"src": "assets/courses/java/card-square.webp"}, "hero": {"src": "assets/courses/java/hero.webp"}}};
-/* mục lục dự kiến của khóa sắp ra mắt (courses/<khóa>/syllabus.json) — build điền vào */
-const SYL={"algo": {"for": "Người đã viết được chương trình đơn giản và muốn giải bài toán tốt hơn: học sinh ôn thi học sinh giỏi Tin, sinh viên CNTT, người chuẩn bị phỏng vấn lập trình.", "prereq": "Học xong phần Cơ bản của khóa C++ từ nền tảng (biến, vòng lặp, hàm, đệ quy). Mảng và vector được ôn lại ngay trong Chương 2.", "tools": "Mọi ví dụ viết bằng C++ (dùng using namespace std; như khóa C++) và chạy được trên trình mô phỏng. Mỗi bài có mã giả để người dùng ngôn ngữ khác vẫn theo được.", "outcome": ["Phân tích được độ phức tạp thời gian, bộ nhớ và biết một cách làm có kịp giới hạn đề bài hay không.", "Chọn đúng cấu trúc dữ liệu cho từng bài toán: mảng, ngăn xếp, hàng đợi, băm, cây, đống, đồ thị.", "Vận dụng các kỹ thuật kinh điển: chia để trị, quay lui, tham lam, quy hoạch động, duyệt đồ thị.", "Có quy trình giải một bài toán lạ: từ cách trâu bò, kiểm thử đối chiếu đến lời giải tối ưu."], "tiers": [{"tier": "Cơ bản", "cls": "lv1", "note": "Tư duy giải thuật và đo độ hiệu quả", "chapters": [{"title": "Nhập môn giải thuật", "en": "Introduction to Algorithms", "goal": "Mô tả được một giải thuật, chứng minh nó đúng và ước lượng nó chạy nhanh hay chậm.", "sim": "Đếm số bước chạy khi kích thước dữ liệu n tăng dần", "lessons": ["Giải thuật là gì? Từ công thức nấu ăn đến chương trình", "Mô tả giải thuật bằng các bước, mã giả và lưu đồ", "Tính đúng: bất biến vòng lặp và kiểm thử", "Đo thời gian chạy bằng cách đếm phép toán", "Độ phức tạp Big-O, Big-Θ, Big-Ω", "Độ phức tạp bộ nhớ và cách đọc giới hạn của đề bài"]}, {"title": "Mảng và các kỹ thuật cơ bản", "en": "Arrays and Basic Techniques", "goal": "Biến những cách làm O(n²) thành O(n) với các kỹ thuật trên mảng.", "sim": "Hai con trỏ và cửa sổ trượt di chuyển trên mảng", "lessons": ["Mảng, vector và chỉ số", "Duyệt mảng: đếm, tính tổng, tìm lớn nhất và nhỏ nhất", "Mảng cộng dồn (prefix sum)", "Mảng hiệu (difference array)", "Kỹ thuật hai con trỏ", "Kỹ thuật cửa sổ trượt"]}, {"title": "Tìm kiếm và sắp xếp", "en": "Searching and Sorting", "goal": "Hiểu cách các thuật toán sắp xếp hoạt động và dùng tìm kiếm nhị phân thành thạo.", "sim": "Các cột đổi chỗ theo từng bước sắp xếp", "lessons": ["Tìm kiếm tuần tự", "Tìm kiếm nhị phân", "Tìm kiếm nhị phân trên đáp án", "Sắp xếp chọn, chèn và nổi bọt", "Sắp xếp trộn (merge sort)", "Sắp xếp nhanh (quick sort)", "Sắp xếp đếm, tính ổn định và hàm sort() của STL"]}, {"title": "Đệ quy, chia để trị và quay lui", "en": "Recursion, Divide and Conquer, Backtracking", "goal": "Giải bài toán bằng cách chia nhỏ và thử có hệ thống mọi khả năng.", "sim": "Cây lời gọi đệ quy mọc ra rồi thu lại", "lessons": ["Ôn đệ quy: điều kiện dừng và cây lời gọi", "Chia để trị", "Quay lui: sinh tổ hợp và hoán vị", "Quay lui có cắt nhánh: bài toán N quân hậu", "Đệ quy có nhớ (memoization)"]}]}, {"tier": "Trung cấp", "cls": "lv2", "note": "Cấu trúc dữ liệu và các kỹ thuật kinh điển", "chapters": [{"title": "Cấu trúc dữ liệu tuyến tính", "en": "Linear Data Structures", "goal": "Dùng đúng danh sách liên kết, ngăn xếp, hàng đợi và các biến thể đơn điệu.", "sim": "Thêm, lấy phần tử trên ngăn xếp và hàng đợi", "lessons": ["Danh sách liên kết", "Ngăn xếp (stack) và bài toán kiểm tra dấu ngoặc", "Hàng đợi (queue) và hàng đợi hai đầu (deque)", "Ngăn xếp đơn điệu", "Hàng đợi đơn điệu: giá trị lớn nhất trong cửa sổ trượt"]}, {"title": "Bảng băm và tập hợp", "en": "Hash Tables and Sets", "goal": "Tra cứu, đếm, loại trùng trong thời gian gần như hằng số.", "sim": "Khóa được băm vào ô và xử lý va chạm", "lessons": ["Bảng băm hoạt động ra sao; va chạm và cách xử lý", "unordered_map và unordered_set", "set và map (cây cân bằng) so với bảng băm", "Bài toán đếm tần suất và tìm cặp có tổng cho trước", "Băm chuỗi"]}, {"title": "Cây và hàng đợi ưu tiên", "en": "Trees and Priority Queues", "goal": "Biểu diễn dữ liệu phân cấp và luôn lấy được phần tử tốt nhất thật nhanh.", "sim": "Đống nhị phân vun lại sau mỗi lần thêm, lấy", "lessons": ["Cây, cây nhị phân và các cách duyệt cây", "Cây nhị phân tìm kiếm (BST)", "Đống (heap) và priority_queue", "Hợp nhất tập hợp (Disjoint Set Union)", "Cây tiền tố (trie)"]}, {"title": "Tham lam", "en": "Greedy Algorithms", "goal": "Nhận ra khi nào chọn “tốt nhất lúc này” dẫn tới tốt nhất toàn cục, và chứng minh được.", "sim": "Chọn dần các khoảng thời gian không chồng nhau", "lessons": ["Ý tưởng tham lam và khi nào nó đúng", "Bài toán chọn hoạt động và xếp lịch", "Chứng minh tham lam bằng lập luận hoán đổi", "Mã Huffman"]}, {"title": "Quy hoạch động", "en": "Dynamic Programming", "goal": "Xác định trạng thái, công thức truy hồi và giải các bài quy hoạch động kinh điển.", "sim": "Bảng quy hoạch động được điền từng ô", "lessons": ["Từ đệ quy có nhớ đến quy hoạch động", "Trạng thái và công thức truy hồi qua bài leo cầu thang", "Dãy con tăng dài nhất (LIS)", "Xâu con chung dài nhất (LCS) và khoảng cách sửa", "Bài toán cái túi", "Quy hoạch động trên lưới", "Truy vết để in ra lời giải"]}]}, {"tier": "Nâng cao", "cls": "lv3", "note": "Đồ thị, cấu trúc nâng cao và tư duy giải bài chuyên nghiệp", "chapters": [{"title": "Đồ thị cơ bản", "en": "Graph Fundamentals", "goal": "Mô hình hóa bài toán thành đồ thị và duyệt đồ thị bằng BFS, DFS.", "sim": "BFS lan ra theo từng lớp đỉnh", "lessons": ["Đồ thị và các cách biểu diễn", "BFS và đường đi ngắn nhất không trọng số", "DFS và thành phần liên thông", "Sắp xếp tô pô", "Phát hiện chu trình và đồ thị hai phía"]}, {"title": "Đường đi ngắn nhất và cây khung", "en": "Shortest Paths and Spanning Trees", "goal": "Chọn đúng thuật toán đường đi ngắn nhất theo đặc điểm đồ thị.", "sim": "Dijkstra chốt dần từng đỉnh gần nhất", "lessons": ["Thuật toán Dijkstra", "Thuật toán Bellman-Ford và chu trình âm", "Thuật toán Floyd-Warshall", "Cây khung nhỏ nhất: Kruskal và Prim"]}, {"title": "Cấu trúc dữ liệu nâng cao", "en": "Advanced Data Structures", "goal": "Trả lời hàng loạt truy vấn trên đoạn và trên cây trong thời gian O(log n).", "sim": "Cây phân đoạn cập nhật từ lá lên gốc", "lessons": ["Bảng thưa (sparse table)", "Cây Fenwick (BIT)", "Cây phân đoạn (segment tree)", "Cập nhật lười (lazy propagation)", "Tổ tiên chung gần nhất (LCA)"]}, {"title": "Toán và xử lý chuỗi", "en": "Math and String Algorithms", "goal": "Nắm các công cụ số học và so khớp chuỗi hay gặp trong đề thi, phỏng vấn.", "sim": "Sàng Eratosthenes gạch dần các bội số", "lessons": ["Số nguyên tố và sàng Eratosthenes", "Ước chung lớn nhất, bội chung nhỏ nhất, đồng dư và lũy thừa nhanh", "Tổ hợp và nghịch đảo modulo", "So khớp chuỗi: KMP và Z-function"]}, {"title": "Quy hoạch động nâng cao và tổng kết", "en": "Advanced DP and Problem Solving", "goal": "Giải được bài khó và có quy trình làm bài như người chuyên nghiệp.", "sim": "Từ lời giải trâu bò đến lời giải tối ưu", "lessons": ["Quy hoạch động trạng thái bit (bitmask)", "Quy hoạch động trên cây", "Quy hoạch động chữ số", "Tiếp cận một bài toán lạ: từ trâu bò đến tối ưu", "Kiểm thử đối chiếu (stress test) và gỡ lỗi", "Dự án cuối khóa: bộ đề luyện thi và phỏng vấn tổng hợp"]}]}]}, "sql": {"for": "Người chưa từng làm việc với cơ sở dữ liệu: học sinh, sinh viên, người làm văn phòng muốn tự truy vấn số liệu, lập trình viên mới cần lưu dữ liệu cho ứng dụng.", "prereq": "Không cần biết lập trình. Biết dùng bảng tính (Excel/Google Sheets) là một lợi thế. Chương 13 dùng thêm kiến thức C++ cơ bản.", "tools": "Bắt đầu với SQLite (chạy ngay, không cần cài máy chủ), sau đó chuyển sang PostgreSQL – hệ quản trị dùng phổ biến trong doanh nghiệp. Mọi câu lệnh đều chỉ rõ khác biệt giữa hai hệ.", "outcome": ["Viết được truy vấn SQL để trả lời câu hỏi thực tế từ dữ liệu: lọc, sắp xếp, thống kê, ghép nhiều bảng.", "Thiết kế được cơ sở dữ liệu đúng chuẩn cho một ứng dụng: ERD, khóa, ràng buộc, chuẩn hóa.", "Đọc được kế hoạch thực thi và tạo chỉ mục để truy vấn chạy nhanh.", "Hiểu giao dịch, phân quyền, chống SQL injection, sao lưu – những việc người làm nghề phải làm hằng ngày."], "tiers": [{"tier": "Cơ bản", "cls": "lv1", "note": "Hiểu dữ liệu dạng bảng và viết truy vấn đầu tiên", "chapters": [{"title": "Nhập môn cơ sở dữ liệu", "en": "Introduction to Databases", "goal": "Hiểu cơ sở dữ liệu là gì, vì sao cần nó và chạy được câu lệnh SQL đầu tiên.", "sim": "Từ bảng tính lộn xộn đến bảng dữ liệu gọn gàng", "lessons": ["Dữ liệu, cơ sở dữ liệu và hệ quản trị cơ sở dữ liệu", "Vì sao không chỉ dùng Excel? Dữ liệu lặp, sai lệch và mất mát", "Mô hình quan hệ: bảng, dòng, cột và giá trị", "Cài đặt SQLite, PostgreSQL và công cụ quản lý", "Câu lệnh SQL đầu tiên và cách đọc kết quả"]}, {"title": "Truy vấn một bảng", "en": "Querying a Single Table", "goal": "Lấy đúng cột, đúng dòng mình cần và sắp xếp kết quả.", "sim": "Từng dòng đi qua điều kiện WHERE: giữ lại hay bỏ đi", "lessons": ["SELECT và FROM: chọn cột cần lấy", "WHERE: lọc dòng với so sánh và AND / OR / NOT", "BETWEEN, IN, LIKE: các điều kiện hay dùng", "NULL – giá trị “chưa biết” và IS NULL", "ORDER BY, LIMIT / OFFSET: sắp xếp và phân trang", "DISTINCT, bí danh AS và cột tính toán"]}, {"title": "Kiểu dữ liệu và hàm dựng sẵn", "en": "Data Types and Built-in Functions", "goal": "Xử lý chuỗi, số, ngày giờ và rẽ nhánh ngay trong câu truy vấn.", "sim": "Biểu thức được tính trên từng dòng", "lessons": ["Kiểu số, chuỗi, ngày giờ và logic", "Hàm xử lý chuỗi: UPPER, LOWER, SUBSTRING, TRIM, nối chuỗi", "Hàm ngày giờ và tính khoảng thời gian", "CASE WHEN: rẽ nhánh trong truy vấn", "COALESCE, NULLIF và ép kiểu CAST"]}, {"title": "Gom nhóm và thống kê", "en": "Grouping and Aggregation", "goal": "Tính tổng, đếm, trung bình theo từng nhóm và lập báo cáo đơn giản.", "sim": "Chia dòng vào từng nhóm rồi tính trên mỗi nhóm", "lessons": ["Hàm tổng hợp COUNT, SUM, AVG, MIN, MAX", "GROUP BY: thống kê theo nhóm", "HAVING khác WHERE thế nào", "Thứ tự thực thi logic của một câu SELECT", "Thực hành: báo cáo doanh thu theo tháng"]}]}, {"tier": "Trung cấp", "cls": "lv2", "note": "Kết hợp nhiều bảng và thiết kế cơ sở dữ liệu đúng chuẩn", "chapters": [{"title": "Kết nối bảng với JOIN", "en": "Joining Tables", "goal": "Ghép dữ liệu từ nhiều bảng và tránh các lỗi làm sai số liệu.", "sim": "Ghép từng dòng của hai bảng theo khóa", "lessons": ["Khóa chính, khóa ngoại và quan hệ giữa các bảng", "INNER JOIN", "LEFT, RIGHT và FULL OUTER JOIN", "Self join và cross join", "Lỗi JOIN thường gặp: nhân bản dòng, mất dòng", "UNION, INTERSECT, EXCEPT"]}, {"title": "Truy vấn con và CTE", "en": "Subqueries and CTEs", "goal": "Chia câu hỏi khó thành các bước nhỏ, viết truy vấn dài mà vẫn dễ đọc.", "sim": "Truy vấn trong chạy trước, kết quả chuyển ra truy vấn ngoài", "lessons": ["Truy vấn con trong WHERE, FROM và SELECT", "EXISTS và NOT EXISTS", "Truy vấn con tương quan", "CTE với WITH: đặt tên cho từng bước", "CTE đệ quy: dữ liệu dạng cây (danh mục, sơ đồ tổ chức)"]}, {"title": "Tạo bảng và thay đổi dữ liệu", "en": "Creating Tables and Modifying Data", "goal": "Tự tạo bảng có ràng buộc chặt chẽ và sửa dữ liệu an toàn.", "sim": "Ràng buộc chặn dữ liệu sai trước khi vào bảng", "lessons": ["CREATE TABLE và chọn kiểu dữ liệu phù hợp", "Ràng buộc NOT NULL, UNIQUE, CHECK, DEFAULT", "Khóa ngoại và ON DELETE / ON UPDATE", "INSERT, UPDATE, DELETE an toàn", "ALTER TABLE và quản lý thay đổi cấu trúc (migration)", "View: lưu một truy vấn thành bảng ảo"]}, {"title": "Thiết kế cơ sở dữ liệu", "en": "Database Design", "goal": "Đi từ yêu cầu thực tế đến bộ bảng đúng chuẩn, không lặp và không mâu thuẫn dữ liệu.", "sim": "Tách bảng từng bước để loại bỏ dữ liệu lặp", "lessons": ["Phân tích yêu cầu: thực thể, thuộc tính, mối quan hệ", "Sơ đồ ERD và các kiểu quan hệ 1–1, 1–n, n–n", "Chuyển ERD thành bảng", "Dị thường dữ liệu và phụ thuộc hàm", "Chuẩn hóa 1NF, 2NF, 3NF và BCNF", "Khi nào nên phi chuẩn hóa", "Dự án: thiết kế cơ sở dữ liệu quản lý trường học"]}]}, {"tier": "Nâng cao", "cls": "lv3", "note": "Hiệu năng, an toàn và vận hành như người làm nghề", "chapters": [{"title": "Window function", "en": "Window Functions", "goal": "Phân tích dữ liệu chuyên sâu: xếp hạng, so sánh với kỳ trước, lũy kế.", "sim": "Khung cửa sổ trượt qua từng dòng", "lessons": ["OVER và PARTITION BY", "ROW_NUMBER, RANK, DENSE_RANK", "LAG, LEAD: so sánh với dòng trước và sau", "Tổng lũy kế và trung bình trượt", "Bài toán top N trong mỗi nhóm"]}, {"title": "Chỉ mục và tối ưu truy vấn", "en": "Indexes and Query Optimization", "goal": "Biết vì sao truy vấn chậm và làm nó nhanh hơn bằng chỉ mục, viết lại truy vấn.", "sim": "Quét toàn bảng so với tra cây B-tree", "lessons": ["Dữ liệu được lưu trên đĩa thế nào: trang và khối", "Chỉ mục B-tree hoạt động ra sao", "Chỉ mục nhiều cột và chỉ mục bao phủ", "Đọc kế hoạch thực thi với EXPLAIN", "Viết truy vấn tận dụng được chỉ mục", "Khi nào chỉ mục làm hệ thống chậm đi"]}, {"title": "Giao dịch và truy cập đồng thời", "en": "Transactions and Concurrency", "goal": "Giữ dữ liệu đúng khi nhiều người cùng đọc, ghi một lúc.", "sim": "Hai giao dịch chen nhau trên dòng thời gian", "lessons": ["Giao dịch: BEGIN, COMMIT, ROLLBACK", "Bốn tính chất ACID", "Đọc bẩn, đọc không lặp lại và bóng ma", "Các mức cô lập (isolation level)", "Khóa, deadlock và MVCC"]}, {"title": "Lập trình trong cơ sở dữ liệu và bảo mật", "en": "Database Programming and Security", "goal": "Tự động hóa xử lý trong cơ sở dữ liệu và bảo vệ dữ liệu khỏi truy cập trái phép.", "sim": "Câu lệnh bị chèn mã độc so với câu lệnh tham số hóa", "lessons": ["Stored procedure và function", "Trigger", "Người dùng, vai trò và GRANT / REVOKE", "SQL injection và câu lệnh tham số hóa", "Sao lưu và phục hồi dữ liệu"]}, {"title": "Cơ sở dữ liệu trong ứng dụng thực tế", "en": "Databases in Real Applications", "goal": "Đưa cơ sở dữ liệu vào chương trình thật và nắm bức tranh hệ thống lớn.", "sim": "Ứng dụng gửi truy vấn, cơ sở dữ liệu trả kết quả", "lessons": ["Kết nối cơ sở dữ liệu từ chương trình C++", "ORM: tiện lợi và bẫy N+1 truy vấn", "NoSQL (document, key-value): khi nào nên dùng", "Nhân bản (replication) và phân mảnh (sharding) – tổng quan", "Dự án cuối khóa: cơ sở dữ liệu cửa hàng trực tuyến, từ thiết kế đến báo cáo"]}]}]}, "kcd": {"for": "Người mới học điện công nghiệp và tự động hóa; sinh viên điện, điện tử, cơ điện tử; kỹ thuật viên vận hành, bảo trì; người chuẩn bị học PLC/HMI cần hiểu mạch điện phía ngoài PLC; người muốn đọc bản vẽ, lập BOM và làm tủ điều khiển cơ bản.", "prereq": "Biết tính toán số học, dùng máy tính và đọc đơn vị đo. Không cần biết PLC hay thiết kế điện. Phải hoàn thành phần an toàn và được đánh giá đủ điều kiện trước khi thực hành có cấp nguồn.", "tools": "Mô phỏng mạch tương tác trên web (nút nhấn, relay, contactor, timer, bảo vệ, mạch động cơ); bộ thực hành điều khiển 24 VDC; nhãn thiết bị và datasheet của nhà sản xuất; biểu mẫu bảng tải, bảng I/O, BOM, checklist.", "outcome": ["Nhận diện, giải thích chức năng và đọc ký hiệu của khí cụ điện thông dụng; đọc nhãn và datasheet theo đúng mã thiết bị.", "Phân biệt đóng cắt, cách ly, bảo vệ và điều khiển; phân tích mạch động lực, mạch điều khiển, tự giữ và liên động.", "Chọn thiết bị cho tải và điều kiện sử dụng đã cho, nêu được thông tin còn thiếu; thực hành mạch điều khiển điện áp thấp theo quy trình kiểm tra.", "Chẩn đoán lỗi theo bằng chứng đo và sơ đồ; hoàn thành hồ sơ một tủ điều khiển cơ bản: yêu cầu, sơ đồ, BOM, bố trí và kiểm tra."], "tierWord": "chặng", "chStart": 0, "tiers": [{"tier": "A. Nền tảng", "cls": "lv1", "note": "An toàn, điện cơ bản, đọc sơ đồ và thiết bị thao tác", "chapters": [{"title": "Nhập môn và an toàn điện", "en": "Introduction and Electrical Safety", "goal": "Hiểu phạm vi khóa học và các điều kiện bắt buộc trước khi thao tác thiết bị.", "lessons": ["Khí cụ điện trong một máy tự động:", "Phân biệt mạch động lực và mạch điều khiển:", "Nhận diện nguy cơ:", "Ngắt và cô lập nguồn:", "Xác nhận không còn điện:", "PE, nối đất bảo vệ và dây trung tính:", "Điều kiện an toàn của bàn thực hành:", "Xử lý tình huống bất thường:"]}, {"title": "Nền tảng điện cho người mới", "en": "Electrical Fundamentals for Beginners", "goal": "Đọc hiểu đại lượng và hành vi cơ bản của mạch trước khi chọn thiết bị.", "sim": "Mạch điện trở nối tiếp, song song: điện áp và dòng điện từng nhánh", "lessons": ["Điện áp, dòng điện, điện trở:", "Định luật Ohm:", "Nguồn AC và DC:", "Mạch nối tiếp và song song:", "Công suất và điện năng:", "Điện một pha và ba pha:", "Tải điện trở, điện cảm và điện dung:", "Trạng thái mạch:"]}, {"title": "Ký hiệu và đọc bản vẽ điện", "en": "Symbols and Reading Electrical Drawings", "goal": "Theo được một đường mạch từ nguồn đến tải và xác định đúng thiết bị.", "sim": "Chọn thiết bị trên sơ đồ để xem ảnh và đầu cực", "lessons": ["Các loại bản vẽ:", "Tiếp điểm NO/NC:", "Ký hiệu cuộn dây, nút nhấn, contactor, CB, cầu chì và động cơ", "Mã thiết bị và chú giải bản vẽ:", "Số đầu cực:", "Đánh số dây, terminal và tham chiếu trang:", "Liên hệ cuộn dây với tiếp điểm:", "Phân tích một mạch Start/Stop:"]}, {"title": "Thiết bị thao tác và báo hiệu", "en": "Operator and Signaling Devices", "goal": "Chọn đúng kiểu thao tác và trạng thái tiếp điểm cho yêu cầu vận hành.", "sim": "Nhấn, nhả nút NO/NC; đổi selector và đèn báo", "lessons": ["Nút nhấn nhả về và nút nhấn giữ trạng thái", "Khối tiếp điểm NO/NC:", "Selector 2/3 vị trí:", "Công tắc hành trình và microswitch:", "Nút dừng khẩn:", "Đèn báo, còi và đèn tháp:", "Đọc nhãn và kiểm tra tiếp điểm:", "Thiết kế bảng thao tác đơn giản:"]}]}, {"tier": "B. Thiết bị", "cls": "lv2", "note": "Relay, contactor, timer, bảo vệ, nguồn và phụ kiện", "chapters": [{"title": "Relay trung gian và relay bán dẫn", "en": "Control Relays and Solid-State Relays", "goal": "Hiểu nguyên lý relay, chọn cuộn hút/tiếp điểm và nhận biết giới hạn tải.", "sim": "Cấp điện cuộn relay, các bộ tiếp điểm đổi trạng thái", "lessons": ["Relay điện từ:", "Cuộn AC/DC:", "Tiếp điểm chuyển đổi:", "Đế relay và sơ đồ chân:", "Tải tiếp điểm:", "Dập xung cuộn dây:", "Relay bán dẫn (SSR):", "Lỗi thường gặp:"]}, {"title": "Contactor và khởi động từ", "en": "Contactors and Motor Starters", "goal": "Phân biệt contactor với relay và chọn contactor theo loại tải.", "sim": "Contactor, tiếp điểm phụ và mạch tự giữ Start/Stop", "lessons": ["Cấu tạo contactor:", "Nguyên lý hút/nhả:", "Contactor AC/DC:", "Sơ đồ đầu cực:", "Cấp sử dụng:", "Chọn theo điện áp, tải và tần suất đóng cắt:", "Phụ kiện:", "Cụm khởi động động cơ:", "Hư hỏng:"]}, {"title": "Timer, bộ đếm và relay giám sát", "en": "Timers, Counters and Monitoring Relays", "goal": "Đọc được biểu đồ thời gian và lựa chọn chức năng đúng yêu cầu.", "sim": "Biểu đồ thời gian ON-delay, OFF-delay, cyclic", "lessons": ["Tham số thời gian:", "ON-delay:", "OFF-delay:", "Interval, pulse và cyclic:", "Timer đa chức năng:", "Bộ đếm:", "Relay giám sát:", "Hành vi sau mất nguồn:"]}, {"title": "Cầu dao, cách ly, cầu chì và CB", "en": "Disconnectors, Fuses and Circuit Breakers", "goal": "Phân biệt bảo vệ quá dòng với cách ly và đóng cắt vận hành.", "sim": "So sánh định tính tác động của các thiết bị bảo vệ", "lessons": ["Dao cách ly, cầu dao phụ tải và switch-disconnector:", "Cầu chì:", "Nhóm cầu chì:", "MCB:", "MCCB:", "Thiết bị AC/DC:", "Khả năng cắt và dòng ngắn mạch dự kiến:", "Chọn lọc và phối hợp bảo vệ:", "Phân nhánh tủ máy:"]}, {"title": "Bảo vệ động cơ và bảo vệ dòng rò", "en": "Motor Protection and Residual Current Protection", "goal": "Hiểu mỗi thiết bị bảo vệ xử lý hiện tượng nào và không xử lý hiện tượng nào.", "sim": "Relay nhiệt cắt mạch cuộn hút, giữ lỗi và reset", "lessons": ["Relay nhiệt:", "Dải chỉnh và cấp tác động:", "Tiếp điểm trip và reset:", "MPCB và bảo vệ động cơ điện tử:", "Mất pha, kẹt tải và quá tải:", "RCD, RCCB và RCBO:", "Chọn bảo vệ dòng rò theo ứng dụng:", "Thiết bị chống sét lan truyền (SPD):", "Ma trận bảo vệ:"]}, {"title": "Nguồn 24 VDC và phân phối điện điều khiển", "en": "24 VDC Power and Control Power Distribution", "goal": "Lập bảng tải nguồn và tổ chức phân phối DC có thể kiểm tra, bảo trì.", "sim": "Bật, tắt nhóm tải và xem ngân sách dòng 24 VDC", "lessons": ["Bộ nguồn AC/DC:", "Đọc thông số nguồn:", "Bảng tải 24 VDC:", "Dòng tức thời và dự phòng:", "Phân nhánh DC:", "0 V, PE và nối đất tín hiệu:", "Sụt áp đường dây:", "Nguồn dự phòng, UPS DC và module redundancy:"]}, {"title": "Dây dẫn, terminal và phụ kiện tủ điện", "en": "Wires, Terminals and Panel Accessories", "goal": "Nhận biết những thành phần ảnh hưởng đến độ tin cậy và khả năng bảo trì.", "lessons": ["Dây đơn, dây mềm, cáp nhiều lõi:", "Chọn tiết diện:", "Đầu cos và ferrule:", "Terminal:", "Cầu nối, end stop, end plate và marker:", "DIN rail, máng dây và cable gland:", "Thanh PE, phân phối nguồn và che chắn:", "Quạt, lọc gió, thermostat và heater:", "Nhãn thiết bị, nhãn dây và mã cáp:"]}]}, {"tier": "C. Ứng dụng", "cls": "lv2", "note": "Mạch động cơ, giao tiếp PLC và đọc datasheet", "chapters": [{"title": "Mạch điều khiển động cơ cơ bản", "en": "Basic Motor Control Circuits", "goal": "Phân tích được trạng thái và điều kiện liên động trước khi thực hiện đấu nối.", "sim": "DOL, hai vị trí, đảo chiều, sao – tam giác có bảng trạng thái", "lessons": ["Đọc nhãn động cơ:", "Mạch khởi động trực tiếp (DOL):", "Start/Stop và tự giữ:", "Điều khiển từ hai vị trí:", "Đèn Ready/Run/Fault:", "Đảo chiều động cơ:", "Chuyển chiều và điều kiện dừng:", "Sao–tam giác:", "Trình tự sao–ngắt–tam giác:", "Manual/Auto và chạy tuần tự:"]}, {"title": "Kết nối khí cụ điện với PLC và thiết bị điện tử", "en": "Interfacing Devices with PLCs and Electronics", "goal": "Hiểu giao diện điện giữa thiết bị trường và bộ điều khiển.", "sim": "PLC giả lập điều khiển relay; lệnh có mà không có phản hồi", "lessons": ["Tiếp điểm khô và tín hiệu có điện áp:", "Digital input:", "PNP/NPN, sourcing/sinking và chân COM:", "Digital output relay/transistor:", "Relay trung gian giữa PLC và tải:", "Cuộn contactor và van điện từ:", "Phản hồi contactor:", "Biến tần và khởi động mềm:", "Nhập môn mạch an toàn:"]}, {"title": "Đọc datasheet và lựa chọn thiết bị", "en": "Reading Datasheets and Selecting Devices", "goal": "Đưa ra lựa chọn có bằng chứng và ghi lại điều kiện áp dụng.", "lessons": ["Cấu trúc mã hàng:", "Datasheet, manual và catalog:", "Thông số định mức:", "Môi trường:", "Tuổi thọ điện/cơ:", "Lựa chọn cho tải động cơ, cuộn điện từ và tải điện trở:", "Thay thế tương đương:", "Phối hợp thiết bị:", "Hồ sơ quyết định:"]}]}, {"tier": "D. Tủ điện và bảo trì", "cls": "lv3", "note": "Lập hồ sơ, lắp ráp, kiểm tra và chẩn đoán", "chapters": [{"title": "Thiết kế sơ bộ tủ điều khiển", "en": "Preliminary Control Panel Design", "goal": "Chuyển yêu cầu máy thành một bộ hồ sơ có thể kiểm tra và bàn giao.", "lessons": ["Thu thập yêu cầu:", "Danh sách tải và I/O:", "Kiến trúc cấp nguồn:", "Sơ đồ động lực:", "Sơ đồ điều khiển:", "Bố trí trong tủ:", "Nhiệt và môi trường:", "Lập BOM:", "Kiểm tra chéo:", "Quản lý phiên bản:"]}, {"title": "Lắp ráp, kiểm tra và chạy thử", "en": "Assembly, Inspection and Commissioning", "goal": "Thực hiện công việc theo trình tự kiểm soát, có tiêu chí đạt/không đạt.", "lessons": ["Chuẩn bị:", "Lắp cơ khí:", "Chuẩn bị dây:", "Đấu nối:", "Kiểm tra khi chưa cấp nguồn:", "Thử nghiệm cách điện:", "Kế hoạch cấp nguồn:", "Kiểm tra chức năng:", "Biên bản nghiệm thu thực hành:"]}, {"title": "Chẩn đoán lỗi và bảo trì", "en": "Troubleshooting and Maintenance", "goal": "Khoanh vùng lỗi theo chuỗi nguồn–điều kiện–cuộn hút–tiếp điểm–tải.", "sim": "Chèn lỗi vào sơ đồ, chọn phép kiểm tra, kết luận", "lessons": ["Phương pháp tìm lỗi:", "Contactor không hút:", "Chỉ chạy khi giữ Start:", "Không dừng theo lệnh:", "Relay nhiệt/CB tác động:", "Timer sai trình tự:", "Nguồn 24 VDC sụt hoặc dao động:", "Lỗi chập chờn:", "Bảo trì phòng ngừa:", "Báo cáo lỗi:"]}]}, {"tier": "E. Đánh giá năng lực", "cls": "lv3", "note": "Đồ án cuối khóa và bảo vệ phương án", "chapters": [{"title": "Đồ án cuối khóa và đánh giá", "en": "Final Project and Assessment", "goal": "Kết hợp kiến thức thiết bị, sơ đồ, lựa chọn và kiểm tra thành một sản phẩm học tập.", "sim": "Hai bơm luân phiên: mức giả lập, lỗi một bơm", "lessons": ["Nhận đề bài và xác định phạm vi:", "Đồ án A — Băng tải một chiều:", "Đồ án B — Đảo chiều động cơ:", "Đồ án C — Hai bơm luân phiên:", "Đồ án mở rộng — Trạm máy có PLC và van:", "Lập hồ sơ:", "Mô phỏng và kiểm tra:", "Thực hành mô hình và ghi bằng chứng:", "Bảo vệ phương án:", "Hoàn thiện và bàn giao:"]}]}]}};
-IC.list='<svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9 6h11M9 12h11M9 18h11"/><circle cx="4.5" cy="6" r="1"/><circle cx="4.5" cy="12" r="1"/><circle cx="4.5" cy="18" r="1"/></svg>';
-const sylCount=s=>({ch:s.tiers.reduce((a,t)=>a+t.chapters.length,0),l:s.tiers.reduce((a,t)=>a+t.chapters.reduce((b,c)=>b+c.lessons.length,0),0)});
-const sylText=s=>s?s.tiers.map(t=>t.chapters.map(c=>c.title+" "+c.lessons.join(" ")).join(" ")).join(" "):"";
-function artFor(c,slot,uid){const a=(ASSETS[c.id]||{})[slot];
-  if(a&&a.svg)return a.svg;
-  if(a&&a.src)return `<img src="${escH(a.src)}" alt="" loading="lazy" decoding="async">`;
-  return slot==="card-square"?artSQ(c.hue,uid):artSVG(c.hue,uid,slot==="hero")}
-const ART={
-  cpp:{a:"#4D7BFF",b:"#1534A6",c:"#9DB6FF",mono:"C++",code:["#include <iostream>","int main() {","  std::cout << \"Hi\";","  return 0;","}"]},
-  cs:{a:"#9A5BF5",b:"#4517A0",c:"#C9A7FF",mono:"C#",code:["class App {","  static void Main() {","    Console.Write(1);","  }","}"]},
-  py:{a:"#1BB3A6",b:"#075A5E",c:"#8BEBDD",mono:"Py",dot:"#F6CA47",code:["for i in range(5):","    print(i)","","nums = [1, 2, 3]","print(sum(nums))"]},
-  algo:{a:"#C76A92",b:"#6A2147",c:"#F2B8CF",mono:"Algo",code:["sort(a.begin(), a.end());","int lo = 0, hi = n - 1;","while (lo <= hi) {","  int mid = (lo + hi) / 2;","}"]},
-  sql:{a:"#5B78E0",b:"#22357F",c:"#B3C3FF",mono:"SQL",code:["SELECT name","FROM students","WHERE active = 1","ORDER BY name;",""]},
-  kcd:{a:"#F28C28",b:"#0B2A55",c:"#FFD29A",mono:"KCĐ",code:["QF  ─┤ ├─","KM  ─┤ ├─","FR  ─┤ ├─","A1 ──( KM )── A2",""]},
-  java:{a:"#FF9548",b:"#B23B16",c:"#FFC796",mono:"Java",code:["class Main {","  void main() {","    out.println(1);","  }","}"]}};
-function cube(x,y,s,o){const h=s*.58;return `<g opacity="${o}"><path d="M${x} ${y-h}L${x+s} ${y}L${x} ${y+h}L${x-s} ${y}Z" fill="#fff" fill-opacity=".55"/><path d="M${x-s} ${y}L${x} ${y+h}L${x} ${y+h+s*1.1}L${x-s} ${y+s*1.1}Z" fill="#fff" fill-opacity=".22"/><path d="M${x+s} ${y}L${x} ${y+h}L${x} ${y+h+s*1.1}L${x+s} ${y+s*1.1}Z" fill="#fff" fill-opacity=".12"/></g>`}
-function artSQ(hue,uid){const A=ART[hue]||ART.cpp,id="q"+uid,fs=A.mono.length>3?30:A.mono.length>2?40:46;
-  return `<svg viewBox="0 0 160 160" preserveAspectRatio="xMidYMid slice" aria-hidden="true" focusable="false"><defs><linearGradient id="${id}" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="${A.a}"/><stop offset="1" stop-color="${A.b}"/></linearGradient></defs>
-  <rect width="160" height="160" fill="url(#${id})"/>${cube(30,128,18,.45)}${cube(132,120,22,.4)}
-  <g transform="translate(80 76)"><circle r="46" fill="#fff"/>${A.dot?`<circle cx="30" cy="-30" r="8" fill="${A.dot}"/>`:""}<text text-anchor="middle" dominant-baseline="central" font-family="Be Vietnam Pro,system-ui,sans-serif" font-weight="800" font-size="${fs}" fill="${A.b}">${escH(A.mono)}</text></g></svg>`}
-function artSVG(hue,uid,wide){
-  const A=ART[hue]||ART.cpp,W=wide?440:480,id="g"+uid;
-  const cubes=[[40,160,26,.55],[92,178,20,.45],[300,170,30,.5],[360,150,22,.4],[430,178,26,.5],[470,128,18,.35],[250,190,16,.4]].map(c=>cube(c[0]*(W/480),c[1],c[2],c[3])).join("");
-  const fs=A.mono.length>3?34:A.mono.length>2?46:52;
-  return `<svg viewBox="0 0 ${W} 214" preserveAspectRatio="xMidYMid slice" aria-hidden="true" focusable="false">
-  <defs><linearGradient id="${id}" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="${A.a}"/><stop offset="1" stop-color="${A.b}"/></linearGradient>
-  <radialGradient id="${id}r" cx=".3" cy=".45" r=".6"><stop offset="0" stop-color="#fff" stop-opacity=".35"/><stop offset="1" stop-color="#fff" stop-opacity="0"/></radialGradient>
-  <linearGradient id="${id}b" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#fff"/><stop offset="1" stop-color="${A.c}"/></linearGradient></defs>
-  <rect width="${W}" height="214" fill="url(#${id})"/><rect width="${W}" height="214" fill="url(#${id}r)"/>
-  <g stroke="#fff" stroke-opacity=".08">${[40,80,120,160,200].map(y=>`<path d="M0 ${y}H${W}"/>`).join("")}${Array.from({length:12},(_,i)=>`<path d="M${i*44} 0V214"/>`).join("")}</g>
-  ${cubes}
-  <g transform="translate(${wide?W*.54:W*.53} 30) skewY(-7)"><rect width="${wide?W*.42:W*.4}" height="112" rx="10" fill="#0B1020" fill-opacity=".22" stroke="#fff" stroke-opacity=".35"/>
-  ${A.code.map((t,i)=>`<text x="14" y="${26+i*19}" font-family="JetBrains Mono,ui-monospace,monospace" font-size="12.5" fill="#fff" fill-opacity="${t?.88:0}">${escH(t)}</text>`).join("")}</g>
-  <g transform="translate(${wide?W*.27:W*.21} 104)"><circle r="66" fill="#000" fill-opacity=".14" transform="translate(5 9)"/><circle r="66" fill="url(#${id}b)"/><circle r="52" fill="none" stroke="${A.a}" stroke-opacity=".25" stroke-width="10"/>
-  ${A.dot?`<circle cx="40" cy="-40" r="11" fill="${A.dot}"/>`:""}
-  <text text-anchor="middle" dominant-baseline="central" font-family="Be Vietnam Pro,system-ui,sans-serif" font-weight="800" font-size="${fs}" fill="${A.b}">${escH(A.mono)}</text></g></svg>`}
-/* ---------- quyền truy cập và học phí, viết ngắn cho người học ---------- */
-function accessLine(c,f){if(!f)return "";const n=c.lessons.length,lf=+f.loginFrom,np=c.lessons.filter(([l])=>f.paid&&f.paid[l]).length;
-  const inn=!!AMTS.S.user;
-  if(f.paidMode&&np)return `${n-np} bài miễn phí, ${np} bài có phí${f.price?` (${f.price})`:""}.${lf<=n&&!inn?` Đăng nhập để học từ bài ${lf}.`:""}`;
-  if(inn)return "";
-  return lf<=n?`Khóa học miễn phí. Đăng nhập để học từ bài ${lf}.`:"Khóa học miễn phí, không cần đăng nhập."}
-function isPaid(c){const f=PUB[c.id];return !!(f&&f.paidMode&&c.lessons.some(([l])=>f.paid&&f.paid[l]))}
-function statsOf(c){const p=progressOf(c.id),total=c.lessons.length,done=c.lessons.filter(([l])=>AMTS.isDone(p,l,c.id)).length;
-  const lastAt=Math.max(0,...Object.values(p.visited||{}).map(Number).filter(Boolean));
-  const last=p.lastLesson&&c.lessons.find(x=>x[0]===p.lastLesson);return{p,total,done,last,lastAt,started:!!(done||last)}}
-/* ---------- khối "Tiếp tục học" ---------- */
-function renderResume(){
-  const open=COURSES.filter(c=>c.status==="open");if(!open.length){document.getElementById("resume").hidden=true;return}
-  const ss=open.map(c=>({c,...statsOf(c)})).sort((a,b)=>b.lastAt-a.lastAt);const x=ss.find(y=>y.started)||ss[0],c=x.c;
-  const pct=x.total?Math.round(x.done/x.total*100):0,href=c.url+(x.last?"#bai-"+x.last[0].slice(1):"#bai-1");
-  document.getElementById("greet-p").textContent=x.started?"Tiếp tục hành trình lập trình của bạn cùng AMTS.":"Bắt đầu hành trình lập trình của bạn cùng AMTS.";
-  document.getElementById("resume").innerHTML=`<div class="art">${artFor(c,"hero","r")}</div>
-    <div class="r-body"><div class="r-main"><span class="kicker">${x.started?"Khóa học của bạn":"Bắt đầu ngay"}</span><h2>${escH(c.name)}</h2>
-      ${x.started?`<p class="r-last">${IC.doc}${x.last?`Bài gần nhất: Bài ${x.last[0].slice(1)} · ${escH(x.last[1])}`:"Chưa mở bài nào"}</p>`:`<p class="r-last">${IC.doc}Bài 1 · ${escH(c.lessons[0][1])}</p>`}
-      <div class="r-prog"><div class="pbar" role="progressbar" aria-label="Tiến độ ${escH(c.name)}" aria-valuemin="0" aria-valuemax="${x.total}" aria-valuenow="${x.done}"><span style="width:${pct}%"></span></div><b>${pct}%</b>
-        <span class="r-sub">Đã hoàn thành ${x.done}/${x.total} bài đang mở${c.chapters?` · lộ trình ${c.chapters} chương`:""}</span></div>
-      ${PUB[c.id]&&accessLine(c,PUB[c.id])?`<p class="r-acc">${escH(accessLine(c,PUB[c.id]))}</p>`:""}</div>
-    <a class="cta" href="${escH(href)}">${x.started?"Tiếp tục học":"Học thử bài đầu tiên"} ${IC.arrow}</a></div>`}
-/* ---------- thẻ khóa học + tìm kiếm + lọc ---------- */
-let CF="all",cmsg={};
-const fold=t=>String(t||"").toLowerCase().normalize("NFD").replace(/[̀-ͯ]/g,"").replace(/đ/g,"d");
-function renderCourses(){
-  const q=fold(document.getElementById("c-q").value).trim();
-  const list=COURSES.filter(c=>(CF==="all"||(CF==="open")===(c.status==="open"))&&(!q||fold(c.name+" "+c.desc+" "+c.mono+" "+c.id+" "+c.lessons.map(x=>x[1]).join(" ")+" "+sylText(SYL[c.id])).includes(q)));
-  const S=AMTS.S;
-  document.getElementById("courses").innerHTML=list.length?list.map(c=>{const open=c.status==="open";
-    if(open){const x=statsOf(c),href=c.url+(x.last?"#bai-"+x.last[0].slice(1):"");
-      return `<article class="course" style="--hue:var(--c-${c.hue})"><div class="art">${artFor(c,"card",c.id)}</div><div class="c-body">
-        <div class="c-title"><h3>${escH(c.name)}</h3><span class="chip open">Đang mở</span></div><p>${escH(c.desc)}</p>
-        <div class="c-meta">${IC.book}${c.chapters?`${c.chapters} chương · `:""}Đã mở ${x.total} bài học</div>
-        <div class="c-foot">${isPaid(c)?`<span class="price paid">Có bài có phí</span>`:`<span class="price">Miễn phí</span>`}<a class="btn-p" href="${escH(href)}">${x.started?"Học tiếp":"Xem khóa học"} ${IC.arrow}</a></div>
-        ${PUB[c.id]&&accessLine(c,PUB[c.id])?`<p class="c-fee">${escH(accessLine(c,PUB[c.id]))}</p>`:""}</div></article>`}
-    const on=AMTS.notifyOf(c.id);
-    return `<article class="course soon" style="--hue:var(--c-${c.hue})"><div class="art"><span class="a-w">${artFor(c,"card",c.id)}</span><span class="a-s">${artFor(c,"card-square",c.id)}</span></div><div class="c-body">
-      <div class="c-title"><h3>${escH(c.name)}</h3><span class="chip">Sắp ra mắt</span></div><p>${escH(c.desc)}</p>${SYL[c.id]?(n=>`<div class="c-meta">${IC.book}Dự kiến ${n.ch} chương · ${n.l} bài</div>`)(sylCount(SYL[c.id])):"<span></span>"}
-      <div class="c-foot">${SYL[c.id]?`<button type="button" class="btn-o syl-b" data-syl="${c.id}">${IC.list}Xem mục lục</button>`:""}${NST[c.id]==="busy"?`<button type="button" class="btn-o" disabled aria-busy="true">${IC.bell}Đang đăng ký…</button>`:NST[c.id]==="fail"?`<button type="button" class="btn-o fail" data-notify="${c.id}">${IC.bell}Thử lại</button>`:`<button type="button" class="btn-o${on?" on":""}" data-notify="${c.id}" aria-pressed="${on}">${on?IC.check+"Sẽ báo khi khóa mở":IC.bell+"Nhận thông báo"}</button>`}</div>
-      <p class="c-msg${NST[c.id]==="fail"?" bad-t":""}" role="status">${cmsg[c.id]?escH(cmsg[c.id]):""}</p></div></article>`}).join("")
-    :`<p class="c-empty" role="status">Không có khóa học nào khớp “${escH(document.getElementById("c-q").value)}”${CF!=="all"?` trong mục “${CF==="open"?"Đang mở":"Sắp ra mắt"}”`:""}. Thử từ khóa ngắn hơn (ví dụ “mảng”, “hàm”)${q?`, <button type="button" class="linkb" id="c-clear">xóa tìm kiếm</button>`:""}${CF!=="all"?` hoặc <button type="button" class="linkb" id="c-all">xem tất cả khóa học</button>`:""}.</p>`;
-  {const qx=document.getElementById("c-x");if(qx)qx.hidden=!document.getElementById("c-q").value;
-   const cc=document.getElementById("c-clear");if(cc)cc.onclick=clearSearch;
-   const ca=document.getElementById("c-all");if(ca)ca.onclick=()=>document.querySelector('.seg [data-f="all"]').click()}
-  document.querySelectorAll("[data-notify]").forEach(b=>b.onclick=()=>toggleNotify(b.dataset.notify));
-  document.querySelectorAll("[data-syl]").forEach(b=>b.onclick=()=>openSyl(b.dataset.syl,b));
-  renderPractice();
-}
-/* ---------- hộp "Mục lục khóa học" (khóa sắp ra mắt) ---------- */
-function openSyl(id,from){const s=SYL[id],c=courseById(id);if(!s||!c)return;const n=sylCount(s),dlg=document.getElementById("syl");let no=0,cn=(s.chStart===0?0:1)-1;
-  const q=fold(document.getElementById("c-q").value).trim(),hit=t=>q&&fold(t).includes(q);
-  dlg.innerHTML=`<div class="sy-h"><div><span class="kicker">Mục lục dự kiến · Sắp ra mắt</span><h2 id="syl-t">${escH(c.name)}</h2>
-      <p class="sy-n">${n.ch} chương · ${n.l} bài · ${s.tiers.length} ${escH(s.tierWord||"cấp độ")}</p></div><button type="button" class="sy-x" aria-label="Đóng mục lục">×</button></div>
-    <div class="sy-b">
-      <dl class="sy-info"><div><dt>Dành cho</dt><dd>${escH(s.for)}</dd></div><div><dt>Cần biết trước</dt><dd>${escH(s.prereq)}</dd></div><div><dt>Công cụ</dt><dd>${escH(s.tools)}</dd></div></dl>
-      <div class="sy-out"><b>Học xong khóa này, bạn sẽ</b><ul>${s.outcome.map(o=>`<li>${escH(o)}</li>`).join("")}</ul></div>
-      <div class="sy-tools"><b>Nội dung khóa học</b><button type="button" class="linkb" data-sy-all aria-pressed="false">Mở tất cả chương</button></div>
-      ${s.tiers.map(t=>`<section class="sy-tier ${t.cls}"><h3><span class="sy-lv">${escH(t.tier)}</span>${escH(t.note)}</h3>
-        ${t.chapters.map(ch=>{cn++;const open=cn===1||ch.lessons.some(hit)||hit(ch.title);
-          return `<details class="sy-ch"${open?" open":""}><summary><span class="sy-no">${String(cn).padStart(2,"0")}</span><span class="sy-ct"><b>${escH(ch.title)}</b><small>${ch.lessons.length} bài · ${escH(ch.en)}</small></span></summary>
-          <p class="sy-goal"><b>Mục tiêu:</b> ${escH(ch.goal)}</p>${ch.sim?`<p class="sy-sim"><b>Mô phỏng:</b> ${escH(ch.sim)}</p>`:""}
-          <ol class="sy-l" start="${no+1}">${ch.lessons.map(l=>{no++;return `<li${hit(l)?' class="hit"':""}>${escH(l)}</li>`}).join("")}</ol></details>`}).join("")}</section>`).join("")}
-    </div>
-    <div class="sy-f"><button type="button" class="btn-o${AMTS.notifyOf(id)?" on":""}" data-sy-notify>${AMTS.notifyOf(id)?IC.check+"Sẽ báo khi khóa mở":IC.bell+"Nhận thông báo khi khóa mở"}</button><button type="button" class="btn-p" data-sy-close>Đóng</button></div>`;
-  dlg.setAttribute("aria-labelledby","syl-t");
-  const close=()=>dlg.close();
-  dlg.querySelector(".sy-x").onclick=close;dlg.querySelector("[data-sy-close]").onclick=close;
-  dlg.querySelector("[data-sy-notify]").onclick=()=>{close();toggleNotify(id)};
-  dlg.onclick=e=>{if(e.target===dlg)close()};
-  const all=dlg.querySelector("[data-sy-all]"),chs=[...dlg.querySelectorAll(".sy-ch")],sync=()=>{const o=chs.every(d=>d.open);all.textContent=o?"Thu gọn tất cả":"Mở tất cả chương";all.setAttribute("aria-pressed",o)};
-  all.onclick=()=>{const o=!chs.every(d=>d.open);chs.forEach(d=>d.open=o);sync()};chs.forEach(d=>d.ontoggle=sync);
-  dlg.onclose=()=>{document.documentElement.classList.remove("sy-open");const b=document.querySelector(`[data-syl="${id}"]`)||from;if(b)b.focus()};
-  document.documentElement.classList.add("sy-open");
-  dlg.showModal();dlg.querySelector(".sy-b").scrollTop=0;dlg.querySelector(".sy-x").focus()}
-let wantNotify=null;const NST={};
-function clearSearch(){const i=document.getElementById("c-q");i.value="";renderCourses();i.focus()}
-document.getElementById("c-x").onclick=clearSearch;
-/* Nhận thông báo: Đang đăng ký… → Sẽ báo khi khóa mở; lỗi thì hiện lỗi + Thử lại (không báo thành công giả) */
-async function setNotifyUI(id,on){NST[id]="busy";cmsg={};renderCourses();
-  try{await AMTS.setNotify(id,on);delete NST[id];cmsg[id]=on?"Đã đăng ký. Bạn sẽ được báo khi khóa mở.":"Đã hủy nhận thông báo."}
-  catch(e){NST[id]="fail";cmsg[id]="Chưa đăng ký được: "+(e.message||e.code)+"."}
-  renderAll();const b=document.querySelector(`[data-notify="${id}"]`);if(b)b.focus()}
-async function toggleNotify(id){const S=AMTS.S;cmsg={};
-  if(S.mode!=="ready"){cmsg[id]="Chức năng này cần bản đăng trên website (có đăng nhập Google).";renderCourses();return}
-  if(!S.user){wantNotify=id;cmsg[id]="Đăng nhập để nhận thông báo. Lựa chọn của bạn được giữ lại.";renderCourses();const m=await AMTS.signIn();if(m){cmsg[id]=m;wantNotify=null;renderCourses()}return}
-  setNotifyUI(id,NST[id]==="fail"?true:!AMTS.notifyOf(id))}
-/* ---------- thực hành: tới bài đầu tiên còn bài tập chưa đạt ---------- */
-function renderPractice(){const c=COURSES.find(x=>x.status==="open");if(!c)return;const p=progressOf(c.id);
-  const L=c.practice||[],nPass=L.filter(k=>(p.ex[k]||{}).pass).length,href=c.url+"#thuc-hanh";
-  document.getElementById("pr-link").href=href;document.getElementById("nav-practice").href=href;
-  document.getElementById("pr-text").textContent=`${L.length} bài tập chấm tự động có gợi ý, lời giải và trình tự chạy từng bước`+(nPass?` · bạn đã làm đạt ${nPass}/${L.length}.`:".")}
-document.getElementById("c-q").addEventListener("input",renderCourses);
-document.querySelectorAll(".seg [data-f]").forEach(b=>b.onclick=()=>{CF=b.dataset.f;document.querySelectorAll(".seg [data-f]").forEach(x=>x.setAttribute("aria-pressed",x===b));renderCourses()});
-
-/* ================= GIẢNG VIÊN ================= */
-/* ================= QUẢN TRỊ: truy cập, học phí, kích hoạt, nội dung ================= */
-let CFG=null,ENR={},PAYREQ={},admMsg="";
-const pendingOf=uid=>{const r=PAYREQ[uid];return r&&r.courses&&r.courses[TC]&&!((ENR[uid]||{})[TC]===true)?r.courses[TC]:null};
-function enrollList(){const m=new Map(students().map(r=>[r.uid,r]));for(const uid in PAYREQ)if(!m.has(uid)&&!AMTS.TEACHERS.includes(String(PAYREQ[uid].email||"").toLowerCase()))m.set(uid,{uid,name:PAYREQ[uid].name,email:PAYREQ[uid].email});return[...m.values()]}
-function ssGet(){try{return JSON.parse(sessionStorage.getItem("amts-adm-open"))||{set:true}}catch(e){return{set:true}}}
-async function loadAdmin(){
-  const c=courseById(TC);if(c.status!=="open"){document.getElementById("t-adm").innerHTML="";document.getElementById("t-over").innerHTML="";return}
-  try{[CFG,ENR]=await Promise.all([AMTS.getConfig(TC,true),AMTS.allEnroll()]);PAYREQ=await AMTS.allPayReq().catch(()=>({}))}
-  catch(e){document.getElementById("t-adm").innerHTML=`<p class="empty bad-t">Không đọc được cài đặt truy cập: ${e.code==="permission-denied"?"Firestore từ chối. Hãy dán bộ quy tắc firestore.rules mới (có phần config, enroll, content) trong Firebase Console.":escH(e.message||e.code)}</p>`;return}
-  renderAdmin();
-}
-/* thẻ tổng quan: dẫn tới từng mục quản trị */
-function renderOver(nPend,hasPage){const el=document.getElementById("t-over");if(!el)return;const c=courseById(TC);
-  const inC=students().filter(r=>AMTS.courseOf(r,c.id)).length;
-  const cards=[["t-prog","Tiến độ học viên",`${inC} học viên`,`${students().length} đã đăng nhập`,""],
-    ["adm-set","Truy cập và học phí",CFG&&CFG.paidMode?"Đang bật trả phí":"Đang miễn phí",CFG&&CFG.paidMode?`${Object.values(CFG.paid||{}).filter(Boolean).length} bài có phí`:`Đăng nhập từ bài ${CFG&&CFG.loginFrom<999?CFG.loginFrom:"—"}`,""],
-    ["adm-enr","Kích hoạt học viên",`${enrolledCount()} đã kích hoạt`,nPend?`${nPend} chờ xác nhận`:"Không có yêu cầu mới",nPend?"warn":""],
-    ["adm-ct","Nội dung bài học",hasPage?"Đủ phiên bản":"Thiếu phiên bản",hasPage?"Trang đang đọc đúng nội dung":"Cần tải file nội dung lên",hasPage?"":"warn"],
-    ["t-backup","Sao lưu","Tải hoặc khôi phục","Nên tải định kỳ mỗi tháng",""]];
-  el.innerHTML=cards.map(([id,t,b,s,cls])=>`<a href="#${id}" class="t-card${cls?" "+cls:""}" data-to="${id}"><span>${t}</span><b>${b}</b><small>${s}</small></a>`).join("");
-  el.querySelectorAll("[data-to]").forEach(a=>a.onclick=e=>{e.preventDefault();const t=document.getElementById(a.dataset.to);if(!t)return;if(t.tagName==="DETAILS")t.open=true;t.scrollIntoView({behavior:"smooth",block:"start"});
-    const f=t.querySelector("summary")||t;if(!f.hasAttribute("tabindex")&&f.tagName!=="SUMMARY")f.setAttribute("tabindex","-1");f.focus({preventScroll:true})});
-}
-function enrolledCount(){return Object.values(ENR).filter(x=>x&&x[TC]===true).length}
-function renderAdmin(){
-  const c=courseById(TC),box=document.getElementById("t-adm");if(!CFG||c.status!=="open"){box.innerHTML="";return}
-  const L=c.lessons,paid=CFG.paid||{},nPaid=L.filter(([l])=>paid[l]).length;
-  const open=ssGet();
-  const sv=c.contentVer,V=CFG.versions||{},hasPage=!!(V[sv]&&V[sv].ok);
-  const nPend=enrollList().filter(r=>pendingOf(r.uid)).length;
-  renderOver(nPend,hasPage);
-  const vers=Object.entries(V).sort((a,b)=>String(b[1].at||"").localeCompare(String(a[1].at||"")));
-  box.innerHTML=`
-  <details class="adm-box" id="adm-set" data-k="set"${open.set?" open":""}><summary><b>Truy cập và học phí</b><span class="chip ${CFG.paidMode?"warn":"open"}">${CFG.paidMode?`Đang bật trả phí · ${nPaid} bài có phí`:"Đang miễn phí"}</span></summary>
-    <div class="adm-in">
-      <label class="sw"><input type="checkbox" id="a-paid"${CFG.paidMode?" checked":""}><span class="sw-ui" aria-hidden="true"></span><span><b>Bật chế độ trả phí</b><small>Tắt: mọi bài miễn phí. Bật: các bài đánh dấu “có phí” chỉ mở cho học viên đã được kích hoạt.</small></span></label>
-      <label class="adm-f"><span>Yêu cầu đăng nhập từ</span><select id="a-login"><option value="9999">Không yêu cầu</option>${L.map(([l,n],i)=>`<option value="${i+1}"${+CFG.loginFrom===i+1?" selected":""}>Bài ${i+1} · ${escH(n)}</option>`).join("")}</select></label>
-      <p class="note">Học viên chưa đăng nhập vẫn xem được các bài trước bài này. Mặc định: Bài 16 (Chương 5 · Hàm).</p>
-      <fieldset class="adm-paid" id="a-paidbox"${CFG.paidMode?"":" disabled"}>
-        <legend>Bài có phí</legend>
-        <div class="adm-quick"><span>Chọn nhanh:</span><label>có phí từ <select id="a-from">${L.map(([l],i)=>`<option value="${i+1}"${i+1===16?" selected":""}>Bài ${i+1}</option>`).join("")}</select> trở đi</label><button class="btn sm" type="button" id="a-apply">Áp dụng</button><button class="btn sm" type="button" id="a-none">Bỏ chọn tất cả</button></div>
-        <div class="adm-lessons">${L.map(([l,n],i)=>`<label><input type="checkbox" data-l="${l}"${paid[l]?" checked":""}><b>B${i+1}</b><span>${escH(n)}</span></label>`).join("")}</div>
-        <label class="adm-f"><span>Học phí</span><input id="a-price" maxlength="200" value="${escH(CFG.price||"")}" placeholder="Ví dụ: 1.500.000đ cho cả khóa"></label>
-        <div class="adm-pay"><b>Thông tin chuyển khoản</b><small>Hiện cho học viên đã đăng nhập nhưng chưa được kích hoạt. Nội dung chuyển khoản luôn là email của học viên.</small>
-          <label class="adm-f"><span>Ngân hàng</span><input id="a-bank" maxlength="120" value="${escH(CFG.bankName||"")}" autocomplete="off"></label>
-          <label class="adm-f"><span>Người nhận</span><input id="a-accname" maxlength="120" value="${escH(CFG.accName||"")}" autocomplete="off"></label>
-          <label class="adm-f"><span>Số tài khoản</span><input id="a-accno" maxlength="60" value="${escH(CFG.accNo||"")}" autocomplete="off" inputmode="numeric"></label>
-          <label class="adm-f"><span>Liên hệ</span><input id="a-contact" maxlength="300" value="${escH(CFG.payContact||"")}" placeholder="Zalo / email giảng viên" autocomplete="off"></label>
-          <label class="adm-f col"><span>Ghi chú thêm (không bắt buộc)</span><textarea id="a-pay" rows="3" maxlength="2000">${escH(CFG.payInfo||"")}</textarea></label></div>
-      </fieldset>
-      <div class="adm-act"><button class="btn pri" id="a-save">Lưu cài đặt</button><span class="note" id="a-msg" aria-live="polite">${escH(admMsg)}</span></div>
-    </div></details>
-  <details class="adm-box" id="adm-enr" data-k="enr"${open.enr||nPend?" open":""}><summary><b>Kích hoạt học viên</b><span class="chip">${enrolledCount()} đã kích hoạt</span>${nPend?`<span class="chip warn">${nPend} chờ xác nhận chuyển khoản</span>`:""}</summary>
-    <div class="adm-in">
-      <p class="note">Học viên cần đăng nhập vào trang ít nhất một lần thì mới có tên trong danh sách. Đối chiếu email trong nội dung chuyển khoản rồi bấm Kích hoạt.</p>
-      <input id="a-eq" placeholder="Tìm theo tên hoặc email" autocomplete="off" aria-label="Tìm học viên để kích hoạt">
-      <div class="adm-enr" id="a-enr"></div>
-    </div></details>
-  <details class="adm-box" id="adm-ct" data-k="ct"${open.ct||!hasPage?" open":""}><summary><b>Nội dung bài học trên máy chủ</b><span class="chip ${hasPage?"open":"warn"}">${hasPage?"Có đủ phiên bản trang cần":"Thiếu phiên bản trang cần"}</span></summary>
-    <div class="adm-in">
-      <p>Phần chữ của bài học nằm trên Firebase để chỉ người có quyền mới xem được. Mỗi bản trang đi kèm <b>một phiên bản nội dung</b> và tự đọc đúng phiên bản đó.</p>
-      <ol class="adm-steps"><li><b>Tải file <code>noi-dung-${escH(TC)}.json</code> mới lên đây.</b> Phiên bản mới được lưu riêng, trang đang chạy không bị ảnh hưởng.</li><li>Hệ thống tự đọc lại và kiểm tra đủ bài.</li><li>Sau đó mới đưa trang mới lên GitHub. Trang mới tự dùng phiên bản nội dung của nó.</li></ol>
-      <p class="note"><b>Quay lại bản trước:</b> đưa lại bản trang cũ lên GitHub; nội dung cũ vẫn còn ở đây. Nên giữ 2–3 phiên bản gần nhất.</p>
-      <p class="note">Bản trang hiện tại cần phiên bản <code>${escH(sv||"?")}</code>.</p>
-      ${vers.length?`<div class="tbl"><table class="ver-t"><thead><tr><th>Phiên bản</th><th>Tải lên</th><th>Số bài</th><th>Trạng thái</th><th></th></tr></thead><tbody>${vers.map(([v,x])=>{const tags=[v===sv?"Trang hiện tại dùng":"",v===CFG.activeVer?"Mới nhất":""].filter(Boolean);const lock=v===sv||v===CFG.activeVer;
-        return `<tr><td><code>${escH(v)}</code></td><td>${x.at?escH(new Date(x.at).toLocaleString("vi-VN",{hour:"2-digit",minute:"2-digit",day:"2-digit",month:"2-digit",year:"numeric"})):"?"}${x.by?`<br><small>${escH(x.by)}</small>`:""}</td><td>${x.n||0}${x.ok?" ✓":""}</td><td>${tags.length?tags.map(t=>`<span class="chip open">${t}</span>`).join(" "):"Bản cũ"}</td><td>${lock?"":`<button class="btn sm" data-del="${escH(v)}">Xóa</button>`}</td></tr>`}).join("")}</tbody></table></div>`:`<p class="note">Chưa có phiên bản nào được tải lên theo cách mới.</p>`}
-      <div class="adm-act"><input type="file" id="a-file" accept=".json,application/json"><button class="btn pri" id="a-up">Tải lên phiên bản mới</button><button class="btn" id="a-chk">Kiểm tra từng bài</button><span class="note" id="a-umsg" aria-live="polite"></span></div>
-      <div id="a-chkres"></div>
-    </div></details>`;
-  box.querySelectorAll("details.adm-box").forEach(d=>d.addEventListener("toggle",()=>{const o=ssGet();o[d.dataset.k]=d.open;try{sessionStorage.setItem("amts-adm-open",JSON.stringify(o))}catch(e){}}));
-  const $=id=>document.getElementById(id);
-  $("a-paid").onchange=e=>{$("a-paidbox").disabled=!e.target.checked};
-  $("a-apply").onclick=()=>{const f=+$("a-from").value;box.querySelectorAll("[data-l]").forEach(x=>x.checked=+x.dataset.l.slice(1)>=f)};
-  $("a-none").onclick=()=>box.querySelectorAll("[data-l]").forEach(x=>x.checked=false);
-  $("a-save").onclick=saveAdmin;
-  $("a-eq").addEventListener("input",renderEnroll);renderEnroll();
-  $("a-up").onclick=uploadPkg;
-  box.querySelectorAll("[data-del]").forEach(b=>b.onclick=()=>delVersion(b.dataset.del));
-  $("a-chk").onclick=checkContent;
-}
-/* đọc toàn bộ nội dung trên máy chủ, đối chiếu với phiên bản bản trang này cần */
-async function checkContent(){
-  const out=document.getElementById("a-chkres"),c=courseById(TC),sv=c.contentVer;out.innerHTML=`<p class="note">Đang đọc nội dung trên máy chủ…</p>`;
-  try{const all=await AMTS.dump("content"),groups={};
-    for(const id in all){const m=id.match(new RegExp("^"+TC+"(?:@([\\w.-]+))?-(l\\d+)$"));if(!m)continue;(groups[m[1]||""]=groups[m[1]||""]||[]).push(m[2])}
-    const L=c.lessons,mine=new Set(groups[sv]||[]),miss=L.filter(([l])=>!mine.has(l)||!(all[AMTS.docId(TC,sv,l)]||{}).html);
-    const legacy=groups[""]||[];
-    let h=`<p class="${miss.length?"bad-t":"ok-t"}"><b>Phiên bản ${escH(sv)}: ${L.length-miss.length}/${L.length} bài có trên máy chủ</b>${miss.length?"":" · đủ bài, trang hoạt động bình thường"}.</p>`;
-    if(miss.length)h+=`<p class="note">Thiếu: ${miss.map(([l])=>"Bài "+l.slice(1)).join(", ")}. Hãy tải lên file <code>noi-dung-${escH(TC)}.json</code> đi kèm bản trang này.</p>`;
-    const others=Object.keys(groups).filter(v=>v&&v!==sv);
-    if(others.length)h+=`<p class="note">Phiên bản khác trên máy chủ: ${others.map(v=>`<code>${escH(v)}</code> (${groups[v].length} bài)`).join(", ")}.</p>`;
-    if(legacy.length)h+=`<p class="note">Còn ${legacy.length} bài dạng cũ (chưa có phiên bản), dành cho bản trang trước khi có phiên bản. ${miss.length?"Giữ lại cho tới khi phiên bản mới đủ bài.":`<button class="btn sm" id="a-dellegacy">Xóa bản cũ</button>`}</p>`;
-    out.innerHTML=h;const b=document.getElementById("a-dellegacy");if(b)b.onclick=()=>delVersion("",legacy)}
-  catch(e){out.innerHTML=`<p class="bad-t">Không đọc được: ${escH(e.message||e.code)}</p>`}
-}
-async function delVersion(v,lessons){
-  const c=courseById(TC);if(v&&(v===c.contentVer||v===CFG.activeVer))return;
-  const ls=lessons||((CFG.versions||{})[v]||{}).lessons||c.lessons.map(([l])=>l);
-  if(!confirm(v?`Xóa phiên bản ${v} (${ls.length} bài) khỏi máy chủ?\n\nBản trang nào còn dùng phiên bản này sẽ không hiện được nội dung. Không hoàn tác được (trừ khi tải lại file nội dung của phiên bản đó).`:`Xóa ${ls.length} bài dạng cũ (chưa có phiên bản)?\n\nChỉ bản trang cũ (trước khi có phiên bản) còn dùng chúng.`))return;
-  const msg=document.getElementById("a-umsg");msg.textContent="Đang xóa…";
-  try{await AMTS.deleteVersion(TC,v,ls);CFG=await AMTS.getConfig(TC,true);PUB[TC]=CFG;admMsg=v?`Đã xóa phiên bản ${v}.`:"Đã xóa bản cũ không phiên bản.";renderAdmin()}
-  catch(e){msg.textContent="Không xóa được: "+(e.message||e.code)}
-}
-async function saveAdmin(){
-  const $=id=>document.getElementById(id),msg=$("a-msg");
-  const paid={};document.querySelectorAll("#t-adm [data-l]").forEach(x=>paid[x.dataset.l]=x.checked);
-  const next={...CFG,paidMode:$("a-paid").checked,loginFrom:+$("a-login").value,paid,price:$("a-price").value.trim(),payInfo:$("a-pay").value.trim(),
-    bankName:$("a-bank").value.trim(),accName:$("a-accname").value.trim(),accNo:$("a-accno").value.trim(),payContact:$("a-contact").value.trim()};
-  const nP=Object.values(paid).filter(Boolean).length,c=courseById(TC);
-  if(next.paidMode&&!nP){msg.textContent="Chế độ trả phí đang bật nhưng chưa chọn bài có phí nào.";return}
-  if(next.paidMode&&!next.accNo&&!next.payInfo&&!confirm("Chưa có số tài khoản hoặc ghi chú chuyển khoản. Học viên sẽ không biết cách đóng học phí. Vẫn lưu?"))return;
-  const was=CFG.paidMode&&CFG.paid?Object.keys(CFG.paid).filter(k=>CFG.paid[k]).sort().join(","):"",now=next.paidMode?Object.keys(paid).filter(k=>paid[k]).sort().join(","):"";
-  if(was!==now&&!confirm(next.paidMode?`Lưu cài đặt khóa ${c.name}: ${nP} bài có phí sẽ chỉ mở cho học viên đã kích hoạt (${enrolledCount()} người). Học viên khác đang học các bài này sẽ bị khóa. Tiếp tục?`:`Tắt chế độ trả phí của khóa ${c.name}: mọi bài sẽ mở miễn phí cho tất cả học viên. Tiếp tục?`))return;
-  msg.textContent="Đang lưu…";
-  try{CFG=await AMTS.saveConfig(TC,next);PUB[TC]=CFG;admMsg="Đã lưu lúc "+new Date().toLocaleTimeString("vi-VN",{hour:"2-digit",minute:"2-digit"})+".";renderAdmin();renderCourses()}
-  catch(e){msg.textContent="Không lưu được: "+(e.code==="permission-denied"?"Firestore từ chối. Hãy dán bộ quy tắc firestore.rules mới.":(e.message||e.code))}
-}
-function renderEnroll(){
-  const el=document.getElementById("a-enr");if(!el)return;const q=(document.getElementById("a-eq").value||"").toLowerCase().trim();
-  const all=enrollList(),st=all.filter(r=>!q||(r.name||"").toLowerCase().includes(q)||(r.email||"").includes(q))
-    .sort((a,b)=>(!!pendingOf(b.uid))-(!!pendingOf(a.uid))||((ENR[b.uid]||{})[TC]===true)-((ENR[a.uid]||{})[TC]===true)||tsMs(b.lastSeen)-tsMs(a.lastSeen));
-  if(!st.length){el.innerHTML=`<p class="empty">${all.length?"Không có học viên khớp từ khóa.":"Chưa có học viên nào đăng nhập."}</p>`;return}
-  el.innerHTML=st.slice(0,200).map(r=>{const on=(ENR[r.uid]||{})[TC]===true,at=(ENR[r.uid]||{})["at_"+TC],pd=pendingOf(r.uid);
-    return `<div class="enr${on?" on":""}${pd?" pend":""}"><div><b>${escH(r.name||"(chưa có tên)")}</b><small>${escH(r.email||"")}</small></div><span class="enr-st">${on?`✓ Đã kích hoạt${at?" · "+fmtTime(at):""}`:pd?`● Báo đã chuyển khoản · ${fmtTime(pd)}`:"Chưa kích hoạt"}</span><button class="btn sm${on?"":" pri"}" data-u="${escH(r.uid)}">${on?"Hủy kích hoạt":"Kích hoạt"}</button></div>`}).join("")+(st.length>200?`<p class="note">Đang hiện 200 / ${st.length} học viên. Dùng ô tìm kiếm để lọc.</p>`:"");
-  el.querySelectorAll("[data-u]").forEach(b=>b.onclick=async()=>{const r=all.find(x=>x.uid===b.dataset.u),on=!((ENR[r.uid]||{})[TC]===true),c=courseById(TC),nP=Object.values(CFG.paid||{}).filter(Boolean).length;
-    if(!confirm(on?`Kích hoạt ${r.name||""} (${r.email}) cho khóa ${c.name}?\n\nHọc viên này sẽ mở được ${nP} bài có phí. Hãy chắc chắn đã nhận đủ học phí với nội dung chuyển khoản là email trên.`:`Hủy kích hoạt ${r.name||""} (${r.email}) khỏi khóa ${c.name}?\n\nHọc viên này sẽ không mở được ${nP} bài có phí nữa.`))return;
-    b.disabled=true;b.textContent="Đang lưu…";
-    try{await AMTS.setEnroll(r.uid,TC,on,{email:r.email,name:r.name});ENR[r.uid]=Object.assign({},ENR[r.uid],{[TC]:on,["at_"+TC]:new Date()});
-      if(on&&PAYREQ[r.uid]){try{await AMTS.clearPayReq(r.uid,TC);const x=Object.assign({},PAYREQ[r.uid].courses);delete x[TC];PAYREQ[r.uid]=Object.assign({},PAYREQ[r.uid],{courses:x})}catch(e){}}
-      renderAdmin()}
-    catch(e){b.disabled=false;b.textContent="Thử lại";alert("Không lưu được: "+(e.code==="permission-denied"?"Firestore từ chối. Hãy dán bộ quy tắc firestore.rules mới.":(e.message||e.code)))}});
-}
-async function uploadPkg(){
-  const f=document.getElementById("a-file").files[0],msg=document.getElementById("a-umsg");
-  if(!f){msg.textContent=`Hãy chọn file noi-dung-${TC}.json trước.`;return}
-  let pkg;try{pkg=JSON.parse(await f.text())}catch(e){msg.textContent="File không đọc được (không phải JSON).";return}
-  if(pkg.course!==TC){msg.textContent=`File này là nội dung của khóa “${pkg.course||"?"}”, không phải khóa đang chọn.`;return}
-  const btn=document.getElementById("a-up");btn.disabled=true;
-  if((CFG.versions||{})[pkg.ver]&&!confirm(`Phiên bản ${pkg.ver} đã có trên máy chủ. Tải lại (ghi đè đúng phiên bản này)?`)){btn.disabled=false;return}
-  try{const n=await AMTS.uploadContent(pkg,(k,t,ph)=>msg.textContent=ph==="verify"?`Đang kiểm tra lại ${k-t/2}/${t/2} bài…`:`Đang tải lên ${k}/${t/2} bài…`);
-    CFG=await AMTS.getConfig(TC,true);PUB[TC]=CFG;msg.textContent="";
-    admMsg=`Đã tải lên và kiểm tra đủ ${n} bài, phiên bản ${pkg.ver}.`+(pkg.ver===courseById(TC).contentVer?" Khớp bản trang hiện tại.":" Bây giờ có thể đưa bản trang mới (cùng đợt build) lên GitHub.");renderAdmin()}
-  catch(e){btn.disabled=false;msg.textContent="Không tải lên được: "+(e.code==="permission-denied"?"Firestore từ chối. Hãy dán bộ quy tắc firestore.rules mới.":(e.message||e.code))}
-}
-
-let ALL=[],TC="cpp",loadedFor=null;
-const tsMs=t=>t?(t.toMillis?t.toMillis():new Date(t).getTime()):0;
-function fmtTime(t){if(!t)return"—";const d=t.toDate?t.toDate():new Date(t);if(isNaN(d))return"—";return d.toLocaleString("vi-VN",{day:"2-digit",month:"2-digit",year:"numeric",hour:"2-digit",minute:"2-digit"})}
-function summarize(r,c){
-  const p=AMTS.courseOf(r,c.id);if(!p)return null;
-  const done=c.lessons.filter(([l])=>AMTS.isDone(p,l,c.id)).map(x=>x[0]);
-  const exPass=c.exercises.filter(k=>(p.ex[k]||{}).pass).length;
-  const qs=Object.values(p.quiz||{}).filter(q=>q&&q.total);const qavg=qs.length?Math.round(qs.reduce((s,q)=>s+(q.best||0)/q.total,0)/qs.length*100):null;
-  const upd=(r.courses&&r.courses[c.id]&&r.courses[c.id].updatedAt)||r.lastSeen;
-  return{p,done,exPass,qavg,upd};
-}
-const students=()=>ALL.filter(r=>!AMTS.TEACHERS.includes((r.email||"").toLowerCase()));
-async function loadTeacher(){
-  const box=document.getElementById("t-body");box.innerHTML=`<p class="empty">Đang tải danh sách học viên…</p>`;
-  try{ALL=await AMTS.allUsers();loadedFor=AMTS.S.user.uid;renderTeacher();loadAdmin()}
-  catch(e){box.innerHTML=`<p class="empty bad-t">${e.code==="permission-denied"?"Firestore từ chối: hãy kiểm tra đã dán quy tắc bảo mật mới và email giảng viên trong quy tắc trùng với email đang đăng nhập.":"Không tải được dữ liệu: "+escH(e.message||"")}</p>`}
-}
-function renderTabs(){
-  document.getElementById("t-tabs").innerHTML=COURSES.map(c=>`<button role="tab" aria-selected="${c.id===TC}" data-c="${c.id}">${escH(c.name)}${c.status==="open"?"":" <small>(sắp ra mắt)</small>"}</button>`).join("");
-  document.querySelectorAll("#t-tabs [data-c]").forEach(b=>b.onclick=()=>{TC=b.dataset.c;renderTabs();renderTeacher();CFG=null;loadAdmin()});
-}
-function renderTeacher(){
-  const c=courseById(TC),q=(document.getElementById("t-q").value||"").toLowerCase().trim();
-  if(!c.lessons.length){const w=students().filter(r=>r.courses&&r.courses[c.id]&&r.courses[c.id].notify);
-    document.getElementById("t-stats").innerHTML=`<div><b>${students().length}</b><span>học viên đã đăng nhập</span></div><div><b>${w.length}</b><span>đăng ký nhận thông báo khi khóa mở</span></div>`;
-    document.getElementById("t-body").innerHTML=w.length?`<div class="tbl"><table><thead><tr><th>Học viên chờ khóa ${escH(c.name)}</th><th>Email</th><th>Đăng ký lúc</th></tr></thead><tbody>${w.map(r=>`<tr><td>${escH(r.name||"")}</td><td>${escH(r.email||"")}</td><td>${r.courses[c.id].notifyAt?escH(new Date(r.courses[c.id].notifyAt).toLocaleDateString("vi-VN")):""}</td></tr>`).join("")}</tbody></table></div><p class="note">Khi mở khóa, hãy gửi email báo cho danh sách này (có thể xuất bằng nút Xuất Excel).</p>`
-      :`<p class="empty">Khóa ${escH(c.name)} chưa có bài học và chưa có ai đăng ký nhận thông báo.</p>`;return}
-  const st=students(),inC=st.map(r=>({r,s:summarize(r,c)})).filter(x=>x.s);
-  const active=inC.filter(x=>Date.now()-tsMs(x.s.upd)<7*864e5).length;
-  const avg=inC.length?(inC.reduce((a,x)=>a+x.s.done.length,0)/inC.length).toFixed(1):"0";
-  document.getElementById("t-stats").innerHTML=`<div><b>${st.length}</b><span>học viên đã đăng nhập</span></div><div><b>${inC.length}</b><span>đã bắt đầu khóa này</span></div><div><b>${active}</b><span>học khóa này 7 ngày qua</span></div><div><b>${avg}</b><span>bài hoàn thành trung bình</span></div>`;
-  const box=document.getElementById("t-body");
-  if(!c.lessons.length){box.innerHTML=`<p class="empty">Khóa ${escH(c.name)} chưa có bài học. Bảng tiến độ sẽ hiện khi khóa được mở.</p>`;return}
-  const rows=inC.filter(({r})=>!q||(r.name||"").toLowerCase().includes(q)||(r.email||"").includes(q)).sort((a,b)=>tsMs(b.s.upd)-tsMs(a.s.upd));
-  if(!rows.length){box.innerHTML=`<p class="empty">${inC.length?"Không có học viên khớp từ khóa.":"Chưa có học viên nào học khóa này. Danh sách sẽ hiện khi học viên đăng nhập và mở bài học."}</p>`;return}
-  const L=c.lessons;
-  box.innerHTML=`<div class="tbl"><table class="tt"><thead><tr><th>Học viên</th>${L.map(([l,n],i)=>`<th title="${escH(n)}">B${i+1}</th>`).join("")}<th>Bài tập</th><th>Trắc nghiệm</th><th>Lần cuối</th></tr></thead><tbody>${
-    rows.map(({r,s})=>`<tr class="trow" data-id="${escH(r.uid)}" tabindex="0"><td><b>${escH(r.name||"(chưa có tên)")}</b><small>${escH(r.email||"")}</small></td>${L.map(([l])=>`<td class="st">${stCell(s.p,l,c.id)}</td>`).join("")}
-      <td class="num">${s.exPass}/${c.exercises.length}</td><td class="num">${s.qavg===null?"—":s.qavg+"%"}</td><td class="when">${fmtTime(s.upd)}${s.p.lastLesson?`<small>${escH((L.find(x=>x[0]===s.p.lastLesson)||[])[1]||"")}</small>`:""}</td></tr>
-      <tr class="tdetail" hidden data-for="${escH(r.uid)}"><td colspan="${L.length+4}">${detail(s.p,c)}</td></tr>`).join("")}</tbody></table></div>
-    <ul class="t-cards">${rows.map(({r,s})=>{const n=s.done.length,pct=Math.round(n/L.length*100);
-      return `<li><details><summary><span class="tc-who"><b>${escH(r.name||"(chưa có tên)")}</b><small>${escH(r.email||"")}</small></span>
-        <span class="tc-p"><span class="pbar" role="progressbar" aria-label="Tiến độ" aria-valuemin="0" aria-valuemax="${L.length}" aria-valuenow="${n}"><span style="width:${pct}%"></span></span><small>${n}/${L.length} bài · Bài tập ${s.exPass}/${c.exercises.length} · Trắc nghiệm ${s.qavg===null?"—":s.qavg+"%"}</small></span>
-        <small class="tc-when">Lần cuối: ${fmtTime(s.upd)}</small></summary>${detail(s.p,c)}</details></li>`}).join("")}</ul>
-    <p class="note">✓ đạt kiểm tra (bài tập ≥ 2/3 và trắc nghiệm ≥ 3/4) · ☑ học viên tự đánh dấu học xong · ◑ đã làm bài tập · ◔ đã đọc · bấm vào một học viên để xem chi tiết.</p>`;
-  box.querySelectorAll(".trow").forEach(tr=>{const f=()=>{const d=[...box.querySelectorAll(".tdetail")].find(x=>x.dataset.for===tr.dataset.id);d.hidden=!d.hidden;tr.classList.toggle("open",!d.hidden)};tr.onclick=f;tr.onkeydown=e=>{if(e.key==="Enter")f()}});
-}
-function stCell(p,l,cid){const D=AMTS.detailOf(p,l,cid);
-  return D.level===3?'<span class="s-done" title="Đạt kiểm tra">✓</span>':D.manual?'<span class="s-done" title="Tự đánh dấu học xong">☑</span>':D.level===2?'<span class="s-ex" title="Đã làm bài tập">◑</span>':D.level===1?'<span class="s-seen" title="Đã đọc">◔</span>':'<span class="s-no">·</span>'}
-const LV_NAME=["Chưa học","Đã đọc","Đã làm bài tập","✓ Đạt kiểm tra"];
-function detail(p,c){
-  return `<div class="tdet">${c.lessons.map(([l,n],i)=>{const exs=c.exercises.filter(k=>k.startsWith(l+"-"));const q=p.quiz[c.quizzes[l]];
-    return `<div><b>Bài ${i+1}</b> <small>${escH(n)}</small><span>${(()=>{const D=AMTS.detailOf(p,l,c.id);return LV_NAME[D.level]+(D.manual&&D.level<3?" · tự đánh dấu học xong":"")})()}</span>
-      <span>Bài tập: ${exs.length?exs.map(k=>{const x=p.ex[k];return `<i class="${x?x.pass?"ok":"bad":""}" title="${escH(k)}${x&&x.d?" · "+escH(x.d):""}">${x?x.pass?"✓":"✗":"·"}</i>`}).join(""):"—"}</span>
-      <span>Trắc nghiệm: ${q?`${q.score}/${q.total} (cao nhất ${q.best}/${q.total})`:"—"}</span></div>`}).join("")}</div>`;
-}
-function download(name,text,type){
-  const blob=new Blob([text],{type});const a=document.createElement("a");a.href=URL.createObjectURL(blob);a.download=name;
-  document.body.appendChild(a);a.click();setTimeout(()=>{URL.revokeObjectURL(a.href);a.remove()},800);
-}
-const today=()=>new Date().toISOString().slice(0,10);
-function exportCSV(){
-  const c=courseById(TC);if(!c.lessons.length)return;
-  const head=["Họ tên","Email","Khóa học","Số bài hoàn thành","Các bài hoàn thành","Bài tập đạt","Trắc nghiệm TB (%)","Bài gần nhất","Lần cuối học khóa này","Ngày bắt đầu dùng trang"];
-  const q=s=>`"${String(s??"").replace(/"/g,'""')}"`;
-  const rows=students().map(r=>({r,s:summarize(r,c)})).filter(x=>x.s);
-  const lines=[head.map(q).join(",")].concat(rows.map(({r,s})=>[r.name,r.email,c.name,s.done.length,s.done.map(l=>"Bài "+(c.lessons.findIndex(x=>x[0]===l)+1)).join("; "),`${s.exPass}/${c.exercises.length}`,s.qavg??"",(c.lessons.find(x=>x[0]===s.p.lastLesson)||[])[1]||"",fmtTime(s.upd),fmtTime(r.createdAt)].map(q).join(",")));
-  download(`tien-do-${c.id}-${today()}.csv`,"﻿"+lines.join("\r\n"),"text/csv;charset=utf-8");
-}
-/* Sao lưu: Timestamp của Firestore ghi thành {"$ts":"ISO"} để khôi phục lại đúng kiểu thời gian */
-function plain(v){if(v&&typeof v.toDate==="function")return {$ts:v.toDate().toISOString()};if(Array.isArray(v))return v.map(plain);if(v&&typeof v==="object"){const o={};for(const k in v)o[k]=plain(v[k]);return o}return v}
-const TS_KEYS=/^(createdAt|lastSeen|updatedAt|uploadedAt|savedAt|at_[\w-]+)$/;
-function revive(v,key){
-  const TS=window.firebase&&firebase.firestore&&firebase.firestore.Timestamp,mk=iso=>{const d=new Date(iso);return isNaN(d)?iso:(TS?TS.fromDate(d):d)};
-  if(v&&typeof v==="object"&&!Array.isArray(v)&&Object.keys(v).length===1&&typeof v.$ts==="string")return mk(v.$ts);
-  if(typeof v==="string"&&key&&TS_KEYS.test(key)&&/^\d{4}-\d\d-\d\dT/.test(v))return mk(v);   // bản sao lưu cũ (v2): thời gian là chuỗi
-  if(Array.isArray(v))return v.map(x=>revive(x));
-  if(v&&typeof v==="object"){const o={};for(const k in v)o[k]=revive(v[k],k);return o}
-  return v}
-async function exportJSON(){
-  const msg=document.getElementById("t-msg");msg.textContent="Đang lấy dữ liệu mới nhất…";
-  try{ALL=await AMTS.allUsers();renderTeacher();
-    const [config,enroll,content]=await Promise.all(["config","enroll","content"].map(c=>AMTS.dump(c)));
-    const data={app:"AMTS Học Lập Trình",format:"amts-backup-v3",firebaseProject:AMTS.PROJECT,exportedAt:new Date().toISOString(),exportedBy:AMTS.S.user.email,
-      note:"users: tiến độ học viên · config: cài đặt truy cập/học phí · enroll: danh sách kích hoạt · content: phần chữ bài học. Thời gian dạng {\"$ts\": ISO}. KHÔNG gồm: tài khoản đăng nhập (Firebase Authentication), quy tắc Firestore, mã nguồn.",
-      counts:{users:ALL.length,config:Object.keys(config).length,enroll:Object.keys(enroll).length,content:Object.keys(content).length},
-      courses:COURSES.map(c=>({id:c.id,name:c.name})),users:ALL.map(plain),config:plain(config),enroll:plain(enroll),content:plain(content)};
-    download(`amts-sao-luu-${today()}.json`,JSON.stringify(data,null,1),"application/json");
-    msg.textContent=`Đã tạo bản sao lưu: ${ALL.length} học viên, ${Object.keys(content).length} bài học, ${Object.keys(enroll).length} tài khoản kích hoạt.`}
-  catch(e){msg.textContent="Không sao lưu được: "+(e.code==="permission-denied"?"Firestore từ chối truy cập. Hãy dán bộ quy tắc firestore.rules mới.":(e.message||e.code))}
-}
-/* kiểm tra cấu trúc file trước khi ghi bất cứ thứ gì */
-function checkBackup(d){
-  const E=[],isObj=x=>x&&typeof x==="object"&&!Array.isArray(x);
-  if(!isObj(d))return["File không phải bản sao lưu của AMTS."];
-  if(!/^amts-backup-v[23]$/.test(d.format||""))E.push(`Định dạng “${d.format||"?"}” không được hỗ trợ (cần amts-backup-v2 hoặc v3).`);
-  if(!Array.isArray(d.users))E.push("Thiếu danh sách users.");
-  else d.users.forEach((u,i)=>{if(!isObj(u)||typeof u.uid!=="string"||!u.uid)E.push(`users[${i}] thiếu uid.`);else if(u.courses!==undefined&&!isObj(u.courses))E.push(`users[${i}].courses sai kiểu.`)});
-  for(const c of ["config","enroll","content"])if(d[c]!==undefined&&!isObj(d[c]))E.push(`Mục ${c} sai kiểu.`);
-  for(const id in d.content||{}){const x=d.content[id];if(!isObj(x)||typeof x.html!=="string"||typeof x.lesson!=="string"||typeof x.course!=="string")E.push(`content/${id} thiếu html, lesson hoặc course.`)}
-  for(const id in d.config||{}){const x=d.config[id];if(!isObj(x)||(x.paid!==undefined&&!isObj(x.paid)))E.push(`config/${id} sai cấu trúc.`)}
-  return E.slice(0,8)}
-async function restoreJSON(f){
-  const msg=document.getElementById("t-msg");let d;
-  try{d=JSON.parse(await f.text())}catch(e){msg.textContent="File không đọc được (không phải JSON).";return}
-  const errs=checkBackup(d);
-  if(errs.length){msg.textContent="Không khôi phục: file sao lưu không hợp lệ. "+errs.join(" ");return}
-  const n={users:d.users.length,config:Object.keys(d.config||{}).length,enroll:Object.keys(d.enroll||{}).length,content:Object.keys(d.content||{}).length};
-  const other=d.firebaseProject&&d.firebaseProject!==AMTS.PROJECT?`\n\n⚠ File được tạo từ dự án Firebase “${d.firebaseProject}”, khác dự án hiện tại.`:"";
-  if(!confirm(`Khôi phục từ bản sao lưu ngày ${(d.exportedAt||"?").slice(0,10)}?\n\n• ${n.users} học viên (tiến độ)\n• ${n.config} cài đặt khóa học\n• ${n.enroll} tài khoản kích hoạt\n• ${n.content} bài học\n\nCách khôi phục: mục nào có trong file sẽ GHI ĐÈ mục cùng tên trên máy chủ. Mục đang có trên máy chủ nhưng không có trong file được GIỮ NGUYÊN. Đây không phải đưa toàn bộ hệ thống về đúng thời điểm sao lưu.\nKhông gồm tài khoản đăng nhập, quy tắc Firestore và mã nguồn.${other}`))return;
-  let k=0;const tot=n.users+n.config+n.enroll+n.content;const tick=()=>msg.textContent=`Đang khôi phục ${++k}/${tot}…`;
-  try{
-    for(const u of d.users){const {uid,...rest}=u;await AMTS.restoreDoc("users",uid,revive(rest));tick()}
-    for(const col of ["config","enroll","content"])for(const id in (d[col]||{})){await AMTS.restoreDoc(col,id,revive(d[col][id]));tick()}
-    msg.textContent=`Đã khôi phục ${k} mục (ghi đè các mục trùng tên). Đang tải lại…`;loadTeacher()}
-  catch(e){msg.textContent=`Dừng ở mục ${k}/${tot}: `+(e.code==="permission-denied"?"Firestore từ chối. Hãy dán bộ quy tắc firestore.rules mới (cho phép giảng viên khôi phục).":(e.message||e.code))}
-}
-document.getElementById("t-rf").addEventListener("change",e=>{const f=e.target.files[0];e.target.value="";if(f)restoreJSON(f)});
-document.getElementById("t-q").addEventListener("input",()=>ALL.length&&renderTeacher());
-document.getElementById("t-reload").onclick=loadTeacher;
-document.getElementById("t-csv").onclick=exportCSV;
-document.getElementById("t-json").onclick=exportJSON;
-
-function renderAll(){
-  TOPNAV.render();renderResume();renderCourses();
-  if(AMTS.S.user&&AMTS.S.docLoaded&&wantNotify){const id=wantNotify;wantNotify=null;if(!AMTS.notifyOf(id))setNotifyUI(id,true)}
-  if(AMTS.S.mode==="ready"&&!pubAsked){pubAsked=true;Promise.all(COURSES.filter(c=>c.status==="open").map(c=>AMTS.getConfig(c.id).then(f=>{if(f.exists)PUB[c.id]=f}).catch(()=>{}))).then(()=>{renderResume();renderCourses()})}
-  const S=AMTS.S,t=document.getElementById("giang-vien"),isT=AMTS.isTeacher();
-  t.hidden=!isT;
-  if(isT&&S.user&&loadedFor!==S.user.uid){renderTabs();loadTeacher();if(location.hash==="#giang-vien")setTimeout(()=>t.scrollIntoView(),50)}
-  if(!isT){ALL=[];loadedFor=null}
-}
-AMTS.on(renderAll);
-AMTS.init();
-</script>
+<script defer src="assets/app/common.d422e1ab2e.js"></script>
+<script defer src="assets/app/home.1a7587f1f9.js"></script>
 
 </body>
 </html>

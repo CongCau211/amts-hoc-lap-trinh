@@ -14,6 +14,11 @@ Website học lập trình của trung tâm đào tạo **AMTS**. Mỗi bài có
 | `firestore.rules`: quy tắc bảo mật Firestore đang dùng | `noi-dung-cpp.json`: gói nội dung bài học để tải lên Firestore. Giảng viên giữ riêng, **không đưa lên GitHub** |
 | `README.md`: tài liệu này | Mã nguồn để build (`site-src/`, `build.py`): giảng viên/nhóm phát triển giữ riêng |
 
+### Thư mục `assets/app/` và `assets/fonts/`
+- `assets/app/*.<mã băm>.js|css|json`: phần dùng chung của các trang (giao diện, trình mô phỏng, mã của từng bài, mục lục khóa sắp ra mắt). Tên file đổi khi nội dung đổi, nên trình duyệt của học viên nhớ được file cũ và chỉ tải phần thật sự thay đổi sau mỗi lần cập nhật.
+- Khi tải đè bản mới lên GitHub, các file cũ trong `assets/app/` vẫn còn nhưng không trang nào dùng nữa. Có thể xóa file cũ bất cứ lúc nào: chỉ giữ các file có trong file zip mới nhất.
+- `assets/fonts/`: phông Be Vietnam Pro và JetBrains Mono (giấy phép SIL Open Font License 1.1) lưu ngay trên trang, không phải tải từ Google.
+
 Vì vậy chỉ clone repo **chưa đủ** để dựng lại toàn bộ hệ thống: cần thêm file nội dung `noi-dung-cpp.json` hoặc một bản sao lưu đầy đủ (xem mục “Khôi phục”).
 
 ## Dữ liệu trên Firestore
