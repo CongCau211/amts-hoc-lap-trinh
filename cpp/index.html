@@ -6,6 +6,12 @@
 <title>C++ từ nền tảng</title>
 <meta name="claude:viewport-fit-sides" content="cover">
 <link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://cdn.jsdelivr.net">
+<link rel="preconnect" href="https://firestore.googleapis.com">
+<link rel="preconnect" href="https://securetoken.googleapis.com">
+<link rel="preload" as="script" href="https://cdn.jsdelivr.net/npm/firebase@10.14.1/firebase-app-compat.js">
+<link rel="preload" as="script" href="https://cdn.jsdelivr.net/npm/firebase@10.14.1/firebase-auth-compat.js">
+<link rel="preload" as="script" href="https://cdn.jsdelivr.net/npm/firebase@10.14.1/firebase-firestore-compat.js">
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Be+Vietnam+Pro:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;600&display=swap">
 <meta name="description" content="Khóa C++ từ nền tảng của AMTS: 24 bài từ chương trình đầu tiên tới hàm và đệ quy, trình mô phỏng bộ nhớ và ngăn xếp lời gọi, bài tập chấm tự động.">
 <meta property="og:type" content="website">
@@ -25,12 +31,12 @@
 
 /* Layout: sổ tay kỹ thuật — sidebar mục lục cố định + cột bài học; khung code tối như cửa sổ IDE trong cả hai theme */
 :root{
-  --bg:#F1F3F7; --surface:#FFFFFF; --ink:#151B2C; --muted:#5B6579; --line:#D8DDE7; --accent:#2E50DC; --accent-ink:#FFFFFF; --accent-soft:#E4E9FD; --warm:#975506; --warm-soft:#FBEFDC; --ok:#17734A; --ok-soft:#DDF2E7; --err:#B42F25; --err-soft:#FBE3E0; --code-bg:#131A2A; --code-fg:#DCE3F2; --code-line:#232C42; --code-muted:#96A3BC; --syn-kw:#93AAFF; --syn-str:#F2BC6B; --syn-num:#80D8B2; --syn-com:#96A3BC; --syn-pre:#D892F2; --syn-op:#B9C3D9; --c-cpp:#2E5BFF; --c-cs:#7B3FE4; --c-py:#0E8F8A; --c-java:#E2672A; --shadow:0 1px 2px rgba(16,24,40,.05),0 4px 14px rgba(16,24,40,.06); --f-display:"Be Vietnam Pro",system-ui,-apple-system,"Segoe UI",sans-serif; --f-body:"Be Vietnam Pro",system-ui,-apple-system,"Segoe UI",sans-serif; --f-mono:"JetBrains Mono",ui-monospace,"SFMono-Regular",Consolas,monospace; --r:10px;
+  --bg:#F1F3F7; --surface:#FFFFFF; --ink:#151B2C; --muted:#5B6579; --line:#D8DDE7; --accent:#2E50DC; --accent-ink:#FFFFFF; --accent-soft:#E4E9FD; --warm:#975506; --warm-soft:#FBEFDC; --ok:#17734A; --ok-soft:#DDF2E7; --err:#B42F25; --err-soft:#FBE3E0; --code-bg:#131A2A; --code-fg:#DCE3F2; --code-line:#232C42; --code-muted:#96A3BC; --syn-kw:#93AAFF; --syn-str:#F2BC6B; --syn-num:#80D8B2; --syn-com:#96A3BC; --syn-pre:#D892F2; --syn-op:#B9C3D9; --c-cpp:#2E5BFF; --c-cs:#7B3FE4; --c-py:#0E8F8A; --c-java:#E2672A; --c-kcd:#C25A0A; --shadow:0 1px 2px rgba(16,24,40,.05),0 4px 14px rgba(16,24,40,.06); --f-display:"Be Vietnam Pro",system-ui,-apple-system,"Segoe UI",sans-serif; --f-body:"Be Vietnam Pro",system-ui,-apple-system,"Segoe UI",sans-serif; --f-mono:"JetBrains Mono",ui-monospace,"SFMono-Regular",Consolas,monospace; --r:10px;
 }
 @media (prefers-color-scheme: dark){:root:not([data-theme="light"]){
-  --bg:#0E1320; --surface:#151C2C; --ink:#E6EAF3; --muted:#97A1B6; --line:#27314A; --accent:#7D95FF; --accent-ink:#0E1320; --accent-soft:#1F2A52; --warm:#F0AE52; --warm-soft:#3A2C17; --ok:#5ACB93; --ok-soft:#163626; --err:#F07C70; --err-soft:#3D1D1A; --code-bg:#0A0F1A; --code-line:#1A2236; --c-cpp:#7D95FF; --c-cs:#B48CF0; --c-py:#5FD3C8; --c-java:#F0915F; --shadow:0 1px 2px rgba(0,0,0,.3); color-scheme:dark}}
+  --bg:#0E1320; --surface:#151C2C; --ink:#E6EAF3; --muted:#97A1B6; --line:#27314A; --accent:#7D95FF; --accent-ink:#0E1320; --accent-soft:#1F2A52; --warm:#F0AE52; --warm-soft:#3A2C17; --ok:#5ACB93; --ok-soft:#163626; --err:#F07C70; --err-soft:#3D1D1A; --code-bg:#0A0F1A; --code-line:#1A2236; --c-cpp:#7D95FF; --c-cs:#B48CF0; --c-py:#5FD3C8; --c-java:#F0915F; --c-kcd:#F5A04A; --shadow:0 1px 2px rgba(0,0,0,.3); color-scheme:dark}}
 :root[data-theme="dark"]{
-  --bg:#0E1320; --surface:#151C2C; --ink:#E6EAF3; --muted:#97A1B6; --line:#27314A; --accent:#7D95FF; --accent-ink:#0E1320; --accent-soft:#1F2A52; --warm:#F0AE52; --warm-soft:#3A2C17; --ok:#5ACB93; --ok-soft:#163626; --err:#F07C70; --err-soft:#3D1D1A; --code-bg:#0A0F1A; --code-line:#1A2236; --c-cpp:#7D95FF; --c-cs:#B48CF0; --c-py:#5FD3C8; --c-java:#F0915F; --shadow:0 1px 2px rgba(0,0,0,.3); color-scheme:dark}
+  --bg:#0E1320; --surface:#151C2C; --ink:#E6EAF3; --muted:#97A1B6; --line:#27314A; --accent:#7D95FF; --accent-ink:#0E1320; --accent-soft:#1F2A52; --warm:#F0AE52; --warm-soft:#3A2C17; --ok:#5ACB93; --ok-soft:#163626; --err:#F07C70; --err-soft:#3D1D1A; --code-bg:#0A0F1A; --code-line:#1A2236; --c-cpp:#7D95FF; --c-cs:#B48CF0; --c-py:#5FD3C8; --c-java:#F0915F; --c-kcd:#F5A04A; --shadow:0 1px 2px rgba(0,0,0,.3); color-scheme:dark}
 
 *{box-sizing:border-box}
 body{background:var(--bg);color:var(--ink);font-family:var(--f-body);font-size:16px;line-height:1.65;margin:0}
@@ -2199,11 +2205,13 @@ const COURSES=[
   lessons:[["l1", "Giải thuật là gì? Từ công thức nấu ăn đến chương trình"], ["l2", "Mô tả giải thuật bằng các bước, mã giả và lưu đồ"], ["l3", "Tính đúng: bất biến vòng lặp và kiểm thử"], ["l4", "Đo thời gian chạy bằng cách đếm phép toán"], ["l5", "Độ phức tạp Big-O, Big-Θ, Big-Ω"], ["l6", "Độ phức tạp bộ nhớ và cách đọc giới hạn của đề bài"], ["l7", "Mảng, vector và chỉ số"], ["l8", "Duyệt mảng: đếm, tính tổng, tìm lớn nhất và nhỏ nhất"], ["l9", "Mảng cộng dồn (prefix sum)"], ["l10", "Mảng hiệu (difference array)"], ["l11", "Kỹ thuật hai con trỏ"], ["l12", "Kỹ thuật cửa sổ trượt"], ["l13", "Tìm kiếm tuần tự"], ["l14", "Tìm kiếm nhị phân"], ["l15", "Tìm kiếm nhị phân trên đáp án"], ["l16", "Sắp xếp chọn, chèn và nổi bọt"], ["l17", "Sắp xếp trộn (merge sort)"], ["l18", "Sắp xếp nhanh (quick sort)"], ["l19", "Sắp xếp đếm, tính ổn định và hàm sort() của STL"], ["l20", "Ôn đệ quy: điều kiện dừng và cây lời gọi"]],
   exercises:["l1-0", "l1-1", "l1-2", "l2-0", "l2-1", "l2-2", "l3-0", "l3-1", "l3-2", "l4-0", "l4-1", "l4-2", "l5-0", "l5-1", "l5-2", "l6-0", "l6-1", "l6-2", "l7-0", "l7-1", "l7-2", "l8-0", "l8-1", "l8-2", "l9-0", "l9-1", "l9-2", "l10-0", "l10-1", "l10-2", "l11-0", "l11-1", "l11-2", "l12-0", "l12-1", "l12-2", "l13-0", "l13-1", "l13-2", "l14-0", "l14-1", "l14-2", "l15-0", "l15-1", "l15-2", "l16-0", "l16-1", "l16-2", "l17-0", "l17-1", "l17-2", "l18-0", "l18-1", "l18-2", "l19-0", "l19-1", "l19-2", "l20-0", "l20-1", "l20-2"],
   practice:["l1-0", "l1-1", "l1-2", "l2-0", "l2-1", "l2-2", "l3-0", "l3-1", "l3-2", "l4-0", "l4-1", "l4-2", "l5-0", "l5-1", "l5-2", "l6-0", "l6-1", "l6-2", "l7-0", "l7-1", "l7-2", "l8-0", "l8-1", "l8-2", "l9-0", "l9-1", "l9-2", "l10-0", "l10-1", "l10-2", "l11-0", "l11-1", "l11-2", "l12-0", "l12-1", "l12-2", "l13-0", "l13-1", "l13-2", "l14-0", "l14-1", "l14-2", "l15-0", "l15-1", "l15-2", "l16-0", "l16-1", "l16-2", "l17-0", "l17-1", "l17-2", "l18-0", "l18-1", "l18-2", "l19-0", "l19-1", "l19-2", "l20-0", "l20-1", "l20-2"],
-  contentVer:"70e1f103eda8",
-  langs:["cpp", "py"],
+  contentVer:"69354d2e84d9",
+  langs:["cpp", "py", "cs"],
   quizzes:{"l1": "quiz1", "l2": "quiz2", "l3": "quiz3", "l4": "quiz4", "l5": "quiz5", "l6": "quiz6", "l7": "quiz7", "l8": "quiz8", "l9": "quiz9", "l10": "quiz10", "l11": "quiz11", "l12": "quiz12", "l13": "quiz13", "l14": "quiz14", "l15": "quiz15", "l16": "quiz16", "l17": "quiz17", "l18": "quiz18", "l19": "quiz19", "l20": "quiz20"}},
  {id:"sql",name:"Cơ sở dữ liệu & SQL",mono:"SQL",url:"sql/index.html",status:"soon",hue:"sql",
   desc:"Thiết kế cơ sở dữ liệu và viết truy vấn SQL, từ bảng đầu tiên đến tối ưu hiệu năng.",chapters:null,lessons:[],exercises:[],practice:[],quizzes:{}},
+ {id:"kcd",name:"Khí cụ điện thực hành",mono:"KCĐ",url:"kcd/index.html",status:"soon",hue:"kcd",
+  desc:"Từ nhận biết thiết bị đến thiết kế tủ điều khiển: relay, contactor, timer, bảo vệ, mạch động cơ, có mô phỏng mạch trên web.",chapters:null,lessons:[],exercises:[],practice:[],quizzes:{}},
  {id:"csharp",name:"C# căn bản",mono:"C#",url:"csharp/index.html",status:"soon",hue:"cs",
   desc:"Lập trình hướng đối tượng với .NET.",chapters:null,lessons:[],exercises:[],practice:[],quizzes:{}},
  {id:"python",name:"Python cho người mới",mono:"Py",url:"python/index.html",status:"soon",hue:"py",
@@ -2232,7 +2240,9 @@ const AMTS=(()=>{
       const o=s?JSON.parse(s):null;return o&&typeof o==="object"?Object.assign(empty(),o):empty()}catch(e){return empty()}
   }
   function setLocal(id,p){try{localStorage.setItem(LKEY(id),JSON.stringify(p))}catch(e){}}
-  function clearLocal(){try{COURSES.forEach(c=>localStorage.removeItem(LKEY(c.id)));localStorage.removeItem("cpp-progress")}catch(e){}}
+  function clearLocal(){try{COURSES.forEach(c=>localStorage.removeItem(LKEY(c.id)));localStorage.removeItem("cpp-progress");
+    // nội dung bài đã nhớ trên máy (amts-c:…): xóa hết khi đăng xuất để máy dùng chung không còn bài có phí
+    Object.keys(localStorage).filter(k=>k.startsWith("amts-c")).forEach(k=>localStorage.removeItem(k))}catch(e){}}
 
   /* ---- gộp hai bản tiến độ (không làm mất kết quả nào) ---- */
   function merge(a,b){
@@ -2264,15 +2274,18 @@ const AMTS=(()=>{
     if(!allowedHere()){S.mode="unavailable";emit();return}
     S.mode="loading";emit();
     try{
-      for(const m of ["app","auth","firestore"])await loadScript(`https://cdn.jsdelivr.net/npm/firebase@${FB_VER}/firebase-${m}-compat.js`);
+      // ba thư viện tải song song (async=false giữ đúng thứ tự chạy app → auth → firestore)
+      await Promise.all(["app","auth","firestore"].map(m=>loadScript(`https://cdn.jsdelivr.net/npm/firebase@${FB_VER}/firebase-${m}-compat.js`)));
       firebase.initializeApp(FB_CONFIG);S.auth=firebase.auth();S.db=firebase.firestore();S.mode="ready";
-      S.auth.onAuthStateChanged(async u=>{
-        S.user=u;S.saveErr="";S.doc=null;enr=null;
-        if(u){try{const snap=await S.db.collection("users").doc(u.uid).get();S.doc=snap.exists?snap.data():null;S.docLoaded=true}
-          catch(e){S.docLoaded=false;S.saveErr=e.code==="permission-denied"?"Firestore đang từ chối truy cập: hãy dán quy tắc bảo mật mới (firestore.rules) trong Firebase Console.":"Chưa tải được tiến độ từ máy chủ. Tiến độ vẫn được giữ trên trình duyệt này."}}
-        S.authKnown=true;emit();
+      // Biết đã đăng nhập hay chưa là đủ để kiểm tra quyền mở bài: báo ngay (authKnown).
+      // Tiến độ users/{uid} đọc song song; đọc xong mới đặt docLoaded (saveCourse chờ cờ này nên không ghi đè máy chủ).
+      S.auth.onAuthStateChanged(u=>{
+        S.user=u;S.saveErr="";S.doc=null;S.docLoaded=false;enr=null;S.authKnown=true;emit();
+        if(!u)return;const uid=u.uid;
+        S.db.collection("users").doc(uid).get().then(snap=>{if(!S.user||S.user.uid!==uid)return;S.doc=snap.exists?snap.data():null;S.docLoaded=true;emit()},
+          e=>{if(!S.user||S.user.uid!==uid)return;S.docLoaded=false;S.saveErr=e.code==="permission-denied"?"Firestore đang từ chối truy cập: hãy dán quy tắc bảo mật mới (firestore.rules) trong Firebase Console.":"Chưa tải được tiến độ từ máy chủ. Tiến độ vẫn được giữ trên trình duyệt này.";emit()});
       });
-    }catch(e){S.mode="error";S.err="Không kết nối được dịch vụ đăng nhập. Kiểm tra Internet rồi tải lại trang.";emit()}
+    }catch(e){console.error(e);S.mode="error";S.err="Không kết nối được dịch vụ đăng nhập. Kiểm tra Internet rồi tải lại trang.";emit()}
   }
   /* ---- ghi tiến độ một khóa; các khóa khác giữ nguyên ----
      Ghi trong transaction: đọc bản trên máy chủ, gộp với bản trên máy này rồi mới ghi,
@@ -2331,8 +2344,9 @@ const AMTS=(()=>{
   const docId=(id,ver,l)=>ver?`${id}@${ver}-${l}`:`${id}-${l}`;
   function cleanVersions(v){const o={};if(v&&typeof v==="object")for(const k in v){if(!/^[\w.-]{1,40}$/.test(k))continue;const x=v[k]||{};
     o[k]={at:x.at||null,by:String(x.by||"").slice(0,120),n:Number(x.n)||0,lessons:Array.isArray(x.lessons)?x.lessons.filter(y=>/^l\d+$/.test(y)).slice(0,500):[],ok:x.ok===true}}return o}
-  async function getLesson(id,l,ver,cfg){
-    const tries=[[ver,"exact"]];if(cfg&&cfg.activeVer&&cfg.activeVer!==ver)tries.push([cfg.activeVer,"active"]);tries.push(["","legacy"]);
+  /* only: "exact" = chỉ đúng phiên bản; "rest" = bỏ qua đúng phiên bản (đã thử rồi); không ghi = thử lần lượt cả ba */
+  async function getLesson(id,l,ver,cfg,only){
+    const tries=only==="rest"?[]:[[ver,"exact"]];if(only!=="exact"){if(cfg&&cfg.activeVer&&cfg.activeVer!==ver)tries.push([cfg.activeVer,"active"]);tries.push(["","legacy"])}
     let denied=null;
     for(const [v,from] of tries){if(from!=="legacy"&&!v)continue;
       try{const s=await S.db.collection("content").doc(docId(id,v,l)).get();if(s.exists){const d=s.data();if(d&&d.html)return Object.assign({},d,{_from:from,_ver:v||d.ver||""})}}
@@ -2577,6 +2591,24 @@ function gateShow(l,kind,cfg,extra){
 }
 async function payState(){const r=await AMTS.payReqOf(CID);if(!r)return null;
   const d=r.toDate?r.toDate():null;return{pending:{at:d?d.toLocaleString("vi-VN",{hour:"2-digit",minute:"2-digit",day:"2-digit",month:"2-digit"}):""}}}
+/* ---------- Nhớ nội dung bài đã mở trên máy (theo tài khoản và phiên bản nội dung) ----------
+   Mở lại bài: hiện ngay bản đã nhớ, đồng thời vẫn hỏi máy chủ quyền và nội dung như bình thường.
+   Máy chủ báo không còn quyền thì xóa bản nhớ và tải lại trang (khi đó bài hiện màn hình khóa).
+   Đăng xuất xóa toàn bộ bản nhớ (AMTS.clearLocal). */
+const LC=(()=>{const IDX="amts-c-idx",UK="amts-c-uid",MAX=40;
+  const uidNow=()=>{const S=AMTS.S;if(S.authKnown)return S.user?S.user.uid:"khach";try{return localStorage.getItem(UK)||"khach"}catch(e){return "khach"}};
+  const key=(uid,l)=>`amts-c:${uid}:${CID}@${typeof CMETA!=="undefined"&&CMETA.contentVer||""}-${l}`;
+  const idx=()=>{try{const a=JSON.parse(localStorage.getItem(IDX)||"[]");return Array.isArray(a)?a:[]}catch(e){return []}};
+  const setIdx=a=>{try{localStorage.setItem(IDX,JSON.stringify(a))}catch(e){}};
+  const rm=k=>{try{localStorage.removeItem(k)}catch(e){}};
+  return{
+    get(l){try{const k=key(uidNow(),l),s=localStorage.getItem(k);if(!s)return null;const d=JSON.parse(s);setIdx(idx().filter(x=>x!==k).concat(k));return d&&typeof d.html==="string"?d:null}catch(e){return null}},
+    put(l,d){if(LESSON_EMBED||!d||typeof d.html!=="string")return;const k=key(uidNow(),l);const v=JSON.stringify({html:d.html,sol:d.sol||[],sols:d.sols||{},ver:d.ver||""});
+      const a=idx().filter(x=>x!==k);while(a.length>=MAX)rm(a.shift());
+      for(let t=0;t<4;t++){try{localStorage.setItem(k,v);setIdx(a.concat(k));return}catch(e){if(!a.length)return;a.splice(0,Math.max(1,a.length>>1)).forEach(rm)}}},
+    drop(l){const k=key(uidNow(),l);rm(k);setIdx(idx().filter(x=>x!==k))},
+    seen(S){if(S.authKnown)try{localStorage.setItem(UK,S.user?S.user.uid:"khach")}catch(e){}}}})();
+AMTS.on(S=>LC.seen(S));
 const LOADING=new Set();
 async function openLesson(l,fresh){
   if(LESSON_EMBED||LOADED.has(l)||!document.getElementById("view-"+l))return;
@@ -2584,27 +2616,46 @@ async function openLesson(l,fresh){
   try{await openLesson_(l,fresh)}finally{LOADING.delete(l)}
 }
 async function openLesson_(l,fresh){
-  gateShow(l,"loading");
+  // 1. Bài đã nhớ trên máy: hiện ngay, kiểm tra quyền ở phía sau
+  const cached=fresh?null:LC.get(l);
+  if(cached){   // đợi mọi script của trang chạy xong rồi mới ghép bài (công cụ trong bài cần chúng)
+    if(document.readyState==="loading")await new Promise(r=>document.addEventListener("DOMContentLoaded",r,{once:true}));
+    if(!LOADED.has(l)){mountLesson(l,cached.html);if(curView===l&&window.TRACK)TRACK.visit(l)}}
+  else gateShow(l,"loading");
+  const revoke=()=>{LC.drop(l);location.reload()};   // đã hiện bản nhớ nhưng máy chủ không cho xem nữa
   const S=await AMTS.ready();
-  if(LOADED.has(l))return;
-  if(S.mode!=="ready"){gateShow(l,"offline");return}
-  let cfg;try{cfg=await AMTS.getConfig(CID,fresh)}catch(e){cfg=AMTS.defaultConfig()}
+  if(LOADED.has(l)&&!cached)return;
+  if(S.mode!=="ready"){if(!cached)gateShow(l,"offline");return}
+  // 2. Cấu hình, quyền và nội dung đọc cùng lúc. Firestore vẫn quyết định quyền: đọc sớm không làm lộ bài có phí.
+  const cv=CMETA.contentVer;
+  const pCfg=AMTS.getConfig(CID,fresh).catch(()=>AMTS.defaultConfig());
+  const pEnr=S.user?AMTS.isEnrolled(CID).catch(()=>false):Promise.resolve(false);
+  const pLes=AMTS.getLesson(CID,l,cv,null,"exact").then(d=>({d}),e=>({e}));   // chỉ thử đúng phiên bản (activeVer chưa biết)
+  const cfg=await pCfg;
   renderLocks(cfg);
   const need=accessOf(l,cfg),teacher=AMTS.isTeacher();
   if(!teacher){
-    if(need!=="public"&&!S.user){gateShow(l,need==="paid"?"paid-login":"login",cfg);return}
-    if(need==="paid"&&!(await AMTS.isEnrolled(CID))){gateShow(l,"paid",cfg,await payState());return}
+    if(need!=="public"&&!S.user){if(cached)return revoke();gateShow(l,need==="paid"?"paid-login":"login",cfg);return}
+    if(need==="paid"&&!(await pEnr)){if(cached)return revoke();gateShow(l,"paid",cfg,await payState());return}
   }
-  try{const cv=CMETA.contentVer,d=await AMTS.getLesson(CID,l,cv,cfg);
-    if(!d||!d.html){gateShow(l,"missing",cfg);return}
+  try{const r=await pLes;let d=r.d,err=r.e;
+    if(err&&err.code!=="permission-denied")throw err;
+    if(!d||!d.html){   // không có đúng phiên bản (tài liệu chưa có cũng bị quy tắc báo từ chối): thử activeVer rồi bản cũ
+      let d2=null;try{d2=await AMTS.getLesson(CID,l,cv,cfg,"rest")}catch(e2){if(e2.code!=="permission-denied")throw e2;err=err||e2}
+      d=d2;if((!d||!d.html)&&err)throw err}   // hiếm: máy chủ chưa có phiên bản trang cần
+    if(!d||!d.html){if(cached)return;gateShow(l,"missing",cfg);return}
+    if(d._from==="exact")LC.put(l,d);
+    if(cached)return;
     mountLesson(l,d.html);
     if(curView===l&&window.TRACK)TRACK.visit(l);
     if(teacher&&d._from!=="exact"){const art=document.getElementById("view-"+l);art.insertAdjacentHTML("afterbegin",`<div class="note lg-stale"><b>Giảng viên:</b> máy chủ chưa có nội dung phiên bản <code>${escH(cv)}</code> mà trang này cần, nên đang hiện bản <code>${escH(d._ver||d.ver||"cũ")}</code> (một số công cụ có thể nằm sai chỗ). Hãy tải file <code>noi-dung-${CID}.json</code> đi kèm bản trang này lên ở mục “Nội dung bài học” trong Trang giảng viên.</div>`)}
   }catch(e){
     if(e.code==="permission-denied"){
+      if(cached)return revoke();
       if(need==="public"||(need==="login"&&S.user))gateShow(l,"missing",cfg);
-      else if(need==="paid"){if(!S.user)gateShow(l,"paid-login",cfg);else if(await AMTS.isEnrolled(CID))gateShow(l,"missing",cfg);else gateShow(l,"paid",cfg,await payState())}
+      else if(need==="paid"){if(!S.user)gateShow(l,"paid-login",cfg);else if(await pEnr)gateShow(l,"missing",cfg);else gateShow(l,"paid",cfg,await payState())}
       else gateShow(l,"login",cfg);return}
+    if(cached)return;   // lỗi mạng: giữ bản đã nhớ
     gateShow(l,"error",cfg,e.message||e.code)}
 }
 /* biểu tượng ổ khóa trong mục lục */
@@ -2833,6 +2884,8 @@ function makeQuiz(boxId,scoreId,QZ){
   }
   render();
 }
+/* tên phần chương trình chính theo ngôn ngữ (cây lời gọi, thông báo độ sâu) */
+function MAIN_NAME(){const l=typeof LANG_CUR!=="undefined"?LANG_CUR:"cpp";return l==="cs"?"Main":l==="py"?"chương trình chính":"main"}
 /* ================= ENGINE 2: mini C++ cho Bài 3 trở đi ================= */
 const SIZES={char:1,bool:1,short:2,int:4,unsigned:4,float:4,"long long":8,size_t:8,double:8,string:32};
 const INTG=new Set(["char","bool","short","int","unsigned","long long","size_t"]);
@@ -4542,7 +4595,7 @@ function makeSim2(root,cfg){
     if(!M.out.some(x=>x.k!=="i"&&String(x.s).trim()))tips.push(LG().noOut);
     if(S.warns&&S.warns.length)tips.push(`Trình biên dịch có ${S.warns.length} cảnh báo (chữ cam trong khung Kết quả). Cảnh báo không làm chương trình dừng nhưng thường báo code chưa xong hoặc dễ sai: ${S.warns[0].vi||S.warns[0].msg}`);
     exp.className="explain"+(tips.length?" warn":" good");
-    exp.innerHTML=tips.length?`<b>Chạy xong, có điều cần chú ý</b>${tips.map(t=>`<span>${esc(t)}</span>`).join("")}`:`<b>${LG().okTitle}</b><span>${M.nCalls?`${M.nCalls} lần gọi hàm, ngăn xếp sâu nhất ${M.maxDepth+1} tầng (tính cả main)`:`${M.order.length} biến trong bộ nhớ`}${M.reads.length?`, ${M.reads.filter(x=>!x.ign).length} lần đọc từ cin`:""}.</span>`;
+    exp.innerHTML=tips.length?`<b>Chạy xong, có điều cần chú ý</b>${tips.map(t=>`<span>${esc(t)}</span>`).join("")}`:`<b>${LG().okTitle}</b><span>${M.nCalls?`${M.nCalls} lần gọi hàm, ngăn xếp sâu nhất ${M.maxDepth+1} tầng (tính cả ${MAIN_NAME()})`:`${(M.lastOrder||M.order).length} biến trong bộ nhớ`}${M.reads.length?`, ${M.reads.filter(x=>!x.ign).length} lần đọc từ ${LG().readWord||"cin"}`:""}.</span>`;
     cfg.onResult&&cfg.onResult(M);
   }
   function waitInput(){return new Promise(res=>{S.waiting=res;renderAll()})}
@@ -4737,7 +4790,7 @@ const VIZ=(()=>{
       return `<li class="vt${st}"><span class="vt-n">${esc(n.l)}${n.done&&n.ret!=null?` <b>→ ${esc(n.ret)}</b>`:""}</span>${ch.length?`<ul>${ch.map(node).join("")}</ul>`:""}</li>`};
     const top=kids.get(-1)||[];
     return `<div class="vz-one"><div class="vz-lb">${esc(lab)} <small>${T.length} lời gọi${T.length>=M2.TREE?" (chỉ vẽ "+M2.TREE+" lời gọi đầu)":""} · sâu nhất ${M.maxDepth} tầng</small></div>
-      <div class="vz-tw">${top.length?`<ul class="vz-tree"><li class="vt root${M.cnode<0?" cur":" live"}"><span class="vt-n">main()</span><ul>${top.map(node).join("")}</ul></li></ul>`:`<p class="vz-empty">Chưa có lời gọi hàm nào.</p>`}</div></div>`}
+      <div class="vz-tw">${top.length?`<ul class="vz-tree"><li class="vt root${M.cnode<0?" cur":" live"}"><span class="vt-n">${MAIN_NAME()==="chương trình chính"?"chương trình chính":MAIN_NAME()+"()"}</span><ul>${top.map(node).join("")}</ul></li></ul>`:`<p class="vz-empty">Chưa có lời gọi hàm nào.</p>`}</div></div>`}
   function showValTxt(V){return txt({t:V.t,v:V.v,init:V.init})}
   function draw(box,specs,M,o){o=o||{};const list=Array.isArray(specs)?specs:[specs];
     const steps=M?M.cost:0;
@@ -9296,7 +9349,7 @@ const PRACTICE=(()=>{
     if(box.dataset.for===x.id&&box.querySelector(".codebox"))return;
     box.dataset.for="";box.innerHTML=`<div class="pr-lock open"><b>Lời giải</b><p>Đã mở. Xem để so sánh với cách làm của bạn, rồi chạy từng bước để hiểu chương trình chạy thế nào.</p><button type="button" class="btn" id="pr-showsol">Xem lời giải</button></div>`;
     $("pr-showsol").onclick=()=>showSol(x)}
-  async function getSol(l){const pick=o=>o?(LANG_CUR==="cpp"?o.cpp||o.sol:(o.sols||o)[LANG_CUR])||null:null;if(SOL_EMBED)return pick(SOL_EMBED[l]);if(solCache[l])return pick(solCache[l]);
+  async function getSol(l){const pick=o=>o?(LANG_CUR==="cpp"?o.cpp||o.sol:(o.sols||o)[LANG_CUR])||null:null;if(SOL_EMBED)return pick(SOL_EMBED[l]);if(solCache[l])return pick(solCache[l]);{const c=typeof LC!=="undefined"&&LC.get(l);if(c)return pick(solCache[l]={cpp:c.sol,sols:c.sols||{}})}
     const S=await AMTS.ready();if(S.mode!=="ready"){const e=new Error("Chưa kết nối được máy chủ.");e.code="offline";throw e}
     const cfg=await AMTS.getConfig(CID);const d=await AMTS.getLesson(CID,l,C.contentVer,cfg);return pick(solCache[l]=d?{cpp:d.sol,sols:d.sols||{}}:null)}
   async function showSol(x){const box=$("pr-sol");box.innerHTML=`<p class="ex-todo">Đang tải lời giải…</p>`;
