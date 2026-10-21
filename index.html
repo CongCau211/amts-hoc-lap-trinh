@@ -663,8 +663,10 @@ const AMTS=(()=>{
   async function dump(col){const s=await S.db.collection(col).get();const m={};s.docs.forEach(d=>m[d.id]=d.data());return m}
   async function restoreDoc(col,id,data){await S.db.collection(col).doc(id).set(data)}
   /* Tải một phiên bản nội dung lên (không ghi đè phiên bản đang dùng), đọc lại kiểm tra đủ bài, rồi ghi vào danh sách phiên bản */
-  /* lời giải theo ngôn ngữ khác C++ (khóa nhiều ngôn ngữ): {py:[...], cs:[...]}; thứ tự khóa cố định để so sánh khi kiểm tra lại */
+  /* lời giải theo ngôn ngữ khác C++ (khóa nhiều ngôn ngữ): {py:[...], cs:[...]} */
   const solsOf=L=>{const o={};const x=L.sols&&typeof L.sols==="object"?L.sols:{};["cs","py"].forEach(k=>{if(Array.isArray(x[k]))o[k]=x[k].map(String)});return o};
+  /* so sánh khi kiểm tra lại: Firestore KHÔNG giữ thứ tự khóa của map (đọc lại có thể ra {py, cs}), nên sắp khóa trước khi so */
+  const solsKey=o=>JSON.stringify(Object.keys(o||{}).sort().map(k=>[k,o[k]]));
   async function uploadContent(pkg,onProg){
     if(!pkg||!pkg.course||!Array.isArray(pkg.lessons)||!pkg.ver||!/^[\w.-]{1,40}$/.test(pkg.ver))throw new Error("File không đúng định dạng nội dung bài học.");
     for(const L of pkg.lessons)if(!/^l\d+$/.test(L.id)||typeof L.html!=="string")throw new Error("Bài "+L.id+" không hợp lệ.");
@@ -674,7 +676,7 @@ const AMTS=(()=>{
       onProg&&onProg(++k,tot,"upload")}
     const bad=[];
     for(const L of pkg.lessons){const s=await col.doc(docId(pkg.course,pkg.ver,L.id)).get();const d=s.exists?s.data():null;
-      if(!d||d.html!==L.html||d.ver!==pkg.ver||JSON.stringify(d.sol||[])!==JSON.stringify(Array.isArray(L.sol)?L.sol.map(String):[])||JSON.stringify(d.sols||{})!==JSON.stringify(solsOf(L)))bad.push(L.id);onProg&&onProg(++k,tot,"verify")}
+      if(!d||d.html!==L.html||d.ver!==pkg.ver||JSON.stringify(d.sol||[])!==JSON.stringify(Array.isArray(L.sol)?L.sol.map(String):[])||solsKey(d.sols)!==solsKey(solsOf(L)))bad.push(L.id);onProg&&onProg(++k,tot,"verify")}
     if(bad.length)throw new Error(`Kiểm tra sau khi tải lên thấy ${bad.length} bài chưa đúng (${bad.join(", ")}). Hãy tải lại; phiên bản đang dùng không bị ảnh hưởng.`);
     const cur=await getConfig(pkg.course,true);
     cur.versions=Object.assign({},cur.versions||{},{[pkg.ver]:{at:new Date().toISOString(),by:(S.user&&S.user.email)||"",n:pkg.lessons.length,lessons:pkg.lessons.map(L=>L.id),ok:true}});
