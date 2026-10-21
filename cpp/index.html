@@ -1472,6 +1472,36 @@ pre.a16-code{margin:0}
 /* công thức nổi bật trong bài (khóa Giải thuật) */
 .formula{font-family:var(--f-mono);font-size:15px;text-align:center;background:var(--surface);border:1px dashed var(--line);border-radius:10px;padding:10px 12px;margin:10px 0;overflow-wrap:anywhere}
 .formula code{background:none;border:0;padding:0;font-size:inherit}
+/* ===== chọn ngôn ngữ lập trình (khóa có nhiều ngôn ngữ, ví dụ Giải thuật) ===== */
+.lang-pick{display:grid;gap:6px;margin:2px 0 4px}
+.lang-pick[hidden]{display:none}
+.lp-l{font-size:12.5px;font-weight:600;color:var(--muted);text-transform:uppercase;letter-spacing:.04em}
+.lp-seg{display:flex;border:1px solid var(--line);border-radius:12px;padding:3px;background:var(--bg);gap:3px}
+.lp-seg button{flex:1;min-height:38px;border:0;border-radius:9px;background:transparent;color:var(--ink);font:600 14px var(--f-body,inherit);cursor:pointer;padding:0 6px}
+.lp-seg button[aria-pressed="true"]{background:var(--accent);color:var(--accent-ink,#fff);box-shadow:0 1px 3px rgba(0,0,0,.15)}
+.lp-seg button:focus-visible{outline:2px solid var(--accent);outline-offset:2px}
+.lbar-r{display:inline-flex;align-items:center;gap:8px;min-width:0}
+.lbar-lang{min-height:36px;padding:0 12px;border:1px solid var(--accent);border-radius:999px;background:var(--accent-soft);color:var(--accent);font-weight:700;font-size:13.5px;white-space:nowrap;cursor:pointer}
+.lbar-lang[hidden]{display:none}
+/* hộp chọn: giữa màn hình trên laptop, chiếm gần hết màn hình trên điện thoại */
+.lang-dlg{position:fixed;inset:0;z-index:200;background:rgba(10,20,25,.45);display:flex;align-items:center;justify-content:center;padding:16px}
+.ld-box{position:relative;width:min(560px,100%);max-height:calc(100vh - 32px);overflow:auto;background:var(--surface);color:var(--ink);border-radius:18px;padding:22px 20px 18px;box-shadow:0 18px 50px rgba(0,0,0,.25)}
+.ld-box h2{font-size:20px;margin:0 36px 6px 0;line-height:1.3}
+.ld-sub{margin:0 0 14px;color:var(--muted);font-size:14.5px}
+.ld-x{position:absolute;top:10px;right:10px;width:40px;height:40px;border:0;border-radius:50%;background:transparent;font-size:24px;color:var(--muted);cursor:pointer}
+.ld-list{display:grid;gap:10px}
+.ld-c{display:grid;gap:3px;text-align:left;padding:12px 14px;border:1.5px solid var(--line);border-radius:14px;background:var(--bg);color:var(--ink);cursor:pointer;font:inherit}
+.ld-c b{font-size:17px}
+.ld-c span{font-size:14px;color:var(--muted)}
+.ld-c code{font-family:var(--f-mono);font-size:13px;color:var(--accent);overflow-wrap:anywhere}
+.ld-c:hover,.ld-c:focus-visible{border-color:var(--accent);outline:none;background:var(--accent-soft)}
+.ld-c.on{border-color:var(--accent);box-shadow:inset 0 0 0 1px var(--accent)}
+.ld-note{margin:12px 0 0;font-size:13px;color:var(--muted)}
+@media (max-width:560px){.lang-dlg{align-items:flex-end;padding:0}.ld-box{border-radius:18px 18px 0 0;max-height:92vh;padding:20px 16px calc(16px + env(safe-area-inset-bottom))}}
+/* nội dung riêng một ngôn ngữ: class="lo l-cpp" / "lo l-py" / "lo l-cs" (có thể ghép nhiều: "lo l-cpp l-cs") */
+body.L-cpp .lo:not(.l-cpp),body.L-py .lo:not(.l-py),body.L-cs .lo:not(.l-cs){display:none!important}
+.lnote{border-left:4px solid var(--accent);background:var(--accent-soft);border-radius:10px;padding:10px 14px;margin:10px 0;font-size:15px}
+.lnote>b:first-child{display:block;margin-bottom:2px}
 </style>
 
 <header class="top compact" id="top" data-root="../"><div class="wrap">
@@ -1492,7 +1522,7 @@ pre.a16-code{margin:0}
 
 <div class="lbar" id="mbar">
   <button class="lbar-btn" id="m-open" aria-controls="side" aria-expanded="false"><svg width="20" height="20" viewBox="0 0 22 22" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" aria-hidden="true"><path d="M3.5 6h15M3.5 11h15M3.5 16h15"/></svg>Danh sách bài học</button>
-  <span class="lbar-n" id="m-prog" aria-live="off">0 bài</span>
+  <span class="lbar-r"><button type="button" class="lbar-lang" id="m-lang" hidden></button><span class="lbar-n" id="m-prog" aria-live="off">0 bài</span></span>
 </div>
 <div class="app">
   <div class="scrim" id="scrim"></div>
@@ -1506,6 +1536,7 @@ pre.a16-code{margin:0}
         <button class="sb-toggle" id="sb-hide" aria-controls="side" aria-expanded="true" aria-label="Ẩn danh sách bài học" title="Ẩn danh sách bài học"><svg class="ic-panel" width="20" height="20" viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.6" aria-hidden="true"><rect x="2.5" y="3.5" width="15" height="13" rx="2.5"/><path d="M7.5 3.5v13"/></svg><svg class="ic-x" width="20" height="20" viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" aria-hidden="true"><path d="M5 5l10 10M15 5L5 15"/></svg></button>
       </div>
       <div class="brand"><b>C++ từ nền tảng</b><small>12 chương · Đã mở 24 bài học</small></div>
+      <div class="lang-pick" id="lang-pick" hidden></div>
       <div class="acct" id="acct"></div>
       <div class="ol-q"><label class="vh" for="ol-q">Tìm bài học</label><input id="ol-q" type="search" placeholder="Tìm bài học…" autocomplete="off"><button type="button" class="ol-x" id="ol-x" aria-label="Xóa tìm kiếm" hidden>×</button></div>
       <div class="side-nav" role="group" aria-label="Chế độ xem">
@@ -2159,7 +2190,8 @@ const COURSES=[
   lessons:[["l1", "Chương trình C++ đầu tiên"], ["l2", "Cài đặt trình biên dịch & IDE"], ["l3", "Nhập xuất với cin / cout"], ["l4", "Biến, khai báo, khởi tạo"], ["l5", "int, double, char, bool"], ["l6", "Hằng số const / constexpr"], ["l7", "Ép kiểu và tràn số"], ["l8", "Toán tử số học"], ["l9", "So sánh và logic"], ["l10", "Thứ tự ưu tiên"], ["l11", "Toán tử bit"], ["l12", "if / else"], ["l13", "switch"], ["l14", "while, do-while"], ["l15", "for, break, continue"], ["l16", "Định nghĩa và gọi hàm"], ["l17", "Truyền tham trị / tham chiếu"], ["l18", "Nạp chồng hàm"], ["l19", "Đệ quy"], ["l20", "Phạm vi biến"], ["l21", "Mảng một chiều"], ["l22", "Mảng hai chiều"], ["l23", "string"], ["l24", "vector cơ bản"]],
   exercises:["l1-0", "l1-1", "l1-2", "l2-term", "l3-0", "l3-1", "l3-2", "l4-0", "l4-1", "l4-2", "l5-0", "l5-1", "l5-2", "l6-0", "l6-1", "l6-2", "l7-0", "l7-1", "l7-2", "l8-0", "l8-1", "l8-2", "l9-0", "l9-1", "l9-2", "l10-0", "l10-1", "l10-2", "l11-0", "l11-1", "l11-2", "l12-0", "l12-1", "l12-2", "l13-0", "l13-1", "l13-2", "l14-0", "l14-1", "l14-2", "l15-0", "l15-1", "l15-2", "l16-0", "l16-1", "l16-2", "l17-0", "l17-1", "l17-2", "l18-0", "l18-1", "l18-2", "l19-0", "l19-1", "l19-2", "l20-0", "l20-1", "l20-2", "l21-0", "l21-1", "l21-2", "l22-0", "l22-1", "l22-2", "l23-0", "l23-1", "l23-2", "l24-0", "l24-1", "l24-2"],
   practice:["l3-0", "l3-1", "l3-2", "l4-0", "l4-1", "l4-2", "l5-0", "l5-1", "l5-2", "l6-0", "l6-1", "l6-2", "l7-0", "l7-1", "l7-2", "l8-0", "l8-1", "l8-2", "l9-0", "l9-1", "l9-2", "l10-0", "l10-1", "l10-2", "l11-0", "l11-1", "l11-2", "l12-0", "l12-1", "l12-2", "l13-0", "l13-1", "l13-2", "l14-0", "l14-1", "l14-2", "l15-0", "l15-1", "l15-2", "l16-0", "l16-1", "l16-2", "l17-0", "l17-1", "l17-2", "l18-0", "l18-1", "l18-2", "l19-0", "l19-1", "l19-2", "l20-0", "l20-1", "l20-2", "l21-0", "l21-1", "l21-2", "l22-0", "l22-1", "l22-2", "l23-0", "l23-1", "l23-2", "l24-0", "l24-1", "l24-2"],
-  contentVer:"d0912db68772",
+  contentVer:"fb552b7708e8",
+  langs:["cpp"],
   quizzes:{"l1": "quiz", "l2": "quiz2", "l3": "quiz3", "l4": "quiz4", "l5": "quiz5", "l6": "quiz6", "l7": "quiz7", "l8": "quiz8", "l9": "quiz9", "l10": "quiz10", "l11": "quiz11", "l12": "quiz12", "l13": "quiz13", "l14": "quiz14", "l15": "quiz15", "l16": "quiz16", "l17": "quiz17", "l18": "quiz18", "l19": "quiz19", "l20": "quiz20", "l21": "quiz21", "l22": "quiz22", "l23": "quiz23", "l24": "quiz24"}},
  {id:"algo",name:"Cấu trúc dữ liệu & Giải thuật",mono:"Algo",url:"algo/index.html",status:"soon",hue:"algo",
   desc:"Tư duy giải thuật, phân tích độ phức tạp và các kỹ thuật kinh điển để thi học sinh giỏi, phỏng vấn.",status:"open",
@@ -2167,7 +2199,8 @@ const COURSES=[
   lessons:[["l1", "Giải thuật là gì? Từ công thức nấu ăn đến chương trình"], ["l2", "Mô tả giải thuật bằng các bước, mã giả và lưu đồ"], ["l3", "Tính đúng: bất biến vòng lặp và kiểm thử"], ["l4", "Đo thời gian chạy bằng cách đếm phép toán"], ["l5", "Độ phức tạp Big-O, Big-Θ, Big-Ω"], ["l6", "Độ phức tạp bộ nhớ và cách đọc giới hạn của đề bài"], ["l7", "Mảng, vector và chỉ số"], ["l8", "Duyệt mảng: đếm, tính tổng, tìm lớn nhất và nhỏ nhất"], ["l9", "Mảng cộng dồn (prefix sum)"], ["l10", "Mảng hiệu (difference array)"], ["l11", "Kỹ thuật hai con trỏ"], ["l12", "Kỹ thuật cửa sổ trượt"], ["l13", "Tìm kiếm tuần tự"], ["l14", "Tìm kiếm nhị phân"], ["l15", "Tìm kiếm nhị phân trên đáp án"], ["l16", "Sắp xếp chọn, chèn và nổi bọt"], ["l17", "Sắp xếp trộn (merge sort)"], ["l18", "Sắp xếp nhanh (quick sort)"], ["l19", "Sắp xếp đếm, tính ổn định và hàm sort() của STL"], ["l20", "Ôn đệ quy: điều kiện dừng và cây lời gọi"]],
   exercises:["l1-0", "l1-1", "l1-2", "l2-0", "l2-1", "l2-2", "l3-0", "l3-1", "l3-2", "l4-0", "l4-1", "l4-2", "l5-0", "l5-1", "l5-2", "l6-0", "l6-1", "l6-2", "l7-0", "l7-1", "l7-2", "l8-0", "l8-1", "l8-2", "l9-0", "l9-1", "l9-2", "l10-0", "l10-1", "l10-2", "l11-0", "l11-1", "l11-2", "l12-0", "l12-1", "l12-2", "l13-0", "l13-1", "l13-2", "l14-0", "l14-1", "l14-2", "l15-0", "l15-1", "l15-2", "l16-0", "l16-1", "l16-2", "l17-0", "l17-1", "l17-2", "l18-0", "l18-1", "l18-2", "l19-0", "l19-1", "l19-2", "l20-0", "l20-1", "l20-2"],
   practice:["l1-0", "l1-1", "l1-2", "l2-0", "l2-1", "l2-2", "l3-0", "l3-1", "l3-2", "l4-0", "l4-1", "l4-2", "l5-0", "l5-1", "l5-2", "l6-0", "l6-1", "l6-2", "l7-0", "l7-1", "l7-2", "l8-0", "l8-1", "l8-2", "l9-0", "l9-1", "l9-2", "l10-0", "l10-1", "l10-2", "l11-0", "l11-1", "l11-2", "l12-0", "l12-1", "l12-2", "l13-0", "l13-1", "l13-2", "l14-0", "l14-1", "l14-2", "l15-0", "l15-1", "l15-2", "l16-0", "l16-1", "l16-2", "l17-0", "l17-1", "l17-2", "l18-0", "l18-1", "l18-2", "l19-0", "l19-1", "l19-2", "l20-0", "l20-1", "l20-2"],
-  contentVer:"21e2d7bfdb64",
+  contentVer:"70e1f103eda8",
+  langs:["cpp", "py"],
   quizzes:{"l1": "quiz1", "l2": "quiz2", "l3": "quiz3", "l4": "quiz4", "l5": "quiz5", "l6": "quiz6", "l7": "quiz7", "l8": "quiz8", "l9": "quiz9", "l10": "quiz10", "l11": "quiz11", "l12": "quiz12", "l13": "quiz13", "l14": "quiz14", "l15": "quiz15", "l16": "quiz16", "l17": "quiz17", "l18": "quiz18", "l19": "quiz19", "l20": "quiz20"}},
  {id:"sql",name:"Cơ sở dữ liệu & SQL",mono:"SQL",url:"sql/index.html",status:"soon",hue:"sql",
   desc:"Thiết kế cơ sở dữ liệu và viết truy vấn SQL, từ bảng đầu tiên đến tối ưu hiệu năng.",chapters:null,lessons:[],exercises:[],practice:[],quizzes:{}},
@@ -2209,6 +2242,8 @@ const AMTS=(()=>{
     for(const k in b.visited)a.visited[k]=Math.max(a.visited[k]||0,b.visited[k]||0);
     for(const k in b.ex){const x=b.ex[k],y=a.ex[k];if(!y||(x.pass&&!y.pass)||(x.pass===y.pass&&(x.at||0)>(y.at||0)))a.ex[k]=x}
     for(const k in b.quiz){const x=b.quiz[k],y=a.quiz[k];if(!y)a.quiz[k]=x;else{const l=(x.at||0)>(y.at||0)?x:y;a.quiz[k]={...l,best:Math.max(x.best||0,y.best||0)}}}
+    // ngôn ngữ lập trình học viên chọn cho khóa (khóa nhiều ngôn ngữ): lựa chọn mới hơn thắng
+    if(b.lang&&b.lang.l&&(!a.lang||(b.lang.at||0)>(a.lang.at||0)))a.lang={l:String(b.lang.l).slice(0,8),at:Number(b.lang.at)||0};
     if(b.lastLesson&&(!a.lastLesson||(b.visited[b.lastLesson]||0)>(a.visited[a.lastLesson]||0)))a.lastLesson=b.lastLesson;
     return a;
   }
@@ -2246,7 +2281,7 @@ const AMTS=(()=>{
     const u=S.user;if(!u||!S.db||!S.docLoaded)return null;
     const FV=firebase.firestore.FieldValue,ref=S.db.collection("users").doc(u.uid);
     const profile={name:u.displayName||"",email:(u.email||"").toLowerCase(),photo:u.photoURL||"",lastSeen:FV.serverTimestamp()};
-    const clean=x=>({lessons:x.lessons||{},visited:x.visited||{},ex:x.ex||{},quiz:x.quiz||{},lastLesson:x.lastLesson||null});
+    const clean=x=>Object.assign({lessons:x.lessons||{},visited:x.visited||{},ex:x.ex||{},quiz:x.quiz||{},lastLesson:x.lastLesson||null},x.lang&&x.lang.l?{lang:{l:String(x.lang.l).slice(0,8),at:Number(x.lang.at)||0}}:{});
     try{
       let merged=null,docAfter=null;
       await S.db.runTransaction(async tx=>{
@@ -2310,16 +2345,18 @@ const AMTS=(()=>{
   async function dump(col){const s=await S.db.collection(col).get();const m={};s.docs.forEach(d=>m[d.id]=d.data());return m}
   async function restoreDoc(col,id,data){await S.db.collection(col).doc(id).set(data)}
   /* Tải một phiên bản nội dung lên (không ghi đè phiên bản đang dùng), đọc lại kiểm tra đủ bài, rồi ghi vào danh sách phiên bản */
+  /* lời giải theo ngôn ngữ khác C++ (khóa nhiều ngôn ngữ): {py:[...], cs:[...]}; thứ tự khóa cố định để so sánh khi kiểm tra lại */
+  const solsOf=L=>{const o={};const x=L.sols&&typeof L.sols==="object"?L.sols:{};["cs","py"].forEach(k=>{if(Array.isArray(x[k]))o[k]=x[k].map(String)});return o};
   async function uploadContent(pkg,onProg){
     if(!pkg||!pkg.course||!Array.isArray(pkg.lessons)||!pkg.ver||!/^[\w.-]{1,40}$/.test(pkg.ver))throw new Error("File không đúng định dạng nội dung bài học.");
     for(const L of pkg.lessons)if(!/^l\d+$/.test(L.id)||typeof L.html!=="string")throw new Error("Bài "+L.id+" không hợp lệ.");
     const FV=firebase.firestore.FieldValue,col=S.db.collection("content");let k=0;const tot=pkg.lessons.length*2;
     for(const L of pkg.lessons){
-      await col.doc(docId(pkg.course,pkg.ver,L.id)).set({course:pkg.course,lesson:L.id,order:Number(L.order)||0,title:String(L.title||""),html:L.html,sol:Array.isArray(L.sol)?L.sol.map(String):[],ver:pkg.ver,updatedAt:FV.serverTimestamp()});
+      await col.doc(docId(pkg.course,pkg.ver,L.id)).set({course:pkg.course,lesson:L.id,order:Number(L.order)||0,title:String(L.title||""),html:L.html,sol:Array.isArray(L.sol)?L.sol.map(String):[],sols:solsOf(L),ver:pkg.ver,updatedAt:FV.serverTimestamp()});
       onProg&&onProg(++k,tot,"upload")}
     const bad=[];
     for(const L of pkg.lessons){const s=await col.doc(docId(pkg.course,pkg.ver,L.id)).get();const d=s.exists?s.data():null;
-      if(!d||d.html!==L.html||d.ver!==pkg.ver||JSON.stringify(d.sol||[])!==JSON.stringify(Array.isArray(L.sol)?L.sol.map(String):[]))bad.push(L.id);onProg&&onProg(++k,tot,"verify")}
+      if(!d||d.html!==L.html||d.ver!==pkg.ver||JSON.stringify(d.sol||[])!==JSON.stringify(Array.isArray(L.sol)?L.sol.map(String):[])||JSON.stringify(d.sols||{})!==JSON.stringify(solsOf(L)))bad.push(L.id);onProg&&onProg(++k,tot,"verify")}
     if(bad.length)throw new Error(`Kiểm tra sau khi tải lên thấy ${bad.length} bài chưa đúng (${bad.join(", ")}). Hãy tải lại; phiên bản đang dùng không bị ảnh hưởng.`);
     const cur=await getConfig(pkg.course,true);
     cur.versions=Object.assign({},cur.versions||{},{[pkg.ver]:{at:new Date().toISOString(),by:(S.user&&S.user.email)||"",n:pkg.lessons.length,lessons:pkg.lessons.map(L=>L.id),ok:true}});
@@ -2412,7 +2449,7 @@ function deferInit(el,fn){const art=el&&el.closest&&el.closest("article[id^='vie
 function runLazy(v){const q=LAZY.get("view-"+v);if(!q)return;LAZY.delete("view-"+v);q.forEach(f=>{try{f()}catch(e){console.error(e)}})}
 ["makeAscii", "makeBitOps", "makeBits", "makeBufTry", "makeCallStack", "makeCompileGuess", "makeExprTree", "makeFibTree", "makeFlags", "makeFlowIf", "makeForBuilder", "makeGrowth", "makeLadder", "makeLineRun", "makeLineStepper", "makeLogicLab", "makeLoopTable", "makeNameCheck", "makeNest", "makeOverload", "makeRounder", "makeStepRace", "makeTrace", "makeTruth"].forEach(n=>{const f=window[n];if(typeof f!=="function")return;window[n]=function(el,...a){deferInit(el,()=>f(el,...a))}});
 {const real=makeSim2;window.makeSim2=function(root,cfg){let s=null;const ensure=()=>s||(s=real(root,cfg));deferInit(root,ensure);
-  return{get:()=>ensure().get(),set:c=>ensure().set(c),setInput:v=>ensure().setInput(v),el:root,run:()=>ensure().run(),step:()=>ensure().step()}}}
+  return{get:()=>ensure().get(),set:c=>ensure().set(c),setInput:v=>ensure().setInput(v),el:root,run:()=>ensure().run(),step:()=>ensure().step(),forceLang:l=>ensure().forceLang(l),get lang(){return ensure().lang}}}}
 const LESSON_EMBED=null;
 /* ---------- Thuật ngữ tiếng Anh ---------- */
 const GLOSSARY=[["compile", "biên dịch", 1], ["preprocessing", "tiền xử lý", 1], ["linking", "liên kết", 1], ["operator", "toán tử", 1], ["error message", "thông báo lỗi", 1], ["function", "hàm", 1], ["statement", "câu lệnh", 1], ["semicolon", "dấu chấm phẩy", 1], ["namespace", "không gian tên", 1], ["scope resolution operator", "toán tử phạm vi", 1], ["header file", "file tiêu đề", 1], ["compiler", "trình biên dịch", 1], ["machine code", "mã máy", 1], ["newline character", "ký tự xuống dòng", 1], ["character", "ký tự", 1], ["buffer", "bộ đệm", 1], ["escape sequence", "ký tự thoát", 1], ["string", "chuỗi", 1], ["integer", "số nguyên", 1], ["code editor", "trình soạn thảo", 2], ["command line", "dòng lệnh", 2], ["environment variable", "biến môi trường", 2], ["warning", "cảnh báo", 2], ["executable", "file chạy được", 2], ["syntax", "cú pháp", 2], ["debugging", "gỡ lỗi", 2], ["formatting", "định dạng", 3], ["whitespace", "khoảng trắng", 3], ["floating-point number", "số thực", 3], ["input stream", "luồng nhập", 3], ["variable", "biến", 3], ["declaration", "khai báo", 3], ["memory cell", "ô nhớ", 3], ["fail state", "trạng thái lỗi", 3], ["significant digits", "chữ số có nghĩa", 3], ["rounding", "làm tròn", 3], ["memory", "bộ nhớ", 3], ["address", "địa chỉ", 4], ["initialization", "khởi tạo", 4], ["assignment", "phép gán", 4], ["trace table", "bảng theo dõi", 4], ["variable name", "tên biến", 4], ["compile error", "lỗi biên dịch", 4], ["narrowing conversion", "thu hẹp kiểu", 4], ["postfix", "hậu tố", 4], ["prefix", "tiền tố", 4], ["keyword", "từ khóa", 4], ["garbage value", "giá trị rác", 4], ["undefined behavior (UB)", "hành vi không xác định", 4], ["data type", "kiểu dữ liệu", 5], ["precision", "độ chính xác", 5], ["overflow", "tràn số", 5], ["two's complement", "bù hai", 5], ["type casting", "ép kiểu", 5], ["sign bit", "bit dấu", 5], ["floating point", "dấu phẩy động", 5], ["implicit conversion", "chuyển kiểu ngầm", 5], ["integer division", "chia nguyên", 5], ["truncation", "cắt bỏ", 5], ["explicit cast", "ép kiểu tường minh", 5], ["constant", "hằng", 6], ["magic number", "số ma thuật", 6], ["preprocessor", "bộ tiền xử lý", 6], ["scope", "phạm vi", 6], ["operand", "toán hạng", 7], ["usual arithmetic conversions", "chuyển đổi số học thông thường", 7], ["library", "thư viện", 7], ["modulo (remainder)", "chia dư", 8], ["expression", "biểu thức", 8], ["expression tree", "cây biểu thức", 8], ["precedence", "độ ưu tiên", 8], ["associativity", "chiều kết hợp", 8], ["comparison operator", "toán tử so sánh", 9], ["logical operator", "toán tử logic", 9], ["condition", "điều kiện", 9], ["truth table", "bảng chân trị", 9], ["short-circuit evaluation", "ngắn mạch", 9], ["bitwise operator", "toán tử bit", 9], ["conditional (ternary) operator", "toán tử điều kiện", 10], ["bit shift", "dịch bit", 10], ["branch", "nhánh", 10], ["status flag", "cờ trạng thái", 11], ["flowchart", "lưu đồ", 12], ["branching", "rẽ nhánh", 12], ["block", "khối lệnh", 12], ["fall-through", "rơi xuống", 13], ["loop", "vòng lặp", 14], ["loop counter", "biến đếm", 14], ["iteration", "lần lặp", 14], ["infinite loop", "vòng lặp vô hạn", 14], ["off-by-one error", "lỗi lệch một", 14], ["loop body", "thân vòng lặp", 14], ["sentinel", "lính canh", 14], ["step (update)", "bước nhảy", 15], ["nested loop", "vòng lặp lồng nhau", 15], ["stopping condition", "điểm dừng", 15], ["return type", "kiểu trả về", 16], ["parameter", "tham số", 16], ["function body", "thân hàm", 16], ["function call", "lời gọi hàm", 16], ["argument", "đối số", 16], ["return value", "giá trị trả về", 16], ["call stack", "ngăn xếp lời gọi", 16], ["prototype", "nguyên mẫu", 16], ["function definition", "định nghĩa hàm", 16], ["local variable", "biến cục bộ", 16], ["copy", "bản sao", 17], ["pass by value", "truyền tham trị", 17], ["reference", "tham chiếu", 17], ["default argument", "tham số mặc định", 18], ["function overloading", "nạp chồng hàm", 18], ["ambiguous", "mơ hồ", 18], ["signature", "chữ ký", 18], ["exact match", "khớp chính xác", 18], ["promotion", "nâng kiểu", 18], ["recursive function", "hàm đệ quy", 19], ["base case", "trường hợp cơ sở", 19], ["recursive case", "bước đệ quy", 19], ["recursion", "đệ quy", 19], ["stack overflow", "tràn ngăn xếp", 19], ["operating system", "hệ điều hành", 19], ["lifetime", "thời gian sống", 20], ["global variable", "biến toàn cục", 20], ["shadowing", "che khuất tên", 20], ["array", "mảng", 21], ["index", "chỉ số", 21], ["initializer list", "danh sách khởi tạo", 21], ["two-dimensional array", "mảng hai chiều", 22], ["row", "hàng", 22], ["column", "cột", 22], ["transpose", "ma trận chuyển vị", 22], ["ASCII code", "mã ASCII", 23], ["lexicographic order", "thứ tự từ điển", 23], ["vector", "vector (mảng động)", 24], ["dynamic array", "mảng động", 24]];
@@ -2728,7 +2765,20 @@ const TOPNAV=(()=>{
 const closeMenus=TOPNAV.closeMenus,wireMenu=TOPNAV.wireMenu;
 /* ================= HIGHLIGHTER ================= */
 const KW=new Set("int return void using namespace include char double float bool if else for while do switch case default break continue const constexpr auto class struct true false long short unsigned signed sizeof static_cast".split(" "));
-function lex(src){
+const KW_PY=new Set("False None True and as assert break class continue def del elif else except finally for from global if import in is lambda nonlocal not or pass raise return try while with yield print input len range int str float list dict set tuple".split(" "));
+const KW_CS=new Set("int long double float bool char string var void return if else for foreach in while do switch case default break continue const static public private class new true false null using namespace struct List Dictionary HashSet Stack Queue PriorityQueue Console Math Array".split(" "));
+function lexPy(src){const out=[];let i=0;const n=src.length;
+  while(i<n){const c=src[i],r=src.slice(i);let m;
+    if(c==="#"){let j=src.indexOf("\n",i);if(j<0)j=n;out.push(["com",src.slice(i,j)]);i=j;continue}
+    if((m=/^[rRfFbBuU]{0,2}("""|'''|"|')/.exec(r))&&(m[0].length===m[1].length||/^[rRfFbBuU]{1,2}$/.test(m[0].slice(0,-m[1].length)))){const q=m[1];let j=i+m[0].length;while(j<n&&!src.startsWith(q,j)&&!(q.length===1&&src[j]==="\n")){if(src[j]==="\\")j++;j++}if(src.startsWith(q,j))j+=q.length;out.push(["str",src.slice(i,j)]);i=j;continue}
+    if((m=/^0[xXbBoO][0-9a-fA-F_]+|^\d[\d_]*(\.\d*)?([eE][+-]?\d+)?/.exec(r))){out.push(["num",m[0]]);i+=m[0].length;continue}
+    if((m=/^[A-Za-z_\u00C0-\u1EF9][\w\u00C0-\u1EF9]*/.exec(r))){out.push([KW_PY.has(m[0])?"kw":"id",m[0]]);i+=m[0].length;continue}
+    if((m=/^(\*\*|\/\/|[{}()\[\];:<>+\-*/%=])/.exec(r))){out.push(["op",m[0]]);i+=m[0].length;continue}
+    out.push(["tx",c]);i++}
+  return out}
+function lex(src,lang){
+  if(lang==="py")return lexPy(src);
+  const KWX=lang==="cs"?KW_CS:KW;
   const out=[];let i=0;const n=src.length;
   while(i<n){
     const c=src[i],r=src.slice(i);let m;
@@ -2737,15 +2787,15 @@ function lex(src){
     if(c==="#"&&(i===0||/\n\s*$/.test(src.slice(Math.max(0,i-40),i)))){let j=src.indexOf("\n",i);if(j<0)j=n;out.push(["pre",src.slice(i,j)]);i=j;continue}
     if(c==='"'||c==="'"){let j=i+1;while(j<n&&src[j]!==c&&src[j]!=="\n"){if(src[j]==="\\")j++;j++}if(j<n&&src[j]===c)j++;out.push(["str",src.slice(i,j)]);i=j;continue}
     if((m=/^0[xXbB][0-9a-fA-F]+|^\d+(\.\d+)?/.exec(r))){out.push(["num",m[0]]);i+=m[0].length;continue}
-    if((m=/^[A-Za-z_]\w*/.exec(r))){out.push([KW.has(m[0])?"kw":"id",m[0]]);i+=m[0].length;continue}
+    if((m=/^[A-Za-z_]\w*/.exec(r))){out.push([KWX.has(m[0])?"kw":"id",m[0]]);i+=m[0].length;continue}
     if((m=/^(<<|::|[{}();<>+\-*/%=])/.exec(r))){out.push(["op",m[0]]);i+=m[0].length;continue}
     out.push(["tx",c]);i++;
   }
   return out;
 }
-function highlightLines(src){
+function highlightLines(src,lang){
   const lines=[""];
-  lex(src).forEach(([t,s])=>{
+  lex(src,lang).forEach(([t,s])=>{
     s.split("\n").forEach((part,k)=>{
       if(k>0)lines.push("");
       if(part)lines[lines.length-1]+=(t==="tx"||t==="id")?esc(part):`<span class="t-${t}">${esc(part)}</span>`;
@@ -2754,7 +2804,11 @@ function highlightLines(src){
   return lines;
 }/* Trắc nghiệm cuối bài: radio thật, chấm khi bấm "Kiểm tra đáp án"; chưa chấm thì không hiện điểm */
 function makeQuiz(boxId,scoreId,QZ){
-  const qAns=QZ.map(()=>-1),box=document.getElementById(boxId),score=document.getElementById(scoreId);let graded=false;
+  /* câu hỏi riêng cho một ngôn ngữ có trường lang ("py" hoặc ["py","cs"]); đổi ngôn ngữ thì làm lại từ đầu */
+  const ALLQ=QZ,qOf=()=>ALLQ.filter(q=>!q.lang||[].concat(q.lang).includes(typeof LANG_CUR==="undefined"?"cpp":LANG_CUR));QZ=qOf();
+  let qAns=QZ.map(()=>-1);
+  document.addEventListener("amts-lang",()=>{QZ=qOf();qAns=QZ.map(()=>-1);graded=false;render()});
+  const box=document.getElementById(boxId),score=document.getElementById(scoreId);var graded=false;
   const OK='<svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m5 12.5 4.5 4.5L19 7.5"/></svg>',
         NO='<svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" aria-hidden="true"><path d="M6 6l12 12M18 6 6 18"/></svg>';
   if(score){score.setAttribute("role","status");score.setAttribute("aria-live","polite")}
@@ -4267,9 +4321,27 @@ function fmtE2(src,err,warn){
   const cls=warn?"w":"e";
   return `main.cpp:${ln}:${col}: <span class="${cls}">${warn?"warning":"error"}: ${esc(err.message||err.msg)}</span>\n${String(ln).padStart(5)} | ${esc(lt)}\n      | ${" ".repeat(Math.max(0,col-1))}<span class="${cls}">^</span>`;
 }
-function runTests(code,tests){
-  let c;try{c=compile2(code)}catch(err){if(err instanceof E2)return{err};throw err}
-  return{res:tests.map(T=>{const M=new M2(c.prog,code,{input:T.in,interactive:false});const r=M.runAll();
+/* ================= NGÔN NGỮ =================
+   C++ là mặc định. Python (41-py.js) và C# (42-cs.js) đăng ký thêm vào LANGS; khóa nào có nhiều ngôn ngữ
+   thì 40-lang.js cho học viên chọn, lưu lựa chọn và đổi LANG_CUR. Mọi trình mô phỏng, bài tập dùng ngôn ngữ đang chọn. */
+const LANGS={cpp:{id:"cpp",name:"C++",file:"main.cpp",
+  compile:src=>compile2(src),Machine:M2,isErr:e=>e instanceof E2,
+  head:(src,warns)=>{let lf=null;return '<span class="sys">$ g++ -Wall -Wextra main.cpp -o main</span>\n'+warns.map(w=>{let hd="";if(w.fn&&w.fn!==lf){hd=`main.cpp: In function '${esc(w.fn)}':\n`;lf=w.fn}return hd+fmtE2(src,w,true)+"\n"}).join("")+'<span class="sys">$ ./main</span>\n'},
+  errHead:(src,err,uns)=>'<span class="sys">$ g++ -Wall -Wextra main.cpp -o main</span>\n'+(uns?fmtE2(src,{p:err.p,message:err.message},true).replace("warning:","chưa hỗ trợ:"):(err.kind==="link"||err.fn===""?"":`main.cpp: In function '${esc(err.fn||"int main()")}':\n`)+fmtE2(src,err)),
+  errTitle:err=>err.kind==="link"?"Lỗi liên kết":"Lỗi biên dịch",unsupNote:"Đây không phải lỗi C++: code có thể vẫn đúng với g++ trên máy thật.",
+  inLabel:"Dữ liệu đầu vào cho cin",inHelp:"Gõ sẵn các giá trị chương trình sẽ đọc, cách nhau bằng dấu cách hoặc xuống dòng (ví dụ: <code>4 5</code>). Để trống thì khi chạy, chương trình sẽ hỏi bạn ở khung Kết quả.",
+  bufTab:"Bộ đệm nhập",bufHead:"Bộ đệm nhập (cin)",bufEmpty:"Dữ liệu bạn gõ sẽ vào đây trước, rồi cin mới lấy ra.",noOut:"Chương trình không in gì ra màn hình (chưa có lệnh cout nào chạy).",okTitle:"Biên dịch và chạy thành công",noBuild:"không tạo được file chạy"}};
+let LANG_CUR="cpp";
+const curLang=()=>LANG_CUR;
+const langOf=l=>LANGS[l]||LANGS.cpp;
+/* ví dụ / bài tập theo ngôn ngữ: phần chung ở gốc (bản C++), bản khác ngôn ngữ ở p.py, p.cs */
+function presetFor(p,l){if(!l||l==="cpp")return p;const x=p[l];if(!x)return null;return Object.assign({},p,x,{label:x.label||p.label,lang:l})}
+function exF(e,k,l){l=l||LANG_CUR;if(l==="cpp")return e[k];const x=e[l];if(x&&x[k]!==undefined)return x[k];if(k==="need"||k==="needMsg"||k==="start")return k==="start"&&!x?e[k]:undefined;return e[k]}
+/* ngôn ngữ thực sự dùng cho một bài tập: bài chưa có bản của ngôn ngữ đang chọn thì làm bằng C++ */
+const exLang=e=>LANG_CUR==="cpp"||(e&&e[LANG_CUR]&&e[LANG_CUR].start)?LANG_CUR:"cpp";
+function runTests(code,tests,lang){const L=langOf(lang||LANG_CUR);
+  let c;try{c=L.compile(code)}catch(err){if(L.isErr(err))return{err};throw err}
+  return{res:tests.map(T=>{const M=new L.Machine(c.prog,code,{input:T.in,interactive:false});const r=M.runAll();
     const got=M.text(),norm=s=>s.replace(/[ \t]+$/gm,"").replace(/\s+$/,"");
     return{ok:!r||r.s!=="crash"?norm(got)===norm(T.out):false,got,crash:r&&r.s==="crash"?M.crash:null,T}})};
 }
@@ -4315,6 +4387,7 @@ function bufCells(buf,reads,pos,opt={}){
 }
 function makeSim2(root,cfg){
   root.classList.add("sim","sim2");
+  const multi=typeof LANG_LIST!=="undefined"&&LANG_LIST.length>1;
   root.innerHTML=`<div class="sim-bar"><div class="left"><span class="fname">main.cpp</span>
    ${cfg.presets.length>1?`<label class="pre-l"><span class="vh">Chọn ví dụ</span><select class="s-pre" id="${cfg.id}-pre">${cfg.presets.map((p,i)=>`<option value="${i}">${esc(p.label)}</option>`).join("")}</select></label>`:`<select class="s-pre" id="${cfg.id}-pre" hidden><option value="0">${esc(cfg.presets[0].label)}</option></select>`}
    <span class="s-chip idle" role="status" aria-live="polite">Chưa chạy</span></div>
@@ -4323,12 +4396,12 @@ function makeSim2(root,cfg){
   <div class="s-viz" hidden></div>
   <div class="sim-body">
    <div class="lcol"><div class="editor"><div class="gutter"></div><div class="ed-wrap"><pre class="ed-hl" aria-hidden="true"></pre><textarea class="ed-ta" id="${cfg.id}-ed" spellcheck="false" autocapitalize="off" autocomplete="off" aria-label="Mã nguồn C++"></textarea></div></div>
-    <div class="sim-in"><label for="${cfg.id}-in"><b>Dữ liệu đầu vào cho cin</b><small>Gõ sẵn các giá trị chương trình sẽ đọc, cách nhau bằng dấu cách hoặc xuống dòng (ví dụ: <code>4 5</code>). Để trống thì khi chạy, chương trình sẽ hỏi bạn ở khung Kết quả.</small></label><textarea class="s-in" id="${cfg.id}-in" rows="2" spellcheck="false" placeholder="Không bắt buộc"></textarea></div></div>
+    <div class="sim-in"><label for="${cfg.id}-in"><b class="s-inl">Dữ liệu đầu vào cho cin</b><small class="s-inh">Gõ sẵn các giá trị chương trình sẽ đọc, cách nhau bằng dấu cách hoặc xuống dòng (ví dụ: <code>4 5</code>). Để trống thì khi chạy, chương trình sẽ hỏi bạn ở khung Kết quả.</small></label><textarea class="s-in" id="${cfg.id}-in" rows="2" spellcheck="false" placeholder="Không bắt buộc"></textarea></div></div>
    <div class="rp">
-    <div class="rp-tabs" role="tablist" aria-label="Khung theo dõi"><button type="button" role="tab" id="${cfg.id}-tmem" aria-controls="${cfg.id}-pmem" data-tab="mem" aria-selected="false" tabindex="-1">Bộ nhớ</button><button type="button" role="tab" id="${cfg.id}-tbuf" aria-controls="${cfg.id}-pbuf" data-tab="buf" aria-selected="false" tabindex="-1">Bộ đệm nhập</button><button type="button" role="tab" id="${cfg.id}-tout" aria-controls="${cfg.id}-pout" data-tab="out" aria-selected="true">Kết quả</button></div>
+    <div class="rp-tabs" role="tablist" aria-label="Khung theo dõi"><button type="button" role="tab" id="${cfg.id}-tmem" aria-controls="${cfg.id}-pmem" data-tab="mem" aria-selected="false" tabindex="-1">Bộ nhớ</button><button type="button" role="tab" id="${cfg.id}-tbuf" aria-controls="${cfg.id}-pbuf" data-tab="buf" aria-selected="false" tabindex="-1" class="s-buft">Bộ đệm nhập</button><button type="button" role="tab" id="${cfg.id}-tout" aria-controls="${cfg.id}-pout" data-tab="out" aria-selected="true">Kết quả</button></div>
     <div class="rp-sec" data-sec="mem" id="${cfg.id}-pmem" role="tabpanel" aria-labelledby="${cfg.id}-tmem"><div class="pane-h"><span class="mem-h">Bộ nhớ</span><span class="s-line"></span></div>
     <div class="mem"></div></div>
-    <div class="rp-sec" data-sec="buf" id="${cfg.id}-pbuf" role="tabpanel" aria-labelledby="${cfg.id}-tbuf"><div class="pane-h"><span>Bộ đệm nhập (cin)</span><span class="s-cst"></span></div>
+    <div class="rp-sec" data-sec="buf" id="${cfg.id}-pbuf" role="tabpanel" aria-labelledby="${cfg.id}-tbuf"><div class="pane-h"><span class="s-bufh">Bộ đệm nhập (cin)</span><span class="s-cst"></span></div>
     <div class="bufw"><div class="cells"></div></div></div>
     <div class="rp-sec on" data-sec="out" id="${cfg.id}-pout" role="tabpanel" aria-labelledby="${cfg.id}-tout"><div class="pane-h"><span>Console</span><span class="s-exit"></span></div>
     <div class="con" tabindex="-1"></div>
@@ -4338,16 +4411,25 @@ function makeSim2(root,cfg){
    </div></div>
   <div class="sim-foot"><span><kbd>Ctrl</kbd> + <kbd>Enter</kbd> trong khung code để chạy</span></div>
   <div class="s-float" hidden><button type="button" class="btn sf-back" aria-label="Lùi lại một bước">←</button><span class="sf-st" aria-live="off"></span><button type="button" class="btn pri sf-step">Bước tiếp →</button></div>
-  <details class="sim-scope"><summary>Trình mô phỏng hỗ trợ những gì?</summary><div>
+  <details class="sim-scope"><summary>Trình mô phỏng hỗ trợ những gì?</summary><div class="scope-cpp">
     <p><b>Đây là trình mô phỏng để học</b>, chạy một phần của C++ ngay trên trình duyệt, không phải trình biên dịch đầy đủ. Thông báo lỗi được viết theo g++ nhưng có thể khác đôi chút.</p>
     <p><b>Có:</b> int, unsigned, short, long long (64 bit chính xác), size_t, char, bool, float, double, std::string; const, constexpr, auto; cin, cout, getline, &lt;iomanip&gt;, &lt;cmath&gt;, &lt;climits&gt;, &lt;limits&gt;; mọi toán tử số học, so sánh, logic, bit; if, switch, while, do-while, for, for (x : danh_sách), break, continue; hàm, nguyên mẫu, tham chiếu &amp;, nạp chồng, tham số mặc định, đệ quy, biến toàn cục; mảng một và hai chiều, vector (push_back, pop_back, size, resize, insert, erase…), s[i] và các hàm của string (substr, find…); &lt;algorithm&gt; (sort, reverse, max, min, swap, find, count, lower_bound, upper_bound, max_element…), &lt;numeric&gt; (accumulate, gcd).</p>
     <p><b>Chưa có:</b> con trỏ, new/delete, struct/class, template tự viết, lambda, các thư viện STL khác (map, set…), printf/scanf, đọc ghi file. Code dùng các phần này sẽ được báo là “chưa hỗ trợ”, không phải lỗi C++. Truy cập ngoài mảng được báo lỗi ngay (máy thật thì không báo).</p>
-    <p><b>Giới hạn:</b> 1 000 000 bước chạy, 3 000 tầng gọi hàm, 200 000 ký tự đầu ra.</p></div></details>`;
+    <p><b>Giới hạn:</b> 1 000 000 bước chạy, 3 000 tầng gọi hàm, 200 000 ký tự đầu ra.</p></div>${multi?LANG_LIST.filter(l=>l!=="cpp").map(l=>`<div class="scope-${l}" hidden>${langOf(l).scope||""}</div>`).join(""):""}</details>`;
   const $=s=>root.querySelector(s);
   const ed=$(".ed-ta"),hl=$(".ed-hl"),gut=$(".gutter"),con=$(".con"),mem=$(".mem"),cells=$(".cells"),exp=$(".explain"),inp=$(".s-in"),btnStep=$(".s-step"),btnRun=$(".s-run"),btnBack=$(".s-back");
   const S={M:null,tok:0,cur:0,bad:0,head:"",tail:"",waiting:null,ch:new Set(),mode:null,warns:[],k:0,feeds:[],pending:[],running:false,vz:null,pr:null,prOn:false,ask:null,fb:null,pick:null,picks:null,pi:0,speed:150};
   const vbox=$(".s-viz");
   const chip=$(".s-chip");
+  /* chữ trên khung đổi theo ngôn ngữ đang chọn */
+  /* ngôn ngữ của khung này: ngôn ngữ đang chọn, trừ khi ví dụ chưa có bản ngôn ngữ đó (khi ấy dùng C++), hoặc bị đặt cứng bằng forceLang */
+  const effL=()=>{if(S.forceL)return S.forceL;const p=cfg.presets[S.pi];return LANG_CUR==="cpp"||cfg.keepOnLang||!p||presetFor(p,LANG_CUR)?LANG_CUR:"cpp"};
+  const LG=()=>langOf(effL());
+  function langText(){const L=LG();$(".fname").textContent=L.file;ed.setAttribute("aria-label","Mã nguồn "+L.name);$(".s-inl").textContent=L.inLabel;$(".s-inh").innerHTML=L.inHelp;
+    $(".s-buft").textContent=L.bufTab;$(".s-bufh").textContent=L.bufHead;const lg=effL();
+    root.querySelectorAll(".sim-scope > div").forEach(d=>d.hidden=!d.classList.contains("scope-"+lg));root.dataset.lang=lg;
+    const sp=$(".s-pre");if(sp)[...sp.options].forEach((o,i)=>{const q=PR(i);if(q)o.textContent=q.label})}
+  const PR=i=>presetFor(cfg.presets[i],LANG_CUR)||cfg.presets[i];
   function feedNow(eof){const w=S.waiting;if(!w)return;const ci=$(".con-in");S.waiting=null;
     if(eof){if(S.mode==="step")applyFeed({eof:true});else S.M.eofIn=true}else{if(S.mode==="step")applyFeed({v:ci.value});else S.M.feed(ci.value)}
     ci.value="";w()}
@@ -4355,8 +4437,8 @@ function makeSim2(root,cfg){
   $(".s-send").onclick=()=>feedNow(false);$(".eof-btn").onclick=()=>feedNow(true);
   /* giải thích ví dụ: ví dụ này minh họa gì, cần quan sát gì */
   const lessonId=cfg.lesson||String(cfg.id||"").replace(/^s/,"l");
-  function showNote(i){const p=cfg.presets[i]||{},n=p.note||((typeof PRESET_NOTES!=="undefined"?PRESET_NOTES:{})[lessonId]||{})[p.label]||"",el=$(".s-note");
-    el.hidden=!n;el.innerHTML=n?`<b>${/^Lỗi|^Cảnh báo|^Bẫy/.test(p.label)?"Ví dụ này cho thấy":"Ví dụ này minh họa"}</b><p>${esc(n)}</p>`:""}
+  function showNote(i){const p=PR(i)||{},miss=LANG_CUR!=="cpp"&&!cfg.keepOnLang&&cfg.presets[i]&&!presetFor(cfg.presets[i],LANG_CUR)?`Ví dụ này chưa có bản ${langOf(LANG_CUR).name}, đang hiện bản C++. `:"",n=p.note||((typeof PRESET_NOTES!=="undefined"?PRESET_NOTES:{})[lessonId]||{})[p.label]||"",el=$(".s-note");
+    el.hidden=!n&&!miss;el.innerHTML=n||miss?`<b>${/^Lỗi|^Cảnh báo|^Bẫy/.test(p.label)?"Ví dụ này cho thấy":"Ví dụ này minh họa"}</b><p>${esc(miss+n)}</p>`:""}
   function setChip(k,t){chip.className="s-chip "+k;chip.textContent=t}
   /* điện thoại: tab Bộ nhớ / Bộ đệm nhập / Kết quả (máy tính hiện cả ba) */
   const tabs=[...root.querySelectorAll(".rp-tabs [role=tab]")];
@@ -4365,7 +4447,7 @@ function makeSim2(root,cfg){
   tabs.forEach((b,i)=>{b.onclick=()=>tab(b.dataset.tab);b.onkeydown=e=>{const d=e.key==="ArrowRight"?1:e.key==="ArrowLeft"?-1:0;if(!d)return;e.preventDefault();tab(tabs[(i+d+tabs.length)%tabs.length].dataset.tab,true)}});
   function setRunning(on){S.running=on;btnRun.textContent=on?"■ Dừng":"▶ Chạy";btnRun.classList.toggle("stop",on);btnStep.disabled=on;if(on)btnBack.disabled=true}
   function applyFeed(f){if(f.eof)S.M.eofIn=true;else S.M.feed(f.v);S.feeds.push(f)}
-  function paint(){const L=highlightLines(ed.value);
+  function paint(){const L=highlightLines(ed.value,effL());
     hl.innerHTML=L.map((s,i)=>`<span class="row${i+1===S.cur?" cur":""}${i+1===S.bad?" bad":""}">${s||" "}</span>`).join("");
     gut.innerHTML=L.map((_,i)=>`<div class="${i+1===S.bad?"err":""}${i+1===S.cur?" cur":""}">${i+1}</div>`).join("");sync()}
   function sync(){hl.scrollTop=ed.scrollTop;hl.scrollLeft=ed.scrollLeft;gut.scrollTop=ed.scrollTop}
@@ -4375,15 +4457,16 @@ function makeSim2(root,cfg){
   function memRows(F){return F.order.map(n=>{const V=F.vars.get(n),rf=F.refs&&F.refs.get(n),cls=F.top&&S.ch.has(n)?" chg":"";
       return `<tr class="${cls.trim()}${rf?" ref":""}"><td><b>${esc(n)}</b></td><td>${V.ce?"constexpr ":V.c?"const ":""}${esc(tn(V.t))}${rf?"&amp;":""}</td><td>${rf?"—":V.addr==null?"—":sizeOfT(V.t)}</td><td>${rf&&isSeq(V.t)?"":seqTxt(V)}${rf?`<small class="refto">↔ ${esc(rf)}</small>`:""}</td><td class="addr">${V.addr==null?"":"0x"+V.addr.toString(16)}</td></tr>${rf?"":seqRow(V,cls)}`}).join("")}
   function renderMem(){const M=S.M;
+    if(M&&M.memHTML){root.querySelector(".mem-h").textContent=M.frames.length>1?"Bộ nhớ · ngăn xếp lời gọi":"Bộ nhớ";mem.innerHTML=M.memHTML(S.ch);return}
     root.querySelector(".mem-h").textContent=M&&(M.hasFns||M.gorder.length)?"Bộ nhớ · ngăn xếp lời gọi":"Bộ nhớ";
     if(M&&(M.hasFns||M.gorder.length)){const fr=M.view(),many=fr.length>1;
       mem.innerHTML=`<div class="stk">${fr.map(F=>`<div class="fr${F.top?" top":""}"><div class="fr-h"><b>${esc(F.title)}</b><span>${F.top?(many?"đang chạy · đỉnh stack":"đang chạy"):`đang chờ ở dòng ${F.line}`}</span></div>${F.order.length?`<table><tbody>${memRows(F)}</tbody></table>`:`<p class="mem-empty">Chưa có biến.</p>`}</div>`).join("")}${M.gorder.length?`<div class="fr glob"><div class="fr-h"><b>Biến toàn cục</b><span>vùng dữ liệu tĩnh</span></div><table><tbody>${memRows({order:M.gorder,vars:M.globals,refs:null,top:true})}</tbody></table></div>`:""}</div>`;return}
     if(!M||!M.order.length){mem.innerHTML=`<p class="mem-empty">${M?"Chưa có biến nào được khai báo.":"Các biến sẽ hiện ở đây khi chương trình chạy."}</p>`;return}
     mem.innerHTML=`<table><thead><tr><th>Tên</th><th>Kiểu</th><th>Byte</th><th>Giá trị</th><th class="addr">Địa chỉ</th></tr></thead><tbody>${memRows({order:M.order,vars:M.vars,refs:M.refs,top:true})}</tbody></table>`}
   function renderBuf(){const M=S.M;const st=root.querySelector(".s-cst");
-    if(!M){cells.innerHTML='<span class="mem-empty">Dữ liệu bạn gõ sẽ vào đây trước, rồi cin mới lấy ra.</span>';st.textContent="";return}
+    if(!M){cells.innerHTML=`<span class="mem-empty">${LG().bufEmpty}</span>`;st.textContent="";return}
     cells.innerHTML=bufCells(M.buf,M.reads,M.pos);
-    st.innerHTML=M.failed?`<span class="bad-t">cin: lỗi${M.eof?" (hết dữ liệu)":" (fail)"}</span>`:`<span class="ok-t">cin: bình thường</span>`}
+    st.innerHTML=M.bufStatus?M.bufStatus():M.failed?`<span class="bad-t">cin: lỗi${M.eof?" (hết dữ liệu)":" (fail)"}</span>`:`<span class="ok-t">cin: bình thường</span>`}
   function renderCon(){const M=S.M;
     let h=S.head;if(M)h+=M.out.map(x=>x.k==="i"?`<span class="in">${esc(x.s)}</span>`:esc(x.s)).join("");h+=S.tail;
     con.innerHTML=h||'<span class="con-empty">Chưa có kết quả. Bấm Chạy hoặc Từng bước để xem chương trình in ra gì.</span>';
@@ -4393,7 +4476,7 @@ function makeSim2(root,cfg){
     else wb.hidden=true;
     con.scrollTop=con.scrollHeight}
   /* hình động: vẽ lại sau mỗi bước; chế độ "Đoán trước" hỏi học viên trước khi chạy dòng có câu hỏi */
-  const predOk=()=>!!S.pr&&ed.value===cfg.presets[S.pi].code;
+  const predOk=()=>!!S.pr&&ed.value===PR(S.pi).code;
   function renderViz(){if(!S.vz){vbox.hidden=true;return}vbox.hidden=false;
     VIZ.draw(vbox,S.vz,S.M,{predict:predOk(),predOn:S.prOn,ask:S.ask&&S.ask.q,askKind:S.ask&&S.ask.kind,fb:S.fb,pick:S.pick});
     const pb=vbox.querySelector(".vz-pred");if(pb)pb.onclick=()=>{S.prOn=!S.prOn;S.ask=null;S.fb=S.prOn?{ok:true,t:"Đã bật Đoán trước. Bấm Từng bước: tới dòng có câu hỏi, chương trình dừng để bạn đoán rồi mới chạy."}:null;renderViz()};
@@ -4418,25 +4501,25 @@ function makeSim2(root,cfg){
   function renderAll(){btnBack.disabled=S.running||!(S.M&&S.mode==="step"&&S.k>0);renderViz();paintFloat();
     if(S.M&&!S.M.done){if(S.waiting)setChip("wait","Đang chờ nhập dữ liệu");else if(S.running)setChip("run","Đang chạy…");else if(S.mode==="step"&&S.cur)setChip("step",`Dừng ở dòng ${S.cur}`)}paint();renderMem();renderBuf();renderCon();root.querySelector(".s-line").textContent=(S.cur&&S.M&&!S.M.done?`dòng ${S.cur}`:"")+(S.cond&&S.M&&!S.M.done?` · ${S.cond}`:"")+(S.M&&!S.M.done&&S.M.calls.length?` · sâu ${S.M.calls.length+1} tầng`:"");keepCur()}
   function reset(){S.tok++;setRunning(false);setChip("idle","Chưa chạy");S.M=null;S.cur=0;S.waiting=null;S.head="";S.tail="";S.ch=new Set();exp.hidden=true;btnStep.textContent="Từng bước";root.querySelector(".s-exit").textContent="";renderAll()}
-  function load(i){const p=cfg.presets[i];S.pi=i;S.vz=p.viz||cfg.viz||null;S.pr=p.predict||null;S.ask=null;S.fb=null;showNote(i);ed.value=p.code;inp.value=p.input||"";ed.scrollTop=0;S.bad=0;reset();
+  function load(i){const p=PR(i);S.pi=i;S.vz=p.viz||cfg.viz||null;S.pr=p.predict||null;S.ask=null;S.fb=null;showNote(i);ed.value=p.code;inp.value=p.input||"";ed.scrollTop=0;S.bad=0;reset();
     if(p.input)fitIn()}
   function fitIn(){inp.rows=Math.min(4,Math.max(1,inp.value.split("\n").length))}
   function compileStart(){
     S.tok++;S.waiting=null;S.bad=0;S.ch=new Set();S.cond="";S.fast=false;exp.hidden=true;root.querySelector(".s-exit").textContent="";
-    const src=ed.value;
-    try{const c=compile2(src);S.warns=c.warns;
-      let lf=null;S.head='<span class="sys">$ g++ -Wall -Wextra main.cpp -o main</span>\n'+c.warns.map(w=>{let hd="";if(w.fn&&w.fn!==lf){hd=`main.cpp: In function '${esc(w.fn)}':\n`;lf=w.fn}return hd+fmtE2(src,w,true)+"\n"}).join("")+'<span class="sys">$ ./main</span>\n';S.tail="";
-      S.M=new M2(c.prog,src,{input:inp.value?inp.value.replace(/\r/g,"")+(inp.value.endsWith("\n")?"":"\n"):"",interactive:true});
+    const src=ed.value,L=LG();
+    try{const c=L.compile(src);S.warns=c.warns;
+      S.head=L.head(src,c.warns);S.tail="";
+      S.M=new L.Machine(c.prog,src,{input:inp.value?inp.value.replace(/\r/g,"")+(inp.value.endsWith("\n")?"":"\n"):"",interactive:true});
       if(!inp.value)S.M.buf="";
       return true}
-    catch(err){if(!(err instanceof E2))throw err;S.M=null;
+    catch(err){if(!L.isErr(err))throw err;S.M=null;
       const ln=err.p<0?0:ed.value.slice(0,err.p).split("\n").length;S.bad=err.kind==="link"?0:ln;S.cur=0;
       const uns=err.kind==="unsup"||/chưa (được |có trong trình mô phỏng|hỗ trợ)|chưa hỗ trợ/.test(err.message);
-      S.head='<span class="sys">$ g++ -Wall -Wextra main.cpp -o main</span>\n'+(uns?fmtE2(src,{p:err.p,message:err.message},true).replace("warning:","chưa hỗ trợ:"):(err.kind==="link"||err.fn===""?"":`main.cpp: In function '${esc(err.fn||"int main()")}':\n`)+fmtE2(src,err));S.tail="";
+      S.head=L.errHead(src,err,uns);S.tail="";
       renderAll();
-      exp.hidden=false;exp.className="explain"+(uns?" warn":"");exp.innerHTML=uns?`<b>Trình mô phỏng chưa hỗ trợ tính năng này${S.bad?` (dòng ${S.bad})`:""}</b><span>${esc(err.vi)}</span><span>Đây không phải lỗi C++: code có thể vẫn đúng với g++ trên máy thật. Xem mục “Trình mô phỏng hỗ trợ những gì?” bên dưới.</span>`:`<b>${err.kind==="link"?"Lỗi liên kết":"Lỗi biên dịch"}${S.bad?` ở dòng ${S.bad}`:""}</b><span>${esc(err.vi)}</span>`;
-      root.querySelector(".s-exit").textContent=uns?"chưa mô phỏng được":"không tạo được file chạy";
-      setRunning(false);setChip(uns?"unsup":"err",uns?"Chưa hỗ trợ":err.kind==="link"?"Lỗi liên kết":"Lỗi biên dịch");tab("out");
+      exp.hidden=false;exp.className="explain"+(uns?" warn":"");exp.innerHTML=uns?`<b>Trình mô phỏng chưa hỗ trợ tính năng này${S.bad?` (dòng ${S.bad})`:""}</b><span>${esc(err.vi)}</span><span>${L.unsupNote} Xem mục “Trình mô phỏng hỗ trợ những gì?” bên dưới.</span>`:`<b>${L.errTitle(err)}${S.bad?` ở dòng ${S.bad}`:""}</b><span>${esc(err.vi)}</span>`;
+      root.querySelector(".s-exit").textContent=uns?"chưa mô phỏng được":L.noBuild;
+      setRunning(false);setChip(uns?"unsup":"err",uns?"Chưa hỗ trợ":L.errTitle(err));tab("out");
       cfg.onResult&&cfg.onResult(null);return false}
   }
   function finish(r){const M=S.M;S.cur=0;S.waiting=null;setRunning(false);
@@ -4444,7 +4527,7 @@ function makeSim2(root,cfg){
     const out=M.out.map(x=>x.s).join("");const nl=out&&!out.endsWith("\n")?"\n":"";
     if(r.s==="crash"){S.tail=nl+`<span class="e">${esc(M.crash.msg)}</span>`;S.bad=r.line}
     else S.tail=nl+`<span class="${M.exit===0?"ok":"e"}">[Chương trình kết thúc, mã thoát ${M.exit}]</span>`;
-    root.querySelector(".s-exit").textContent=r.s==="crash"?"dừng bất thường":`return ${M.exit}`;
+    root.querySelector(".s-exit").textContent=r.s==="crash"?"dừng bất thường":effL()==="cpp"?`return ${M.exit}`:`mã thoát ${M.exit}`;
     btnStep.textContent="Từng bước";renderAll();
     exp.hidden=false;
     const tips=[];
@@ -4456,10 +4539,10 @@ function makeSim2(root,cfg){
     if(M.failed&&!M.eof)tips.push("cin đã vào trạng thái lỗi vì dữ liệu nhập không khớp kiểu biến. Biến nhận giá trị 0 và mọi lệnh cin sau đó bị bỏ qua.");
     if(M.failed&&M.eof)tips.push("Hết dữ liệu nhập: các lệnh cin cuối không đọc được gì.");
     {const left=String(M.buf||"").slice(M.pos||0).trim();if(left&&!M.failed)tips.push(`Còn dữ liệu nhập chưa được đọc: “${left.length>40?left.slice(0,40)+"…":left}”. Chương trình chưa có (đủ) lệnh cin để đọc chúng.`)}
-    if(!M.out.some(x=>x.k!=="i"&&String(x.s).trim()))tips.push("Chương trình không in gì ra màn hình (chưa có lệnh cout nào chạy).");
+    if(!M.out.some(x=>x.k!=="i"&&String(x.s).trim()))tips.push(LG().noOut);
     if(S.warns&&S.warns.length)tips.push(`Trình biên dịch có ${S.warns.length} cảnh báo (chữ cam trong khung Kết quả). Cảnh báo không làm chương trình dừng nhưng thường báo code chưa xong hoặc dễ sai: ${S.warns[0].vi||S.warns[0].msg}`);
     exp.className="explain"+(tips.length?" warn":" good");
-    exp.innerHTML=tips.length?`<b>Chạy xong, có điều cần chú ý</b>${tips.map(t=>`<span>${esc(t)}</span>`).join("")}`:`<b>Biên dịch và chạy thành công</b><span>${M.nCalls?`${M.nCalls} lần gọi hàm, ngăn xếp sâu nhất ${M.maxDepth+1} tầng (tính cả main)`:`${M.order.length} biến trong bộ nhớ`}${M.reads.length?`, ${M.reads.filter(x=>!x.ign).length} lần đọc từ cin`:""}.</span>`;
+    exp.innerHTML=tips.length?`<b>Chạy xong, có điều cần chú ý</b>${tips.map(t=>`<span>${esc(t)}</span>`).join("")}`:`<b>${LG().okTitle}</b><span>${M.nCalls?`${M.nCalls} lần gọi hàm, ngăn xếp sâu nhất ${M.maxDepth+1} tầng (tính cả main)`:`${M.order.length} biến trong bộ nhớ`}${M.reads.length?`, ${M.reads.filter(x=>!x.ign).length} lần đọc từ cin`:""}.</span>`;
     cfg.onResult&&cfg.onResult(M);
   }
   function waitInput(){return new Promise(res=>{S.waiting=res;renderAll()})}
@@ -4500,6 +4583,7 @@ function makeSim2(root,cfg){
     if(e.key==="Enter"&&(e.ctrlKey||e.metaKey)){e.preventDefault();run()}});
   inp.addEventListener("input",fitIn);
   $(".s-pre").onchange=e=>load(+e.target.value);
+  document.addEventListener("amts-lang",()=>{const keep=cfg.keepOnLang&&ed.value;langText();if(cfg.keepOnLang){reset();paint()}else load(S.pi)});
   /* lùi một bước: chạy lại từ đầu tới bước trước đó (dữ liệu đã nhập được dùng lại) */
   function back(){
     if(!S.M||S.mode!=="step"||!S.k)return;
@@ -4513,8 +4597,8 @@ function makeSim2(root,cfg){
     S.ch=r&&r.ch||new Set();S.cur=S.M.nextLine();btnStep.textContent="Bước tiếp →";renderAll()}
   btnBack.onclick=back;
   btnRun.onclick=run;btnStep.onclick=step;
-  load(0);
-  return{get:()=>ed.value,set:c=>{ed.value=c;S.bad=0;reset()},setInput:v=>{inp.value=v;fitIn()},el:root,run,step,load,stepTo:()=>{if(!S.M||S.mode!=="step"||S.M.done)step()}};
+  langText();load(0);
+  return{forceLang:l=>{S.forceL=l||null;langText();reset()},get lang(){return effL()},get:()=>ed.value,set:c=>{ed.value=c;S.bad=0;reset()},setInput:v=>{inp.value=v;fitIn()},el:root,run,step,load,stepTo:()=>{if(!S.M||S.mode!=="step"||S.M.done)step()}};
 }
 
 /* ---------- bài tập chấm tự động (gọn): danh sách tên bài · chọn bài hiện đề · 3 nút dùng chung ----------
@@ -4526,26 +4610,27 @@ function exResultHTML(e,R,ok,pass,srcOk){
   if(R.err)return `<div class="res bad"><b>✗ Chưa đạt: code chưa biên dịch được</b><span>${esc(R.err.message)}. Bấm Chạy ở trình mô phỏng để xem dòng lỗi.</span></div>`;
   const fails=R.res.map((x,k)=>[x,k]).filter(([x])=>!x.ok);
   return `<div class="res ${ok?"ok":"bad"}"><b>${ok?"✓ Đạt":"✗ Chưa đạt"}: ${pass}/${R.res.length} test đúng</b>`+
-    (fails.length?`<div class="tbl ex-t"><table><thead><tr><th scope="col">Test</th><th scope="col">Input</th><th scope="col">Expected</th><th scope="col">Actual</th></tr></thead><tbody>${fails.slice(0,3).map(([x,k])=>`<tr><th scope="row">Test ${k+1}</th><td data-h="Input"><code>${show(x.T.in)}</code></td><td data-h="Expected"><code>${show(x.T.out)}</code></td><td data-h="Actual"><code>${x.crash?esc(x.crash.msg):show(x.got)}</code></td></tr>`).join("")}</tbody></table></div>${fails.length>3?`<p class="ex-more">Còn ${fails.length-3} test sai khác. Sửa các test trên trước rồi nộp lại.</p>`:""}`:"")+
-    (srcOk?"":`<div class="fail"><span>${esc(e.needMsg)}</span></div>`)+"</div>"}
+    (fails.length?`<div class="tbl ex-t"><table><thead><tr><th scope="col">Test</th><th scope="col">Input</th><th scope="col">Expected</th><th scope="col">Actual</th></tr></thead><tbody>${fails.slice(0,3).map(([x,k])=>`<tr><th scope="row">Test ${k+1}</th><td data-h="Input"><code>${show(x.T.in)}</code></td><td data-h="Expected"><code>${show(x.T.out)}</code></td><td data-h="Actual"><code>${x.crash?esc(x.crash.short||x.crash.msg):show(x.got)}</code></td></tr>`).join("")}</tbody></table></div>${fails.length>3?`<p class="ex-more">Còn ${fails.length-3} test sai khác. Sửa các test trên trước rồi nộp lại.</p>`:""}`:"")+
+    (srcOk?"":`<div class="fail"><span>${esc(exF(e,"needMsg")||"")}</span></div>`)+"</div>"}
 /* Chạy thử: so kết quả với ví dụ nhập đầu tiên để học viên biết đã đúng ví dụ hay chưa */
-function tryExHTML(e,code){const R=runTests(code,[e.tests[0]]);const show=v=>esc(String(v).replace(/\s+$/,""))||'<i class="ex-none">(không in gì)</i>';
+function tryExHTML(e,code,lang){const R=runTests(code,[e.tests[0]],lang);const show=v=>esc(String(v).replace(/\s+$/,""))||'<i class="ex-none">(không in gì)</i>';
   if(R.err)return `<div class="res bad"><b>Chạy thử: code chưa biên dịch được</b><span>${esc(R.err.message)}. Xem dòng lỗi trong khung Kết quả của trình mô phỏng.</span></div>`;
   const x=R.res[0];if(x.ok)return `<div class="res ok try"><b>✓ Chạy thử: đúng với ví dụ</b><span>Bấm <b>Nộp bài</b> để chấm đủ ${e.tests.length} test.</span></div>`;
-  return `<div class="res bad try"><b>Chạy thử: chưa khớp ví dụ</b><div class="tbl ex-t"><table><tbody><tr><th scope="row">Ví dụ</th><td data-h="Input"><code>${show(e.tests[0].in)}</code></td><td data-h="Expected"><code>${show(e.tests[0].out)}</code></td><td data-h="Actual"><code>${x.crash?esc(x.crash.msg):show(x.got)}</code></td></tr></tbody></table></div><span>Đây chỉ là chạy thử, chưa tính điểm. Sửa code rồi chạy thử lại hoặc Nộp bài.</span></div>`}
+  return `<div class="res bad try"><b>Chạy thử: chưa khớp ví dụ</b><div class="tbl ex-t"><table><tbody><tr><th scope="row">Ví dụ</th><td data-h="Input"><code>${show(e.tests[0].in)}</code></td><td data-h="Expected"><code>${show(e.tests[0].out)}</code></td><td data-h="Actual"><code>${x.crash?esc(x.crash.short||x.crash.msg):show(x.got)}</code></td></tr></tbody></table></div><span>Đây chỉ là chạy thử, chưa tính điểm. Sửa code rồi chạy thử lại hoặc Nộp bài.</span></div>`}
 /* ---------- chấm độ hiệu quả: chạy với dữ liệu lớn dần, đếm số bước, ước lượng bậc tăng ----------
    e.perf = {gen:n=>"dữ liệu nhập", ns:[250,500,1000], need:"n"|"nlogn"|"n2"|"logn", limit:n=>số bước tối đa cho phép, why:"gợi ý khi chưa đạt"} */
 const PERF_TXT={"1":"O(1)","logn":"O(log n)","sqrt":"O(√n)","n":"O(n)","nlogn":"O(n log n)","n2":"O(n²)","n3":"O(n³)"};
-function perfOf(code,P){let c;try{c=compile2(code)}catch(err){return null}
-  const rows=[];for(const n of P.ns){const M=new M2(c.prog,code,{input:P.gen(n),interactive:false});M.snap=false;const r=M.runAll();
+function perfOf(code,P,lang){lang=lang||LANG_CUR;const L=langOf(lang);let c;try{c=L.compile(code)}catch(err){return null}
+  const kf=(P.k&&P.k[lang])||1,lim=P.limit?(n=>Math.round(P.limit(n)*kf)):null;
+  const rows=[];for(const n of P.ns){const M=new L.Machine(c.prog,code,{input:P.gen(n),interactive:false});M.snap=false;const r=M.runAll();
     rows.push({n,cost:M.cost,tle:r&&r.s==="crash"&&M.exit===124,crash:r&&r.s==="crash"&&M.exit!==124?M.crash:null});if(r&&r.s==="crash")break}
   const ok=rows.filter(x=>!x.tle&&!x.crash);let k=null;
   if(ok.length>=2){const a=ok[0],b=ok[ok.length-1];k=Math.log(Math.max(1,b.cost)/Math.max(1,a.cost))/Math.log(b.n/a.n)}
   const cls=k==null?null:k<0.12?"1":k<0.33?"logn":k<0.72?"sqrt":k<1.35?(P.need==="nlogn"&&k>=1.05?"nlogn":"n"):k<1.7?"nlogn":k<2.6?"n2":"n3";
-  const within=rows.every(x=>!x.tle&&!x.crash&&(!P.limit||x.cost<=P.limit(x.n)));
-  return{rows,k,cls,ok:within}}
-function perfHTML(P,F){if(!F)return "";const mx=Math.max(...F.rows.map(x=>x.cost),...(P.limit?P.ns.map(P.limit):[1]));
-  const bars=F.rows.map(x=>{const lim=P.limit?P.limit(x.n):null,over=x.tle||(lim!=null&&x.cost>lim);
+  const within=rows.every(x=>!x.tle&&!x.crash&&(!lim||x.cost<=lim(x.n)));
+  return{rows,k,cls,ok:within,lim}}
+function perfHTML(P,F){if(!F)return "";const mx=Math.max(...F.rows.map(x=>x.cost),...(F.lim?P.ns.map(F.lim):[1]));
+  const bars=F.rows.map(x=>{const lim=F.lim?F.lim(x.n):null,over=x.tle||(lim!=null&&x.cost>lim);
     return `<div class="pf-r"><span class="pf-n">n = ${x.n.toLocaleString("vi-VN")}</span><span class="pf-b"><span class="pf-bar${over?" over":""}" style="width:${Math.max(2,Math.min(100,x.cost/mx*100)).toFixed(1)}%"></span>${lim!=null?`<span class="pf-lim" style="left:${Math.min(100,lim/mx*100).toFixed(1)}%" title="giới hạn"></span>`:""}</span><span class="pf-c">${x.tle?"quá 1 000 000 bước":x.crash?"lỗi khi chạy":x.cost.toLocaleString("vi-VN")+" bước"}</span></div>`}).join("");
   const ORD=["1","logn","sqrt","n","nlogn","n2","n3"],better=F.cls&&ORD.indexOf(F.cls)<=ORD.indexOf(P.need);
   const est=F.cls?(F.ok&&better?`${PERF_TXT[P.need]} hoặc tốt hơn`:PERF_TXT[F.cls]):"chưa ước lượng được";
@@ -4553,10 +4638,10 @@ function perfHTML(P,F){if(!F)return "";const mx=Math.max(...F.rows.map(x=>x.cost
     <div class="pf-rows">${bars}</div>
     <span class="pf-k">Khi n tăng gấp ${(P.ns[P.ns.length-1]/P.ns[0])} lần, số bước tăng khoảng ${F.k==null?"?":(Math.pow(P.ns[P.ns.length-1]/P.ns[0],F.k)).toFixed(1)} lần → ước lượng <b>${est}</b>.${P.limit?" Vạch đứng là số bước tối đa cho phép.":""}</span>
     ${F.ok?"":`<span class="pf-why">${esc(P.why||"Cách làm hiện tại cần quá nhiều bước khi dữ liệu lớn. Xem lại gợi ý của bài để tìm cách làm nhanh hơn.")}</span>`}</div>`}
-function gradeEx(e,code){const R=runTests(code,e.tests);if(R.err)return{R,ok:false,pass:0,srcOk:true,d:"lỗi biên dịch"};
-  const pass=R.res.filter(x=>x.ok).length,srcOk=!e.need||e.need.test(code);
-  const F=e.perf&&pass===R.res.length?perfOf(code,e.perf):null;const pfOk=!e.perf||(F&&F.ok);
-  return{R,ok:pass===R.res.length&&srcOk&&pfOk,pass,srcOk,F,d:`${pass}/${R.res.length} test${e.perf?(F?` · ${F.ok?"đạt":"chưa đạt"} độ hiệu quả`:" · chưa đo độ hiệu quả"):""}`}}
+function gradeEx(e,code,lang){lang=lang||LANG_CUR;const R=runTests(code,e.tests,lang);if(R.err)return{R,ok:false,pass:0,srcOk:true,d:"lỗi biên dịch",lang};
+  const pass=R.res.filter(x=>x.ok).length,need=exF(e,"need",lang),srcOk=!need||need.test(code);
+  const F=e.perf&&pass===R.res.length?perfOf(code,e.perf,lang):null;const pfOk=!e.perf||(F&&F.ok);
+  return{R,ok:pass===R.res.length&&srcOk&&pfOk,pass,srcOk,F,lang,d:`${lang!=="cpp"?langOf(lang).name+" · ":""}${pass}/${R.res.length} test${e.perf?(F?` · ${F.ok?"đạt":"chưa đạt"} độ hiệu quả`:" · chưa đo độ hiệu quả"):""}`}}
 function makeEx2(el,sim,list,opt){
   opt=opt||{};const L=el.id.replace("ex-","");EXERCISES[L]=list;
   const st=list.map(()=>null);let cur=0;
@@ -4570,18 +4655,19 @@ function makeEx2(el,sim,list,opt){
   function paintList(){tabs.forEach((b,i)=>{const [c,ic,t]=mark(i);b.querySelector(".ex-i").className="ex-i "+c;b.querySelector(".ex-i").textContent=ic;b.querySelector(".ex-s").textContent=" ("+t+")"})}
   function render(){const e=list[cur];
     tabs.forEach((b,i)=>{b.setAttribute("aria-selected",i===cur);b.tabIndex=i===cur?0:-1});panel.setAttribute("aria-labelledby",`${el.id}-t${cur}`);
-    panel.innerHTML=`<h4>Bài ${cur+1}. ${esc(e.t)}</h4><p>${esc(e.d)}</p>${e.perf?`<p class="ex-perf">Yêu cầu độ hiệu quả: <b>${PERF_TXT[e.perf.need]||""}</b>. Khi nộp, bài được chạy thêm với n = ${e.perf.ns.map(x=>x.toLocaleString("vi-VN")).join(", ")} để đếm số bước.</p>`:""}
+    panel.innerHTML=`<h4>Bài ${cur+1}. ${esc(e.t)}</h4><p>${esc(exF(e,"d"))}</p>${e.perf?`<p class="ex-perf">Yêu cầu độ hiệu quả: <b>${PERF_TXT[e.perf.need]||""}</b>. Khi nộp, bài được chạy thêm với n = ${e.perf.ns.map(x=>x.toLocaleString("vi-VN")).join(", ")} để đếm số bước.</p>`:""}
       <div class="io"><div><div class="pane-h" style="padding:0 0 4px">Ví dụ nhập</div><pre>${esc(e.tests[0].in||"(không có)")}</pre></div><div><div class="pane-h" style="padding:0 0 4px">Kết quả đúng</div><pre>${esc(e.tests[0].out)}</pre></div></div>
       ${opt.panelExtra?opt.panelExtra(cur,e):""}`;
     stEl.innerHTML=st[cur]||`<p class="ex-todo">Chưa nộp bài này · ${e.tests.length} test sẽ được chấm.</p>`;paintList();opt.onSelect&&opt.onSelect(cur,e)}
   tabs.forEach((b,i)=>{b.onclick=()=>{cur=i;render()};b.onkeydown=ev=>{const d=ev.key==="ArrowRight"||ev.key==="ArrowDown"?1:ev.key==="ArrowLeft"||ev.key==="ArrowUp"?-1:0;if(!d)return;ev.preventDefault();cur=(cur+d+list.length)%list.length;render();tabs[cur].focus()}});
-  el.querySelector('[data-act="load"]').onclick=()=>{const e=list[cur];sim.set(e.start);sim.setInput(e.tests[0].in);sim.el.scrollIntoView({behavior:REDUCE()?"auto":"smooth",block:"start"})};
-  el.querySelector('[data-act="try"]').onclick=()=>{const e=list[cur];stEl.innerHTML=tryExHTML(e,sim.get());sim.setInput(e.tests[0].in);sim.run()};
+  el.querySelector('[data-act="load"]').onclick=()=>{const e=list[cur];sim.set(exF(e,"start",exLang(e)));sim.setInput(e.tests[0].in);sim.el.scrollIntoView({behavior:REDUCE()?"auto":"smooth",block:"start"})};
+  el.querySelector('[data-act="try"]').onclick=()=>{const e=list[cur];stEl.innerHTML=tryExHTML(e,sim.get(),sim.lang);sim.setInput(e.tests[0].in);sim.run()};
   el.querySelector('[data-act="grade"]').onclick=()=>grade(cur);
-  function grade(i){const e=list[i],g=gradeEx(e,sim.get());
+  function grade(i){const e=list[i],g=gradeEx(e,sim.get(),sim.lang);
     if(window.TRACK)TRACK.ex(L+"-"+i,g.ok,g.d);
     st[i]=exResultHTML(e,g.R,g.ok,g.pass,g.srcOk)+(e.perf?(g.F?perfHTML(e.perf,g.F):`<div class="perf"><span class="pf-k">Độ hiệu quả sẽ được đo khi code đúng hết các test.</span></div>`):"");opt.onGrade&&opt.onGrade(i,g);cur=i;render()}
   document.addEventListener("amts-progress",paintList);
+  document.addEventListener("amts-lang",()=>{st.fill(null);render()}); // kết quả chấm thuộc về ngôn ngữ cũ
   render();
   return{select:i=>{cur=i;render()},grade,get cur(){return cur}};
 }
@@ -4599,7 +4685,7 @@ const INC="#include <iostream>\n";/* ================= HÌNH ĐỘNG GẮN VỚI
    → bật "Đoán trước" thì trước khi chạy dòng đó, học viên bấm chọn ô, rồi mới xem kết quả. */
 const VIZ=(()=>{
   /* tìm biến theo tên: khung hàm hiện tại → các khung đang chờ → biến toàn cục */
-  function look(M,n){if(!M)return null;if(M.vars.has(n))return M.vars.get(n);
+  function look(M,n){if(!M)return null;if(M.vizLook)return M.vizLook(n);if(M.vars.has(n))return M.vars.get(n);
     for(let k=M.calls.length-1;k>=0;k--){const c=M.calls[k];if(c.vars.has(n))return c.vars.get(n)}
     return M.globals.has(n)?M.globals.get(n):null}
   const num=V=>V&&V.init!==false&&!(V.v&&typeof V.v==="object")?Number(V.v):null;
@@ -4611,7 +4697,7 @@ const VIZ=(()=>{
     const add=()=>{let v=mul();while(toks[i]==="+"||toks[i]==="-"){const o=toks[i++],r=mul();v=o==="+"?v+r:v-r}return v};
     try{const v=add();return Number.isFinite(v)?v:null}catch(e){return null}}
   const seqOf=V=>V&&V.v&&typeof V.v==="object"&&V.v.a?V.v.a:V&&V.t==="string"?Array.from(u8(V.v),x=>({t:"char",v:x>127?x-256:x,init:true})):null;
-  const txt=c=>c?cellTxt(c):"";
+  const txt=c=>c?(c.txt!=null?c.txt:cellTxt(c)):"";
   function cls(c,M,k,sp,mm){let s="";if(M&&M.rd&&M.rd.has(c))s+=" r";if(M&&M.wr&&M.wr.has(c))s+=" w";if(!c.init)s+=" g";
     if(mm.range&&k>=mm.range[0]&&k<=mm.range[1])s+=" in";if(mm.range&&(k<mm.range[0]||k>mm.range[1]))s+=" out";
     if(mm.sorted!=null&&k>=mm.sorted)s+=" ok";if(mm.pick===k)s+=" pick";return s}
@@ -4631,7 +4717,7 @@ const VIZ=(()=>{
     if(sp.type==="bars")body=`<div class="vz-bars${dense}" ${cols}>${A.slice(0,n).map((c,k)=>`<button type="button" class="vb${cls(c,M,k,sp,mm)}" data-k="${k}" tabindex="-1" aria-label="${esc(sp.of)}[${k}] = ${esc(txt(c))}" style="--h:${((vals[k]-lo)/(hi-lo||1)*0.86+0.1).toFixed(3)}"><span>${esc(txt(c))}</span></button>`).join("")}</div>`;
     else body=`<div class="vz-cells${dense}" ${cols}>${A.slice(0,n).map((c,k)=>`<button type="button" class="vc${cls(c,M,k,sp,mm)}" data-k="${k}" tabindex="-1" aria-label="${esc(sp.of)}[${k}] = ${esc(txt(c))}"><span>${esc(txt(c))}</span></button>`).join("")}</div>`;
     const idx=`<div class="vz-idx${dense}" ${cols}>${A.slice(0,n).map((c,k)=>`<span>${k}</span>`).join("")}</div>`;
-    return `<div class="vz-one"><div class="vz-lb">${esc(lab)}${isVec(V.t)||V.t==="string"?` <small>size = ${A.length}</small>`:""}${A.length>n?` <small>(hiện ${n}/${A.length} phần tử)</small>`:""}</div>${body}${idx}${ptrRow(M,sp,n)}</div>`}
+    return `<div class="vz-one"><div class="vz-lb">${esc(lab)}${isVec(V.t)||V.t==="string"||V.t==="list"?` <small>${V.t==="list"?"len":"size"} = ${A.length}</small>`:""}${A.length>n?` <small>(hiện ${n}/${A.length} phần tử)</small>`:""}</div>${body}${idx}${ptrRow(M,sp,n)}</div>`}
   function drawGrid(M,sp){const V=look(M,sp.of),A=seqOf(V);const lab=sp.label||sp.of;
     if(!A)return `<div class="vz-one"><div class="vz-lb">${esc(lab)}</div><p class="vz-empty">${M?`Chưa có ${esc(sp.of)} trong bộ nhớ.`:"Bấm Từng bước hoặc Chạy để xem hình động."}</p></div>`;
     const ci=sp.cur?val(M,sp.cur[0]):null,cj=sp.cur?val(M,sp.cur[1]):null;const R=Math.min(A.length,sp.maxR||14);
@@ -4641,7 +4727,7 @@ const VIZ=(()=>{
     for(let i=0;i<R;i++){const row=seqOf(A[i])||[];h+=`<tr><th scope="row">${sp.rows&&sp.rows[i]!=null?esc(String(sp.rows[i])):i}</th>`;
       for(let j=0;j<W;j++){const c=row[j];h+=c?`<td class="${(cls(c,M,j,sp,{})+(i===ci&&j===cj?" cur":"")).trim()}">${esc(txt(c))}</td>`:"<td class=\"na\"></td>"}h+="</tr>"}
     return `<div class="vz-one"><div class="vz-lb">${esc(lab)}</div><div class="vz-gw">${h}</tbody></table></div></div>`}
-  function drawVars(M,sp){return `<div class="vz-one"><div class="vz-vars">${sp.names.map(n=>{const V=look(M,n);return `<span class="vv${V&&M.wrRoot&&M.wrRoot.has(V)?" w":""}"><small>${esc(n)}</small><b>${V?esc(isSeq(V.t)?`[${V.v.a.length}]`:showValTxt(V)):"–"}</b></span>`}).join("")}</div></div>`}
+  function drawVars(M,sp){return `<div class="vz-one"><div class="vz-vars">${sp.names.map(n=>{const V=look(M,n);return `<span class="vv${V&&(V.w||M.wrRoot&&M.wrRoot.has(V))?" w":""}"><small>${esc(n)}</small><b>${V?esc(V.txt!=null?V.txt:isSeq(V.t)?`[${V.v.a.length}]`:showValTxt(V)):"–"}</b></span>`}).join("")}</div></div>`}
   /* cây lời gọi đệ quy: danh sách lồng nhau (vừa màn hình điện thoại), nút đang chạy sáng, nút đã xong ghi giá trị trả về */
   function drawCalls(M,sp){const lab=sp.label||"Cây lời gọi";
     if(!M)return `<div class="vz-one"><div class="vz-lb">${esc(lab)}</div><p class="vz-empty">Bấm Từng bước hoặc Chạy để xem cây lời gọi mọc ra.</p></div>`;
@@ -4683,19 +4769,68 @@ function makeGrowth(el,cfg){cfg=cfg||{};const fns=cfg.fns||["logn","n","nlogn","
     rows.innerHTML=fns.map((k,i)=>{const v=vals[i],w=Math.max(2,Math.min(100,Math.log10(Math.max(1,Math.min(v,1e30)))/Math.max(1,mx)*100));const slow=v/1e8>1;
       return `<div class="grw-r${slow?" slow":""}" role="listitem"><span class="grw-k">${GROWTH[k].t}</span><span class="grw-b"><span style="width:${w.toFixed(1)}%"></span></span><span class="grw-v">${fmtBig(v)} phép · ${fmtTime(v)}</span></div>`}).join("")}
   inp.addEventListener("input",draw);draw()}
+/* bản code theo ngôn ngữ khác cho bảng đua: RACE_X["race-a5"] = {py:[code cách 1, code cách 2, …]} (khai báo trong lesson.js) */
+const RACE_X={};
 function makeStepRace(el,cfg){el.classList.add("race");const ns=cfg.ns;
+  const pick=i=>{const x=typeof LANG_CUR!=="undefined"&&LANG_CUR!=="cpp"&&(RACE_X[el.id]||{})[LANG_CUR];return x&&x[i]?{code:x[i],lang:LANG_CUR}:{code:cfg.variants[i].code,lang:"cpp"}};
   el.innerHTML=`<div class="race-h"><button type="button" class="btn pri race-go">▶ Chạy và đếm bước</button><span class="race-st" role="status" aria-live="polite"></span></div>
     <div class="race-t"></div>${cfg.note?`<p class="race-note">${cfg.note}</p>`:""}`;
   const t=el.querySelector(".race-t"),st=el.querySelector(".race-st");
   function empty(){t.innerHTML=`<p class="race-empty">Bấm nút để chạy ${cfg.variants.length} cách làm với n = ${ns.map(x=>x.toLocaleString("vi-VN")).join(", ")}.</p>`}
   async function go(){st.textContent="Đang chạy…";const res=[];
-    for(const V of cfg.variants){let c;try{c=compile2(V.code)}catch(e){res.push(ns.map(()=>null));continue}
-      const row=[];for(const n of ns){await new Promise(r=>setTimeout(r,0));const M=new M2(c.prog,V.code,{input:cfg.gen(n),interactive:false});M.snap=false;const r=M.runAll();row.push(r&&r.s==="crash"?{tle:true}:{cost:M.cost,out:M.text().trim()})}res.push(row)}
+    for(let vi=0;vi<cfg.variants.length;vi++){const V=pick(vi),Lg=langOf(V.lang);let c;try{c=Lg.compile(V.code)}catch(e){res.push(ns.map(()=>null));continue}
+      const row=[];for(const n of ns){await new Promise(r=>setTimeout(r,0));const M=new Lg.Machine(c.prog,V.code,{input:cfg.gen(n),interactive:false});M.snap=false;const r=M.runAll();row.push(r&&r.s==="crash"?{tle:true}:{cost:M.cost,out:M.text().trim()})}res.push(row)}
     const mx=Math.max(1,...res.flat().filter(x=>x&&x.cost).map(x=>x.cost));
     t.innerHTML=`<div class="race-g" style="--c:${ns.length}"><span></span>${ns.map(n=>`<b class="race-n">n = ${n.toLocaleString("vi-VN")}</b>`).join("")}
       ${cfg.variants.map((V,i)=>`<span class="race-lb">${esc(V.label)}</span>${res[i].map(x=>!x?`<span class="race-c">lỗi</span>`:x.tle?`<span class="race-c tle">quá 1 000 000 bước</span>`:`<span class="race-c"><span class="race-bar" style="width:${Math.max(3,x.cost/mx*100).toFixed(1)}%"></span><b>${x.cost.toLocaleString("vi-VN")}</b></span>`).join("")}`).join("")}</div>`;
     st.textContent="Xong: số bước của từng cách làm.";}
-  el.querySelector(".race-go").onclick=go;empty()}
+  el.querySelector(".race-go").onclick=go;empty();
+  document.addEventListener("amts-lang",()=>{empty();st.textContent=""})}
+/* ================= CHỌN NGÔN NGỮ LẬP TRÌNH (khóa có nhiều ngôn ngữ, ví dụ Giải thuật) =================
+   course.json có "langs": ["cpp","py","cs"]. Học viên chọn một ngôn ngữ cho cả khóa: ví dụ trong trình mô phỏng,
+   code mẫu, lời giải, trắc nghiệm riêng và các đoạn chữ riêng (class="lo l-py") đều theo ngôn ngữ đó.
+   Lựa chọn lưu trên trình duyệt (amts-lang-<khóa>) và trong tiến độ của tài khoản (courses.<khóa>.lang). */
+const LANG_LIST=((typeof CMETA!=="undefined"&&CMETA.langs)||["cpp"]).filter(l=>LANGS[l]);
+const LANG_INFO={
+  cpp:{name:"C++",d:"Chạy nhanh, sát với máy. Ngôn ngữ chính của thi học sinh giỏi Tin và ICPC.",ex:"for (int i = 0; i < n; i++)"},
+  py:{name:"Python",d:"Ngắn gọn, dễ đọc, dễ bắt đầu. Hay dùng khi phỏng vấn và làm dữ liệu.",ex:"for i in range(n):"},
+  cs:{name:"C#",d:"Kiểu dữ liệu chặt chẽ như C++, thư viện đầy đủ. Dùng nhiều trong phần mềm doanh nghiệp, Unity.",ex:"for (int i = 0; i < n; i++)"}};
+const LANG_KEY="amts-lang-"+(typeof CID!=="undefined"?CID:"x");
+function langStored(){try{const o=JSON.parse(localStorage.getItem(LANG_KEY)||"null");return o&&LANG_LIST.includes(o.l)?o:null}catch(e){return null}}
+function langBody(){const b=document.body;if(!b)return;LANG_LIST.concat(["cpp"]).forEach(x=>b.classList.remove("L-"+x));b.classList.add("L-"+LANG_CUR)}
+/* đổi ngôn ngữ: lưu, tô lại giao diện, báo cho trình mô phỏng / bài tập / trắc nghiệm */
+function LANG_SET(l,opt){opt=opt||{};if(!LANG_LIST.includes(l))l=LANG_LIST[0]||"cpp";
+  const changed=l!==LANG_CUR;LANG_CUR=l;const at=opt.at||Date.now();
+  try{localStorage.setItem(LANG_KEY,JSON.stringify({l,at}))}catch(e){}
+  langBody();paintLang();
+  if(!opt.fromSync&&window.TRACK&&TRACK.setLang)TRACK.setLang(l,at);
+  if(changed)document.dispatchEvent(new Event("amts-lang"))}
+/* tiến độ trên máy chủ có lựa chọn mới hơn (học trên thiết bị khác) */
+function LANG_FROM_SYNC(l,at){const cur=langStored();if(l&&LANG_LIST.includes(l)&&(!cur||(at||0)>cur.at)){LANG_SET(l,{fromSync:true,at});const d=document.getElementById("lang-dlg");if(d&&d.dataset.first)d.remove()}}
+function paintLang(){
+  const box=document.getElementById("lang-pick");
+  if(box){box.hidden=LANG_LIST.length<2;box.innerHTML=`<span class="lp-l" id="lp-l">Học bằng ngôn ngữ</span><div class="lp-seg" role="group" aria-labelledby="lp-l">${LANG_LIST.map(l=>`<button type="button" data-lang="${l}" aria-pressed="${l===LANG_CUR}">${esc(LANG_INFO[l].name)}</button>`).join("")}</div>`;
+    box.querySelectorAll("[data-lang]").forEach(b=>b.onclick=()=>LANG_SET(b.dataset.lang))}
+  const mb=document.getElementById("m-lang");if(mb){mb.hidden=LANG_LIST.length<2;mb.textContent=LANG_INFO[LANG_CUR].name;mb.setAttribute("aria-label",`Ngôn ngữ đang học: ${LANG_INFO[LANG_CUR].name}. Bấm để đổi`)}}
+/* hộp chọn ngôn ngữ (lần đầu vào khóa, hoặc bấm nút ngôn ngữ trên thanh đầu trang điện thoại) */
+function langDialog(first){
+  let d=document.getElementById("lang-dlg");if(d)d.remove();
+  d=document.createElement("div");d.id="lang-dlg";d.className="lang-dlg";if(first)d.dataset.first="1";d.setAttribute("role","dialog");d.setAttribute("aria-modal","true");d.setAttribute("aria-labelledby","lang-dlg-h");
+  d.innerHTML=`<div class="ld-box"><button type="button" class="ld-x" aria-label="Đóng">×</button>
+    <h2 id="lang-dlg-h">${first?"Bạn muốn học khóa này bằng ngôn ngữ nào?":"Đổi ngôn ngữ lập trình"}</h2>
+    <p class="ld-sub">Giải thuật thì giống nhau ở mọi ngôn ngữ. Ngôn ngữ bạn chọn được dùng cho ví dụ, bài tập, code mẫu và lời giải.</p>
+    <div class="ld-list">${LANG_LIST.map(l=>`<button type="button" class="ld-c${l===LANG_CUR&&!first?" on":""}" data-lang="${l}"><b>${esc(LANG_INFO[l].name)}</b><span>${esc(LANG_INFO[l].d)}</span><code>${esc(LANG_INFO[l].ex)}</code></button>`).join("")}</div>
+    <p class="ld-note">Đổi lại lúc nào cũng được: mục <b>Học bằng ngôn ngữ</b> ở danh sách bài học (trên điện thoại: nút tên ngôn ngữ ở đầu trang). Kết quả bài tập đã đạt vẫn được giữ; bản nháp của mỗi ngôn ngữ được lưu riêng.</p></div>`;
+  document.body.appendChild(d);
+  const close=()=>{d.remove();document.removeEventListener("keydown",esc_);if(first&&!langStored())LANG_SET(LANG_CUR)};
+  const esc_=e=>{if(e.key==="Escape")close()};document.addEventListener("keydown",esc_);
+  d.querySelector(".ld-x").onclick=close;d.onclick=e=>{if(e.target===d)close()};
+  d.querySelectorAll("[data-lang]").forEach(b=>b.onclick=()=>{LANG_SET(b.dataset.lang);d.remove();document.removeEventListener("keydown",esc_)});
+  (d.querySelector(".ld-c.on")||d.querySelector(".ld-c")).focus()}
+{const st=langStored();if(st)LANG_CUR=st.l;else if(LANG_LIST.length)LANG_CUR=LANG_LIST.includes("cpp")?"cpp":LANG_LIST[0];
+  langBody();
+  READY.push(()=>{paintLang();const mb=document.getElementById("m-lang");if(mb)mb.onclick=()=>langDialog(false);
+    if(LANG_LIST.length>1&&!langStored())setTimeout(()=>langDialog(true),400)})}
 /* Công cụ minh họa dùng chung cho nhiều bài. Công cụ chỉ dùng trong một bài nằm trong lesson.js của bài đó. */
 /* ================= WIDGET BÀI 6–8 ================= */
 /* Đoán: biên dịch được hay báo lỗi? */
@@ -9114,8 +9249,11 @@ const PRACTICE=(()=>{
     $("pr-list").querySelectorAll("[data-id]").forEach(b=>b.onclick=()=>{select(b.dataset.id);if(matchMedia("(max-width:1299px)").matches)$("pr-main").scrollIntoView({behavior:REDUCE()?"auto":"smooth",block:"start"})});
     const sel=$("pr-sel");if(sel){sel.innerHTML=items.map(x=>{const ic=icon(x.id)[1]||"○";return `<option value="${x.id}"${cur&&cur.id===x.id?" selected":""}>${ic} Bài ${x.l.slice(1)} · ${x.i+1}. ${esc(x.e.t)}</option>`}).join("")}
     renderSum()}
-  const draftKey=id=>"amts-pr:"+((AMTS.S.user&&AMTS.S.user.uid)||"khach")+":"+id;
-  function saveDraft(){if(!cur||!sim)return;try{const v=sim.get();if(v&&v!==cur.e.start)localStorage.setItem(draftKey(cur.id),v);else localStorage.removeItem(draftKey(cur.id))}catch(e){}}
+  let prLang=LANG_CUR; // ngôn ngữ của code đang mở (để lưu nháp đúng chỗ khi học viên đổi ngôn ngữ)
+  const draftKey=(id,l)=>{l=l||prLang;return "amts-pr:"+((AMTS.S.user&&AMTS.S.user.uid)||"khach")+":"+id+(l!=="cpp"?":"+l:"")};
+  document.addEventListener("amts-lang",()=>{if(!built||!cur)return;const keep=cur.id;saveDraft();prLang=LANG_CUR;for(const k in results)delete results[k];cur=null;select(keep)});
+  const ST=e=>exF(e,"start",exLang(e)); // code mẫu theo ngôn ngữ đang chọn
+  function saveDraft(){if(!cur||!sim)return;try{const v=sim.get(),cl=LANG_CUR;LANG_CUR=prLang;const st0=ST(cur.e);LANG_CUR=cl;if(v&&v!==st0)localStorage.setItem(draftKey(cur.id),v);else localStorage.removeItem(draftKey(cur.id))}catch(e){}}
   function build(){if(built)return;built=true;load();
     $("pr-main").innerHTML=`<div class="pr-pick"><label for="pr-sel">Chọn bài tập</label><select id="pr-sel"></select></div>
       <div class="pr-info" id="pr-info"></div>
@@ -9124,10 +9262,10 @@ const PRACTICE=(()=>{
       <div class="ex-st" id="pr-res" role="status" aria-live="polite"></div>
       <div class="pr-sol" id="pr-sol"></div>
       <div class="pr-nav"><button type="button" class="btn" id="pr-prev">← Bài tập trước</button><button type="button" class="btn" id="pr-next">Bài tập sau →</button></div>`;
-    sim=makeSim2($("pr-sim"),{id:"spr",lesson:"",presets:[{label:"Bài tập",code:""}]});
+    sim=makeSim2($("pr-sim"),{id:"spr",lesson:"",presets:[{label:"Bài tập",code:""}],keepOnLang:true});
     $("pr-sel").onchange=e=>select(e.target.value);
-    $("pr-reset").onclick=()=>{if(sim.get()!==cur.e.start&&!confirm("Thay code hiện tại bằng code mẫu ban đầu?"))return;sim.set(cur.e.start);sim.setInput(cur.e.tests[0].in);saveDraft()};
-    $("pr-try").onclick=()=>{$("pr-res").innerHTML=tryExHTML(cur.e,sim.get());sim.setInput(cur.e.tests[0].in);sim.run()};
+    $("pr-reset").onclick=()=>{if(sim.get()!==ST(cur.e)&&!confirm("Thay code hiện tại bằng code mẫu ban đầu?"))return;sim.set(ST(cur.e));sim.setInput(cur.e.tests[0].in);saveDraft()};
+    $("pr-try").onclick=()=>{$("pr-res").innerHTML=tryExHTML(cur.e,sim.get(),sim.lang);sim.setInput(cur.e.tests[0].in);sim.run()};
     $("pr-grade").onclick=grade;
     $("pr-prev").onclick=()=>step(-1);$("pr-next").onclick=()=>step(1);
     $("pr-q").addEventListener("input",renderList);
@@ -9136,19 +9274,19 @@ const PRACTICE=(()=>{
     addEventListener("pagehide",saveDraft);
     $("pr-sim").addEventListener("input",()=>{clearTimeout(build.t);build.t=setTimeout(saveDraft,600)})}
   function step(d){const k=items.findIndex(x=>x.id===cur.id);const n=items[(k+d+items.length)%items.length];select(n.id);$("pr-info").scrollIntoView({behavior:REDUCE()?"auto":"smooth",block:"start"})}
-  function select(id){saveDraft();const x=items.find(y=>y.id===id)||items[0];if(!x)return;cur=x;const e=x.e,hints=((typeof EX_HINTS!=="undefined"?EX_HINTS:{})[x.l]||[])[x.i]||[];
+  function select(id){saveDraft();const x=items.find(y=>y.id===id)||items[0];if(!x)return;cur=x;const e=x.e,hints=exF(e,"hints")||((typeof EX_HINTS!=="undefined"?EX_HINTS:{})[x.l]||[])[x.i]||[];
     $("pr-info").innerHTML=`<div class="crumb">Bài ${x.l.slice(1)} · ${esc(lname(x.l))} · Bài tập ${x.i+1}/${(EXERCISES[x.l]||[]).length}</div>
       <div class="pr-title"><h2>${esc(e.t)}</h2><a href="#bai-${x.l.slice(1)}" data-go="${x.l}" class="pr-lesson">Xem lại bài học →</a></div>
-      <p class="pr-d">${esc(e.d)}</p>${e.perf?`<p class="ex-perf">Yêu cầu độ hiệu quả: <b>${PERF_TXT[e.perf.need]||""}</b> (bài được chạy thêm với dữ liệu lớn để đếm số bước).</p>`:""}
+      <p class="pr-d">${esc(exF(e,"d"))}</p>${e.perf?`<p class="ex-perf">Yêu cầu độ hiệu quả: <b>${PERF_TXT[e.perf.need]||""}</b> (bài được chạy thêm với dữ liệu lớn để đếm số bước).</p>`:""}
       <div class="io"><div><div class="pane-h" style="padding:0 0 4px">Ví dụ nhập</div><pre>${esc(e.tests[0].in||"(không có)")}</pre></div><div><div class="pane-h" style="padding:0 0 4px">Kết quả đúng</div><pre>${esc(e.tests[0].out)}</pre></div></div>
       ${hints.length?`<div class="pr-hints"><ol id="pr-hl"></ol><button type="button" class="btn sm" id="pr-hint">Xem gợi ý 1/${hints.length}</button></div>`:""}`;
     if(hints.length){let k=0;const b=$("pr-hint"),ol=$("pr-hl");b.onclick=()=>{ol.insertAdjacentHTML("beforeend",`<li><b>Gợi ý ${k+1}.</b> ${esc(hints[k])}</li>`);k++;if(k>=hints.length)b.remove();else b.textContent=`Xem gợi ý ${k+1}/${hints.length}`}}
-    let code=e.start;try{code=localStorage.getItem(draftKey(x.id))||e.start}catch(err){}
+    sim.forceLang(exLang(e));let code=ST(e);try{code=localStorage.getItem(draftKey(x.id))||ST(e)}catch(err){}
     sim.set(code);sim.setInput(e.tests[0].in);
     $("pr-res").innerHTML=results[x.id]||`<p class="ex-todo">${(stOf(x.id)||{}).pass?"Bạn đã làm đạt bài này. Có thể nộp lại để luyện thêm.":`Chưa nộp · ${e.tests.length} test sẽ được chấm.`}</p>`;
     renderSol();renderList();
     const h="#thuc-hanh-"+x.id;if(location.hash!==h){try{history.replaceState(null,"",h)}catch(err){}}}
-  function grade(){const x=cur,g=gradeEx(x.e,sim.get());tries[x.id]=triesOf(x.id)+1;
+  function grade(){const x=cur,g=gradeEx(x.e,sim.get(),sim.lang);tries[x.id]=triesOf(x.id)+1;
     if(window.TRACK)TRACK.ex(x.id,g.ok,g.d);
     results[x.id]=exResultHTML(x.e,g.R,g.ok,g.pass,g.srcOk)+(x.e.perf?(g.F?perfHTML(x.e.perf,g.F):`<div class="perf"><span class="pf-k">Độ hiệu quả sẽ được đo khi code đúng hết các test.</span></div>`):"");$("pr-res").innerHTML=results[x.id];saveDraft();renderSol();renderList()}
   function unlocked(x){return AMTS.isTeacher()||!!(stOf(x.id)||{}).pass||triesOf(x.id)>=UNLOCK_AFTER}
@@ -9158,9 +9296,9 @@ const PRACTICE=(()=>{
     if(box.dataset.for===x.id&&box.querySelector(".codebox"))return;
     box.dataset.for="";box.innerHTML=`<div class="pr-lock open"><b>Lời giải</b><p>Đã mở. Xem để so sánh với cách làm của bạn, rồi chạy từng bước để hiểu chương trình chạy thế nào.</p><button type="button" class="btn" id="pr-showsol">Xem lời giải</button></div>`;
     $("pr-showsol").onclick=()=>showSol(x)}
-  async function getSol(l){if(SOL_EMBED)return SOL_EMBED[l]||null;if(solCache[l])return solCache[l];
+  async function getSol(l){const pick=o=>o?(LANG_CUR==="cpp"?o.cpp||o.sol:(o.sols||o)[LANG_CUR])||null:null;if(SOL_EMBED)return pick(SOL_EMBED[l]);if(solCache[l])return pick(solCache[l]);
     const S=await AMTS.ready();if(S.mode!=="ready"){const e=new Error("Chưa kết nối được máy chủ.");e.code="offline";throw e}
-    const cfg=await AMTS.getConfig(CID);const d=await AMTS.getLesson(CID,l,C.contentVer,cfg);return solCache[l]=(d&&d.sol)||null}
+    const cfg=await AMTS.getConfig(CID);const d=await AMTS.getLesson(CID,l,C.contentVer,cfg);return pick(solCache[l]=d?{cpp:d.sol,sols:d.sols||{}}:null)}
   async function showSol(x){const box=$("pr-sol");box.innerHTML=`<p class="ex-todo">Đang tải lời giải…</p>`;
     let arr;try{arr=await getSol(x.l)}catch(e){
       box.innerHTML=`<div class="pr-lock"><b>Chưa tải được lời giải</b><p>${e.code==="permission-denied"?"Lời giải thuộc bài cần đăng nhập hoặc bài có phí. Hãy đăng nhập (hoặc kích hoạt khóa học) rồi thử lại.":e.code==="offline"?"Không kết nối được máy chủ. Kiểm tra Internet rồi thử lại.":esc(e.message||String(e))}</p><button type="button" class="btn" id="pr-showsol">Thử lại</button></div>`;
@@ -9171,9 +9309,9 @@ const PRACTICE=(()=>{
     box.innerHTML=`<div class="pr-solh"><b>Lời giải tham khảo</b><span>Có nhiều cách đúng; đây là một cách.</span></div>
       <div class="code" data-src></div>
       <div class="pr-trace"><button type="button" class="btn pri" id="pr-run-sol">Xem trình tự chạy từng bước</button><p>Lời giải được nạp vào trình mô phỏng với dữ liệu ví dụ. Bấm <b>Bước tiếp →</b> để đi qua từng dòng và xem biến thay đổi trong khung Bộ nhớ. Code của bạn đã được lưu, chọn lại bài này là thấy.</p></div>`;
-    const c=box.querySelector("[data-src]");c.innerHTML=highlightLines(src).map((s,i)=>`<span class="ln" data-n="${i+1}">${s||" "}</span>`).join("");
+    const c=box.querySelector("[data-src]");c.innerHTML=highlightLines(src,LANG_CUR).map((s,i)=>`<span class="ln" data-n="${i+1}">${s||" "}</span>`).join("");
     c.removeAttribute("data-src");const wrap=document.createElement("div");wrap.className="codebox";const h=document.createElement("div");h.className="code-h";
-    h.innerHTML=`<span class="code-f">loi-giai.cpp</span><button type="button" class="code-copy">Sao chép</button>`;c.replaceWith(wrap);wrap.append(h,c);
+    h.innerHTML=`<span class="code-f">loi-giai.${langOf(LANG_CUR).file.split(".").pop()}</span><button type="button" class="code-copy">Sao chép</button>`;c.replaceWith(wrap);wrap.append(h,c);
     h.querySelector("button").onclick=e=>copyText(src).then(()=>{e.target.textContent="Đã sao chép";setTimeout(()=>e.target.textContent="Sao chép",1800)},()=>{e.target.textContent="Chưa sao chép được"});
     $("pr-run-sol").onclick=()=>{saveDraft();sim.set(src);sim.setInput(x.e.tests[0].in);$("pr-sim").scrollIntoView({behavior:REDUCE()?"auto":"smooth",block:"start"});sim.step()}}
   function open(){build();load();if(!items.length){$("pr-main").innerHTML=`<p class="pr-empty">Chưa có bài tập.</p>`;return}
@@ -9207,7 +9345,7 @@ function paintSync(){const el=document.getElementById("sync-st");if(!el)return;c
 async function pushNow(){clearTimeout(saveTimer);saveTimer=null;if(!AMTS.S.user)return;
   setSync("saving");
   const m=await AMTS.saveCourse(CID,P);
-  if(m){P=AMTS.merge(P,m);AMTS.setLocal(CID,P);setSync("ok");renderProgress()}
+  if(m){P=AMTS.merge(P,m);AMTS.setLocal(CID,P);setSync("ok");renderProgress();if(P.lang&&typeof LANG_FROM_SYNC==="function")LANG_FROM_SYNC(P.lang.l,P.lang.at)}
   else if(AMTS.S.user){setSync("wait");clearTimeout(retryTimer);retryTimer=setTimeout(pushNow,20000)}}
 function persist(){AMTS.setLocal(CID,P);clearTimeout(saveTimer);saveTimer=setTimeout(pushNow,1200);if(AMTS.S.user)setSync("pending");else paintSync()}
 addEventListener("online",()=>{if(SYNC.st==="wait")pushNow()});
@@ -9224,6 +9362,7 @@ const track=window.TRACK={
     else cur.n=n;
     persist();renderProgress()},
   exOf(id){return P.ex[id]||null},
+  setLang(l,at){P.lang={l,at:at||Date.now()};persist()},
   quiz(id,score,total){const cur=P.quiz[id]||{};P.quiz[id]={score,total,best:Math.max(score,cur.best||0),at:Date.now()};persist();renderProgress()}
 };
 const doneCount=()=>LESSONS.filter(l=>AMTS.isDone(P,l,CID)).length;
