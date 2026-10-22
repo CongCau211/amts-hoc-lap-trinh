@@ -5,8 +5,8 @@
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <link rel="preload" as="font" type="font/woff2" crossorigin href="assets/fonts/be-vietnam-pro-latin-400-normal.woff2">
 <link rel="preload" as="font" type="font/woff2" crossorigin href="assets/fonts/be-vietnam-pro-vietnamese-400-normal.woff2">
-<link rel="preload" as="script" href="assets/app/common.d422e1ab2e.js">
-<link rel="preload" as="script" href="assets/app/home.99790baddf.js">
+<link rel="preload" as="script" href="assets/app/common.4d04e78d94.js">
+<link rel="preload" as="script" href="assets/app/home.f60a714af7.js">
 <title>AMTS Học Lập Trình</title>
 <meta name="claude:viewport-fit-sides" content="cover">
 <link rel="preconnect" href="https://cdn.jsdelivr.net">
@@ -428,6 +428,10 @@ footer{margin-top:56px;border-top:1px solid var(--line);padding-block:20px 40px;
 .adm-in{padding:4px 16px 16px;display:grid;gap:12px;border-top:1px solid var(--line);padding-top:14px}
 .adm-in p{font-size:14px}
 .sw{display:flex;gap:12px;align-items:flex-start;cursor:pointer}
+.t-vis{border:1px solid var(--line);border-radius:var(--r);background:var(--surface);padding:12px 14px;display:grid;gap:6px}
+.t-vis small{display:block;color:var(--muted);font-size:13px;font-weight:400}
+.chip.hid{background:var(--warm-soft,#fdf1e2);color:var(--ink)}
+.course.is-hid{opacity:.7;outline:2px dashed var(--line);outline-offset:-2px}
 .sw input{position:absolute;opacity:0;width:1px;height:1px}
 .sw-ui{flex:none;width:44px;height:26px;border-radius:999px;background:var(--line);position:relative;transition:background .15s;margin-top:2px}
 .sw-ui::after{content:"";position:absolute;top:3px;left:3px;width:20px;height:20px;border-radius:50%;background:#fff;box-shadow:0 1px 3px rgba(0,0,0,.25);transition:transform .15s}
@@ -507,6 +511,7 @@ footer{margin-top:56px;border-top:1px solid var(--line);padding-block:20px 40px;
   <section class="teacher" id="giang-vien" hidden>
     <div class="sec-h" style="margin:0"><h2>Trang giảng viên</h2><span class="note">Chỉ tài khoản giảng viên xem được phần này</span></div>
     <div class="tabs" role="tablist" id="t-tabs"></div>
+    <div class="t-vis" id="t-vis"></div>
     <nav class="t-over" id="t-over" aria-label="Tổng quan quản trị"></nav>
     <div class="adm" id="t-adm"></div>
     <h3 class="t-h" id="t-prog">Tiến độ học viên</h3>
@@ -525,8 +530,8 @@ footer{margin-top:56px;border-top:1px solid var(--line);padding-block:20px 40px;
   <div><b>Dữ liệu của bạn</b><p>Chưa đăng nhập: tiến độ chỉ lưu trên trình duyệt này. Đăng nhập Google: tiến độ được lưu để học tiếp trên mọi thiết bị và để giảng viên theo dõi kết quả học tập.</p></div>
 </div></footer>
 
-<script defer src="assets/app/common.d422e1ab2e.js"></script>
-<script defer src="assets/app/home.99790baddf.js"></script>
+<script defer src="assets/app/common.4d04e78d94.js"></script>
+<script defer src="assets/app/home.f60a714af7.js"></script>
 
 </body>
 </html>

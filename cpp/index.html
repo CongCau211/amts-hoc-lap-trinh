@@ -5,10 +5,10 @@
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <link rel="preload" as="font" type="font/woff2" crossorigin href="../assets/fonts/be-vietnam-pro-latin-400-normal.woff2">
 <link rel="preload" as="font" type="font/woff2" crossorigin href="../assets/fonts/be-vietnam-pro-vietnamese-400-normal.woff2">
-<link rel="preload" as="script" href="../assets/app/common.d422e1ab2e.js">
-<link rel="preload" as="script" href="../assets/app/cpp-head.e021d2d828.js">
-<link rel="preload" as="script" href="../assets/app/core.a7852884e2.js">
-<link rel="preload" as="script" href="../assets/app/cpp-body.afdd16a0e8.js">
+<link rel="preload" as="script" href="../assets/app/common.4d04e78d94.js">
+<link rel="preload" as="script" href="../assets/app/cpp-head.77a1383e33.js">
+<link rel="preload" as="script" href="../assets/app/core.cb187b70d3.js">
+<link rel="preload" as="script" href="../assets/app/cpp-body.57ce3c4eae.js">
 <title>C++ từ nền tảng</title>
 <meta name="claude:viewport-fit-sides" content="cover">
 <link rel="preconnect" href="https://cdn.jsdelivr.net">
@@ -17,13 +17,13 @@
 <link rel="preload" as="script" href="https://cdn.jsdelivr.net/npm/firebase@10.14.1/firebase-app-compat.js">
 <link rel="preload" as="script" href="https://cdn.jsdelivr.net/npm/firebase@10.14.1/firebase-auth-compat.js">
 <link rel="preload" as="script" href="https://cdn.jsdelivr.net/npm/firebase@10.14.1/firebase-firestore-compat.js">
-<link rel="stylesheet" href="../assets/app/core.7dcfa0d851.css">
-<meta name="description" content="Khóa C++ từ nền tảng của AMTS: 29 bài từ chương trình đầu tiên tới hàm và đệ quy, trình mô phỏng bộ nhớ và ngăn xếp lời gọi, bài tập chấm tự động.">
+<link rel="stylesheet" href="../assets/app/core.869aca3a60.css">
+<meta name="description" content="Khóa C++ từ nền tảng của AMTS: 34 bài từ chương trình đầu tiên tới hàm và đệ quy, trình mô phỏng bộ nhớ và ngăn xếp lời gọi, bài tập chấm tự động.">
 <meta property="og:type" content="website">
 <meta property="og:locale" content="vi_VN">
 <meta property="og:site_name" content="AMTS Học Lập Trình">
 <meta property="og:title" content="C++ từ nền tảng">
-<meta property="og:description" content="Khóa C++ từ nền tảng của AMTS: 29 bài từ chương trình đầu tiên tới hàm và đệ quy, trình mô phỏng bộ nhớ và ngăn xếp lời gọi, bài tập chấm tự động.">
+<meta property="og:description" content="Khóa C++ từ nền tảng của AMTS: 34 bài từ chương trình đầu tiên tới hàm và đệ quy, trình mô phỏng bộ nhớ và ngăn xếp lời gọi, bài tập chấm tự động.">
 <meta name="theme-color" content="#0E97A9">
 <link rel="icon" href="../assets/brand/favicon.png">
 <link rel="apple-touch-icon" href="../assets/brand/apple-touch-icon.png">
@@ -32,7 +32,7 @@
 <style>:root{color-scheme:light dark}body{margin:0}img{max-width:100%}[hidden]{display:none!important}</style>
 </head>
 <body>
-<script>(function(){const pl=u=>{if(!u)return;const k=document.createElement("link");k.rel="preload";k.as="script";k.href=u;document.head.appendChild(k)};try{const o=JSON.parse(localStorage.getItem("amts-lang-cpp")||"null");pl({}[o&&o.l])}catch(e){}try{const m=/^#bai-(\d+)/.exec(location.hash);pl({"l1": "../assets/app/cpp-l1-l2.c2a001a719.js", "l2": "../assets/app/cpp-l1-l2.c2a001a719.js", "l3": "../assets/app/cpp-l3.fb2c5d7665.js", "l4": "../assets/app/cpp-l4.629c42d686.js", "l5": "../assets/app/cpp-l5.b5f75427ec.js", "l6": "../assets/app/cpp-l6.8bc51509e0.js", "l7": "../assets/app/cpp-l7.7a700453c7.js", "l8": "../assets/app/cpp-l8.e0c1aed217.js", "l9": "../assets/app/cpp-l9.79eff4aefc.js", "l10": "../assets/app/cpp-l10.29dbae1411.js", "l11": "../assets/app/cpp-l11.42165b186b.js", "l12": "../assets/app/cpp-l12.bf788e5d2a.js", "l13": "../assets/app/cpp-l13.e0ecdbf88a.js", "l14": "../assets/app/cpp-l14.1d7fd51fe4.js", "l15": "../assets/app/cpp-l15.4a3ce01919.js", "l16": "../assets/app/cpp-l16.9d034e6400.js", "l17": "../assets/app/cpp-l17.bbe86a60d8.js", "l18": "../assets/app/cpp-l18.7b4b059f4d.js", "l19": "../assets/app/cpp-l19.a4629395d8.js", "l20": "../assets/app/cpp-l20.7ed33b0266.js", "l21": "../assets/app/cpp-l21.06b1701e71.js", "l22": "../assets/app/cpp-l22.98c7a9f96c.js", "l23": "../assets/app/cpp-l23.89eb9012d3.js", "l24": "../assets/app/cpp-l24.7648b4ef15.js", "l25": "../assets/app/cpp-l25.04c619f580.js", "l26": "../assets/app/cpp-l26.4f36addd11.js", "l27": "../assets/app/cpp-l27.55aeb61531.js", "l28": "../assets/app/cpp-l28.f54b1e5c6c.js", "l29": "../assets/app/cpp-l29.f9f9bbef7f.js"}[m?"l"+m[1]:localStorage.getItem("cpp-view")])}catch(e){}})()</script>
+<script>(function(){const pl=u=>{if(!u)return;const k=document.createElement("link");k.rel="preload";k.as="script";k.href=u;document.head.appendChild(k)};try{const o=JSON.parse(localStorage.getItem("amts-lang-cpp")||"null");pl({}[o&&o.l])}catch(e){}try{const m=/^#bai-(\d+)/.exec(location.hash);pl({"l1": "../assets/app/cpp-l1-l2.c2a001a719.js", "l2": "../assets/app/cpp-l1-l2.c2a001a719.js", "l3": "../assets/app/cpp-l3.fb2c5d7665.js", "l4": "../assets/app/cpp-l4.629c42d686.js", "l5": "../assets/app/cpp-l5.b5f75427ec.js", "l6": "../assets/app/cpp-l6.8bc51509e0.js", "l7": "../assets/app/cpp-l7.7a700453c7.js", "l8": "../assets/app/cpp-l8.e0c1aed217.js", "l9": "../assets/app/cpp-l9.79eff4aefc.js", "l10": "../assets/app/cpp-l10.29dbae1411.js", "l11": "../assets/app/cpp-l11.42165b186b.js", "l12": "../assets/app/cpp-l12.bf788e5d2a.js", "l13": "../assets/app/cpp-l13.e0ecdbf88a.js", "l14": "../assets/app/cpp-l14.1d7fd51fe4.js", "l15": "../assets/app/cpp-l15.4a3ce01919.js", "l16": "../assets/app/cpp-l16.9d034e6400.js", "l17": "../assets/app/cpp-l17.bbe86a60d8.js", "l18": "../assets/app/cpp-l18.7b4b059f4d.js", "l19": "../assets/app/cpp-l19.a4629395d8.js", "l20": "../assets/app/cpp-l20.7ed33b0266.js", "l21": "../assets/app/cpp-l21.06b1701e71.js", "l22": "../assets/app/cpp-l22.98c7a9f96c.js", "l23": "../assets/app/cpp-l23.89eb9012d3.js", "l24": "../assets/app/cpp-l24.7648b4ef15.js", "l25": "../assets/app/cpp-l25.04c619f580.js", "l26": "../assets/app/cpp-l26.4f36addd11.js", "l27": "../assets/app/cpp-l27.55aeb61531.js", "l28": "../assets/app/cpp-l28.f54b1e5c6c.js", "l29": "../assets/app/cpp-l29.f9f9bbef7f.js", "l30": "../assets/app/cpp-l30.036ddec1ca.js", "l31": "../assets/app/cpp-l31.fe29119d52.js", "l32": "../assets/app/cpp-l32.05c9ccfccb.js", "l33": "../assets/app/cpp-l33.0f54376796.js", "l34": "../assets/app/cpp-l34.18746ea1d5.js"}[m?"l"+m[1]:localStorage.getItem("cpp-view")])}catch(e){}})()</script>
 
 
 
@@ -67,7 +67,7 @@
         <a class="sb-back" href="../index.html#khoa-hoc"><span aria-hidden="true">←</span> Tất cả khóa học</a>
         <button class="sb-toggle" id="sb-hide" aria-controls="side" aria-expanded="true" aria-label="Ẩn danh sách bài học" title="Ẩn danh sách bài học"><svg class="ic-panel" width="20" height="20" viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.6" aria-hidden="true"><rect x="2.5" y="3.5" width="15" height="13" rx="2.5"/><path d="M7.5 3.5v13"/></svg><svg class="ic-x" width="20" height="20" viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" aria-hidden="true"><path d="M5 5l10 10M15 5L5 15"/></svg></button>
       </div>
-      <div class="brand"><b>C++ từ nền tảng</b><small>12 chương · Đã mở 29 bài học</small></div>
+      <div class="brand"><b>C++ từ nền tảng</b><small>12 chương · Đã mở 34 bài học</small></div>
       <div class="lang-pick" id="lang-pick" hidden></div>
       <div class="acct" id="acct"></div>
       <div class="ol-q"><label class="vh" for="ol-q">Tìm bài học</label><input id="ol-q" type="search" placeholder="Tìm bài học…" autocomplete="off"><button type="button" class="ol-x" id="ol-x" aria-label="Xóa tìm kiếm" hidden>×</button></div>
@@ -763,14 +763,74 @@ Lệnh trên chạy cả 4 giai đoạn cùng lúc. Nhấn “Bước tiếp” 
 <div data-m="m4" class="score" id="score29"></div>
 <div data-m="m5" class="next">
         <button class="btn prev" data-go="l28">← Bài 28</button>
-        <span class="byline up"><span class="amts-logo" aria-hidden="true"></span>Tiếp theo: struct và class</span>
+        <span class="byline"><span class="amts-logo" aria-hidden="true"></span>Chương 7 · Bài 5/5</span>
+        <button class="btn pri nx" data-go="l30">Bài tiếp: Chương 8 · struct và class →</button>
+      </div></div></article>
+    <!-- ===================== BÀI 30 · struct và class ===================== -->
+    <article class="col" id="view-l30" hidden><div class="lgate" aria-live="polite"></div><div class="park" hidden><div data-m="m0" class="code" data-snip="l30def"></div>
+<div data-m="m1" class="code" data-snip="l30method"></div>
+<div data-m="m2" class="code" data-snip="l30ptr"></div>
+<div data-m="m3" id="sim-l30"></div>
+<div data-m="m4" class="ex-grid" id="ex-l30"></div>
+<div data-m="m5" class="quiz" id="quiz30"></div>
+<div data-m="m6" class="score" id="score30"></div>
+<div data-m="m7" class="next">
+        <button class="btn prev" data-go="l29">← Bài 29</button>
+        <span class="byline"><span class="amts-logo" aria-hidden="true"></span>Chương 8 · Bài 1/4</span>
+        <button class="btn pri nx" data-go="l31">Bài tiếp: Constructor / destructor →</button>
+      </div></div></article>
+    <!-- ===================== BÀI 31 · Constructor / destructor ===================== -->
+    <article class="col" id="view-l31" hidden><div class="lgate" aria-live="polite"></div><div class="park" hidden><div data-m="m0" class="code" data-snip="l31ctor"></div>
+<div data-m="m1" class="code" data-snip="l31dtor"></div>
+<div data-m="m2" id="sim-l31"></div>
+<div data-m="m3" class="ex-grid" id="ex-l31"></div>
+<div data-m="m4" class="quiz" id="quiz31"></div>
+<div data-m="m5" class="score" id="score31"></div>
+<div data-m="m6" class="next">
+        <button class="btn prev" data-go="l30">← Bài 30</button>
+        <span class="byline"><span class="amts-logo" aria-hidden="true"></span>Chương 8 · Bài 2/4</span>
+        <button class="btn pri nx" data-go="l32">Bài tiếp: Đóng gói →</button>
+      </div></div></article>
+    <!-- ===================== BÀI 32 · Đóng gói ===================== -->
+    <article class="col" id="view-l32" hidden><div class="lgate" aria-live="polite"></div><div class="park" hidden><div data-m="m0" class="code" data-snip="l32acc"></div>
+<div data-m="m1" class="code" data-snip="l32getset"></div>
+<div data-m="m2" id="sim-l32"></div>
+<div data-m="m3" class="ex-grid" id="ex-l32"></div>
+<div data-m="m4" class="quiz" id="quiz32"></div>
+<div data-m="m5" class="score" id="score32"></div>
+<div data-m="m6" class="next">
+        <button class="btn prev" data-go="l31">← Bài 31</button>
+        <span class="byline"><span class="amts-logo" aria-hidden="true"></span>Chương 8 · Bài 3/4</span>
+        <button class="btn pri nx" data-go="l33">Bài tiếp: Nạp chồng toán tử →</button>
+      </div></div></article>
+    <!-- ===================== BÀI 33 · Nạp chồng toán tử ===================== -->
+    <article class="col" id="view-l33" hidden><div class="lgate" aria-live="polite"></div><div class="park" hidden><div data-m="m0" class="code" data-snip="l33mem"></div>
+<div data-m="m1" class="code" data-snip="l33out"></div>
+<div data-m="m2" id="sim-l33"></div>
+<div data-m="m3" class="ex-grid" id="ex-l33"></div>
+<div data-m="m4" class="quiz" id="quiz33"></div>
+<div data-m="m5" class="score" id="score33"></div>
+<div data-m="m6" class="next">
+        <button class="btn prev" data-go="l32">← Bài 32</button>
+        <span class="byline"><span class="amts-logo" aria-hidden="true"></span>Chương 8 · Bài 4/4</span>
+        <button class="btn pri nx" data-go="l34">Bài tiếp: Chương 9 · Kế thừa →</button>
+      </div></div></article>
+    <!-- ===================== BÀI 34 · Kế thừa ===================== -->
+    <article class="col" id="view-l34" hidden><div class="lgate" aria-live="polite"></div><div class="park" hidden><div data-m="m0" class="code" data-snip="l34syn"></div>
+<div data-m="m1" id="sim-l34"></div>
+<div data-m="m2" class="ex-grid" id="ex-l34"></div>
+<div data-m="m3" class="quiz" id="quiz34"></div>
+<div data-m="m4" class="score" id="score34"></div>
+<div data-m="m5" class="next">
+        <button class="btn prev" data-go="l33">← Bài 33</button>
+        <span class="byline up"><span class="amts-logo" aria-hidden="true"></span>Tiếp theo: Hàm ảo và vtable</span>
       </div></div></article>
   </main>
 </div>
 
-<script defer src="../assets/app/common.d422e1ab2e.js"></script>
-<script defer src="../assets/app/cpp-head.e021d2d828.js"></script>
-<script defer src="../assets/app/core.a7852884e2.js"></script>
+<script defer src="../assets/app/common.4d04e78d94.js"></script>
+<script defer src="../assets/app/cpp-head.77a1383e33.js"></script>
+<script defer src="../assets/app/core.cb187b70d3.js"></script>
 
 
 </body>
