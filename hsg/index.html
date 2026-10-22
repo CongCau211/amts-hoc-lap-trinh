@@ -1,0 +1,326 @@
+<!doctype html>
+<html lang="vi">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<link rel="preload" as="font" type="font/woff2" crossorigin href="../assets/fonts/be-vietnam-pro-latin-400-normal.woff2">
+<link rel="preload" as="font" type="font/woff2" crossorigin href="../assets/fonts/be-vietnam-pro-vietnamese-400-normal.woff2">
+<link rel="preload" as="script" href="../assets/app/common.7bf5ec4a67.js">
+<link rel="preload" as="script" href="../assets/app/hsg-head.0f1030f057.js">
+<link rel="preload" as="script" href="../assets/app/core.2f40092332.js">
+<link rel="preload" as="script" href="../assets/app/hsg-body.f74a7ccc2e.js">
+<title>Luyện thi HSG &amp; Tin học trẻ C++</title>
+<meta name="claude:viewport-fit-sides" content="cover">
+<link rel="preconnect" href="https://cdn.jsdelivr.net">
+<link rel="preconnect" href="https://firestore.googleapis.com">
+<link rel="preconnect" href="https://securetoken.googleapis.com">
+<link rel="preload" as="script" href="https://cdn.jsdelivr.net/npm/firebase@10.14.1/firebase-app-compat.js">
+<link rel="preload" as="script" href="https://cdn.jsdelivr.net/npm/firebase@10.14.1/firebase-auth-compat.js">
+<link rel="preload" as="script" href="https://cdn.jsdelivr.net/npm/firebase@10.14.1/firebase-firestore-compat.js">
+<link rel="stylesheet" href="../assets/app/core.0e412eb2af.css">
+<meta name="description" content="Khóa luyện thi học sinh giỏi Tin học THPT và Hội thi Tin học trẻ bảng C bằng C++ của AMTS: 11 bài đã mở trong lộ trình 30 bài, 24 tuần; đọc ghi file kiểu đề thi, kỹ thuật mảng, tìm kiếm nhị phân, quy hoạch động, đồ thị, luyện đề 150 phút; trình mô phỏng C++ và bài tập chấm tự động.">
+<meta property="og:type" content="website">
+<meta property="og:locale" content="vi_VN">
+<meta property="og:site_name" content="AMTS Học Lập Trình">
+<meta property="og:title" content="Luyện thi HSG &amp; Tin học trẻ C++">
+<meta property="og:description" content="Khóa luyện thi học sinh giỏi Tin học THPT và Hội thi Tin học trẻ bảng C bằng C++ của AMTS: 11 bài đã mở trong lộ trình 30 bài, 24 tuần; đọc ghi file kiểu đề thi, kỹ thuật mảng, tìm kiếm nhị phân, quy hoạch động, đồ thị, luyện đề 150 phút; trình mô phỏng C++ và bài tập chấm tự động.">
+<meta name="theme-color" content="#0E97A9">
+<link rel="icon" href="../assets/brand/favicon.png">
+<link rel="apple-touch-icon" href="../assets/brand/apple-touch-icon.png">
+<meta property="og:image" content="https://congcau211.github.io/khoa-hoc-cpp/assets/social/og-home.png">
+<meta name="twitter:card" content="summary_large_image">
+<style>:root{color-scheme:light dark}body{margin:0}img{max-width:100%}[hidden]{display:none!important}</style>
+</head>
+<body>
+<script>(function(){const pl=u=>{if(!u)return;const k=document.createElement("link");k.rel="preload";k.as="script";k.href=u;document.head.appendChild(k)};try{const o=JSON.parse(localStorage.getItem("amts-lang-hsg")||"null");pl({}[o&&o.l])}catch(e){}try{const m=/^#bai-(\d+)/.exec(location.hash);pl({"l2": "../assets/app/hsg-l2.7a96466d3d.js", "l3": "../assets/app/hsg-l3.fcaa820afc.js", "l4": "../assets/app/hsg-l4.bbc7687da5.js", "l5": "../assets/app/hsg-l5.634758db49.js", "l6": "../assets/app/hsg-l6.cbe328edfc.js", "l10": "../assets/app/hsg-l10.e4c89333ca.js", "l12": "../assets/app/hsg-l12.ff5b59bce7.js", "l13": "../assets/app/hsg-l13.6e4c30dea7.js", "l14": "../assets/app/hsg-l14.9161714e7e.js", "l15": "../assets/app/hsg-l15.1a26ab9b93.js", "l16": "../assets/app/hsg-l16.27e10b0c4a.js"}[m?"l"+m[1]:localStorage.getItem("hsg-view")])}catch(e){}})()</script>
+
+
+
+<header class="top compact" id="top" data-root="../"><div class="wrap">
+  <a class="logo-a" href="../index.html" title="Về trang chủ"><span class="amts-logo" role="img" aria-label="AMTS · Về trang chủ"></span></a>
+  <nav class="nav" id="mainnav" aria-label="Điều hướng chính">
+    <a href="../index.html#khoa-hoc" data-nav="courses"><svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 5.5A1.5 1.5 0 0 1 4.5 4H10a2 2 0 0 1 2 2v13a1.5 1.5 0 0 0-1.5-1.5h-6A1.5 1.5 0 0 1 3 16z"/><path d="M21 5.5A1.5 1.5 0 0 0 19.5 4H14a2 2 0 0 0-2 2v13a1.5 1.5 0 0 1 1.5-1.5h6a1.5 1.5 0 0 0 1.5-1.5z"/></svg>Khóa học</a>
+    <a href="../hsg/index.html#lo-trinh" data-nav="road"><svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="6" cy="5" r="2.2"/><circle cx="18" cy="19" r="2.2"/><path d="M6 7.2V12a3 3 0 0 0 3 3h6a3 3 0 0 1 3 3v-1"/><path d="M18 3v8"/></svg>Lộ trình</a>
+    <a href="../hsg/index.html" id="nav-practice" data-nav="practice"><svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m8 8-4 4 4 4"/><path d="m16 8 4 4-4 4"/><path d="m13.5 5-3 14"/></svg>Thực hành</a>
+    <div class="navdd"><button type="button" id="nav-docs" aria-haspopup="true" aria-expanded="false" aria-controls="m-docs"><svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M14 3H7a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2V8z"/><path d="M14 3v5h5M9 13h6M9 17h4"/></svg>Tài liệu</button>
+      <div class="menu" id="m-docs" hidden>
+        <a href="../hsg/index.html#tu-dien">Từ điển thuật ngữ Anh – Việt<small>Thuật ngữ lập trình HSG kèm bài học có chúng</small></a>
+        <a href="../cpp/index.html#bai-2">Cài đặt trình biên dịch và IDE<small>Windows, macOS, Linux · Bài 2 khóa C++</small></a>
+        <a href="../hsg/index.html#lo-trinh" data-nav="road">Lộ trình HSG 5 phần<small>Các phần đang mở và sắp mở</small></a>
+      </div></div>
+  </nav>
+  <div class="tright"><button type="button" class="menubtn" id="nav-menu" aria-controls="mainnav" aria-expanded="false">Menu</button><div class="tacct" id="topacct"></div></div>
+</div></header>
+
+<div class="lbar" id="mbar">
+  <button class="lbar-btn" id="m-open" aria-controls="side" aria-expanded="false"><svg width="20" height="20" viewBox="0 0 22 22" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" aria-hidden="true"><path d="M3.5 6h15M3.5 11h15M3.5 16h15"/></svg>Danh sách bài học</button>
+  <span class="lbar-r"><button type="button" class="lbar-lang" id="m-lang" hidden></button><span class="lbar-n" id="m-prog" aria-live="off">0 bài</span></span>
+</div>
+<div class="app">
+  <div class="scrim" id="scrim"></div>
+  <div class="sb-float" id="sb-float">
+    <button class="sb-toggle" id="sb-show" aria-controls="side" aria-expanded="false" aria-label="Hiện danh sách bài học" title="Hiện danh sách bài học"><svg width="20" height="20" viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.6" aria-hidden="true"><rect x="2.5" y="3.5" width="15" height="13" rx="2.5"/><path d="M7.5 3.5v13"/></svg></button><span>Danh sách bài học</span>
+  </div>
+  <aside class="side" id="side" aria-label="Danh sách bài học">
+    <div class="sb-top">
+      <div class="sb-head">
+        <a class="sb-back" href="../index.html#khoa-hoc"><span aria-hidden="true">←</span> Tất cả khóa học</a>
+        <button class="sb-toggle" id="sb-hide" aria-controls="side" aria-expanded="true" aria-label="Ẩn danh sách bài học" title="Ẩn danh sách bài học"><svg class="ic-panel" width="20" height="20" viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.6" aria-hidden="true"><rect x="2.5" y="3.5" width="15" height="13" rx="2.5"/><path d="M7.5 3.5v13"/></svg><svg class="ic-x" width="20" height="20" viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" aria-hidden="true"><path d="M5 5l10 10M15 5L5 15"/></svg></button>
+      </div>
+      <div class="brand"><b>Luyện thi HSG &amp; Tin học trẻ C++</b><small>5 phần · Đã mở 11 bài học</small></div>
+      <div class="lang-pick" id="lang-pick" hidden></div>
+      <div class="acct" id="acct"></div>
+      <div class="ol-q"><label class="vh" for="ol-q">Tìm bài học</label><input id="ol-q" type="search" placeholder="Tìm bài học…" autocomplete="off"><button type="button" class="ol-x" id="ol-x" aria-label="Xóa tìm kiếm" hidden>×</button></div>
+      <div class="side-nav" role="group" aria-label="Chế độ xem">
+        <button id="nav-road" aria-pressed="false">Lộ trình</button>
+        <button id="nav-lesson" aria-pressed="true" title="Bài đang học">Bài học</button>
+        <button id="nav-prac" aria-pressed="false">Thực hành</button>
+      </div>
+    </div>
+    <nav class="outline" id="outline" aria-label="Các phần và bài học"></nav>
+    <p class="ol-empty" id="ol-empty" role="status" hidden></p>
+    <div class="sb-foot">
+      <div class="en-row"><span id="en-lb">Thuật ngữ tiếng Anh</span><button class="en-sw" id="en-sw" role="switch" aria-checked="true" aria-labelledby="en-lb"></button></div>
+    </div>
+  </aside>
+
+  <main class="main">
+    <!-- ===================== ROADMAP ===================== -->
+    <div class="col" id="view-road" hidden>
+      <div class="road-intro">
+        <div class="crumb">Khóa học / Lộ trình</div>
+        <div class="hero">
+          <h1>Lộ trình <em>HSG</em> 5 phần</h1>
+<div class="hsg-intro">
+          <p class="lede">Khóa luyện thi lập trình bằng C++ cho học sinh THPT, hướng tới hai kỳ thi: <b>học sinh giỏi Tin học cấp tỉnh Bắc Ninh</b> (lớp 12) và <b>Hội thi Tin học trẻ bảng C</b>. Lộ trình 24 tuần gồm 30 bài, 1 bài kiểm tra đầu khóa và 6 bài thi thử 150 phút. Kiến thức chung đã có ở khóa <a href="../cpp/index.html">C++ từ nền tảng</a> và <a href="../algo/index.html">Cấu trúc dữ liệu &amp; Giải thuật</a> thì học ở đó; khóa này chỉ thêm phần gắn với kỳ thi. Thuật ngữ tiếng Anh được ghi kèm trong bài và tập hợp trong <button type="button" class="road-gl" id="road-gl">từ điển thuật ngữ Anh – Việt</button>.</p>
+
+          <h2>Mục đích</h2>
+          <div class="tbl"><table>
+            <thead><tr><th scope="col">Kỳ thi</th><th scope="col">Đối tượng</th><th scope="col">Ngôn ngữ cho phép</th><th scope="col">Thời gian làm bài</th><th scope="col">Thời điểm</th></tr></thead>
+            <tbody>
+              <tr><td>HSG cấp tỉnh Bắc Ninh (gồm Bắc Giang cũ)</td><td>Lớp 12</td><td>Python hoặc C++</td><td>150 phút</td><td>Tháng 1–3 hằng năm</td></tr>
+              <tr><td>Hội thi Tin học trẻ bảng C2 / C1</td><td>THPT không chuyên / chuyên</td><td>Pascal, C/C++, Python…</td><td>150 phút (vòng loại), 180 phút (chung kết)</td><td>Vòng loại khoảng cuối tháng 4</td></tr>
+            </tbody></table></div>
+          <p>Từ năm học 2025–2026, sau khi Bắc Giang sáp nhập vào Bắc Ninh, kỳ thi HSG tỉnh chỉ thi lớp 12 và chỉ cho dùng Python hoặc C++. Vì vậy khóa học <b>chỉ dạy C++</b>: hợp lệ ở cả hai kỳ thi, chạy nhanh nhất và có thư viện STL. Khóa không dạy Pascal (bị loại khỏi HSG tỉnh) và không dạy Python (dễ quá thời gian ở bài khó).</p>
+
+          <h2>Học viên</h2>
+          <p>Học sinh lớp 11 năm học 2026–2027: thi Tin học trẻ năm 2027, thi HSG tỉnh lớp 12 năm học 2027–2028. Trình độ đầu vào khác nhau (đã học Pascal, đã học Python hoặc mới bắt đầu), nên mỗi bài đều có khối <b>Học trước</b> chỉ tới đúng bài cần ôn ở khóa C++ hoặc khóa Giải thuật.</p>
+
+          <h2>Mục tiêu đầu ra</h2>
+          <ul>
+            <li>Giải trọn bài 1–3 của một đề HSG tỉnh trong 150 phút và lấy được subtask đầu của bài 4.</li>
+            <li>Viết đúng khung chương trình thi: đọc ghi file <code>TENBAI.INP</code> / <code>TENBAI.OUT</code>, nhập xuất nhanh, không tràn số.</li>
+            <li>Đọc giới hạn n để chọn thuật toán, tự sinh test và đối chiếu lời giải trước khi nộp.</li>
+          </ul>
+          <p>Mốc luyện tập theo giải do khóa đặt ra (không phải ngưỡng chính thức của kỳ thi):</p>
+          <div class="tbl"><table>
+            <thead><tr><th scope="col">Mức giải</th><th scope="col">Điểm thi thử cần đạt ổn định</th></tr></thead>
+            <tbody>
+              <tr><td>Khuyến khích</td><td>≥ 40%</td></tr>
+              <tr><td>Giải Ba</td><td>≥ 55%</td></tr>
+              <tr><td>Giải Nhì</td><td>≥ 70%</td></tr>
+              <tr><td>Giải Nhất</td><td>≥ 85%</td></tr>
+              <tr><td>Vào vòng khu vực Tin học trẻ C2</td><td>≥ 80 điểm (ngưỡng xét chọn năm 2026)</td></tr>
+            </tbody></table></div>
+
+          <h2>Cấu trúc khóa học</h2>
+          <ul>
+            <li><b>Thời lượng:</b> 24 tuần học và khoảng 2 tuần nghỉ Tết, từ 26/10/2026 đến cuối tháng 4/2027.</li>
+            <li><b>Nhịp học:</b> 2 buổi mỗi tuần, mỗi buổi 3 tiếng: 1 buổi lý thuyết và code mẫu, 1 buổi luyện bài tính giờ.</li>
+            <li><b>Quy mô:</b> 30 bài trong 5 phần, 1 bài kiểm tra đầu khóa, 6 bài thi thử 150 phút.</li>
+          </ul>
+
+          <h2>Cách học một bài</h2>
+          <ol class="steps">
+            <li><b>Học trước:</b> mở các bài được liên kết ở khóa C++ hoặc khóa Giải thuật. Bài nào đã học xong sẽ có dấu “✓ Đã học”.</li>
+            <li><b>Kiểm tra nhanh:</b> vài câu trắc nghiệm ngay trong bài. Đạt từ 80% thì phần luyện thi bên dưới mới mở.</li>
+            <li><b>Phần luyện thi:</b> kiến thức gắn với kỳ thi, code mẫu chạy được trên trình mô phỏng, ví dụ trong đề thật, bài tập chấm tự động (có bài đọc ghi file như khi thi) và danh sách bài luyện trên trang chấm.</li>
+          </ol>
+
+          <h2>Công cụ</h2>
+          <ul>
+            <li><b>Trình mô phỏng C++ trên trang:</b> chạy từng dòng, xem bộ nhớ, đọc ghi file ảo <code>TENBAI.INP</code> / <code>TENBAI.OUT</code>. Dùng để hiểu chương trình và làm bài tập nhỏ.</li>
+            <li><b>Themis</b> (chấm offline trên Windows): dùng cho các bài thi thử, giống cách chấm HSG tỉnh.</li>
+            <li><b>Trang chấm online</b> LQDOJ, VNOJ, CSES: luyện bài hằng ngày với dữ liệu lớn và đo thời gian thật. Tin học trẻ vòng loại thi online qua <a href="https://tinhoctre.vn/" target="_blank" rel="noopener">tinhoctre.vn</a>.</li>
+          </ul>
+
+          <details class="sy-sec" open><summary><b>Lịch học 24 tuần và liên kết tới khóa đã có</b></summary>
+            <p>Bài có liên kết “sắp ra mắt” sẽ tự chuyển thành đường dẫn khi bài đó mở ở khóa C++ hoặc khóa Giải thuật.</p>
+            <div class="tbl sy-tbl"><table><thead><tr><th scope="col">Bài</th><th scope="col">Tên bài</th><th scope="col">Tuần</th><th scope="col">Liên kết tới khóa đã có</th></tr></thead><tbody><tr class="sy-p"><th colspan="4" scope="rowgroup">Phần 1 · Nền tảng C++ thi đấu · Tuần 1–4</th></tr><tr class="soon-r"><td>Bài 1</td><td>Mục tiêu khóa học và vì sao chọn C++ <span class="soon">Sắp có</span></td><td>1</td><td class="pre-cell"><span class="pre-new">Xây mới trong khóa</span></td></tr><tr><td>Bài 2</td><td><a href="#bai-2" data-go="l2">Cài đặt môi trường và công cụ chấm</a></td><td>1</td><td class="pre-cell"><div class="pre-i"><a class="pre-a" href="../cpp/index.html#bai-1"><span class="pre-c">C++ từ nền tảng · Bài 1</span><b>Chương trình C++ đầu tiên</b></a><span class="pre-st">Chưa học</span></div><div class="pre-i"><a class="pre-a" href="../cpp/index.html#bai-2"><span class="pre-c">C++ từ nền tảng · Bài 2</span><b>Cài đặt trình biên dịch &amp; IDE</b></a><span class="pre-st">Chưa học</span></div></td></tr><tr><td>Bài 3</td><td><a href="#bai-3" data-go="l3">Khung chương trình thi</a></td><td>2</td><td class="pre-cell"><div class="pre-i"><a class="pre-a" href="../cpp/index.html#bai-3"><span class="pre-c">C++ từ nền tảng · Bài 3</span><b>Nhập xuất với cin / cout</b></a><span class="pre-st">Chưa học</span></div></td></tr><tr><td>Bài 4</td><td><a href="#bai-4" data-go="l4">Kiểu dữ liệu và tràn số</a></td><td>2</td><td class="pre-cell"><div class="pre-i"><a class="pre-a" href="../cpp/index.html#bai-5"><span class="pre-c">C++ từ nền tảng · Bài 5</span><b>int, double, char, bool</b></a><span class="pre-st">Chưa học</span></div><div class="pre-i"><a class="pre-a" href="../cpp/index.html#bai-7"><span class="pre-c">C++ từ nền tảng · Bài 7</span><b>Ép kiểu và tràn số</b></a><span class="pre-st">Chưa học</span></div><div class="pre-i"><a class="pre-a" href="../cpp/index.html#bai-8"><span class="pre-c">C++ từ nền tảng · Bài 8</span><b>Toán tử số học</b></a><span class="pre-st">Chưa học</span></div></td></tr><tr><td>Bài 5</td><td><a href="#bai-5" data-go="l5">Rẽ nhánh, vòng lặp, hàm</a></td><td>3</td><td class="pre-cell"><div class="pre-i"><a class="pre-a" href="../cpp/index.html#bai-12"><span class="pre-c">C++ từ nền tảng · Bài 12</span><b>if / else</b></a><span class="pre-st">Chưa học</span></div><div class="pre-i"><a class="pre-a" href="../cpp/index.html#bai-15"><span class="pre-c">C++ từ nền tảng · Bài 15</span><b>for, break, continue</b></a><span class="pre-st">Chưa học</span></div><div class="pre-i"><a class="pre-a" href="../cpp/index.html#bai-16"><span class="pre-c">C++ từ nền tảng · Bài 16</span><b>Định nghĩa và gọi hàm</b></a><span class="pre-st">Chưa học</span></div><div class="pre-i"><a class="pre-a" href="../cpp/index.html#bai-17"><span class="pre-c">C++ từ nền tảng · Bài 17</span><b>Truyền tham trị / tham chiếu</b></a><span class="pre-st">Chưa học</span></div></td></tr><tr><td>Bài 6</td><td><a href="#bai-6" data-go="l6">Độ phức tạp thuật toán</a></td><td>3</td><td class="pre-cell"><div class="pre-i"><a class="pre-a" href="../algo/index.html#bai-4"><span class="pre-c">Cấu trúc dữ liệu &amp; Giải thuật · Bài 4</span><b>Đo thời gian chạy bằng cách đếm phép toán</b></a><span class="pre-st">Chưa học</span></div><div class="pre-i"><a class="pre-a" href="../algo/index.html#bai-5"><span class="pre-c">Cấu trúc dữ liệu &amp; Giải thuật · Bài 5</span><b>Độ phức tạp Big-O, Big-Θ, Big-Ω</b></a><span class="pre-st">Chưa học</span></div><div class="pre-i"><a class="pre-a" href="../algo/index.html#bai-6"><span class="pre-c">Cấu trúc dữ liệu &amp; Giải thuật · Bài 6</span><b>Độ phức tạp bộ nhớ và cách đọc giới hạn của đề bài</b></a><span class="pre-st">Chưa học</span></div></td></tr><tr class="soon-r"><td>Bài 7</td><td>Sinh test và đối chiếu lời giải <span class="soon">Sắp có</span></td><td>4</td><td class="pre-cell"><div class="pre-i"><a class="pre-a" href="../algo/index.html#bai-3"><span class="pre-c">Cấu trúc dữ liệu &amp; Giải thuật · Bài 3</span><b>Tính đúng: bất biến vòng lặp và kiểm thử</b></a><span class="pre-st">Chưa học</span></div><div class="pre-i soon"><span class="pre-a"><span class="pre-c">Cấu trúc dữ liệu &amp; Giải thuật · sắp ra mắt</span><b>Kiểm thử đối chiếu (stress test) và gỡ lỗi</b></span><span class="pre-st">Sắp ra mắt</span></div></td></tr><tr class="soon-r"><td>KT1</td><td>Kiểm tra 1 (90 phút, 3 bài): phân loại năng lực đầu khóa <span class="soon">Sắp có</span></td><td>4</td><td class="pre-cell"><span class="pre-new">Xây mới trong khóa</span></td></tr><tr class="sy-p"><th colspan="4" scope="rowgroup">Phần 2 · Kỹ thuật cơ bản · Tuần 5–10</th></tr><tr class="soon-r"><td>Bài 8</td><td>Số học 1: chia hết, ước, số nguyên tố, sàng Eratosthenes <span class="soon">Sắp có</span></td><td>5</td><td class="pre-cell"><div class="pre-i"><a class="pre-a" href="../cpp/index.html#bai-8"><span class="pre-c">C++ từ nền tảng · Bài 8</span><b>Toán tử số học</b></a><span class="pre-st">Chưa học</span></div><div class="pre-i soon"><span class="pre-a"><span class="pre-c">Cấu trúc dữ liệu &amp; Giải thuật · sắp ra mắt</span><b>Số nguyên tố và sàng Eratosthenes</b></span><span class="pre-st">Sắp ra mắt</span></div></td></tr><tr class="soon-r"><td>Bài 9</td><td>Số học 2: ƯCLN, BCNN, lũy thừa nhanh, modulo <span class="soon">Sắp có</span></td><td>6</td><td class="pre-cell"><div class="pre-i soon"><span class="pre-a"><span class="pre-c">Cấu trúc dữ liệu &amp; Giải thuật · sắp ra mắt</span><b>Ước chung lớn nhất, bội chung nhỏ nhất, đồng dư và lũy thừa nhanh</b></span><span class="pre-st">Sắp ra mắt</span></div></td></tr><tr><td>Bài 10</td><td><a href="#bai-10" data-go="l10">Xâu 1: duyệt ký tự, đếm tần suất, tách từ</a></td><td>7</td><td class="pre-cell"><div class="pre-i"><a class="pre-a" href="../cpp/index.html#bai-23"><span class="pre-c">C++ từ nền tảng · Bài 23</span><b>string</b></a><span class="pre-st">Chưa học</span></div><div class="pre-i"><a class="pre-a" href="../cpp/index.html#bai-5"><span class="pre-c">C++ từ nền tảng · Bài 5</span><b>int, double, char, bool</b></a><span class="pre-st">Chưa học</span></div></td></tr><tr class="soon-r"><td>Bài 11</td><td>Xâu 2: đối xứng, chuẩn hóa, cộng trừ số lớn <span class="soon">Sắp có</span></td><td>8</td><td class="pre-cell"><div class="pre-i"><a class="pre-a" href="../cpp/index.html#bai-23"><span class="pre-c">C++ từ nền tảng · Bài 23</span><b>string</b></a><span class="pre-st">Chưa học</span></div><div class="pre-i soon"><span class="pre-a"><span class="pre-c">Cấu trúc dữ liệu &amp; Giải thuật · sắp ra mắt</span><b>Băm chuỗi</b></span><span class="pre-st">Sắp ra mắt</span></div></td></tr><tr><td>Bài 12</td><td><a href="#bai-12" data-go="l12">vector, pair và sắp xếp</a></td><td>9</td><td class="pre-cell"><div class="pre-i"><a class="pre-a" href="../cpp/index.html#bai-24"><span class="pre-c">C++ từ nền tảng · Bài 24</span><b>vector cơ bản</b></a><span class="pre-st">Chưa học</span></div><div class="pre-i"><a class="pre-a" href="../algo/index.html#bai-19"><span class="pre-c">Cấu trúc dữ liệu &amp; Giải thuật · Bài 19</span><b>Sắp xếp đếm, tính ổn định và hàm sort() của STL</b></a><span class="pre-st">Chưa học</span></div><div class="pre-i soon"><span class="pre-a"><span class="pre-c">C++ từ nền tảng · sắp ra mắt</span><b>Lambda</b></span><span class="pre-st">Sắp ra mắt</span></div></td></tr><tr><td>Bài 13</td><td><a href="#bai-13" data-go="l13">Mảng cộng dồn và mảng hiệu</a></td><td>10</td><td class="pre-cell"><div class="pre-i"><a class="pre-a" href="../algo/index.html#bai-9"><span class="pre-c">Cấu trúc dữ liệu &amp; Giải thuật · Bài 9</span><b>Mảng cộng dồn (prefix sum)</b></a><span class="pre-st">Chưa học</span></div><div class="pre-i"><a class="pre-a" href="../algo/index.html#bai-10"><span class="pre-c">Cấu trúc dữ liệu &amp; Giải thuật · Bài 10</span><b>Mảng hiệu (difference array)</b></a><span class="pre-st">Chưa học</span></div></td></tr><tr class="soon-r"><td>TT1</td><td>Thi thử 1: đề HSG Bắc Giang 2021–2022 (150 phút, chấm bằng Themis) <span class="soon">Sắp có</span></td><td>10</td><td class="pre-cell"><span class="pre-new">Xây mới trong khóa</span></td></tr><tr class="sy-p"><th colspan="4" scope="rowgroup">Phần 3 · Kỹ thuật trung cấp · Tuần 11–16</th></tr><tr><td>Bài 14</td><td><a href="#bai-14" data-go="l14">Tìm kiếm nhị phân trên mảng</a></td><td>11</td><td class="pre-cell"><div class="pre-i"><a class="pre-a" href="../algo/index.html#bai-14"><span class="pre-c">Cấu trúc dữ liệu &amp; Giải thuật · Bài 14</span><b>Tìm kiếm nhị phân</b></a><span class="pre-st">Chưa học</span></div></td></tr><tr><td>Bài 15</td><td><a href="#bai-15" data-go="l15">Tìm kiếm nhị phân trên kết quả</a></td><td>12</td><td class="pre-cell"><div class="pre-i"><a class="pre-a" href="../algo/index.html#bai-15"><span class="pre-c">Cấu trúc dữ liệu &amp; Giải thuật · Bài 15</span><b>Tìm kiếm nhị phân trên đáp án</b></a><span class="pre-st">Chưa học</span></div></td></tr><tr><td>Bài 16</td><td><a href="#bai-16" data-go="l16">Hai con trỏ và cửa sổ trượt</a></td><td>13</td><td class="pre-cell"><div class="pre-i"><a class="pre-a" href="../algo/index.html#bai-11"><span class="pre-c">Cấu trúc dữ liệu &amp; Giải thuật · Bài 11</span><b>Kỹ thuật hai con trỏ</b></a><span class="pre-st">Chưa học</span></div><div class="pre-i"><a class="pre-a" href="../algo/index.html#bai-12"><span class="pre-c">Cấu trúc dữ liệu &amp; Giải thuật · Bài 12</span><b>Kỹ thuật cửa sổ trượt</b></a><span class="pre-st">Chưa học</span></div></td></tr><tr class="soon-r"><td>Bài 17</td><td>Tham lam <span class="soon">Sắp có</span></td><td>14</td><td class="pre-cell"><div class="pre-i soon"><span class="pre-a"><span class="pre-c">Cấu trúc dữ liệu &amp; Giải thuật · sắp ra mắt</span><b>Ý tưởng tham lam và khi nào nó đúng</b></span><span class="pre-st">Sắp ra mắt</span></div><div class="pre-i soon"><span class="pre-a"><span class="pre-c">Cấu trúc dữ liệu &amp; Giải thuật · sắp ra mắt</span><b>Bài toán chọn hoạt động và xếp lịch</b></span><span class="pre-st">Sắp ra mắt</span></div><div class="pre-i soon"><span class="pre-a"><span class="pre-c">Cấu trúc dữ liệu &amp; Giải thuật · sắp ra mắt</span><b>Chứng minh tham lam bằng lập luận hoán đổi</b></span><span class="pre-st">Sắp ra mắt</span></div></td></tr><tr class="soon-r"><td>Bài 18</td><td>stack, queue, deque <span class="soon">Sắp có</span></td><td>15</td><td class="pre-cell"><div class="pre-i soon"><span class="pre-a"><span class="pre-c">Cấu trúc dữ liệu &amp; Giải thuật · sắp ra mắt</span><b>Ngăn xếp (stack) và bài toán kiểm tra dấu ngoặc</b></span><span class="pre-st">Sắp ra mắt</span></div><div class="pre-i soon"><span class="pre-a"><span class="pre-c">Cấu trúc dữ liệu &amp; Giải thuật · sắp ra mắt</span><b>Hàng đợi (queue) và hàng đợi hai đầu (deque)</b></span><span class="pre-st">Sắp ra mắt</span></div><div class="pre-i soon"><span class="pre-a"><span class="pre-c">Cấu trúc dữ liệu &amp; Giải thuật · sắp ra mắt</span><b>Ngăn xếp đơn điệu</b></span><span class="pre-st">Sắp ra mắt</span></div><div class="pre-i soon"><span class="pre-a"><span class="pre-c">Cấu trúc dữ liệu &amp; Giải thuật · sắp ra mắt</span><b>Hàng đợi đơn điệu: giá trị lớn nhất trong cửa sổ trượt</b></span><span class="pre-st">Sắp ra mắt</span></div></td></tr><tr class="soon-r"><td>Bài 19</td><td>set, map, priority_queue <span class="soon">Sắp có</span></td><td>15</td><td class="pre-cell"><div class="pre-i soon"><span class="pre-a"><span class="pre-c">Cấu trúc dữ liệu &amp; Giải thuật · sắp ra mắt</span><b>set và map (cây cân bằng) so với bảng băm</b></span><span class="pre-st">Sắp ra mắt</span></div><div class="pre-i soon"><span class="pre-a"><span class="pre-c">Cấu trúc dữ liệu &amp; Giải thuật · sắp ra mắt</span><b>Bài toán đếm tần suất và tìm cặp có tổng cho trước</b></span><span class="pre-st">Sắp ra mắt</span></div><div class="pre-i soon"><span class="pre-a"><span class="pre-c">Cấu trúc dữ liệu &amp; Giải thuật · sắp ra mắt</span><b>Đống (heap) và priority_queue</b></span><span class="pre-st">Sắp ra mắt</span></div><div class="pre-i"><a class="pre-a" href="../cpp/index.html#bai-40"><span class="pre-c">C++ từ nền tảng · Bài 40</span><b>Container của STL</b></a><span class="pre-st">Chưa học</span></div></td></tr><tr class="soon-r"><td>Bài 20</td><td>Đệ quy và quay lui <span class="soon">Sắp có</span></td><td>16</td><td class="pre-cell"><div class="pre-i"><a class="pre-a" href="../cpp/index.html#bai-19"><span class="pre-c">C++ từ nền tảng · Bài 19</span><b>Đệ quy</b></a><span class="pre-st">Chưa học</span></div><div class="pre-i"><a class="pre-a" href="../algo/index.html#bai-20"><span class="pre-c">Cấu trúc dữ liệu &amp; Giải thuật · Bài 20</span><b>Ôn đệ quy: điều kiện dừng và cây lời gọi</b></a><span class="pre-st">Chưa học</span></div><div class="pre-i soon"><span class="pre-a"><span class="pre-c">Cấu trúc dữ liệu &amp; Giải thuật · sắp ra mắt</span><b>Quay lui: sinh tổ hợp và hoán vị</b></span><span class="pre-st">Sắp ra mắt</span></div><div class="pre-i soon"><span class="pre-a"><span class="pre-c">Cấu trúc dữ liệu &amp; Giải thuật · sắp ra mắt</span><b>Quay lui có cắt nhánh: bài toán N quân hậu</b></span><span class="pre-st">Sắp ra mắt</span></div></td></tr><tr class="soon-r"><td>TT2</td><td>Thi thử 2: đề HSG Bắc Giang 2022–2023 (150 phút) <span class="soon">Sắp có</span></td><td>16</td><td class="pre-cell"><span class="pre-new">Xây mới trong khóa</span></td></tr><tr class="sy-p"><th colspan="4" scope="rowgroup">Phần 4 · Thuật toán phân loại · Tuần 17–20</th></tr><tr class="soon-r"><td>Bài 21</td><td>Quy hoạch động 1: trạng thái, công thức truy hồi, đếm cách <span class="soon">Sắp có</span></td><td>17</td><td class="pre-cell"><div class="pre-i soon"><span class="pre-a"><span class="pre-c">Cấu trúc dữ liệu &amp; Giải thuật · sắp ra mắt</span><b>Đệ quy có nhớ (memoization)</b></span><span class="pre-st">Sắp ra mắt</span></div><div class="pre-i soon"><span class="pre-a"><span class="pre-c">Cấu trúc dữ liệu &amp; Giải thuật · sắp ra mắt</span><b>Từ đệ quy có nhớ đến quy hoạch động</b></span><span class="pre-st">Sắp ra mắt</span></div><div class="pre-i soon"><span class="pre-a"><span class="pre-c">Cấu trúc dữ liệu &amp; Giải thuật · sắp ra mắt</span><b>Trạng thái và công thức truy hồi qua bài leo cầu thang</b></span><span class="pre-st">Sắp ra mắt</span></div></td></tr><tr class="soon-r"><td>Bài 22</td><td>Quy hoạch động 2: dãy con tăng dài nhất, cái túi 0/1 <span class="soon">Sắp có</span></td><td>18</td><td class="pre-cell"><div class="pre-i soon"><span class="pre-a"><span class="pre-c">Cấu trúc dữ liệu &amp; Giải thuật · sắp ra mắt</span><b>Dãy con tăng dài nhất (LIS)</b></span><span class="pre-st">Sắp ra mắt</span></div><div class="pre-i soon"><span class="pre-a"><span class="pre-c">Cấu trúc dữ liệu &amp; Giải thuật · sắp ra mắt</span><b>Bài toán cái túi</b></span><span class="pre-st">Sắp ra mắt</span></div><div class="pre-i soon"><span class="pre-a"><span class="pre-c">Cấu trúc dữ liệu &amp; Giải thuật · sắp ra mắt</span><b>Truy vết để in ra lời giải</b></span><span class="pre-st">Sắp ra mắt</span></div></td></tr><tr class="soon-r"><td>Bài 23</td><td>Quy hoạch động 3: trên xâu và trên lưới <span class="soon">Sắp có</span></td><td>19</td><td class="pre-cell"><div class="pre-i soon"><span class="pre-a"><span class="pre-c">Cấu trúc dữ liệu &amp; Giải thuật · sắp ra mắt</span><b>Xâu con chung dài nhất (LCS) và khoảng cách sửa</b></span><span class="pre-st">Sắp ra mắt</span></div><div class="pre-i soon"><span class="pre-a"><span class="pre-c">Cấu trúc dữ liệu &amp; Giải thuật · sắp ra mắt</span><b>Quy hoạch động trên lưới</b></span><span class="pre-st">Sắp ra mắt</span></div></td></tr><tr class="soon-r"><td>Bài 24</td><td>Đồ thị: BFS và DFS <span class="soon">Sắp có</span></td><td>19</td><td class="pre-cell"><div class="pre-i soon"><span class="pre-a"><span class="pre-c">Cấu trúc dữ liệu &amp; Giải thuật · sắp ra mắt</span><b>Đồ thị và các cách biểu diễn</b></span><span class="pre-st">Sắp ra mắt</span></div><div class="pre-i soon"><span class="pre-a"><span class="pre-c">Cấu trúc dữ liệu &amp; Giải thuật · sắp ra mắt</span><b>BFS và đường đi ngắn nhất không trọng số</b></span><span class="pre-st">Sắp ra mắt</span></div><div class="pre-i soon"><span class="pre-a"><span class="pre-c">Cấu trúc dữ liệu &amp; Giải thuật · sắp ra mắt</span><b>DFS và thành phần liên thông</b></span><span class="pre-st">Sắp ra mắt</span></div></td></tr><tr class="soon-r"><td>Bài 25</td><td>Loang trên lưới <span class="soon">Sắp có</span></td><td>20</td><td class="pre-cell"><div class="pre-i"><a class="pre-a" href="../cpp/index.html#bai-22"><span class="pre-c">C++ từ nền tảng · Bài 22</span><b>Mảng hai chiều</b></a><span class="pre-st">Chưa học</span></div><div class="pre-i soon"><span class="pre-a"><span class="pre-c">Cấu trúc dữ liệu &amp; Giải thuật · sắp ra mắt</span><b>BFS và đường đi ngắn nhất không trọng số</b></span><span class="pre-st">Sắp ra mắt</span></div><div class="pre-i soon"><span class="pre-a"><span class="pre-c">Cấu trúc dữ liệu &amp; Giải thuật · sắp ra mắt</span><b>DFS và thành phần liên thông</b></span><span class="pre-st">Sắp ra mắt</span></div></td></tr><tr class="soon-r"><td>TT3</td><td>Thi thử 3: đề HSG Bắc Giang 2023–2024 (150 phút) <span class="soon">Sắp có</span></td><td>20</td><td class="pre-cell"><span class="pre-new">Xây mới trong khóa</span></td></tr><tr class="sy-p"><th colspan="4" scope="rowgroup">Phần 5 · Luyện đề · Tuần 21–24</th></tr><tr class="soon-r"><td>Bài 26</td><td>Chiến lược 150 phút và lấy subtask <span class="soon">Sắp có</span></td><td>21</td><td class="pre-cell"><div class="pre-i"><a class="pre-a" href="../algo/index.html#bai-6"><span class="pre-c">Cấu trúc dữ liệu &amp; Giải thuật · Bài 6</span><b>Độ phức tạp bộ nhớ và cách đọc giới hạn của đề bài</b></a><span class="pre-st">Chưa học</span></div><div class="pre-i soon"><span class="pre-a"><span class="pre-c">Cấu trúc dữ liệu &amp; Giải thuật · sắp ra mắt</span><b>Tiếp cận một bài toán lạ: từ trâu bò đến tối ưu</b></span><span class="pre-st">Sắp ra mắt</span></div></td></tr><tr class="soon-r"><td>Bài 27</td><td>Chữa đề Bắc Ninh chọn đội tuyển 2024–2025 <span class="soon">Sắp có</span></td><td>21</td><td class="pre-cell"><span class="pre-new">Xây mới trong khóa</span></td></tr><tr class="soon-r"><td>Bài 28</td><td>Chữa đề HSG 11 tỉnh khác <span class="soon">Sắp có</span></td><td>22</td><td class="pre-cell"><span class="pre-new">Xây mới trong khóa</span></td></tr><tr class="soon-r"><td>TT4</td><td>Thi thử 4 (150 phút) <span class="soon">Sắp có</span></td><td>22</td><td class="pre-cell"><span class="pre-new">Xây mới trong khóa</span></td></tr><tr class="soon-r"><td>Bài 29</td><td>Chữa đề Tin học trẻ Bắc Giang 2023 bảng C <span class="soon">Sắp có</span></td><td>23</td><td class="pre-cell"><span class="pre-new">Xây mới trong khóa</span></td></tr><tr class="soon-r"><td>Bài 30</td><td>Tổng ôn lỗi thường gặp <span class="soon">Sắp có</span></td><td>24</td><td class="pre-cell"><div class="pre-i"><a class="pre-a" href="../cpp/index.html#bai-7"><span class="pre-c">C++ từ nền tảng · Bài 7</span><b>Ép kiểu và tràn số</b></a><span class="pre-st">Chưa học</span></div><div class="pre-i"><a class="pre-a" href="../algo/index.html#bai-6"><span class="pre-c">Cấu trúc dữ liệu &amp; Giải thuật · Bài 6</span><b>Độ phức tạp bộ nhớ và cách đọc giới hạn của đề bài</b></a><span class="pre-st">Chưa học</span></div></td></tr><tr class="soon-r"><td>TT5</td><td>Thi thử 5: chấm offline bằng Themis <span class="soon">Sắp có</span></td><td>23</td><td class="pre-cell"><span class="pre-new">Xây mới trong khóa</span></td></tr><tr class="soon-r"><td>TT6</td><td>Thi thử 6: chấm online, chốt đội dự thi <span class="soon">Sắp có</span></td><td>24</td><td class="pre-cell"><span class="pre-new">Xây mới trong khóa</span></td></tr></tbody></table></div>
+          </details>
+
+          <details class="sy-sec"><summary><b>Kho đề tham khảo (đang cập nhật)</b></summary>
+            <p>Danh sách tạm thời, tìm trên mạng ngày 22/10/2026. Đề HSG Bắc Giang 2021–2022, 2022–2023 và đề chọn đội tuyển Bắc Ninh 2024–2025 sẽ được bổ sung khi có bản chính thức.</p>
+            <ul>
+              <li>HSG THPT tỉnh Bắc Giang 2023–2024: <a href="https://hpcode.edu.vn/cBgZF1" target="_blank" rel="noopener">đề bài</a>, <a href="https://hpcode.edu.vn/77W9zt" target="_blank" rel="noopener">hướng dẫn giải</a> (trên hpcode.edu.vn)</li>
+              <li>Tin học trẻ tỉnh Bắc Giang trên LQDOJ: <a href="https://lqdoj.edu.vn/contest/24thtbgc1" target="_blank" rel="noopener">bảng C1 năm 2024</a>, <a href="https://lqdoj.edu.vn/contest/tht23bgb" target="_blank" rel="noopener">bảng B năm 2023</a></li>
+              <li>Tin học trẻ toàn quốc 2021 bảng C trên VNOJ: <a href="https://oj.vnoi.info/contest/tht21_skc" target="_blank" rel="noopener">vòng sơ khảo</a>, <a href="https://oj.vnoi.info/contest/tht21_kvc" target="_blank" rel="noopener">vòng khu vực</a>, <a href="https://oj.vnoi.info/contest/tht21_ckc" target="_blank" rel="noopener">vòng chung kết</a></li>
+              <li>Tin học trẻ 2023 trên HNOJ: <a href="https://hnoj.edu.vn/contest/tht2023_hn_sk_c" target="_blank" rel="noopener">Hà Nội, sơ khảo bảng C</a>, <a href="https://hnoj.edu.vn/contest/tht2023_tq_ck_c1" target="_blank" rel="noopener">toàn quốc, chung kết bảng C1</a></li>
+              <li>Đề tỉnh khác: <a href="https://oj.vnoi.info/contest/hcm_thpt_23" target="_blank" rel="noopener">HSG THPT TP.HCM 2023</a> (VNOJ), <a href="https://hnoj.edu.vn/contest/hnoi2023v1" target="_blank" rel="noopener">HSG THPT Hà Nội 2023 vòng 1</a> (HNOJ), <a href="http://hpcode.edu.vn/dethi/" target="_blank" rel="noopener">kho đề HSG các tỉnh</a> (hpcode)</li>
+            </ul>
+          </details>
+        </div>
+
+        </div>
+      </div>
+      <div id="road"></div>
+      <details class="gloss gloss-all" id="gloss-all"><summary><b>Từ điển thuật ngữ Anh – Việt</b><small>English – Vietnamese glossary</small></summary>
+        <div class="gl-tools"><input id="gl-q" type="search" placeholder="Tìm: biến, loop, tham chiếu…" aria-label="Tìm thuật ngữ"><span class="gl-at" id="gl-n"></span></div>
+        <div class="gl-list" id="gl-all"></div>
+      </details>
+    </div>
+
+    <!-- ===================== THỰC HÀNH ===================== -->
+    <div class="col wide" id="view-practice" hidden>
+      <header class="hero"><div class="crumb">Khóa học / Thực hành</div><h1>Thực hành <em>HSG</em></h1>
+        <p class="lede">Tất cả bài tập chấm tự động của khóa ở một nơi. Chọn bài, viết code, chạy thử trên trình mô phỏng rồi nộp bài. Bí thì mở gợi ý; lời giải mở khi bạn đã làm đạt hoặc đã nộp 3 lần chưa đạt, kèm trình tự chạy từng bước.</p>
+        <p class="pr-sum" id="pr-sum" role="status"></p></header>
+      <div class="pr-wrap">
+        <aside class="pr-side" aria-label="Danh sách bài tập">
+          <div class="pr-tools"><label class="vh" for="pr-q">Tìm bài tập</label><input id="pr-q" type="search" placeholder="Tìm bài tập…" autocomplete="off">
+            <div class="pr-f" role="group" aria-label="Lọc bài tập"><button type="button" data-f="all" aria-pressed="true">Tất cả</button><button type="button" data-f="todo" aria-pressed="false">Chưa đạt</button><button type="button" data-f="done" aria-pressed="false">Đã đạt</button></div></div>
+          <div class="pr-list" id="pr-list"></div>
+        </aside>
+        <section class="pr-main" id="pr-main" aria-live="polite"></section>
+      </div>
+    </div>
+
+    <!-- ===================== BÀI 2 · Cài đặt môi trường và công cụ chấm ===================== -->
+    <article class="col" id="view-l2"><div class="lgate" aria-live="polite"></div><div class="park" hidden><div data-m="m0" class="quiz" id="quiz2"></div>
+<div data-m="m1" class="score" id="score2"></div>
+<div data-m="m2" class="gate" id="gate-l2" role="status" aria-live="polite"></div>
+<div data-m="m3" id="sim-l2"></div>
+<div data-m="m4" class="ex-grid" id="ex-l2"></div>
+<div data-m="m5" class="next">
+        <span class="byline"><span class="amts-logo" aria-hidden="true"></span>Phần 1 · Bài 2/8</span>
+        <button class="btn pri nx" data-go="l3">Bài tiếp: Khung chương trình thi →</button>
+      </div></div></article>
+    <!-- ===================== BÀI 3 · Khung chương trình thi ===================== -->
+    <article class="col" id="view-l3" hidden><div class="lgate" aria-live="polite"></div><div class="park" hidden><div data-m="m0" class="quiz" id="quiz3"></div>
+<div data-m="m1" class="score" id="score3"></div>
+<div data-m="m2" class="gate" id="gate-l3" role="status" aria-live="polite"></div>
+<div data-m="m3" class="code" data-snip="h3tpl"></div>
+<div data-m="m4" id="sim-l3"></div>
+<div data-m="m5" class="ex-grid" id="ex-l3"></div>
+<div data-m="m6" class="next">
+        <button class="btn prev" data-go="l2">← Bài 2</button>
+        <span class="byline"><span class="amts-logo" aria-hidden="true"></span>Phần 1 · Bài 3/8</span>
+        <button class="btn pri nx" data-go="l4">Bài tiếp: Kiểu dữ liệu và tràn số →</button>
+      </div></div></article>
+    <!-- ===================== BÀI 4 · Kiểu dữ liệu và tràn số ===================== -->
+    <article class="col" id="view-l4" hidden><div class="lgate" aria-live="polite"></div><div class="park" hidden><div data-m="m0" class="quiz" id="quiz4"></div>
+<div data-m="m1" class="score" id="score4"></div>
+<div data-m="m2" class="gate" id="gate-l4" role="status" aria-live="polite"></div>
+<div data-m="m3" id="sim-l4"></div>
+<div data-m="m4" class="ex-grid" id="ex-l4"></div>
+<div data-m="m5" class="next">
+        <button class="btn prev" data-go="l3">← Bài 3</button>
+        <span class="byline"><span class="amts-logo" aria-hidden="true"></span>Phần 1 · Bài 4/8</span>
+        <button class="btn pri nx" data-go="l5">Bài tiếp: Rẽ nhánh, vòng lặp, hàm →</button>
+      </div></div></article>
+    <!-- ===================== BÀI 5 · Rẽ nhánh, vòng lặp, hàm ===================== -->
+    <article class="col" id="view-l5" hidden><div class="lgate" aria-live="polite"></div><div class="park" hidden><div data-m="m0" class="quiz" id="quiz5"></div>
+<div data-m="m1" class="score" id="score5"></div>
+<div data-m="m2" class="gate" id="gate-l5" role="status" aria-live="polite"></div>
+<div data-m="m3" class="code" data-snip="h5mau"></div>
+<div data-m="m4" class="code" data-snip="h5thoat"></div>
+<div data-m="m5" id="sim-l5"></div>
+<div data-m="m6" class="ex-grid" id="ex-l5"></div>
+<div data-m="m7" class="next">
+        <button class="btn prev" data-go="l4">← Bài 4</button>
+        <span class="byline"><span class="amts-logo" aria-hidden="true"></span>Phần 1 · Bài 5/8</span>
+        <button class="btn pri nx" data-go="l6">Bài tiếp: Độ phức tạp thuật toán →</button>
+      </div></div></article>
+    <!-- ===================== BÀI 6 · Độ phức tạp thuật toán ===================== -->
+    <article class="col" id="view-l6" hidden><div class="lgate" aria-live="polite"></div><div class="park" hidden><div data-m="m0" class="quiz" id="quiz6"></div>
+<div data-m="m1" class="score" id="score6"></div>
+<div data-m="m2" class="gate" id="gate-l6" role="status" aria-live="polite"></div>
+<div data-m="m3" class="figure" id="grw-h6"></div>
+<div data-m="m4" class="figure" id="race-h6"></div>
+<div data-m="m5" id="sim-l6"></div>
+<div data-m="m6" class="ex-grid" id="ex-l6"></div>
+<div data-m="m7" class="next">
+        <button class="btn prev" data-go="l5">← Bài 5</button>
+        <span class="byline"><span class="amts-logo" aria-hidden="true"></span>Phần 1 · Bài 6/8</span>
+        <button class="btn pri nx" data-go="l10">Bài tiếp: Phần 2 · Xâu 1: duyệt ký tự, đếm tần suất, tách từ →</button>
+      </div></div></article>
+    <!-- ===================== BÀI 10 · Xâu 1: duyệt ký tự, đếm tần suất, tách từ ===================== -->
+    <article class="col" id="view-l10" hidden><div class="lgate" aria-live="polite"></div><div class="park" hidden><div data-m="m0" class="quiz" id="quiz10"></div>
+<div data-m="m1" class="score" id="score10"></div>
+<div data-m="m2" class="gate" id="gate-l10" role="status" aria-live="polite"></div>
+<div data-m="m3" class="code" data-snip="h10tach"></div>
+<div data-m="m4" id="sim-l10"></div>
+<div data-m="m5" class="ex-grid" id="ex-l10"></div>
+<div data-m="m6" class="next">
+        <button class="btn prev" data-go="l6">← Bài 6</button>
+        <span class="byline"><span class="amts-logo" aria-hidden="true"></span>Phần 2 · Bài 3/7</span>
+        <button class="btn pri nx" data-go="l12">Bài tiếp: vector, pair và sắp xếp →</button>
+      </div></div></article>
+    <!-- ===================== BÀI 12 · vector, pair và sắp xếp ===================== -->
+    <article class="col" id="view-l12" hidden><div class="lgate" aria-live="polite"></div><div class="park" hidden><div data-m="m0" class="quiz" id="quiz12"></div>
+<div data-m="m1" class="score" id="score12"></div>
+<div data-m="m2" class="gate" id="gate-l12" role="status" aria-live="polite"></div>
+<div data-m="m3" class="code" data-snip="h12pair"></div>
+<div data-m="m4" class="code" data-snip="h12cmp"></div>
+<div data-m="m5" id="sim-l12"></div>
+<div data-m="m6" class="ex-grid" id="ex-l12"></div>
+<div data-m="m7" class="next">
+        <button class="btn prev" data-go="l10">← Bài 10</button>
+        <span class="byline"><span class="amts-logo" aria-hidden="true"></span>Phần 2 · Bài 5/7</span>
+        <button class="btn pri nx" data-go="l13">Bài tiếp: Mảng cộng dồn và mảng hiệu →</button>
+      </div></div></article>
+    <!-- ===================== BÀI 13 · Mảng cộng dồn và mảng hiệu ===================== -->
+    <article class="col" id="view-l13" hidden><div class="lgate" aria-live="polite"></div><div class="park" hidden><div data-m="m0" class="quiz" id="quiz13"></div>
+<div data-m="m1" class="score" id="score13"></div>
+<div data-m="m2" class="gate" id="gate-l13" role="status" aria-live="polite"></div>
+<div data-m="m3" id="sim-l13"></div>
+<div data-m="m4" class="ex-grid" id="ex-l13"></div>
+<div data-m="m5" class="next">
+        <button class="btn prev" data-go="l12">← Bài 12</button>
+        <span class="byline"><span class="amts-logo" aria-hidden="true"></span>Phần 2 · Bài 6/7</span>
+        <button class="btn pri nx" data-go="l14">Bài tiếp: Phần 3 · Tìm kiếm nhị phân trên mảng →</button>
+      </div></div></article>
+    <!-- ===================== BÀI 14 · Tìm kiếm nhị phân trên mảng ===================== -->
+    <article class="col" id="view-l14" hidden><div class="lgate" aria-live="polite"></div><div class="park" hidden><div data-m="m0" class="quiz" id="quiz14"></div>
+<div data-m="m1" class="score" id="score14"></div>
+<div data-m="m2" class="gate" id="gate-l14" role="status" aria-live="polite"></div>
+<div data-m="m3" id="sim-l14"></div>
+<div data-m="m4" class="ex-grid" id="ex-l14"></div>
+<div data-m="m5" class="next">
+        <button class="btn prev" data-go="l13">← Bài 13</button>
+        <span class="byline"><span class="amts-logo" aria-hidden="true"></span>Phần 3 · Bài 1/8</span>
+        <button class="btn pri nx" data-go="l15">Bài tiếp: Tìm kiếm nhị phân trên kết quả →</button>
+      </div></div></article>
+    <!-- ===================== BÀI 15 · Tìm kiếm nhị phân trên kết quả ===================== -->
+    <article class="col" id="view-l15" hidden><div class="lgate" aria-live="polite"></div><div class="park" hidden><div data-m="m0" class="quiz" id="quiz15"></div>
+<div data-m="m1" class="score" id="score15"></div>
+<div data-m="m2" class="gate" id="gate-l15" role="status" aria-live="polite"></div>
+<div data-m="m3" class="code" data-snip="h15khuon"></div>
+<div data-m="m4" id="sim-l15"></div>
+<div data-m="m5" class="ex-grid" id="ex-l15"></div>
+<div data-m="m6" class="next">
+        <button class="btn prev" data-go="l14">← Bài 14</button>
+        <span class="byline"><span class="amts-logo" aria-hidden="true"></span>Phần 3 · Bài 2/8</span>
+        <button class="btn pri nx" data-go="l16">Bài tiếp: Hai con trỏ và cửa sổ trượt →</button>
+      </div></div></article>
+    <!-- ===================== BÀI 16 · Hai con trỏ và cửa sổ trượt ===================== -->
+    <article class="col" id="view-l16" hidden><div class="lgate" aria-live="polite"></div><div class="park" hidden><div data-m="m0" class="quiz" id="quiz16"></div>
+<div data-m="m1" class="score" id="score16"></div>
+<div data-m="m2" class="gate" id="gate-l16" role="status" aria-live="polite"></div>
+<div data-m="m3" class="code" data-snip="h16khuon"></div>
+<div data-m="m4" id="sim-l16"></div>
+<div data-m="m5" class="ex-grid" id="ex-l16"></div>
+<div data-m="m6" class="next">
+        <button class="btn prev" data-go="l15">← Bài 15</button>
+        <span class="byline up"><span class="amts-logo" aria-hidden="true"></span>Tiếp theo: Tham lam</span>
+      </div></div></article>
+  </main>
+</div>
+
+<script defer src="../assets/app/common.7bf5ec4a67.js"></script>
+<script defer src="../assets/app/hsg-head.0f1030f057.js"></script>
+<script defer src="../assets/app/core.2f40092332.js"></script>
+
+
+</body>
+</html>

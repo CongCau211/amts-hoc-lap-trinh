@@ -1,0 +1,43 @@
+Gói cập nhật 20261022-1640: giải nén rồi tải lên repo GitHub Pages, giữ nguyên đường dẫn thư mục.
+
+Mới (25):
+  assets/app/algo-body.592cc17ec5.js
+  assets/app/algo-head.f063caf9a6.js
+  assets/app/common.7bf5ec4a67.js
+  assets/app/core.0e412eb2af.css
+  assets/app/core.2f40092332.js
+  assets/app/cpp-body.f06abaaec9.js
+  assets/app/cpp-head.b59bea8084.js
+  assets/app/home.95b0ddd744.js
+  assets/app/hsg-body.f74a7ccc2e.js
+  assets/app/hsg-head.0f1030f057.js
+  assets/app/hsg-l10.e4c89333ca.js
+  assets/app/hsg-l12.ff5b59bce7.js
+  assets/app/hsg-l13.6e4c30dea7.js
+  assets/app/hsg-l14.9161714e7e.js
+  assets/app/hsg-l15.1a26ab9b93.js
+  assets/app/hsg-l16.27e10b0c4a.js
+  assets/app/hsg-l2.7a96466d3d.js
+  assets/app/hsg-l3.fcaa820afc.js
+  assets/app/hsg-l4.bbc7687da5.js
+  assets/app/hsg-l5.634758db49.js
+  assets/app/hsg-l6.cbe328edfc.js
+  assets/courses/hsg/card-square.webp
+  assets/courses/hsg/card.webp
+  assets/courses/hsg/hero.webp
+  hsg/index.html
+
+Đã đổi (3):
+  algo/index.html
+  cpp/index.html
+  index.html
+
+Không còn dùng (có thể xóa trên GitHub, để lại cũng không sao) (8):
+  assets/app/algo-body.3ef8368486.js
+  assets/app/algo-head.7ad1c2582f.js
+  assets/app/common.4f348d32c1.js
+  assets/app/core.47594c9db5.css
+  assets/app/core.f6f64e9506.js
+  assets/app/cpp-body.fe0342773d.js
+  assets/app/cpp-head.38ead91e69.js
+  assets/app/home.f60a714af7.js
