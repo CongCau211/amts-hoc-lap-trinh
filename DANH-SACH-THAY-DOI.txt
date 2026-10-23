@@ -1,15 +1,14 @@
-Gói cập nhật 20261023-0618: giải nén rồi tải lên repo GitHub Pages, giữ nguyên đường dẫn thư mục.
+Gói cập nhật 20261023-1059: giải nén rồi tải lên repo GitHub Pages, giữ nguyên đường dẫn thư mục.
 
-Mới (9):
-  assets/app/algo-body.e3e120a3a3.js
-  assets/app/algo-head.3701e4b708.js
-  assets/app/common.c821059554.js
-  assets/app/core.47ce2c8853.css
-  assets/app/core.6954fe829e.js
-  assets/app/cpp-body.c2ccecaf80.js
-  assets/app/cpp-head.dfe5153de9.js
-  assets/app/cpp-l1-l2.806c368932.js
-  assets/app/cpp-l3.b1e4a87400.js
+Mới (8):
+  assets/app/common.5caf798209.js
+  assets/app/core.6941e77c8a.js
+  assets/app/cpp-body.0ea9c4d633.js
+  assets/app/cpp-head.bb549427b3.js
+  assets/app/cpp-l41.819f791797.js
+  assets/app/cpp-l42.7457aaa8b9.js
+  assets/app/cpp-l43.7021a90256.js
+  assets/app/cpp-l44.f38ca00f01.js
 
 Đã đổi (4):
   algo/index.html
@@ -17,13 +16,8 @@ Mới (9):
   hsg/index.html
   index.html
 
-Không còn dùng (có thể xóa trên GitHub, để lại cũng không sao) (9):
-  assets/app/algo-body.592cc17ec5.js
-  assets/app/algo-head.f063caf9a6.js
-  assets/app/common.7bf5ec4a67.js
-  assets/app/core.0e412eb2af.css
-  assets/app/core.2f40092332.js
-  assets/app/cpp-body.f06abaaec9.js
-  assets/app/cpp-head.b59bea8084.js
-  assets/app/cpp-l1-l2.c2a001a719.js
-  assets/app/cpp-l3.fb2c5d7665.js
+Không còn dùng (có thể xóa trên GitHub, để lại cũng không sao) (4):
+  assets/app/common.c821059554.js
+  assets/app/core.6954fe829e.js
+  assets/app/cpp-body.c2ccecaf80.js
+  assets/app/cpp-head.dfe5153de9.js
