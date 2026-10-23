@@ -1,0 +1,29 @@
+Gói cập nhật 20261023-1339: giải nén rồi tải lên repo GitHub Pages, giữ nguyên đường dẫn thư mục.
+
+Mới (13):
+  assets/app/common.26a06e8d94.js
+  assets/app/core.138cd2ab79.js
+  assets/app/core.a840c85e22.css
+  assets/app/cpp-body.d9f043acf5.js
+  assets/app/cpp-head.1b57c5fa7a.js
+  assets/app/cpp-l45.5fb0de76dd.js
+  assets/app/cpp-l46.e81615ea17.js
+  assets/app/cpp-l47.298ec9dbb1.js
+  assets/app/cpp-l48.8ba63316f6.js
+  assets/app/cpp-l49.be7311c4da.js
+  assets/app/cpp-l50.e9ff1a59c8.js
+  assets/app/cpp-l51.f8b1a9a5c6.js
+  assets/app/cpp-l52.7c191992c2.js
+
+Đã đổi (4):
+  algo/index.html
+  cpp/index.html
+  hsg/index.html
+  index.html
+
+Không còn dùng (có thể xóa trên GitHub, để lại cũng không sao) (5):
+  assets/app/common.5caf798209.js
+  assets/app/core.47ce2c8853.css
+  assets/app/core.6941e77c8a.js
+  assets/app/cpp-body.0ea9c4d633.js
+  assets/app/cpp-head.bb549427b3.js
