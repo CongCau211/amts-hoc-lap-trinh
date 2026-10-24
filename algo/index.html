@@ -5,10 +5,10 @@
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <link rel="preload" as="font" type="font/woff2" crossorigin href="../assets/fonts/be-vietnam-pro-latin-400-normal.woff2">
 <link rel="preload" as="font" type="font/woff2" crossorigin href="../assets/fonts/be-vietnam-pro-vietnamese-400-normal.woff2">
-<link rel="preload" as="script" href="../assets/app/common.94819ef7ed.js">
-<link rel="preload" as="script" href="../assets/app/algo-head.b2f909fb83.js">
-<link rel="preload" as="script" href="../assets/app/core.a44778ef25.js">
-<link rel="preload" as="script" href="../assets/app/algo-body.7bb7d0b311.js">
+<link rel="preload" as="script" href="../assets/app/common.ea14a56c3a.js">
+<link rel="preload" as="script" href="../assets/app/algo-head.0ea3a50817.js">
+<link rel="preload" as="script" href="../assets/app/core.711423e9cb.js">
+<link rel="preload" as="script" href="../assets/app/algo-body.58e48e92b6.js">
 <title>Cấu trúc dữ liệu &amp; Giải thuật</title>
 <meta name="claude:viewport-fit-sides" content="cover">
 <link rel="preconnect" href="https://cdn.jsdelivr.net">
@@ -17,13 +17,13 @@
 <link rel="preload" as="script" href="https://cdn.jsdelivr.net/npm/firebase@10.14.1/firebase-app-compat.js">
 <link rel="preload" as="script" href="https://cdn.jsdelivr.net/npm/firebase@10.14.1/firebase-auth-compat.js">
 <link rel="preload" as="script" href="https://cdn.jsdelivr.net/npm/firebase@10.14.1/firebase-firestore-compat.js">
-<link rel="stylesheet" href="../assets/app/core.10e299ffa3.css">
-<meta name="description" content="Khóa Cấu trúc dữ liệu &amp; Giải thuật của AMTS: 50 bài từ độ phức tạp, sắp xếp, tìm kiếm tới quy hoạch động và đồ thị; hình động từng bước, trình mô phỏng C++, Python và C#, bài tập chấm cả độ hiệu quả.">
+<link rel="stylesheet" href="../assets/app/core.eafd470834.css">
+<meta name="description" content="Khóa Cấu trúc dữ liệu &amp; Giải thuật của AMTS: 74 bài từ độ phức tạp, sắp xếp, tìm kiếm tới quy hoạch động và đồ thị; hình động từng bước, trình mô phỏng C++, Python và C#, bài tập chấm cả độ hiệu quả.">
 <meta property="og:type" content="website">
 <meta property="og:locale" content="vi_VN">
 <meta property="og:site_name" content="AMTS Học Lập Trình">
 <meta property="og:title" content="Cấu trúc dữ liệu &amp; Giải thuật">
-<meta property="og:description" content="Khóa Cấu trúc dữ liệu &amp; Giải thuật của AMTS: 50 bài từ độ phức tạp, sắp xếp, tìm kiếm tới quy hoạch động và đồ thị; hình động từng bước, trình mô phỏng C++, Python và C#, bài tập chấm cả độ hiệu quả.">
+<meta property="og:description" content="Khóa Cấu trúc dữ liệu &amp; Giải thuật của AMTS: 74 bài từ độ phức tạp, sắp xếp, tìm kiếm tới quy hoạch động và đồ thị; hình động từng bước, trình mô phỏng C++, Python và C#, bài tập chấm cả độ hiệu quả.">
 <meta name="theme-color" content="#0E97A9">
 <link rel="icon" href="../assets/brand/favicon.png">
 <link rel="apple-touch-icon" href="../assets/brand/apple-touch-icon.png">
@@ -32,7 +32,7 @@
 <style>:root{color-scheme:light dark}body{margin:0}img{max-width:100%}[hidden]{display:none!important}</style>
 </head>
 <body>
-<script>(function(){const pl=u=>{if(!u)return;const k=document.createElement("link");k.rel="preload";k.as="script";k.href=u;document.head.appendChild(k)};try{const o=JSON.parse(localStorage.getItem("amts-lang-algo")||"null");pl({"py": "../assets/app/lang-py.4a53244ecb.js", "cs": "../assets/app/lang-cs.dfe12fa772.js"}[o&&o.l])}catch(e){}try{const m=/^#bai-(\d+)/.exec(location.hash);pl({"l1": "../assets/app/algo-l1.e72c6223c4.js", "l2": "../assets/app/algo-l2.780ee00dd2.js", "l3": "../assets/app/algo-l3.8ac63e9ca7.js", "l4": "../assets/app/algo-l4.3a27e9c4e8.js", "l5": "../assets/app/algo-l5.ffe2a08730.js", "l6": "../assets/app/algo-l6.ae40252689.js", "l7": "../assets/app/algo-l7.bc3ddac63b.js", "l8": "../assets/app/algo-l8.9d97c23782.js", "l9": "../assets/app/algo-l9.890b05002a.js", "l10": "../assets/app/algo-l10.2f7a91418e.js", "l11": "../assets/app/algo-l11.733a879393.js", "l12": "../assets/app/algo-l12.9ae8160655.js", "l13": "../assets/app/algo-l13.af38e965d5.js", "l14": "../assets/app/algo-l14.2c917fe02e.js", "l15": "../assets/app/algo-l15.f4dc975ca8.js", "l16": "../assets/app/algo-l16.f09846d10a.js", "l17": "../assets/app/algo-l17.ffd095d081.js", "l18": "../assets/app/algo-l18.31a05e749e.js", "l19": "../assets/app/algo-l19.069bfc399f.js", "l20": "../assets/app/algo-l20.f03920f53f.js", "l21": "../assets/app/algo-l21.e6f7c5d275.js", "l22": "../assets/app/algo-l22.9ece2eac41.js", "l23": "../assets/app/algo-l23.97c7d4cb8d.js", "l24": "../assets/app/algo-l24.baab4b91da.js", "l25": "../assets/app/algo-l25.a77bc1152f.js", "l26": "../assets/app/algo-l26.983b7c0f2e.js", "l27": "../assets/app/algo-l27.3de87f54ea.js", "l28": "../assets/app/algo-l28.9ca27d51d5.js", "l29": "../assets/app/algo-l29.a86874a29a.js", "l30": "../assets/app/algo-l30.bbc0a26dfe.js", "l31": "../assets/app/algo-l31.39f5aa6bb5.js", "l32": "../assets/app/algo-l32.21b642cc64.js", "l33": "../assets/app/algo-l33.9afba41bdc.js", "l34": "../assets/app/algo-l34.5b358beaab.js", "l35": "../assets/app/algo-l35.b961cf32a3.js", "l36": "../assets/app/algo-l36.365adcf38c.js", "l37": "../assets/app/algo-l37.307754cdc3.js", "l38": "../assets/app/algo-l38.a3937d9461.js", "l39": "../assets/app/algo-l39.90047eec5c.js", "l40": "../assets/app/algo-l40.db1382b43b.js", "l41": "../assets/app/algo-l41.928c1164b4.js", "l42": "../assets/app/algo-l42.ab7afdd10b.js", "l43": "../assets/app/algo-l43.e89575082a.js", "l44": "../assets/app/algo-l44.96abeea287.js", "l45": "../assets/app/algo-l45.acdb820550.js", "l46": "../assets/app/algo-l46.7faa9b0dbb.js", "l47": "../assets/app/algo-l47.c00f6561ac.js", "l48": "../assets/app/algo-l48.a0ff81f5fb.js", "l49": "../assets/app/algo-l49.60573977b8.js", "l50": "../assets/app/algo-l50.d9d3dfa4a4.js"}[m?"l"+m[1]:localStorage.getItem("algo-view")])}catch(e){}})()</script>
+<script>(function(){const pl=u=>{if(!u)return;const k=document.createElement("link");k.rel="preload";k.as="script";k.href=u;document.head.appendChild(k)};try{const o=JSON.parse(localStorage.getItem("amts-lang-algo")||"null");pl({"py": "../assets/app/lang-py.12abb457fb.js", "cs": "../assets/app/lang-cs.dfe12fa772.js"}[o&&o.l])}catch(e){}try{const m=/^#bai-(\d+)/.exec(location.hash);pl({"l1": "../assets/app/algo-l1.e72c6223c4.js", "l2": "../assets/app/algo-l2.780ee00dd2.js", "l3": "../assets/app/algo-l3.8ac63e9ca7.js", "l4": "../assets/app/algo-l4.3a27e9c4e8.js", "l5": "../assets/app/algo-l5.ffe2a08730.js", "l6": "../assets/app/algo-l6.ae40252689.js", "l7": "../assets/app/algo-l7.bc3ddac63b.js", "l8": "../assets/app/algo-l8.9d97c23782.js", "l9": "../assets/app/algo-l9.890b05002a.js", "l10": "../assets/app/algo-l10.2f7a91418e.js", "l11": "../assets/app/algo-l11.733a879393.js", "l12": "../assets/app/algo-l12.9ae8160655.js", "l13": "../assets/app/algo-l13.af38e965d5.js", "l14": "../assets/app/algo-l14.2c917fe02e.js", "l15": "../assets/app/algo-l15.f4dc975ca8.js", "l16": "../assets/app/algo-l16.f09846d10a.js", "l17": "../assets/app/algo-l17.ffd095d081.js", "l18": "../assets/app/algo-l18.31a05e749e.js", "l19": "../assets/app/algo-l19.069bfc399f.js", "l20": "../assets/app/algo-l20.f03920f53f.js", "l21": "../assets/app/algo-l21.e6f7c5d275.js", "l22": "../assets/app/algo-l22.9ece2eac41.js", "l23": "../assets/app/algo-l23.97c7d4cb8d.js", "l24": "../assets/app/algo-l24.baab4b91da.js", "l25": "../assets/app/algo-l25.a77bc1152f.js", "l26": "../assets/app/algo-l26.983b7c0f2e.js", "l27": "../assets/app/algo-l27.3de87f54ea.js", "l28": "../assets/app/algo-l28.9ca27d51d5.js", "l29": "../assets/app/algo-l29.a86874a29a.js", "l30": "../assets/app/algo-l30.bbc0a26dfe.js", "l31": "../assets/app/algo-l31.39f5aa6bb5.js", "l32": "../assets/app/algo-l32.21b642cc64.js", "l33": "../assets/app/algo-l33.9afba41bdc.js", "l34": "../assets/app/algo-l34.5b358beaab.js", "l35": "../assets/app/algo-l35.b961cf32a3.js", "l36": "../assets/app/algo-l36.365adcf38c.js", "l37": "../assets/app/algo-l37.307754cdc3.js", "l38": "../assets/app/algo-l38.a3937d9461.js", "l39": "../assets/app/algo-l39.90047eec5c.js", "l40": "../assets/app/algo-l40.db1382b43b.js", "l41": "../assets/app/algo-l41.928c1164b4.js", "l42": "../assets/app/algo-l42.ab7afdd10b.js", "l43": "../assets/app/algo-l43.e89575082a.js", "l44": "../assets/app/algo-l44.96abeea287.js", "l45": "../assets/app/algo-l45.acdb820550.js", "l46": "../assets/app/algo-l46.7faa9b0dbb.js", "l47": "../assets/app/algo-l47.c00f6561ac.js", "l48": "../assets/app/algo-l48.a0ff81f5fb.js", "l49": "../assets/app/algo-l49.60573977b8.js", "l50": "../assets/app/algo-l50.d9d3dfa4a4.js", "l51": "../assets/app/algo-l51.1279aa10d8.js", "l52": "../assets/app/algo-l52.865fac1b46.js", "l53": "../assets/app/algo-l53.0930568ffb.js", "l54": "../assets/app/algo-l54.4288b9a355.js", "l55": "../assets/app/algo-l55.1bdaf94856.js", "l56": "../assets/app/algo-l56.561a9e2a7e.js", "l57": "../assets/app/algo-l57.c3c4b18c06.js", "l58": "../assets/app/algo-l58.0de5d35d21.js", "l59": "../assets/app/algo-l59.c6d6cb71fd.js", "l60": "../assets/app/algo-l60.4f6c8ef180.js", "l61": "../assets/app/algo-l61.f9154b8437.js", "l62": "../assets/app/algo-l62.fdae70c90e.js", "l63": "../assets/app/algo-l63.69a3bf2275.js", "l64": "../assets/app/algo-l64.235a4f9ec0.js", "l65": "../assets/app/algo-l65.ff8d86e6f2.js", "l66": "../assets/app/algo-l66.28fd29de06.js", "l67": "../assets/app/algo-l67.7dd839c5f6.js", "l68": "../assets/app/algo-l68.2d0574de2a.js", "l69": "../assets/app/algo-l69.ce991a33db.js", "l70": "../assets/app/algo-l70.8007135140.js", "l71": "../assets/app/algo-l71.52098b2963.js", "l72": "../assets/app/algo-l72.19c6baa96b.js", "l73": "../assets/app/algo-l73.c93aca92e6.js", "l74": "../assets/app/algo-l74.d949a1d3cf.js"}[m?"l"+m[1]:localStorage.getItem("algo-view")])}catch(e){}})()</script>
 
 
 
@@ -67,7 +67,7 @@
         <a class="sb-back" href="../index.html#khoa-hoc"><span aria-hidden="true">←</span> Tất cả khóa học</a>
         <button class="sb-toggle" id="sb-hide" aria-controls="side" aria-expanded="true" aria-label="Ẩn danh sách bài học" title="Ẩn danh sách bài học"><svg class="ic-panel" width="20" height="20" viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.6" aria-hidden="true"><rect x="2.5" y="3.5" width="15" height="13" rx="2.5"/><path d="M7.5 3.5v13"/></svg><svg class="ic-x" width="20" height="20" viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" aria-hidden="true"><path d="M5 5l10 10M15 5L5 15"/></svg></button>
       </div>
-      <div class="brand"><b>Cấu trúc dữ liệu &amp; Giải thuật</b><small>14 chương · Đã mở 50 bài học</small></div>
+      <div class="brand"><b>Cấu trúc dữ liệu &amp; Giải thuật</b><small>14 chương · Đã mở 74 bài học</small></div>
       <div class="lang-pick" id="lang-pick" hidden></div>
       <div class="acct" id="acct"></div>
       <div class="ol-q"><label class="vh" for="ol-q">Tìm bài học</label><input id="ol-q" type="search" placeholder="Tìm bài học…" autocomplete="off"><button type="button" class="ol-x" id="ol-x" aria-label="Xóa tìm kiếm" hidden>×</button></div>
@@ -628,14 +628,254 @@
 <div data-m="m3" class="score" id="score50"></div>
 <div data-m="m4" class="next">
         <button class="btn prev" data-go="l49">← Bài 49</button>
-        <span class="byline up"><span class="amts-logo" aria-hidden="true"></span>Tiếp theo: Đồ thị và các cách biểu diễn</span>
+        <span class="byline"><span class="amts-logo" aria-hidden="true"></span>Chương 9 · Bài 7/7</span>
+        <button class="btn pri nx" data-go="l51">Bài tiếp: Chương 10 · Đồ thị và các cách biểu diễn →</button>
+      </div></div></article>
+    <!-- ===================== BÀI 51 · Đồ thị và các cách biểu diễn ===================== -->
+    <article class="col" id="view-l51" hidden><div class="lgate" aria-live="polite"></div><div class="park" hidden><div data-m="m0" id="sim-l51"></div>
+<div data-m="m1" class="ex-grid" id="ex-l51"></div>
+<div data-m="m2" class="quiz" id="quiz51"></div>
+<div data-m="m3" class="score" id="score51"></div>
+<div data-m="m4" class="next">
+        <button class="btn prev" data-go="l50">← Bài 50</button>
+        <span class="byline"><span class="amts-logo" aria-hidden="true"></span>Chương 10 · Bài 1/5</span>
+        <button class="btn pri nx" data-go="l52">Bài tiếp: BFS và đường đi ngắn nhất không trọng số →</button>
+      </div></div></article>
+    <!-- ===================== BÀI 52 · BFS và đường đi ngắn nhất không trọng số ===================== -->
+    <article class="col" id="view-l52" hidden><div class="lgate" aria-live="polite"></div><div class="park" hidden><div data-m="m0" id="sim-l52"></div>
+<div data-m="m1" class="ex-grid" id="ex-l52"></div>
+<div data-m="m2" class="quiz" id="quiz52"></div>
+<div data-m="m3" class="score" id="score52"></div>
+<div data-m="m4" class="next">
+        <button class="btn prev" data-go="l51">← Bài 51</button>
+        <span class="byline"><span class="amts-logo" aria-hidden="true"></span>Chương 10 · Bài 2/5</span>
+        <button class="btn pri nx" data-go="l53">Bài tiếp: DFS và thành phần liên thông →</button>
+      </div></div></article>
+    <!-- ===================== BÀI 53 · DFS và thành phần liên thông ===================== -->
+    <article class="col" id="view-l53" hidden><div class="lgate" aria-live="polite"></div><div class="park" hidden><div data-m="m0" id="sim-l53"></div>
+<div data-m="m1" class="ex-grid" id="ex-l53"></div>
+<div data-m="m2" class="quiz" id="quiz53"></div>
+<div data-m="m3" class="score" id="score53"></div>
+<div data-m="m4" class="next">
+        <button class="btn prev" data-go="l52">← Bài 52</button>
+        <span class="byline"><span class="amts-logo" aria-hidden="true"></span>Chương 10 · Bài 3/5</span>
+        <button class="btn pri nx" data-go="l54">Bài tiếp: Sắp xếp tô pô →</button>
+      </div></div></article>
+    <!-- ===================== BÀI 54 · Sắp xếp tô pô ===================== -->
+    <article class="col" id="view-l54" hidden><div class="lgate" aria-live="polite"></div><div class="park" hidden><div data-m="m0" id="sim-l54"></div>
+<div data-m="m1" class="ex-grid" id="ex-l54"></div>
+<div data-m="m2" class="quiz" id="quiz54"></div>
+<div data-m="m3" class="score" id="score54"></div>
+<div data-m="m4" class="next">
+        <button class="btn prev" data-go="l53">← Bài 53</button>
+        <span class="byline"><span class="amts-logo" aria-hidden="true"></span>Chương 10 · Bài 4/5</span>
+        <button class="btn pri nx" data-go="l55">Bài tiếp: Phát hiện chu trình và đồ thị hai phía →</button>
+      </div></div></article>
+    <!-- ===================== BÀI 55 · Phát hiện chu trình và đồ thị hai phía ===================== -->
+    <article class="col" id="view-l55" hidden><div class="lgate" aria-live="polite"></div><div class="park" hidden><div data-m="m0" id="sim-l55"></div>
+<div data-m="m1" class="ex-grid" id="ex-l55"></div>
+<div data-m="m2" class="quiz" id="quiz55"></div>
+<div data-m="m3" class="score" id="score55"></div>
+<div data-m="m4" class="next">
+        <button class="btn prev" data-go="l54">← Bài 54</button>
+        <span class="byline"><span class="amts-logo" aria-hidden="true"></span>Chương 10 · Bài 5/5</span>
+        <button class="btn pri nx" data-go="l56">Bài tiếp: Chương 11 · Thuật toán Dijkstra →</button>
+      </div></div></article>
+    <!-- ===================== BÀI 56 · Thuật toán Dijkstra ===================== -->
+    <article class="col" id="view-l56" hidden><div class="lgate" aria-live="polite"></div><div class="park" hidden><div data-m="m0" id="sim-l56"></div>
+<div data-m="m1" class="ex-grid" id="ex-l56"></div>
+<div data-m="m2" class="quiz" id="quiz56"></div>
+<div data-m="m3" class="score" id="score56"></div>
+<div data-m="m4" class="next">
+        <button class="btn prev" data-go="l55">← Bài 55</button>
+        <span class="byline"><span class="amts-logo" aria-hidden="true"></span>Chương 11 · Bài 1/4</span>
+        <button class="btn pri nx" data-go="l57">Bài tiếp: Thuật toán Bellman-Ford và chu trình âm →</button>
+      </div></div></article>
+    <!-- ===================== BÀI 57 · Thuật toán Bellman-Ford và chu trình âm ===================== -->
+    <article class="col" id="view-l57" hidden><div class="lgate" aria-live="polite"></div><div class="park" hidden><div data-m="m0" id="sim-l57"></div>
+<div data-m="m1" class="ex-grid" id="ex-l57"></div>
+<div data-m="m2" class="quiz" id="quiz57"></div>
+<div data-m="m3" class="score" id="score57"></div>
+<div data-m="m4" class="next">
+        <button class="btn prev" data-go="l56">← Bài 56</button>
+        <span class="byline"><span class="amts-logo" aria-hidden="true"></span>Chương 11 · Bài 2/4</span>
+        <button class="btn pri nx" data-go="l58">Bài tiếp: Thuật toán Floyd-Warshall →</button>
+      </div></div></article>
+    <!-- ===================== BÀI 58 · Thuật toán Floyd-Warshall ===================== -->
+    <article class="col" id="view-l58" hidden><div class="lgate" aria-live="polite"></div><div class="park" hidden><div data-m="m0" id="sim-l58"></div>
+<div data-m="m1" class="ex-grid" id="ex-l58"></div>
+<div data-m="m2" class="quiz" id="quiz58"></div>
+<div data-m="m3" class="score" id="score58"></div>
+<div data-m="m4" class="next">
+        <button class="btn prev" data-go="l57">← Bài 57</button>
+        <span class="byline"><span class="amts-logo" aria-hidden="true"></span>Chương 11 · Bài 3/4</span>
+        <button class="btn pri nx" data-go="l59">Bài tiếp: Cây khung nhỏ nhất: Kruskal và Prim →</button>
+      </div></div></article>
+    <!-- ===================== BÀI 59 · Cây khung nhỏ nhất: Kruskal và Prim ===================== -->
+    <article class="col" id="view-l59" hidden><div class="lgate" aria-live="polite"></div><div class="park" hidden><div data-m="m0" id="sim-l59"></div>
+<div data-m="m1" class="ex-grid" id="ex-l59"></div>
+<div data-m="m2" class="quiz" id="quiz59"></div>
+<div data-m="m3" class="score" id="score59"></div>
+<div data-m="m4" class="next">
+        <button class="btn prev" data-go="l58">← Bài 58</button>
+        <span class="byline"><span class="amts-logo" aria-hidden="true"></span>Chương 11 · Bài 4/4</span>
+        <button class="btn pri nx" data-go="l60">Bài tiếp: Chương 12 · Bảng thưa (sparse table) →</button>
+      </div></div></article>
+    <!-- ===================== BÀI 60 · Bảng thưa (sparse table) ===================== -->
+    <article class="col" id="view-l60" hidden><div class="lgate" aria-live="polite"></div><div class="park" hidden><div data-m="m0" id="sim-l60"></div>
+<div data-m="m1" class="ex-grid" id="ex-l60"></div>
+<div data-m="m2" class="quiz" id="quiz60"></div>
+<div data-m="m3" class="score" id="score60"></div>
+<div data-m="m4" class="next">
+        <button class="btn prev" data-go="l59">← Bài 59</button>
+        <span class="byline"><span class="amts-logo" aria-hidden="true"></span>Chương 12 · Bài 1/5</span>
+        <button class="btn pri nx" data-go="l61">Bài tiếp: Cây Fenwick (BIT) →</button>
+      </div></div></article>
+    <!-- ===================== BÀI 61 · Cây Fenwick (BIT) ===================== -->
+    <article class="col" id="view-l61" hidden><div class="lgate" aria-live="polite"></div><div class="park" hidden><div data-m="m0" id="sim-l61"></div>
+<div data-m="m1" class="ex-grid" id="ex-l61"></div>
+<div data-m="m2" class="quiz" id="quiz61"></div>
+<div data-m="m3" class="score" id="score61"></div>
+<div data-m="m4" class="next">
+        <button class="btn prev" data-go="l60">← Bài 60</button>
+        <span class="byline"><span class="amts-logo" aria-hidden="true"></span>Chương 12 · Bài 2/5</span>
+        <button class="btn pri nx" data-go="l62">Bài tiếp: Cây phân đoạn (segment tree) →</button>
+      </div></div></article>
+    <!-- ===================== BÀI 62 · Cây phân đoạn (segment tree) ===================== -->
+    <article class="col" id="view-l62" hidden><div class="lgate" aria-live="polite"></div><div class="park" hidden><div data-m="m0" id="sim-l62"></div>
+<div data-m="m1" class="ex-grid" id="ex-l62"></div>
+<div data-m="m2" class="quiz" id="quiz62"></div>
+<div data-m="m3" class="score" id="score62"></div>
+<div data-m="m4" class="next">
+        <button class="btn prev" data-go="l61">← Bài 61</button>
+        <span class="byline"><span class="amts-logo" aria-hidden="true"></span>Chương 12 · Bài 3/5</span>
+        <button class="btn pri nx" data-go="l63">Bài tiếp: Cập nhật lười (lazy propagation) →</button>
+      </div></div></article>
+    <!-- ===================== BÀI 63 · Cập nhật lười (lazy propagation) ===================== -->
+    <article class="col" id="view-l63" hidden><div class="lgate" aria-live="polite"></div><div class="park" hidden><div data-m="m0" id="sim-l63"></div>
+<div data-m="m1" class="ex-grid" id="ex-l63"></div>
+<div data-m="m2" class="quiz" id="quiz63"></div>
+<div data-m="m3" class="score" id="score63"></div>
+<div data-m="m4" class="next">
+        <button class="btn prev" data-go="l62">← Bài 62</button>
+        <span class="byline"><span class="amts-logo" aria-hidden="true"></span>Chương 12 · Bài 4/5</span>
+        <button class="btn pri nx" data-go="l64">Bài tiếp: Tổ tiên chung gần nhất (LCA) →</button>
+      </div></div></article>
+    <!-- ===================== BÀI 64 · Tổ tiên chung gần nhất (LCA) ===================== -->
+    <article class="col" id="view-l64" hidden><div class="lgate" aria-live="polite"></div><div class="park" hidden><div data-m="m0" id="sim-l64"></div>
+<div data-m="m1" class="ex-grid" id="ex-l64"></div>
+<div data-m="m2" class="quiz" id="quiz64"></div>
+<div data-m="m3" class="score" id="score64"></div>
+<div data-m="m4" class="next">
+        <button class="btn prev" data-go="l63">← Bài 63</button>
+        <span class="byline"><span class="amts-logo" aria-hidden="true"></span>Chương 12 · Bài 5/5</span>
+        <button class="btn pri nx" data-go="l65">Bài tiếp: Chương 13 · Số nguyên tố và sàng Eratosthenes →</button>
+      </div></div></article>
+    <!-- ===================== BÀI 65 · Số nguyên tố và sàng Eratosthenes ===================== -->
+    <article class="col" id="view-l65" hidden><div class="lgate" aria-live="polite"></div><div class="park" hidden><div data-m="m0" id="sim-l65"></div>
+<div data-m="m1" class="ex-grid" id="ex-l65"></div>
+<div data-m="m2" class="quiz" id="quiz65"></div>
+<div data-m="m3" class="score" id="score65"></div>
+<div data-m="m4" class="next">
+        <button class="btn prev" data-go="l64">← Bài 64</button>
+        <span class="byline"><span class="amts-logo" aria-hidden="true"></span>Chương 13 · Bài 1/4</span>
+        <button class="btn pri nx" data-go="l66">Bài tiếp: Ước chung lớn nhất, bội chung nhỏ nhất, đồng dư và lũy thừa nhanh →</button>
+      </div></div></article>
+    <!-- ===================== BÀI 66 · Ước chung lớn nhất, bội chung nhỏ nhất, đồng dư và lũy thừa nhanh ===================== -->
+    <article class="col" id="view-l66" hidden><div class="lgate" aria-live="polite"></div><div class="park" hidden><div data-m="m0" id="sim-l66"></div>
+<div data-m="m1" class="ex-grid" id="ex-l66"></div>
+<div data-m="m2" class="quiz" id="quiz66"></div>
+<div data-m="m3" class="score" id="score66"></div>
+<div data-m="m4" class="next">
+        <button class="btn prev" data-go="l65">← Bài 65</button>
+        <span class="byline"><span class="amts-logo" aria-hidden="true"></span>Chương 13 · Bài 2/4</span>
+        <button class="btn pri nx" data-go="l67">Bài tiếp: Tổ hợp và nghịch đảo modulo →</button>
+      </div></div></article>
+    <!-- ===================== BÀI 67 · Tổ hợp và nghịch đảo modulo ===================== -->
+    <article class="col" id="view-l67" hidden><div class="lgate" aria-live="polite"></div><div class="park" hidden><div data-m="m0" id="sim-l67"></div>
+<div data-m="m1" class="ex-grid" id="ex-l67"></div>
+<div data-m="m2" class="quiz" id="quiz67"></div>
+<div data-m="m3" class="score" id="score67"></div>
+<div data-m="m4" class="next">
+        <button class="btn prev" data-go="l66">← Bài 66</button>
+        <span class="byline"><span class="amts-logo" aria-hidden="true"></span>Chương 13 · Bài 3/4</span>
+        <button class="btn pri nx" data-go="l68">Bài tiếp: So khớp chuỗi: KMP và Z-function →</button>
+      </div></div></article>
+    <!-- ===================== BÀI 68 · So khớp chuỗi: KMP và Z-function ===================== -->
+    <article class="col" id="view-l68" hidden><div class="lgate" aria-live="polite"></div><div class="park" hidden><div data-m="m0" id="sim-l68"></div>
+<div data-m="m1" class="ex-grid" id="ex-l68"></div>
+<div data-m="m2" class="quiz" id="quiz68"></div>
+<div data-m="m3" class="score" id="score68"></div>
+<div data-m="m4" class="next">
+        <button class="btn prev" data-go="l67">← Bài 67</button>
+        <span class="byline"><span class="amts-logo" aria-hidden="true"></span>Chương 13 · Bài 4/4</span>
+        <button class="btn pri nx" data-go="l69">Bài tiếp: Chương 14 · Quy hoạch động trạng thái bit (bitmask) →</button>
+      </div></div></article>
+    <!-- ===================== BÀI 69 · Quy hoạch động trạng thái bit (bitmask) ===================== -->
+    <article class="col" id="view-l69" hidden><div class="lgate" aria-live="polite"></div><div class="park" hidden><div data-m="m0" id="sim-l69"></div>
+<div data-m="m1" class="ex-grid" id="ex-l69"></div>
+<div data-m="m2" class="quiz" id="quiz69"></div>
+<div data-m="m3" class="score" id="score69"></div>
+<div data-m="m4" class="next">
+        <button class="btn prev" data-go="l68">← Bài 68</button>
+        <span class="byline"><span class="amts-logo" aria-hidden="true"></span>Chương 14 · Bài 1/6</span>
+        <button class="btn pri nx" data-go="l70">Bài tiếp: Quy hoạch động trên cây →</button>
+      </div></div></article>
+    <!-- ===================== BÀI 70 · Quy hoạch động trên cây ===================== -->
+    <article class="col" id="view-l70" hidden><div class="lgate" aria-live="polite"></div><div class="park" hidden><div data-m="m0" id="sim-l70"></div>
+<div data-m="m1" class="ex-grid" id="ex-l70"></div>
+<div data-m="m2" class="quiz" id="quiz70"></div>
+<div data-m="m3" class="score" id="score70"></div>
+<div data-m="m4" class="next">
+        <button class="btn prev" data-go="l69">← Bài 69</button>
+        <span class="byline"><span class="amts-logo" aria-hidden="true"></span>Chương 14 · Bài 2/6</span>
+        <button class="btn pri nx" data-go="l71">Bài tiếp: Quy hoạch động chữ số →</button>
+      </div></div></article>
+    <!-- ===================== BÀI 71 · Quy hoạch động chữ số ===================== -->
+    <article class="col" id="view-l71" hidden><div class="lgate" aria-live="polite"></div><div class="park" hidden><div data-m="m0" id="sim-l71"></div>
+<div data-m="m1" class="ex-grid" id="ex-l71"></div>
+<div data-m="m2" class="quiz" id="quiz71"></div>
+<div data-m="m3" class="score" id="score71"></div>
+<div data-m="m4" class="next">
+        <button class="btn prev" data-go="l70">← Bài 70</button>
+        <span class="byline"><span class="amts-logo" aria-hidden="true"></span>Chương 14 · Bài 3/6</span>
+        <button class="btn pri nx" data-go="l72">Bài tiếp: Tiếp cận một bài toán lạ: từ trâu bò đến tối ưu →</button>
+      </div></div></article>
+    <!-- ===================== BÀI 72 · Tiếp cận một bài toán lạ: từ trâu bò đến tối ưu ===================== -->
+    <article class="col" id="view-l72" hidden><div class="lgate" aria-live="polite"></div><div class="park" hidden><div data-m="m0" id="sim-l72"></div>
+<div data-m="m1" class="ex-grid" id="ex-l72"></div>
+<div data-m="m2" class="quiz" id="quiz72"></div>
+<div data-m="m3" class="score" id="score72"></div>
+<div data-m="m4" class="next">
+        <button class="btn prev" data-go="l71">← Bài 71</button>
+        <span class="byline"><span class="amts-logo" aria-hidden="true"></span>Chương 14 · Bài 4/6</span>
+        <button class="btn pri nx" data-go="l73">Bài tiếp: Kiểm thử đối chiếu (stress test) và gỡ lỗi →</button>
+      </div></div></article>
+    <!-- ===================== BÀI 73 · Kiểm thử đối chiếu (stress test) và gỡ lỗi ===================== -->
+    <article class="col" id="view-l73" hidden><div class="lgate" aria-live="polite"></div><div class="park" hidden><div data-m="m0" id="sim-l73"></div>
+<div data-m="m1" class="ex-grid" id="ex-l73"></div>
+<div data-m="m2" class="quiz" id="quiz73"></div>
+<div data-m="m3" class="score" id="score73"></div>
+<div data-m="m4" class="next">
+        <button class="btn prev" data-go="l72">← Bài 72</button>
+        <span class="byline"><span class="amts-logo" aria-hidden="true"></span>Chương 14 · Bài 5/6</span>
+        <button class="btn pri nx" data-go="l74">Bài tiếp: Dự án cuối khóa: bộ đề luyện thi và phỏng vấn tổng hợp →</button>
+      </div></div></article>
+    <!-- ===================== BÀI 74 · Dự án cuối khóa: bộ đề luyện thi và phỏng vấn tổng hợp ===================== -->
+    <article class="col" id="view-l74" hidden><div class="lgate" aria-live="polite"></div><div class="park" hidden><div data-m="m0" id="sim-l74"></div>
+<div data-m="m1" class="ex-grid" id="ex-l74"></div>
+<div data-m="m2" class="quiz" id="quiz74"></div>
+<div data-m="m3" class="score" id="score74"></div>
+<div data-m="m4" class="next">
+        <button class="btn prev" data-go="l73">← Bài 73</button>
+        <span class="byline up"><span class="amts-logo" aria-hidden="true"></span>Chương 14 · Bài 6/6</span>
       </div></div></article>
   </main>
 </div>
 
-<script defer src="../assets/app/common.94819ef7ed.js"></script>
-<script defer src="../assets/app/algo-head.b2f909fb83.js"></script>
-<script defer src="../assets/app/core.a44778ef25.js"></script>
+<script defer src="../assets/app/common.ea14a56c3a.js"></script>
+<script defer src="../assets/app/algo-head.0ea3a50817.js"></script>
+<script defer src="../assets/app/core.711423e9cb.js"></script>
 
 
 </body>

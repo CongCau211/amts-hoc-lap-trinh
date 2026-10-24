@@ -1,43 +1,36 @@
-Gói cập nhật 20261023-2022: giải nén rồi tải lên repo GitHub Pages, giữ nguyên đường dẫn thư mục.
+Gói cập nhật 20261024-0147: giải nén rồi tải lên repo GitHub Pages, giữ nguyên đường dẫn thư mục.
 
-Mới (37):
-  assets/app/algo-body.7bb7d0b311.js
-  assets/app/algo-head.b2f909fb83.js
-  assets/app/algo-l21.e6f7c5d275.js
-  assets/app/algo-l22.9ece2eac41.js
-  assets/app/algo-l23.97c7d4cb8d.js
-  assets/app/algo-l24.baab4b91da.js
-  assets/app/algo-l25.a77bc1152f.js
-  assets/app/algo-l26.983b7c0f2e.js
-  assets/app/algo-l27.3de87f54ea.js
-  assets/app/algo-l28.9ca27d51d5.js
-  assets/app/algo-l29.a86874a29a.js
-  assets/app/algo-l30.bbc0a26dfe.js
-  assets/app/algo-l31.39f5aa6bb5.js
-  assets/app/algo-l32.21b642cc64.js
-  assets/app/algo-l33.9afba41bdc.js
-  assets/app/algo-l34.5b358beaab.js
-  assets/app/algo-l35.b961cf32a3.js
-  assets/app/algo-l36.365adcf38c.js
-  assets/app/algo-l37.307754cdc3.js
-  assets/app/algo-l38.a3937d9461.js
-  assets/app/algo-l39.90047eec5c.js
-  assets/app/algo-l40.db1382b43b.js
-  assets/app/algo-l41.928c1164b4.js
-  assets/app/algo-l42.ab7afdd10b.js
-  assets/app/algo-l43.e89575082a.js
-  assets/app/algo-l44.96abeea287.js
-  assets/app/algo-l45.acdb820550.js
-  assets/app/algo-l46.7faa9b0dbb.js
-  assets/app/algo-l47.c00f6561ac.js
-  assets/app/algo-l48.a0ff81f5fb.js
-  assets/app/algo-l49.60573977b8.js
-  assets/app/algo-l50.d9d3dfa4a4.js
-  assets/app/common.94819ef7ed.js
-  assets/app/core.10e299ffa3.css
-  assets/app/core.a44778ef25.js
-  assets/app/lang-cs.dfe12fa772.js
-  assets/app/lang-py.4a53244ecb.js
+Mới (30):
+  assets/app/algo-body.58e48e92b6.js
+  assets/app/algo-head.0ea3a50817.js
+  assets/app/algo-l51.1279aa10d8.js
+  assets/app/algo-l52.865fac1b46.js
+  assets/app/algo-l53.0930568ffb.js
+  assets/app/algo-l54.4288b9a355.js
+  assets/app/algo-l55.1bdaf94856.js
+  assets/app/algo-l56.561a9e2a7e.js
+  assets/app/algo-l57.c3c4b18c06.js
+  assets/app/algo-l58.0de5d35d21.js
+  assets/app/algo-l59.c6d6cb71fd.js
+  assets/app/algo-l60.4f6c8ef180.js
+  assets/app/algo-l61.f9154b8437.js
+  assets/app/algo-l62.fdae70c90e.js
+  assets/app/algo-l63.69a3bf2275.js
+  assets/app/algo-l64.235a4f9ec0.js
+  assets/app/algo-l65.ff8d86e6f2.js
+  assets/app/algo-l66.28fd29de06.js
+  assets/app/algo-l67.7dd839c5f6.js
+  assets/app/algo-l68.2d0574de2a.js
+  assets/app/algo-l69.ce991a33db.js
+  assets/app/algo-l70.8007135140.js
+  assets/app/algo-l71.52098b2963.js
+  assets/app/algo-l72.19c6baa96b.js
+  assets/app/algo-l73.c93aca92e6.js
+  assets/app/algo-l74.d949a1d3cf.js
+  assets/app/common.ea14a56c3a.js
+  assets/app/core.711423e9cb.js
+  assets/app/core.eafd470834.css
+  assets/app/lang-py.12abb457fb.js
 
 Đã đổi (4):
   algo/index.html
@@ -45,11 +38,10 @@ Mới (37):
   hsg/index.html
   index.html
 
-Không còn dùng (có thể xóa trên GitHub, để lại cũng không sao) (7):
-  assets/app/algo-body.e3e120a3a3.js
-  assets/app/algo-head.3701e4b708.js
-  assets/app/common.26a06e8d94.js
-  assets/app/core.138cd2ab79.js
-  assets/app/core.a840c85e22.css
-  assets/app/lang-cs.d0e52ff395.js
-  assets/app/lang-py.a659fe3ddb.js
+Không còn dùng (có thể xóa trên GitHub, để lại cũng không sao) (6):
+  assets/app/algo-body.7bb7d0b311.js
+  assets/app/algo-head.b2f909fb83.js
+  assets/app/common.94819ef7ed.js
+  assets/app/core.10e299ffa3.css
+  assets/app/core.a44778ef25.js
+  assets/app/lang-py.4a53244ecb.js
