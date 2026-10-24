@@ -1,20 +1,34 @@
-Gói cập nhật 20261024-0348: giải nén rồi tải lên repo GitHub Pages, giữ nguyên đường dẫn thư mục.
+Gói cập nhật 20261024-0803: giải nén rồi tải lên repo GitHub Pages, giữ nguyên đường dẫn thư mục.
 
-Mới (6):
-  assets/app/algo-body.1a4483e237.js
-  assets/app/algo-head.417e7fa4a6.js
-  assets/app/algo-l21.46488355aa.js
-  assets/app/algo-l22.a8cd6c74d9.js
-  assets/app/algo-l23.c375252971.js
-  assets/app/algo-l24.2139b55715.js
+Mới (20):
+  assets/app/common.6c272b3ef4.js
+  assets/app/hsg-body.caaeb4049d.js
+  assets/app/hsg-head.5d52bb7cf1.js
+  assets/app/hsg-l1.82289278f6.js
+  assets/app/hsg-l11.bbc1d44fce.js
+  assets/app/hsg-l17.10ef512996.js
+  assets/app/hsg-l18.e8670fa10b.js
+  assets/app/hsg-l19.c6293796e2.js
+  assets/app/hsg-l20.184b887743.js
+  assets/app/hsg-l21.cb483fadab.js
+  assets/app/hsg-l22.6ea0d49661.js
+  assets/app/hsg-l23.74d0480759.js
+  assets/app/hsg-l24.a38ed031e3.js
+  assets/app/hsg-l25.4b714f20b7.js
+  assets/app/hsg-l26.78e5dbfb6f.js
+  assets/app/hsg-l28.2964949b10.js
+  assets/app/hsg-l30.ee516fd719.js
+  assets/app/hsg-l7.2acfd351a4.js
+  assets/app/hsg-l8.9f44625d99.js
+  assets/app/hsg-l9.43ec7fda2b.js
 
-Đã đổi (1):
+Đã đổi (4):
   algo/index.html
+  cpp/index.html
+  hsg/index.html
+  index.html
 
-Không còn dùng (có thể xóa trên GitHub, để lại cũng không sao) (6):
-  assets/app/algo-body.58e48e92b6.js
-  assets/app/algo-head.0ea3a50817.js
-  assets/app/algo-l21.e6f7c5d275.js
-  assets/app/algo-l22.9ece2eac41.js
-  assets/app/algo-l23.97c7d4cb8d.js
-  assets/app/algo-l24.baab4b91da.js
+Không còn dùng (có thể xóa trên GitHub, để lại cũng không sao) (3):
+  assets/app/common.ea14a56c3a.js
+  assets/app/hsg-body.f74a7ccc2e.js
+  assets/app/hsg-head.0f1030f057.js
