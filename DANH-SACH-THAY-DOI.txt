@@ -1,0 +1,33 @@
+Gói cập nhật 20261024-0901: giải nén rồi tải lên repo GitHub Pages, giữ nguyên đường dẫn thư mục.
+
+Mới (12):
+  assets/app/algo-body.00e9900d55.js
+  assets/app/algo-head.db2a2e7f25.js
+  assets/app/common.90c25e16b6.js
+  assets/app/core.a7f8b9e05f.js
+  assets/app/cpp-body.e5b20604e0.js
+  assets/app/cpp-head.ec168e87c4.js
+  assets/app/hsg-body.20a95b7900.js
+  assets/app/hsg-head.68f544f4c4.js
+  assets/app/hsg-l26.9b1200cf4c.js
+  assets/app/hsg-l28.8adf72fe9a.js
+  assets/app/hsg-l34.4facf299ed.js
+  hsg/files/l34/tt3-bac-giang-2023-2024-test.zip
+
+Đã đổi (4):
+  algo/index.html
+  cpp/index.html
+  hsg/index.html
+  index.html
+
+Không còn dùng (có thể xóa trên GitHub, để lại cũng không sao) (10):
+  assets/app/algo-body.1a4483e237.js
+  assets/app/algo-head.417e7fa4a6.js
+  assets/app/common.6c272b3ef4.js
+  assets/app/core.711423e9cb.js
+  assets/app/cpp-body.d9f043acf5.js
+  assets/app/cpp-head.1b57c5fa7a.js
+  assets/app/hsg-body.caaeb4049d.js
+  assets/app/hsg-head.5d52bb7cf1.js
+  assets/app/hsg-l26.78e5dbfb6f.js
+  assets/app/hsg-l28.2964949b10.js
