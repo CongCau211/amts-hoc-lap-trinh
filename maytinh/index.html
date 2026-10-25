@@ -1,0 +1,417 @@
+<!doctype html>
+<html lang="vi">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<link rel="preload" as="font" type="font/woff2" crossorigin href="../assets/fonts/be-vietnam-pro-latin-400-normal.woff2">
+<link rel="preload" as="font" type="font/woff2" crossorigin href="../assets/fonts/be-vietnam-pro-vietnamese-400-normal.woff2">
+<link rel="preload" as="script" href="../assets/app/common.d88f38c7f4.js">
+<link rel="preload" as="script" href="../assets/app/maytinh-head.30c0e23c8c.js">
+<link rel="preload" as="script" href="../assets/app/core.a7f8b9e05f.js">
+<link rel="preload" as="script" href="../assets/app/maytinh-body.6d693962fc.js">
+<title>Cơ sở máy tính và kiến trúc phần cứng</title>
+<meta name="claude:viewport-fit-sides" content="cover">
+<link rel="preconnect" href="https://cdn.jsdelivr.net">
+<link rel="preconnect" href="https://firestore.googleapis.com">
+<link rel="preconnect" href="https://securetoken.googleapis.com">
+<link rel="preload" as="script" href="https://cdn.jsdelivr.net/npm/firebase@10.14.1/firebase-app-compat.js">
+<link rel="preload" as="script" href="https://cdn.jsdelivr.net/npm/firebase@10.14.1/firebase-auth-compat.js">
+<link rel="preload" as="script" href="https://cdn.jsdelivr.net/npm/firebase@10.14.1/firebase-firestore-compat.js">
+<link rel="stylesheet" href="../assets/app/core.3343645b5d.css">
+<meta name="description" content="Khóa Cơ sở máy tính và kiến trúc phần cứng của AMTS: 10 bài đã mở trong lộ trình 140 bài, từ lịch sử máy tính, electron, transistor, dữ liệu số tới CPU, bộ nhớ, lưu trữ, hệ điều hành và hiệu năng; phòng mô phỏng từng bước, bài tập chấm tự động.">
+<meta property="og:type" content="website">
+<meta property="og:locale" content="vi_VN">
+<meta property="og:site_name" content="AMTS Học Lập Trình">
+<meta property="og:title" content="Cơ sở máy tính và kiến trúc phần cứng">
+<meta property="og:description" content="Khóa Cơ sở máy tính và kiến trúc phần cứng của AMTS: 10 bài đã mở trong lộ trình 140 bài, từ lịch sử máy tính, electron, transistor, dữ liệu số tới CPU, bộ nhớ, lưu trữ, hệ điều hành và hiệu năng; phòng mô phỏng từng bước, bài tập chấm tự động.">
+<meta name="theme-color" content="#0E97A9">
+<link rel="icon" href="../assets/brand/favicon.png">
+<link rel="apple-touch-icon" href="../assets/brand/apple-touch-icon.png">
+<meta property="og:image" content="https://congcau211.github.io/khoa-hoc-cpp/assets/social/og-home.png">
+<meta name="twitter:card" content="summary_large_image">
+<style>:root{color-scheme:light dark}body{margin:0}img{max-width:100%}[hidden]{display:none!important}</style>
+</head>
+<body>
+<script>(function(){const pl=u=>{if(!u)return;const k=document.createElement("link");k.rel="preload";k.as="script";k.href=u;document.head.appendChild(k)};try{const o=JSON.parse(localStorage.getItem("amts-lang-maytinh")||"null");pl({}[o&&o.l])}catch(e){}try{const m=/^#bai-(\d+)/.exec(location.hash);pl({"l1": "../assets/app/maytinh-l1.d28303586b.js", "l2": "../assets/app/maytinh-l2.432de4992b.js", "l3": "../assets/app/maytinh-l3.d7e31a4651.js", "l4": "../assets/app/maytinh-l4.44311b92f0.js", "l5": "../assets/app/maytinh-l5.9ca0499f1d.js", "l6": "../assets/app/maytinh-l6.8ae73fd954.js", "l7": "../assets/app/maytinh-l7.c0750db288.js", "l8": "../assets/app/maytinh-l8.9952fd2576.js", "l9": "../assets/app/maytinh-l9.dd7902b319.js", "l10": "../assets/app/maytinh-l10.8e66f9368b.js"}[m?"l"+m[1]:localStorage.getItem("maytinh-view")])}catch(e){}})()</script>
+
+<style>
+
+/* ---------- dùng chung của khóa (courses/maytinh/course.css) ---------- */
+/* Khóa Cơ sở máy tính (AMTS-FND-001): giao diện phòng mô phỏng từng bước, bài tập không viết code và các hình vẽ bằng HTML.
+   Chỉ dùng biến màu chung (--ink, --accent, --ok, --err, --warm…) nên tự đổi theo chế độ sáng / tối. */
+.tbl.mt-fit table{min-width:0}
+.mt-intro .note{margin:0}
+/* ---------- phòng mô phỏng ---------- */
+.figure.mt-lab{gap:12px;min-width:0}
+.mt-top{display:flex;flex-wrap:wrap;gap:10px 16px;align-items:center;justify-content:space-between}
+.mt-sel{display:flex;align-items:center;gap:8px;min-width:0;flex:1 1 260px;font-size:14px;font-weight:600}
+.mt-sel select{flex:1;min-width:0;max-width:100%;font:inherit;font-weight:500;padding:8px 10px;border:1px solid var(--line);border-radius:8px;background:var(--bg);color:var(--ink)}
+.mt-pred{display:inline-flex;align-items:center;gap:8px;font-size:14px;font-weight:600;min-height:44px}
+.mt-pred input{width:18px;height:18px;accent-color:var(--accent)}
+.mt-note{border:1px solid var(--line);border-radius:8px;background:var(--accent-soft);padding:8px 12px;font-size:14.5px;line-height:1.55}
+.mt-note summary{cursor:pointer;font-size:12.5px;font-weight:700;text-transform:uppercase;letter-spacing:.06em;color:var(--accent)}
+.mt-note>div{margin-top:6px}
+.mt-view{display:grid;gap:10px;min-width:0;align-content:start}
+.mt-stage{min-width:0;overflow-x:auto;padding:4px 0}
+.mt-say{min-width:0;font-size:15px;line-height:1.6;border-top:1px dashed var(--line);padding-top:10px}
+.mt-say p{margin:0 0 6px}
+.mt-say .mt-st b{font-family:var(--f-display)}
+.mt-qa{display:grid;gap:8px}
+.mt-qo{display:flex;flex-wrap:wrap;gap:8px}
+.mt-qo .btn{min-height:44px;white-space:normal;text-align:left}
+.mt-fb{font-weight:700}
+.mt-ctl{gap:8px}
+.mt-ctl .btn{min-height:44px;justify-content:center;white-space:nowrap;padding-left:8px;padding-right:8px}
+.mt-ctl .mt-b0{width:48px;font-size:18px}
+.mt-ctl .mt-b1{width:96px}
+.mt-ctl .mt-b2{width:132px}
+.mt-ctl .mt-b3{width:96px}
+.mt-k{font-size:13.5px;color:var(--muted);font-weight:600}
+.mt-log{margin:0;padding-left:22px;font-size:13.5px;color:var(--muted);display:grid;gap:2px}
+.mt-log:empty{display:none}
+.mt-log button{display:inline;background:none;border:0;padding:2px 0;color:inherit;text-align:left;cursor:pointer;font:inherit}
+.mt-log button:hover{color:var(--accent);text-decoration:underline}
+.mt-log li.cur{color:var(--ink);font-weight:700}
+/* ---------- bài tập không viết code ---------- */
+.mt-exs{display:grid;grid-template-columns:minmax(0,1fr);gap:14px}
+.mt-x{min-width:0}
+.mt-x .mt-d{font-size:15px;line-height:1.6;display:grid;gap:8px}
+.mt-x .mt-d p{margin:0;color:var(--ink);font-size:15px}
+.mt-items,.mt-ord{margin:0;padding-left:24px;display:grid;gap:8px}
+.mt-items li{display:flex;align-items:flex-start;gap:8px;min-width:0}
+.mt-items label{display:flex;flex-wrap:wrap;align-items:center;gap:6px 10px;flex:1;min-width:0}
+.mt-items .mt-q{flex:0 1 auto;max-width:620px;min-width:0;font-size:15px;line-height:1.5}
+.mt-in{display:inline-flex;align-items:center;gap:6px}
+.mt-items input{width:9em;max-width:100%;font:inherit;font-family:var(--f-mono);padding:8px 10px;border:1px solid var(--line);border-radius:8px;background:var(--bg);color:var(--ink);min-height:40px}
+.mt-items select{flex:0 1 auto;max-width:100%;font:inherit;padding:8px 10px;border:1px solid var(--line);border-radius:8px;background:var(--bg);color:var(--ink);min-height:40px}
+.mt-u{font-size:14px;color:var(--muted)}
+.mt-mk{font-weight:800;min-width:1.2em;padding-top:8px}
+li.ok>.mt-mk,.mt-ord li.ok .mt-mk{color:var(--ok)}
+li.bad>.mt-mk,.mt-ord li.bad .mt-mk{color:var(--err)}
+.mt-items li.ok input,.mt-items li.ok select{border-color:var(--ok)}
+.mt-items li.bad input,.mt-items li.bad select{border-color:var(--err)}
+.mt-ord li{display:flex;align-items:center;gap:8px;border:1px solid var(--line);border-radius:8px;padding:6px 8px;background:var(--bg);min-width:0}
+.mt-ord li.ok{border-color:var(--ok)}.mt-ord li.bad{border-color:var(--err)}
+.mt-ot{flex:1;min-width:0;font-size:15px;line-height:1.45}
+.mt-ob{display:inline-flex;gap:4px}
+.mt-ob .btn{width:44px;height:40px;justify-content:center;padding:0}
+.mt-ord .mt-mk{padding-top:0}
+.mt-xctl{display:flex;flex-wrap:wrap;align-items:center;gap:8px 10px}
+.mt-xctl .btn{min-height:44px}
+.mt-xctl .st{font-size:14px}
+.mt-hint,.mt-why{font-size:14.5px;line-height:1.55;border-radius:8px;padding:10px 12px}
+.mt-hint{background:var(--warm-soft);border-left:3px solid var(--warm)}
+.mt-why{background:var(--ok-soft);border-left:3px solid var(--ok)}
+.mt-hint p{margin:0 0 4px;color:var(--ink);font-size:14.5px}
+/* ---------- hình vẽ bằng HTML (dùng trong lý thuyết và các bước mô phỏng) ---------- */
+.mt-cap{font-size:13.5px;color:var(--muted);margin:0}
+.mt-tl{list-style:none;margin:0;padding:0;display:grid;gap:0;position:relative}
+.mt-tl li{display:grid;grid-template-columns:86px minmax(0,1fr);gap:12px;padding:8px 0;border-left:2px solid var(--line);margin-left:43px;padding-left:0;position:relative}
+.mt-tl li>b{margin-left:-44px;background:var(--accent);color:var(--accent-ink);border-radius:999px;font-size:13px;font-family:var(--f-mono);text-align:center;padding:3px 6px;align-self:start}
+.mt-tl li>span{font-size:14.5px;line-height:1.5;padding-right:4px}
+.mt-tl li.hi>b{background:var(--warm)}
+.mt-flow{display:flex;flex-wrap:wrap;align-items:stretch;gap:6px;min-width:0}
+.mt-box{border:1.5px solid var(--line);border-radius:8px;padding:8px 10px;background:var(--surface);font-size:14px;line-height:1.4;min-width:0;flex:1 1 120px;display:grid;gap:2px;align-content:start}
+.mt-box small{color:var(--muted);font-size:12.5px}
+.mt-box.on{border-color:var(--accent);background:var(--accent-soft)}
+.mt-box.warn{border-color:var(--err);background:var(--err-soft)}
+.mt-box.done{border-color:var(--ok);background:var(--ok-soft)}
+.mt-box.dim{opacity:.5}
+.mt-arr{align-self:center;color:var(--muted);font-weight:700;flex:0 0 auto}
+.mt-tab{border-collapse:collapse;font-size:14px;font-family:var(--f-mono);margin:0 auto}
+.mt-tab th,.mt-tab td{border:1px solid var(--line);padding:6px 10px;text-align:center}
+.mt-tab th{font-family:var(--f-body);font-size:12.5px;color:var(--muted);font-weight:700}
+.mt-tab td.hi{background:var(--accent-soft);outline:2px solid var(--accent);outline-offset:-2px}
+.mt-tab td.new{background:var(--warm-soft);font-weight:800}
+.mt-tab td.bad{background:var(--err-soft);color:var(--err);font-weight:800}
+.mt-tab td.ok{background:var(--ok-soft);font-weight:800}
+.mt-tab td.dim{color:var(--muted)}
+.mt-big{font-family:var(--f-mono);font-size:20px;font-weight:700;text-align:center;margin:4px 0;overflow-wrap:anywhere}
+.mt-big .hi{color:var(--accent)}.mt-big .bad{color:var(--err)}.mt-big .ok{color:var(--ok)}
+.mt-calc{font-family:var(--f-mono);font-size:15px;line-height:1.7;margin:0;padding:8px 12px;background:var(--bg);border-radius:8px;overflow-wrap:anywhere;white-space:normal}
+.mt-calc b{color:var(--accent)}
+.mt-bars{display:grid;gap:6px;min-width:0}
+.mt-bars>div{display:grid;grid-template-columns:minmax(70px,30%) minmax(0,1fr);gap:8px;align-items:center;font-size:13.5px}
+.mt-bars i{display:block;height:16px;border-radius:4px;background:var(--accent);min-width:2px}
+.mt-bars i.w{background:var(--warm)}.mt-bars i.e{background:var(--err)}.mt-bars i.o{background:var(--ok)}
+.mt-bars em{font-style:normal;font-family:var(--f-mono);font-size:12.5px;color:var(--muted)}
+/* bàn tính soroban: 1 hạt trên = 5, 4 hạt dưới = 1; hạt "đang tính" là hạt sát thanh ngang */
+.sb{display:flex;justify-content:center;gap:4px;padding:6px 10px;border:3px solid var(--muted);border-radius:8px;background:var(--bg);width:max-content;max-width:100%;margin:0 auto}
+.sb-r{display:grid;grid-template-rows:repeat(2,18px) 6px repeat(5,18px) auto;justify-items:center;width:34px;position:relative}
+.sb-r::before{content:"";position:absolute;top:0;bottom:22px;left:50%;width:2px;background:var(--line);transform:translateX(-50%)}
+.sb-r i{display:block;width:28px;height:15px;border-radius:50%;background:var(--surface);border:1.5px solid var(--line);position:relative;z-index:1}
+.sb-r i.on{background:var(--accent);border-color:var(--accent)}
+.sb-r i.gap{visibility:hidden}
+.sb-r .bar{width:34px;height:6px;background:var(--muted);position:relative;z-index:1;border-radius:2px}
+.sb-r b{font-family:var(--f-mono);font-size:14px;margin-top:4px}
+.sb-r.hi b{color:var(--warm)}.sb-r.hi i.on{background:var(--warm);border-color:var(--warm)}
+.sb-r .pl{font-size:10.5px;color:var(--muted);font-family:var(--f-mono)}
+/* thẻ đục lỗ (mô hình): mỗi cột một chữ số, lỗ ở hàng của chữ số đó */
+.pc{display:inline-grid;gap:3px;padding:8px 10px;background:#F3E6C4;border-radius:4px 14px 4px 4px;color:#3A2E12;position:relative;font-family:var(--f-mono);font-size:11px;max-width:100%}
+.pc-row{display:flex;gap:3px;align-items:center}
+.pc-row>span{width:16px;height:16px;display:grid;place-items:center;border-radius:2px;color:#9A875A}
+.pc-row>span.h{background:#1B1406;color:#F3E6C4}
+.pc-row.hd>span{font-weight:800;color:#3A2E12}
+/* sơ đồ mạch, vùng năng lượng, mạng tinh thể: SVG dùng lớp màu chung */
+.mt-svg{display:block;width:100%;max-width:460px;height:auto;margin:0 auto;color:var(--ink)}
+.mt-svg.w{max-width:620px}
+.mt-svg text{fill:currentColor;font-family:var(--f-body);font-size:14px}
+.mt-svg .mono{font-family:var(--f-mono)}
+.mt-svg .sm{font-size:12px}
+.mt-svg .wire{stroke:currentColor;stroke-width:2;fill:none}
+.mt-svg .wire.on{stroke:var(--warm);stroke-width:3}
+.mt-svg .wire.off{stroke:var(--line)}
+.mt-svg .part{fill:var(--surface);stroke:currentColor;stroke-width:2}
+.mt-svg .part.on{fill:var(--warm-soft);stroke:var(--warm)}
+.mt-svg .acc{fill:var(--accent)}.mt-svg .accs{stroke:var(--accent)}
+.mt-svg .warm{fill:var(--warm)}.mt-svg .err{fill:var(--err)}.mt-svg .ok{fill:var(--ok)}
+.mt-svg .soft{fill:var(--accent-soft)}.mt-svg .wsoft{fill:var(--warm-soft)}.mt-svg .esoft{fill:var(--err-soft)}.mt-svg .osoft{fill:var(--ok-soft)}
+.mt-svg .muted{fill:var(--muted)}.mt-svg .line{stroke:var(--line)}
+.mt-svg .hole{fill:var(--surface);stroke:var(--accent);stroke-width:2}
+.mt-svg text.acc{fill:var(--accent)}.mt-svg text.warm{fill:var(--warm)}.mt-svg text.err{fill:var(--err)}.mt-svg text.ok{fill:var(--ok)}.mt-svg text.muted{fill:var(--muted)}
+@media (max-width:620px){
+  .figure.mt-lab{padding:12px}
+  .mt-ctl{gap:6px}
+  .mt-ctl .mt-b0{width:44px}
+  .mt-ctl .mt-b1{width:72px}
+  .mt-ctl .mt-b2{width:112px}
+  .mt-ctl .mt-b3{width:80px}
+  .mt-tl li{grid-template-columns:70px minmax(0,1fr);margin-left:35px}
+  .mt-tl li>b{margin-left:-36px;font-size:12px}
+  .mt-tab{font-size:13px}
+  .mt-tab th,.mt-tab td{padding:5px 6px}
+}
+/* nhãn tiếng Anh dài (cụm nhiều từ) được xuống dòng trên điện thoại thay vì tràn ngang */
+@media (max-width:620px){.prose .en,.lede .en,.note .en,.goals .en,.tbl .en{white-space:normal}}
+</style>
+
+<header class="top compact" id="top" data-root="../"><div class="wrap">
+  <a class="logo-a" href="../index.html" title="Về trang chủ"><span class="amts-logo" role="img" aria-label="AMTS · Về trang chủ"></span></a>
+  <nav class="nav" id="mainnav" aria-label="Điều hướng chính">
+    <a href="../index.html#khoa-hoc" data-nav="courses"><svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 5.5A1.5 1.5 0 0 1 4.5 4H10a2 2 0 0 1 2 2v13a1.5 1.5 0 0 0-1.5-1.5h-6A1.5 1.5 0 0 1 3 16z"/><path d="M21 5.5A1.5 1.5 0 0 0 19.5 4H14a2 2 0 0 0-2 2v13a1.5 1.5 0 0 1 1.5-1.5h6a1.5 1.5 0 0 0 1.5-1.5z"/></svg>Khóa học</a>
+    <a href="../maytinh/index.html#lo-trinh" data-nav="road"><svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="6" cy="5" r="2.2"/><circle cx="18" cy="19" r="2.2"/><path d="M6 7.2V12a3 3 0 0 0 3 3h6a3 3 0 0 1 3 3v-1"/><path d="M18 3v8"/></svg>Lộ trình</a>
+    <a href="../maytinh/index.html" id="nav-practice" data-nav="practice"><svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m8 8-4 4 4 4"/><path d="m16 8 4 4-4 4"/><path d="m13.5 5-3 14"/></svg>Thực hành</a>
+    <div class="navdd"><button type="button" id="nav-docs" aria-haspopup="true" aria-expanded="false" aria-controls="m-docs"><svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M14 3H7a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2V8z"/><path d="M14 3v5h5M9 13h6M9 17h4"/></svg>Tài liệu</button>
+      <div class="menu" id="m-docs" hidden>
+        <a href="../maytinh/index.html#tu-dien">Từ điển thuật ngữ Anh – Việt<small>Thuật ngữ lập trình Cơ sở máy tính kèm bài học có chúng</small></a>
+        <a href="../cpp/index.html#bai-2">Cài đặt trình biên dịch và IDE<small>Windows, macOS, Linux · Bài 2 khóa C++</small></a>
+        <a href="../maytinh/index.html#lo-trinh" data-nav="road">Lộ trình Cơ sở máy tính 20 chương<small>Các chương đang mở và sắp mở</small></a>
+      </div></div>
+  </nav>
+  <div class="tright"><button type="button" class="menubtn" id="nav-menu" aria-controls="mainnav" aria-expanded="false">Menu</button><div class="tacct" id="topacct"></div></div>
+</div></header>
+
+<div class="lbar" id="mbar">
+  <button class="lbar-btn" id="m-open" aria-controls="side" aria-expanded="false"><svg width="20" height="20" viewBox="0 0 22 22" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" aria-hidden="true"><path d="M3.5 6h15M3.5 11h15M3.5 16h15"/></svg>Danh sách bài học</button>
+  <span class="lbar-r"><button type="button" class="lbar-lang" id="m-lang" hidden></button><span class="lbar-n" id="m-prog" aria-live="off">0 bài</span></span>
+</div>
+<div class="app">
+  <div class="scrim" id="scrim"></div>
+  <div class="sb-float" id="sb-float">
+    <button class="sb-toggle" id="sb-show" aria-controls="side" aria-expanded="false" aria-label="Hiện danh sách bài học" title="Hiện danh sách bài học"><svg width="20" height="20" viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.6" aria-hidden="true"><rect x="2.5" y="3.5" width="15" height="13" rx="2.5"/><path d="M7.5 3.5v13"/></svg></button><span>Danh sách bài học</span>
+  </div>
+  <aside class="side" id="side" aria-label="Danh sách bài học">
+    <div class="sb-top">
+      <div class="sb-head">
+        <a class="sb-back" href="../index.html#khoa-hoc"><span aria-hidden="true">←</span> Tất cả khóa học</a>
+        <button class="sb-toggle" id="sb-hide" aria-controls="side" aria-expanded="true" aria-label="Ẩn danh sách bài học" title="Ẩn danh sách bài học"><svg class="ic-panel" width="20" height="20" viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.6" aria-hidden="true"><rect x="2.5" y="3.5" width="15" height="13" rx="2.5"/><path d="M7.5 3.5v13"/></svg><svg class="ic-x" width="20" height="20" viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" aria-hidden="true"><path d="M5 5l10 10M15 5L5 15"/></svg></button>
+      </div>
+      <div class="brand"><b>Cơ sở máy tính và kiến trúc phần cứng</b><small>20 chương · Đã mở 10 bài học</small></div>
+      <div class="lang-pick" id="lang-pick" hidden></div>
+      <div class="acct" id="acct"></div>
+      <div class="ol-q"><label class="vh" for="ol-q">Tìm bài học</label><input id="ol-q" type="search" placeholder="Tìm bài học…" autocomplete="off"><button type="button" class="ol-x" id="ol-x" aria-label="Xóa tìm kiếm" hidden>×</button></div>
+      <div class="side-nav" role="group" aria-label="Chế độ xem">
+        <button id="nav-road" aria-pressed="false">Lộ trình</button>
+        <button id="nav-lesson" aria-pressed="true" title="Bài đang học">Bài học</button>
+        <button id="nav-prac" aria-pressed="false">Thực hành</button>
+      </div>
+    </div>
+    <nav class="outline" id="outline" aria-label="Các chương và bài học"></nav>
+    <p class="ol-empty" id="ol-empty" role="status" hidden></p>
+    <div class="sb-foot">
+      <div class="en-row"><span id="en-lb">Thuật ngữ tiếng Anh</span><button class="en-sw" id="en-sw" role="switch" aria-checked="true" aria-labelledby="en-lb"></button></div>
+    </div>
+  </aside>
+
+  <main class="main">
+    <!-- ===================== ROADMAP ===================== -->
+    <div class="col" id="view-road" hidden>
+      <div class="road-intro">
+        <div class="crumb">Khóa học / Lộ trình</div>
+        <div class="hero">
+          <h1>Lộ trình <em>Cơ sở máy tính</em> 20 chương</h1>
+<div class="hsg-intro mt-intro">
+          <p class="lede">Khóa học đi từ câu hỏi “con người cần tính toán để làm gì” tới cách một máy tính hiện đại xử lý, lưu và truyền dữ liệu: lịch sử kỹ thuật, electron và transistor, dữ liệu số, cổng logic, CPU, bộ nhớ, ổ lưu trữ, mainboard, hệ điều hành, nguồn điện, nhiệt, hiệu năng và máy tính công nghiệp. Mỗi bài có hình minh họa, phòng mô phỏng chạy từng bước trên trình duyệt, bài tập chấm tự động và trắc nghiệm. Thuật ngữ tiếng Anh được ghi kèm trong bài và tập hợp trong <button type="button" class="road-gl" id="road-gl">từ điển thuật ngữ Anh – Việt</button>.</p>
+
+          <h2>Dành cho ai</h2>
+          <p>Người mới học lập trình, sinh viên công nghệ thông tin, điện tử, tự động hóa, kỹ sư điều khiển bằng máy tính và kỹ thuật viên bảo trì máy tính công nghiệp. Không cần học trước khóa nào; biết đọc tiếng Anh kỹ thuật cơ bản là một lợi thế. Khóa này nên học trước <b>Nền tảng vi điều khiển – vi xử lý</b>.</p>
+
+          <h2>Học xong khóa, học viên có thể</h2>
+          <ul>
+            <li>Dựng dòng thời gian kỹ thuật của máy tính và giải thích ít nhất sáu bước chuyển công nghệ.</li>
+            <li>Giải thích transistor MOSFET và mạch CMOS tạo ra bit và cổng logic như thế nào, bằng bảng chân trị và giản đồ thời gian.</li>
+            <li>Theo vết một lệnh từ lúc nạp tới lúc ghi kết quả, chỉ ra thanh ghi, ALU, cache và bộ nhớ tham gia.</li>
+            <li>Đổi nhị phân, hệ 16, bù hai, thứ tự byte, Unicode, số thực dấu phẩy động bằng ví dụ kiểm chứng được.</li>
+            <li>Mô tả địa chỉ ảo, lỗi trang, stack, heap, cache trúng và trượt; phân biệt HDD, SSD SATA, SSD NVMe và hệ thống tệp.</li>
+            <li>Chọn CPU, RAM, ổ lưu trữ, card mở rộng, nguồn và UPS theo tải thực tế; đo và phân tích hiệu năng máy Windows có đối chứng.</li>
+          </ul>
+
+          <h2>Cấu trúc khóa học</h2>
+          <div class="tbl"><table>
+            <thead><tr><th scope="col">Giai đoạn</th><th scope="col">Chương</th><th scope="col">Đầu ra</th></tr></thead>
+            <tbody>
+              <tr><td>Nền tảng</td><td>1–4</td><td>Nắm linh kiện và logic nền tảng</td></tr>
+              <tr><td>Kiến trúc lõi</td><td>5–11</td><td>Theo vết lệnh, bộ nhớ và lưu trữ</td></tr>
+              <tr><td>Hệ thống</td><td>12–16</td><td>Hiểu trình điều khiển, hệ điều hành, nguồn điện và thiết bị</td></tr>
+              <tr><td>Kỹ thuật và chuyên sâu</td><td>17–20</td><td>Phân tích hiệu năng, máy tính công nghiệp, đồ án tổng hợp</td></tr>
+            </tbody></table></div>
+          <p>20 chương, mỗi chương 7 bài, tổng cộng 140 bài. Các bài chưa viết hiện nhãn “Sắp có” và sẽ mở dần theo từng đợt.</p>
+
+          <h2>Cách học một bài</h2>
+          <ol class="steps">
+            <li><b>Đọc lý thuyết</b> có hình minh họa; mỗi thuật ngữ có nhãn tiếng Anh.</li>
+            <li><b>Phòng mô phỏng:</b> chọn một ví dụ, bấm <b>Bước tiếp</b> để xem từng bước. Bật <b>Đoán trước</b> để trả lời trước khi xem kết quả.</li>
+            <li><b>Bài tập chấm tự động:</b> sắp xếp, ghép, phân loại hoặc tính số; trang chấm ngay khi bấm <b>Nộp bài</b>.</li>
+            <li><b>Kiểm tra nhanh</b> và đọc mục <b>Lỗi thường gặp</b> trước khi sang bài sau.</li>
+          </ol>
+
+          <h2>Công cụ</h2>
+          <ul>
+            <li><b>Phòng mô phỏng AMTS trên trình duyệt:</b> không cần cài đặt. Đây là mô hình giảng dạy có ghi rõ giả định, không phải bản sao chính xác của chip hay ổ đĩa thật.</li>
+            <li><b>Phần mềm Windows (từ các chương sau):</b> phần mềm chính là HWiNFO64 (miễn phí cho cá nhân, phi thương mại; tải tại <a href="https://www.hwinfo.com/download/" target="_blank" rel="noopener">trang chính thức</a>), kèm các công cụ có sẵn của Windows như <code>msinfo32</code>, Task Manager, Resource Monitor, Performance Monitor và Microsoft Sysinternals RAMMap.</li>
+          </ul>
+          <p class="note"><b>An toàn:</b> các bài thực hành trên máy của bạn chỉ <b>đọc, đo và ghi báo cáo</b>. Khóa học không yêu cầu định dạng ổ đĩa, đổi phân vùng, chỉnh BIOS/UEFI, ép xung, cập nhật firmware hay mở bộ nguồn. Ảnh chụp màn hình gửi đi phải che số serial, UUID, tên người dùng và địa chỉ IP.</p>
+        </div>
+
+        </div>
+      </div>
+      <div id="road"></div>
+      <details class="gloss gloss-all" id="gloss-all"><summary><b>Từ điển thuật ngữ Anh – Việt</b><small>English – Vietnamese glossary</small></summary>
+        <div class="gl-tools"><input id="gl-q" type="search" placeholder="Tìm: biến, loop, tham chiếu…" aria-label="Tìm thuật ngữ"><span class="gl-at" id="gl-n"></span></div>
+        <div class="gl-list" id="gl-all"></div>
+      </details>
+    </div>
+
+    <!-- ===================== THỰC HÀNH ===================== -->
+    <div class="col wide" id="view-practice" hidden>
+      <header class="hero"><div class="crumb">Khóa học / Thực hành</div><h1>Thực hành <em>Cơ sở máy tính</em></h1>
+        <p class="lede">Tất cả bài tập chấm tự động của khóa ở một nơi. Chọn bài, viết code, chạy thử trên trình mô phỏng rồi nộp bài. Bí thì mở gợi ý; lời giải mở khi bạn đã làm đạt hoặc đã nộp 3 lần chưa đạt, kèm trình tự chạy từng bước.</p>
+        <p class="pr-sum" id="pr-sum" role="status"></p></header>
+      <div class="pr-wrap">
+        <aside class="pr-side" aria-label="Danh sách bài tập">
+          <div class="pr-tools"><label class="vh" for="pr-q">Tìm bài tập</label><input id="pr-q" type="search" placeholder="Tìm bài tập…" autocomplete="off">
+            <div class="pr-f" role="group" aria-label="Lọc bài tập"><button type="button" data-f="all" aria-pressed="true">Tất cả</button><button type="button" data-f="todo" aria-pressed="false">Chưa đạt</button><button type="button" data-f="done" aria-pressed="false">Đã đạt</button></div></div>
+          <div class="pr-list" id="pr-list"></div>
+        </aside>
+        <section class="pr-main" id="pr-main" aria-live="polite"></section>
+      </div>
+    </div>
+
+    <!-- ===================== BÀI 1 · Sự hình thành nhu cầu tính toán ===================== -->
+    <article class="col" id="view-l1"><div class="lgate" aria-live="polite"></div><div class="park" hidden><div data-m="m0" class="figure" id="lab-l1"></div>
+<div data-m="m1" id="ex-l1"></div>
+<div data-m="m2" class="quiz" id="quiz1"></div>
+<div data-m="m3" class="score" id="score1"></div>
+<div data-m="m4" class="next">
+        <span class="byline"><span class="amts-logo" aria-hidden="true"></span>Chương 1 · Bài 1/7</span>
+        <button class="btn pri nx" data-go="l2">Bài tiếp: Máy tính cơ khí và thẻ đục lỗ →</button>
+      </div></div></article>
+    <!-- ===================== BÀI 2 · Máy tính cơ khí và thẻ đục lỗ ===================== -->
+    <article class="col" id="view-l2" hidden><div class="lgate" aria-live="polite"></div><div class="park" hidden><div data-m="m0" class="figure" id="lab-l2"></div>
+<div data-m="m1" id="ex-l2"></div>
+<div data-m="m2" class="quiz" id="quiz2"></div>
+<div data-m="m3" class="score" id="score2"></div>
+<div data-m="m4" class="next">
+        <button class="btn prev" data-go="l1">← Bài 1</button>
+        <span class="byline"><span class="amts-logo" aria-hidden="true"></span>Chương 1 · Bài 2/7</span>
+        <button class="btn pri nx" data-go="l3">Bài tiếp: Đèn điện tử và các máy tính điện tử sơ khai →</button>
+      </div></div></article>
+    <!-- ===================== BÀI 3 · Đèn điện tử và các máy tính điện tử sơ khai ===================== -->
+    <article class="col" id="view-l3" hidden><div class="lgate" aria-live="polite"></div><div class="park" hidden><div data-m="m0" class="figure" id="lab-l3"></div>
+<div data-m="m1" id="ex-l3"></div>
+<div data-m="m2" class="quiz" id="quiz3"></div>
+<div data-m="m3" class="score" id="score3"></div>
+<div data-m="m4" class="next">
+        <button class="btn prev" data-go="l2">← Bài 2</button>
+        <span class="byline"><span class="amts-logo" aria-hidden="true"></span>Chương 1 · Bài 3/7</span>
+        <button class="btn pri nx" data-go="l4">Bài tiếp: 1947 transistor, 1958–1959 vi mạch tích hợp →</button>
+      </div></div></article>
+    <!-- ===================== BÀI 4 · 1947 transistor, 1958–1959 vi mạch tích hợp ===================== -->
+    <article class="col" id="view-l4" hidden><div class="lgate" aria-live="polite"></div><div class="park" hidden><div data-m="m0" class="figure" id="lab-l4"></div>
+<div data-m="m1" id="ex-l4"></div>
+<div data-m="m2" class="quiz" id="quiz4"></div>
+<div data-m="m3" class="score" id="score4"></div>
+<div data-m="m4" class="next">
+        <button class="btn prev" data-go="l3">← Bài 3</button>
+        <span class="byline"><span class="amts-logo" aria-hidden="true"></span>Chương 1 · Bài 4/7</span>
+        <button class="btn pri nx" data-go="l5">Bài tiếp: 1971 microprocessor và máy tính cá nhân →</button>
+      </div></div></article>
+    <!-- ===================== BÀI 5 · 1971 microprocessor và máy tính cá nhân ===================== -->
+    <article class="col" id="view-l5" hidden><div class="lgate" aria-live="polite"></div><div class="park" hidden><div data-m="m0" class="figure" id="lab-l5"></div>
+<div data-m="m1" id="ex-l5"></div>
+<div data-m="m2" class="quiz" id="quiz5"></div>
+<div data-m="m3" class="score" id="score5"></div>
+<div data-m="m4" class="next">
+        <button class="btn prev" data-go="l4">← Bài 4</button>
+        <span class="byline"><span class="amts-logo" aria-hidden="true"></span>Chương 1 · Bài 5/7</span>
+        <button class="btn pri nx" data-go="l6">Bài tiếp: Từ mainframe tới PC, laptop, smartphone, server →</button>
+      </div></div></article>
+    <!-- ===================== BÀI 6 · Từ mainframe tới PC, laptop, smartphone, server ===================== -->
+    <article class="col" id="view-l6" hidden><div class="lgate" aria-live="polite"></div><div class="park" hidden><div data-m="m0" class="figure" id="lab-l6"></div>
+<div data-m="m1" id="ex-l6"></div>
+<div data-m="m2" class="quiz" id="quiz6"></div>
+<div data-m="m3" class="score" id="score6"></div>
+<div data-m="m4" class="next">
+        <button class="btn prev" data-go="l5">← Bài 5</button>
+        <span class="byline"><span class="amts-logo" aria-hidden="true"></span>Chương 1 · Bài 6/7</span>
+        <button class="btn pri nx" data-go="l7">Bài tiếp: Xu hướng multicore, SoC, GPU, AI accelerator; giới hạn của Moore →</button>
+      </div></div></article>
+    <!-- ===================== BÀI 7 · Xu hướng multicore, SoC, GPU, AI accelerator; giới hạn của Moore ===================== -->
+    <article class="col" id="view-l7" hidden><div class="lgate" aria-live="polite"></div><div class="park" hidden><div data-m="m0" class="figure" id="lab-l7"></div>
+<div data-m="m1" id="ex-l7"></div>
+<div data-m="m2" class="quiz" id="quiz7"></div>
+<div data-m="m3" class="score" id="score7"></div>
+<div data-m="m4" class="next">
+        <button class="btn prev" data-go="l6">← Bài 6</button>
+        <span class="byline"><span class="amts-logo" aria-hidden="true"></span>Chương 1 · Bài 7/7</span>
+        <button class="btn pri nx" data-go="l8">Bài tiếp: Chương 2 · Nguyên tử, electron, vật dẫn, điện môi và bán dẫn →</button>
+      </div></div></article>
+    <!-- ===================== BÀI 8 · Nguyên tử, electron, vật dẫn, điện môi và bán dẫn ===================== -->
+    <article class="col" id="view-l8" hidden><div class="lgate" aria-live="polite"></div><div class="park" hidden><div data-m="m0" class="figure" id="lab-l8"></div>
+<div data-m="m1" id="ex-l8"></div>
+<div data-m="m2" class="quiz" id="quiz8"></div>
+<div data-m="m3" class="score" id="score8"></div>
+<div data-m="m4" class="next">
+        <button class="btn prev" data-go="l7">← Bài 7</button>
+        <span class="byline"><span class="amts-logo" aria-hidden="true"></span>Chương 2 · Bài 1/7</span>
+        <button class="btn pri nx" data-go="l9">Bài tiếp: Năng lượng, điện áp, dòng điện, điện trở và công suất →</button>
+      </div></div></article>
+    <!-- ===================== BÀI 9 · Năng lượng, điện áp, dòng điện, điện trở và công suất ===================== -->
+    <article class="col" id="view-l9" hidden><div class="lgate" aria-live="polite"></div><div class="park" hidden><div data-m="m0" class="figure" id="lab-l9"></div>
+<div data-m="m1" id="ex-l9"></div>
+<div data-m="m2" class="quiz" id="quiz9"></div>
+<div data-m="m3" class="score" id="score9"></div>
+<div data-m="m4" class="next">
+        <button class="btn prev" data-go="l8">← Bài 8</button>
+        <span class="byline"><span class="amts-logo" aria-hidden="true"></span>Chương 2 · Bài 2/7</span>
+        <button class="btn pri nx" data-go="l10">Bài tiếp: Silicon, doping loại N/P, diode và chuyển tiếp PN →</button>
+      </div></div></article>
+    <!-- ===================== BÀI 10 · Silicon, doping loại N/P, diode và chuyển tiếp PN ===================== -->
+    <article class="col" id="view-l10" hidden><div class="lgate" aria-live="polite"></div><div class="park" hidden><div data-m="m0" class="figure" id="lab-l10"></div>
+<div data-m="m1" id="ex-l10"></div>
+<div data-m="m2" class="quiz" id="quiz10"></div>
+<div data-m="m3" class="score" id="score10"></div>
+<div data-m="m4" class="next">
+        <button class="btn prev" data-go="l9">← Bài 9</button>
+        <span class="byline up"><span class="amts-logo" aria-hidden="true"></span>Tiếp theo: MOSFET: gate, source, drain, đóng/ngắt và rò</span>
+      </div></div></article>
+  </main>
+</div>
+
+<script defer src="../assets/app/common.d88f38c7f4.js"></script>
+<script defer src="../assets/app/maytinh-head.30c0e23c8c.js"></script>
+<script defer src="../assets/app/core.a7f8b9e05f.js"></script>
+
+
+</body>
+</html>

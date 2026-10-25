@@ -5,8 +5,8 @@
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <link rel="preload" as="font" type="font/woff2" crossorigin href="assets/fonts/be-vietnam-pro-latin-400-normal.woff2">
 <link rel="preload" as="font" type="font/woff2" crossorigin href="assets/fonts/be-vietnam-pro-vietnamese-400-normal.woff2">
-<link rel="preload" as="script" href="assets/app/common.90c25e16b6.js">
-<link rel="preload" as="script" href="assets/app/home.95b0ddd744.js">
+<link rel="preload" as="script" href="assets/app/common.d88f38c7f4.js">
+<link rel="preload" as="script" href="assets/app/home.6e2315ccd5.js">
 <title>AMTS Học Lập Trình</title>
 <meta name="claude:viewport-fit-sides" content="cover">
 <link rel="preconnect" href="https://cdn.jsdelivr.net">
@@ -56,12 +56,12 @@
 
 /* Trang chủ: thanh điều hướng · lời chào + "Tiếp tục học" · khám phá khóa học (tìm kiếm, lọc, thẻ có ảnh) · thực hành · khu giảng viên */
 :root{
-  --bg:#F1F3F7; --surface:#FFFFFF; --ink:#151B2C; --muted:#5B6579; --line:#D8DDE7; --accent:#2E50DC; --accent-ink:#FFFFFF; --accent-soft:#E4E9FD; --warm:#975506; --warm-soft:#FBEFDC; --ok:#17734A; --ok-soft:#DDF2E7; --err:#B42F25; --err-soft:#FBE3E0; --code-bg:#131A2A; --code-fg:#DCE3F2; --code-line:#232C42; --code-muted:#96A3BC; --syn-kw:#93AAFF; --syn-str:#F2BC6B; --syn-num:#80D8B2; --syn-com:#96A3BC; --syn-pre:#D892F2; --syn-op:#B9C3D9; --c-cpp:#2E5BFF; --c-cs:#7B3FE4; --c-py:#0E8F8A; --c-java:#E2672A; --c-kcd:#C25A0A; --c-nentang:#2F7D4F; --c-mcu8051:#0B78B8; --c-mpu8086:#A0561A; --c-hsg:#0F7C6E; --shadow:0 1px 2px rgba(16,24,40,.05),0 4px 14px rgba(16,24,40,.06); --f-display:"Be Vietnam Pro",system-ui,-apple-system,"Segoe UI",sans-serif; --f-body:"Be Vietnam Pro",system-ui,-apple-system,"Segoe UI",sans-serif; --f-mono:"JetBrains Mono",ui-monospace,"SFMono-Regular",Consolas,monospace; --r:10px;
+  --bg:#F1F3F7; --surface:#FFFFFF; --ink:#151B2C; --muted:#5B6579; --line:#D8DDE7; --accent:#2E50DC; --accent-ink:#FFFFFF; --accent-soft:#E4E9FD; --warm:#975506; --warm-soft:#FBEFDC; --ok:#17734A; --ok-soft:#DDF2E7; --err:#B42F25; --err-soft:#FBE3E0; --code-bg:#131A2A; --code-fg:#DCE3F2; --code-line:#232C42; --code-muted:#96A3BC; --syn-kw:#93AAFF; --syn-str:#F2BC6B; --syn-num:#80D8B2; --syn-com:#96A3BC; --syn-pre:#D892F2; --syn-op:#B9C3D9; --c-cpp:#2E5BFF; --c-cs:#7B3FE4; --c-py:#0E8F8A; --c-java:#E2672A; --c-kcd:#C25A0A; --c-nentang:#2F7D4F; --c-mcu8051:#0B78B8; --c-mpu8086:#A0561A; --c-hsg:#0F7C6E; --c-maytinh:#4338CA; --shadow:0 1px 2px rgba(16,24,40,.05),0 4px 14px rgba(16,24,40,.06); --f-display:"Be Vietnam Pro",system-ui,-apple-system,"Segoe UI",sans-serif; --f-body:"Be Vietnam Pro",system-ui,-apple-system,"Segoe UI",sans-serif; --f-mono:"JetBrains Mono",ui-monospace,"SFMono-Regular",Consolas,monospace; --r:10px;
 }
 @media (prefers-color-scheme: dark){:root:not([data-theme="light"]){
-  --bg:#0E1320; --surface:#151C2C; --ink:#E6EAF3; --muted:#97A1B6; --line:#27314A; --accent:#7D95FF; --accent-ink:#0E1320; --accent-soft:#1F2A52; --warm:#F0AE52; --warm-soft:#3A2C17; --ok:#5ACB93; --ok-soft:#163626; --err:#F07C70; --err-soft:#3D1D1A; --code-bg:#0A0F1A; --code-line:#1A2236; --c-cpp:#7D95FF; --c-cs:#B48CF0; --c-py:#5FD3C8; --c-java:#F0915F; --c-kcd:#F5A04A; --c-nentang:#6FD39B; --c-mcu8051:#5BC0F0; --c-mpu8086:#EDA868; --c-hsg:#4FD1BC; --shadow:0 1px 2px rgba(0,0,0,.3); color-scheme:dark}}
+  --bg:#0E1320; --surface:#151C2C; --ink:#E6EAF3; --muted:#97A1B6; --line:#27314A; --accent:#7D95FF; --accent-ink:#0E1320; --accent-soft:#1F2A52; --warm:#F0AE52; --warm-soft:#3A2C17; --ok:#5ACB93; --ok-soft:#163626; --err:#F07C70; --err-soft:#3D1D1A; --code-bg:#0A0F1A; --code-line:#1A2236; --c-cpp:#7D95FF; --c-cs:#B48CF0; --c-py:#5FD3C8; --c-java:#F0915F; --c-kcd:#F5A04A; --c-nentang:#6FD39B; --c-mcu8051:#5BC0F0; --c-mpu8086:#EDA868; --c-hsg:#4FD1BC; --c-maytinh:#A5B4FC; --shadow:0 1px 2px rgba(0,0,0,.3); color-scheme:dark}}
 :root[data-theme="dark"]{
-  --bg:#0E1320; --surface:#151C2C; --ink:#E6EAF3; --muted:#97A1B6; --line:#27314A; --accent:#7D95FF; --accent-ink:#0E1320; --accent-soft:#1F2A52; --warm:#F0AE52; --warm-soft:#3A2C17; --ok:#5ACB93; --ok-soft:#163626; --err:#F07C70; --err-soft:#3D1D1A; --code-bg:#0A0F1A; --code-line:#1A2236; --c-cpp:#7D95FF; --c-cs:#B48CF0; --c-py:#5FD3C8; --c-java:#F0915F; --c-kcd:#F5A04A; --c-nentang:#6FD39B; --c-mcu8051:#5BC0F0; --c-mpu8086:#EDA868; --c-hsg:#4FD1BC; --shadow:0 1px 2px rgba(0,0,0,.3); color-scheme:dark}
+  --bg:#0E1320; --surface:#151C2C; --ink:#E6EAF3; --muted:#97A1B6; --line:#27314A; --accent:#7D95FF; --accent-ink:#0E1320; --accent-soft:#1F2A52; --warm:#F0AE52; --warm-soft:#3A2C17; --ok:#5ACB93; --ok-soft:#163626; --err:#F07C70; --err-soft:#3D1D1A; --code-bg:#0A0F1A; --code-line:#1A2236; --c-cpp:#7D95FF; --c-cs:#B48CF0; --c-py:#5FD3C8; --c-java:#F0915F; --c-kcd:#F5A04A; --c-nentang:#6FD39B; --c-mcu8051:#5BC0F0; --c-mpu8086:#EDA868; --c-hsg:#4FD1BC; --c-maytinh:#A5B4FC; --shadow:0 1px 2px rgba(0,0,0,.3); color-scheme:dark}
 
 *{box-sizing:border-box}
 body{background:var(--bg);color:var(--ink);font-family:var(--f-body);font-size:16px;line-height:1.65;margin:0}
@@ -177,6 +177,13 @@ body{background:var(--bg)}
 .ava img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;border-radius:50%}
 .top .ic{width:20px;height:20px;flex:none}
 .top .iconbtn .ic{width:22px;height:22px}
+/* điện thoại hẹp (≤ 480px), chưa đăng nhập: logo + Menu + chuông + nút “Đăng nhập” vượt 390px → thu khoảng cách, logo nhỏ lại (25/10/2026) */
+@media (max-width:480px){
+  .top .wrap{gap:10px;padding-left:max(14px,env(safe-area-inset-left,0px));padding-right:max(14px,env(safe-area-inset-right,0px))}
+  .top .amts-logo{height:30px}
+  .tright{gap:4px}
+  .tacct .gbtn{padding:7px 8px;gap:6px;font-size:13.5px}
+}
 
 /* ---- lời chào + tiếp tục học ---- */
 .greet{padding-block:36px 22px}
@@ -530,8 +537,8 @@ footer{margin-top:56px;border-top:1px solid var(--line);padding-block:20px 40px;
   <div><b>Dữ liệu của bạn</b><p>Chưa đăng nhập: tiến độ chỉ lưu trên trình duyệt này. Đăng nhập Google: tiến độ được lưu để học tiếp trên mọi thiết bị và để giảng viên theo dõi kết quả học tập.</p></div>
 </div></footer>
 
-<script defer src="assets/app/common.90c25e16b6.js"></script>
-<script defer src="assets/app/home.95b0ddd744.js"></script>
+<script defer src="assets/app/common.d88f38c7f4.js"></script>
+<script defer src="assets/app/home.6e2315ccd5.js"></script>
 
 </body>
 </html>
