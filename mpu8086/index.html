@@ -1,0 +1,1148 @@
+<!doctype html>
+<html lang="vi">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<link rel="preload" as="font" type="font/woff2" crossorigin href="../assets/fonts/be-vietnam-pro-latin-400-normal.woff2">
+<link rel="preload" as="font" type="font/woff2" crossorigin href="../assets/fonts/be-vietnam-pro-vietnamese-400-normal.woff2">
+<link rel="preload" as="script" href="../assets/app/common.f9d17ffa4b.js">
+<link rel="preload" as="script" href="../assets/app/mpu8086-head.5ed2022987.js">
+<link rel="preload" as="script" href="../assets/app/core.a7f8b9e05f.js">
+<link rel="preload" as="script" href="../assets/app/mpu8086-body.ea929e6172.js">
+<title>Kiến trúc và lập trình vi xử lý 8086</title>
+<meta name="claude:viewport-fit-sides" content="cover">
+<link rel="preconnect" href="https://cdn.jsdelivr.net">
+<link rel="preconnect" href="https://firestore.googleapis.com">
+<link rel="preconnect" href="https://securetoken.googleapis.com">
+<link rel="preload" as="script" href="https://cdn.jsdelivr.net/npm/firebase@10.14.1/firebase-app-compat.js">
+<link rel="preload" as="script" href="https://cdn.jsdelivr.net/npm/firebase@10.14.1/firebase-auth-compat.js">
+<link rel="preload" as="script" href="https://cdn.jsdelivr.net/npm/firebase@10.14.1/firebase-firestore-compat.js">
+<link rel="stylesheet" href="../assets/app/core.3343645b5d.css">
+<meta name="description" content="Khóa Kiến trúc và lập trình vi xử lý 8086 của AMTS: 48 bài đã mở trong lộ trình 48 bài, hợp ngữ kiểu MASM/TASM từ thanh ghi, phân đoạn, tập lệnh, ngăn xếp, DOS/BIOS và ngắt tới bus, giải mã địa chỉ và ngoại vi 8255, 8253, 8259, 8251; trình mô phỏng 8086 chạy từng lệnh, bài tập chấm tự động.">
+<meta property="og:type" content="website">
+<meta property="og:locale" content="vi_VN">
+<meta property="og:site_name" content="AMTS Học Lập Trình">
+<meta property="og:title" content="Kiến trúc và lập trình vi xử lý 8086">
+<meta property="og:description" content="Khóa Kiến trúc và lập trình vi xử lý 8086 của AMTS: 48 bài đã mở trong lộ trình 48 bài, hợp ngữ kiểu MASM/TASM từ thanh ghi, phân đoạn, tập lệnh, ngăn xếp, DOS/BIOS và ngắt tới bus, giải mã địa chỉ và ngoại vi 8255, 8253, 8259, 8251; trình mô phỏng 8086 chạy từng lệnh, bài tập chấm tự động.">
+<meta name="theme-color" content="#0E97A9">
+<link rel="icon" href="../assets/brand/favicon.png">
+<link rel="apple-touch-icon" href="../assets/brand/apple-touch-icon.png">
+<meta property="og:image" content="https://congcau211.github.io/khoa-hoc-cpp/assets/social/og-home.png">
+<meta name="twitter:card" content="summary_large_image">
+<style>:root{color-scheme:light dark}body{margin:0}img{max-width:100%}[hidden]{display:none!important}</style>
+</head>
+<body>
+<script>(function(){const pl=u=>{if(!u)return;const k=document.createElement("link");k.rel="preload";k.as="script";k.href=u;document.head.appendChild(k)};try{const o=JSON.parse(localStorage.getItem("amts-lang-mpu8086")||"null");pl({}[o&&o.l])}catch(e){}try{const m=/^#bai-(\d+)/.exec(location.hash);pl({"l1": "../assets/app/mpu8086-l1.84b5d4428b.js", "l2": "../assets/app/mpu8086-l2.539d2e3b66.js", "l3": "../assets/app/mpu8086-l3.4c91120b9f.js", "l4": "../assets/app/mpu8086-l4.b5dbd3997e.js", "l5": "../assets/app/mpu8086-l5.c975ac44be.js", "l6": "../assets/app/mpu8086-l6.84131d25d7.js", "l7": "../assets/app/mpu8086-l7.47ea54bab3.js", "l8": "../assets/app/mpu8086-l8.853739ee4b.js", "l9": "../assets/app/mpu8086-l9.fe31efbe04.js", "l10": "../assets/app/mpu8086-l10.d8c2b8027c.js", "l11": "../assets/app/mpu8086-l11.a9c1a740fc.js", "l12": "../assets/app/mpu8086-l12.7253ed16f2.js", "l13": "../assets/app/mpu8086-l13.bb17fe0324.js", "l14": "../assets/app/mpu8086-l14.28645472f4.js", "l15": "../assets/app/mpu8086-l15.ee4adf2f2e.js", "l16": "../assets/app/mpu8086-l16.2a232fef7e.js", "l17": "../assets/app/mpu8086-l17.3c4e26b563.js", "l18": "../assets/app/mpu8086-l18.c8c70b70c5.js", "l19": "../assets/app/mpu8086-l19.7bb26979e1.js", "l20": "../assets/app/mpu8086-l20.0e449e1537.js", "l21": "../assets/app/mpu8086-l21.9f8fc07bed.js", "l22": "../assets/app/mpu8086-l22.8cc37c880f.js", "l23": "../assets/app/mpu8086-l23.95cd8a0819.js", "l24": "../assets/app/mpu8086-l24.b907dcaa5b.js", "l25": "../assets/app/mpu8086-l25.5c1b8e1cbd.js", "l26": "../assets/app/mpu8086-l26.fea2ac905a.js", "l27": "../assets/app/mpu8086-l27.5ddd8a7333.js", "l28": "../assets/app/mpu8086-l28.113360f09b.js", "l29": "../assets/app/mpu8086-l29.1610aadb9b.js", "l30": "../assets/app/mpu8086-l30.4b87b9425b.js", "l31": "../assets/app/mpu8086-l31.7ba4fb0702.js", "l32": "../assets/app/mpu8086-l32.2ae7895f19.js", "l33": "../assets/app/mpu8086-l33.e1ec4e490a.js", "l34": "../assets/app/mpu8086-l34.c22639db39.js", "l35": "../assets/app/mpu8086-l35.b2b14dbf4e.js", "l36": "../assets/app/mpu8086-l36.bb15cd8971.js", "l37": "../assets/app/mpu8086-l37.1952a7801c.js", "l38": "../assets/app/mpu8086-l38.f77abba7be.js", "l39": "../assets/app/mpu8086-l39.78f0e9e2f8.js", "l40": "../assets/app/mpu8086-l40.d0eca6d0e0.js", "l41": "../assets/app/mpu8086-l41.c43c4cead2.js", "l42": "../assets/app/mpu8086-l42.959a1c910e.js", "l43": "../assets/app/mpu8086-l43.12b9ee4604.js", "l44": "../assets/app/mpu8086-l44.3bdd2d8836.js", "l45": "../assets/app/mpu8086-l45.4c681586e4.js", "l46": "../assets/app/mpu8086-l46.a55ee0f9d0.js", "l47": "../assets/app/mpu8086-l47.4e822b2672.js", "l48": "../assets/app/mpu8086-l48.3361a02f4c.js"}[m?"l"+m[1]:localStorage.getItem("mpu8086-view")])}catch(e){}})()</script>
+
+<style>
+
+/* ---------- trình mô phỏng của khóa (platform/css/sim/58-x86.css) ---------- */
+/* ---------- Trình mô phỏng 8086 (chỉ có trên trang khóa mpu8086; build.py: SIM_FILES) ----------
+   Khung chung: platform/css/36-khung-mo-phong.css. Ở đây chỉ có phần riêng: thanh ghi, cờ, địa chỉ vật lý, mã máy, bộ nhớ hex, ngăn xếp, màn hình DOS.
+   Không có thanh cuộn lồng trong khung cuộn .st-scroll; mọi bảng co theo chiều ngang (không tràn ngang ở 390 px). */
+.x86 .xs-pred{display:inline-flex;align-items:center;gap:6px;min-height:44px;font-size:13.5px;font-weight:600;color:var(--ink);cursor:pointer}
+.x86 .xs-pred input{width:18px;height:18px;accent-color:var(--accent)}
+.x86 .pn>:not(.pane-h){margin:0 12px 12px}
+.x86 .pn>.xs-mem,.x86 .pn>.xs-list{margin:0 8px 10px}
+/* thanh ghi */
+.xs-regs{display:grid;gap:8px}
+.xr-g{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:6px}
+.xr-g.s5{grid-template-columns:repeat(5,minmax(0,1fr))}
+.xr{display:grid;grid-template-columns:auto 1fr;grid-template-areas:"n v" "b b" "d d";align-items:baseline;gap:0 6px;padding:5px 7px;border:1px solid var(--line);border-radius:8px;background:var(--bg);font-family:var(--f-mono);min-width:0}
+.xr.sg{grid-template-areas:"n v"}
+.xr-n{grid-area:n;font-weight:700;color:var(--muted);font-size:13px}
+.xr-v{grid-area:v;font-size:16px;font-weight:600;color:var(--ink);text-align:right}
+.xr-b{grid-area:b;display:flex;justify-content:space-between;gap:4px;font-size:11px;color:var(--muted);white-space:nowrap}
+.xr-b i{font-style:normal}
+.xr-d{grid-area:d;font-size:11.5px;color:var(--muted);text-align:right}
+.xr.chg{border-color:var(--warm);background:var(--warm-soft)}
+.xr.chg .xr-v{color:var(--warm)}
+.xf{display:flex;flex-wrap:wrap;gap:4px;align-items:center}
+.xf-i{display:inline-grid;justify-items:center;min-width:34px;padding:3px 4px;border:1px solid var(--line);border-radius:6px;font-family:var(--f-mono);font-size:12px;color:var(--muted);background:var(--bg)}
+.xf-i b{font-size:11px}.xf-i i{font-style:normal;font-size:15px;font-weight:700}
+.xf-i.on{color:var(--accent);border-color:var(--accent);background:var(--accent-soft)}
+.xf-i.chg{box-shadow:0 0 0 2px var(--warm)}
+.xf-v{margin-left:auto;font-family:var(--f-mono);font-size:12px;color:var(--muted)}
+/* địa chỉ vật lý = đoạn × 16 + độ lệch */
+.xs-pa{display:grid;gap:8px;margin-top:10px!important}
+.xpa{border:1px dashed var(--line);border-radius:8px;padding:8px 10px;background:var(--surface)}
+.xpa-h{font-size:12.5px;color:var(--muted);margin-bottom:4px;overflow-wrap:anywhere}
+.xpa-g{display:grid;grid-template-columns:auto auto;justify-content:start;gap:2px 12px;font-family:var(--f-mono);font-size:13.5px;align-items:baseline}
+.xpa-g span{color:var(--muted);font-size:12px;font-family:var(--f-body)}
+.xpa-g code{background:none;padding:0;font-size:15px;text-align:right;white-space:pre;color:var(--ink)}
+.xpa-g code u{text-decoration:none;color:var(--warm);font-weight:700}
+.xpa-g .xpa-r{color:var(--accent);font-weight:700;border-top:1px solid var(--line)}
+/* Đoán trước */
+.xs-ask{border:1px solid var(--accent);border-radius:10px;padding:10px 12px;background:var(--accent-soft);margin-bottom:10px!important}
+.xa-q{margin:0 0 8px;font-size:14px}
+.xa-b{display:flex;flex-wrap:wrap;gap:8px;align-items:center}
+.xa-b .btn{min-height:44px}
+.xa-in{font:600 15px var(--f-mono);padding:9px 10px;border:1px solid var(--line);border-radius:8px;background:var(--surface);color:var(--ink);width:9.5em;max-width:100%}
+.xa-skip{margin-top:6px;background:none;border:0;padding:6px 0;color:var(--muted);font-size:13px;text-decoration:underline;cursor:pointer;min-height:36px}
+.xa-f{margin:0;font-size:14px}.xa-f.ok{color:var(--ok)}.xa-f.bad{color:var(--err)}
+/* mã máy */
+.xl{width:100%;border-collapse:collapse;font-family:var(--f-mono);font-size:12.5px;table-layout:fixed}
+.xl th{font:600 11px var(--f-body);color:var(--muted);text-align:left;padding:4px;border-bottom:1px solid var(--line)}
+.xl th:nth-child(1){width:7.6em}.xl th:nth-child(2){width:9.5em}.xl th:nth-child(4){width:4em}.xl th:nth-child(5){width:3em}
+.xl td{padding:3px 4px;border-bottom:1px solid color-mix(in srgb,var(--line) 60%,transparent);vertical-align:top;overflow-wrap:anywhere}
+.xl td:nth-child(4),.xl td:nth-child(5),.xl th:nth-child(4),.xl th:nth-child(5){text-align:right}
+.xl .xl-b{color:var(--syn-num)}
+.xl .xl-s small{color:var(--muted);font-family:var(--f-body)}
+.xl tr.xl-d td{color:var(--muted)}
+.xl tr.next td{background:var(--accent-soft)}
+.xl tr.next td:first-child{box-shadow:inset 3px 0 0 var(--accent)}
+.xl tr.last:not(.next) td{background:var(--warm-soft)}
+.xl tbody tr{cursor:pointer}
+/* bộ nhớ hex: 16 byte/hàng trên laptop, 8 byte/hàng trên điện thoại (do JS chọn) */
+.xs-mbar{display:flex;gap:6px;align-items:center;flex-wrap:wrap;margin-bottom:8px!important}
+.xs-mbar select{min-height:44px;max-width:100%}
+.xs-mbar .btn{min-height:44px;min-width:44px;justify-content:center}
+.xm{font-family:var(--f-mono);font-size:12.5px;display:grid;gap:1px}
+.xm-r{display:grid;grid-template-columns:3.4em repeat(var(--per),minmax(0,1fr)) auto;gap:0 3px;align-items:center}
+.xm-r>span{text-align:center;padding:1px 0;border-radius:3px}
+.xm-h>span{color:var(--muted);font-size:11px}
+.xm-o{color:var(--muted);text-align:left!important}
+.xm-a{color:var(--muted);text-align:left!important;padding-left:6px!important;white-space:pre;letter-spacing:0}
+.xm-r>span.v{background:color-mix(in srgb,var(--accent) 7%,transparent)}
+.xm-r>span.v0{background:color-mix(in srgb,var(--accent) 16%,transparent);box-shadow:inset 2px 0 0 var(--accent)}
+.xm-r>span.w,.xm-k .w{background:var(--warm-soft);color:var(--warm);font-weight:700}
+.xm-r>span.r,.xm-k .r{background:var(--accent-soft);color:var(--accent);font-weight:700}
+.xm-k{font-size:12px;color:var(--muted);margin:6px 0 0}
+.xm-k span{padding:0 4px;border-radius:3px;margin-right:4px}
+.xm-k .v0{background:color-mix(in srgb,var(--accent) 16%,transparent)}
+/* ngăn xếp */
+.xk{width:100%;border-collapse:collapse;font-family:var(--f-mono);font-size:13px}
+.xk th{font:600 11px var(--f-body);color:var(--muted);text-align:left;padding:4px;border-bottom:1px solid var(--line)}
+.xk td{padding:4px;border-bottom:1px solid color-mix(in srgb,var(--line) 60%,transparent);overflow-wrap:anywhere}
+.xk td:last-child{font-family:var(--f-body);font-size:12.5px;color:var(--muted)}
+.xk tr.top td{background:var(--accent-soft)}
+/* màn hình DOS 80 × 25: dòng dài tự xuống dòng trên điện thoại */
+.xs-scr{background:#0B0F14;color:#D7DEE8;font-family:var(--f-mono);font-size:13px;line-height:1.45;padding:10px 12px;white-space:pre-wrap;word-break:break-all;min-height:150px;border-radius:8px}
+.xs-scr .con-empty{color:#8B97A8;font-family:var(--f-body);white-space:normal}
+.xs-cur{background:#D7DEE8;color:#0B0F14}
+.x86 .s-wait{margin-top:8px!important}
+.x86 .explain{margin:8px 0 0!important;border:1px solid var(--line);border-radius:8px}
+.x86 .explain .xs-stat{font-family:var(--f-mono);font-size:12.5px;color:var(--muted)}
+.x86 .explain .xs-tip,.x86 .explain .xs-more{font-size:13.5px;color:var(--ink)}
+.x86 .sim-scope{padding:0 14px 10px;font-size:14px}
+.x86 .sim-scope summary{min-height:44px;display:flex;align-items:center;cursor:pointer;font-weight:600}
+.x86 .sim-scope p{margin:6px 0}
+/* bài tập */
+.x86ex .x-tests{margin:6px 0;padding-left:20px;font-size:14px}
+.x86ex .x-tests li.ok{color:var(--ok)}.x86ex .x-tests li.bad{color:var(--err)}
+.x86ex .x-tests .io{color:var(--ink);margin-top:6px}
+.x86ex .x-perf{font-size:14px}.x86ex .x-perf.ok{color:var(--ok)}.x86ex .x-perf.bad{color:var(--err)}
+.x86ex .ex-res{border:1px solid var(--line);border-radius:10px;padding:10px 12px;margin-top:8px}
+.x86ex .ex-res.ok{border-color:var(--ok)}.x86ex .ex-res.bad{border-color:var(--err)}
+.x86ex .ex-res pre{white-space:pre-wrap;word-break:break-all}
+@media (max-width:900px){
+  .x86 .sim-bar .right{width:auto}
+  .xr-g{grid-template-columns:repeat(2,minmax(0,1fr))}
+  .xr-g.s5{grid-template-columns:repeat(3,minmax(0,1fr))}
+  .xr-v{font-size:16px}
+  .xl{font-size:12px}.xl th:nth-child(1){width:6.8em}.xl th:nth-child(2){width:7.2em}.xl th:nth-child(5){display:none}.xl td:nth-child(5){display:none}
+  .xm{font-size:12px}
+}
+@media (max-width:420px){.xm-a{display:none}.xm-r{grid-template-columns:3.4em repeat(var(--per),minmax(0,1fr))}.xl th:nth-child(2){width:6em}}
+/* SIM17: mũi tên luồng nhảy trên mã nguồn (quyết định của chủ khóa 06/11/2026) — nằm trong lề trái 14px của khung code, cuộn cùng code */
+.x86 .ed-hl .xs-jmp{position:absolute;left:1px;width:12px;overflow:visible;pointer-events:none}
+.x86 .ed-hl .xs-jmp path{stroke:var(--syn-kw);stroke-width:2;stroke-linejoin:round}
+.x86 .ed-hl .xs-jmp path.hd{fill:var(--syn-kw);stroke:none}
+.x86 .ed-hl .row.jt{box-shadow:inset 3px 0 0 var(--syn-kw)}
+.x86 .ed-hl .row.jn{text-decoration:underline dotted color-mix(in srgb,var(--code-muted) 70%,transparent)}
+/* ---------- trình mô phỏng của khóa (platform/css/sim/59-x86-biu.css) ---------- */
+/* ---------- Mô hình hàng đợi lệnh 8086/8088 (EU – BIU), chỉ trên trang khóa mpu8086 (build.py: SIM_FILES) ----------
+   Phần vẽ: platform/js/59-x86-biu-ui.js. Chỉ dùng biến màu chung nên tự đổi theo chế độ sáng / tối; không tràn ngang ở 390 px. */
+.xq{display:grid;grid-template-columns:minmax(0,1fr);gap:10px;min-width:0}
+.xq-bar{display:flex;flex-wrap:wrap;gap:8px 14px;align-items:center}
+.xq-sel{display:flex;flex-wrap:wrap;align-items:center;gap:6px;font-size:13.5px;font-weight:600;min-width:0;max-width:100%}
+.xq-sel select{min-height:40px;max-width:100%;min-width:0;width:22em;border:1px solid var(--line);border-radius:8px;background:var(--surface);color:var(--ink);padding:4px 8px;font:inherit;font-weight:500}
+.xq-cpu{display:flex;flex-wrap:wrap;gap:6px}
+.xq-cpu .chip-btn{min-height:40px}
+.xq .chip-btn.on{border-color:var(--accent);background:var(--accent-soft);color:var(--accent)}
+.xq-note{margin:0;font-size:14px;color:var(--muted)}
+.xq-fig{display:grid;grid-template-columns:minmax(0,1fr);gap:10px;min-width:0}
+.xq-code{list-style:none;margin:0;padding:0;border:1px solid var(--line);border-radius:8px;overflow:hidden;font-size:13px}
+.xq-code li{display:grid;grid-template-columns:auto minmax(0,1fr) auto;grid-template-areas:"a t c" "a b c";gap:0 10px;padding:5px 10px;border-top:1px solid var(--line);background:var(--surface);align-items:baseline}
+.xq-code li:first-child{border-top:0}
+.xq-code .a{grid-area:a;color:var(--muted);font-size:12px}
+.xq-code .b{grid-area:b;color:var(--muted);font-size:12px;overflow-wrap:anywhere}
+.xq-code .t{grid-area:t;font-weight:600;overflow-wrap:anywhere}
+.xq-code .c{grid-area:c;color:var(--muted);font-size:12px;white-space:nowrap}
+.xq-code li.dn{opacity:.55}
+.xq-code li.cur{background:var(--accent-soft);box-shadow:inset 3px 0 0 var(--accent)}
+.xq-units{display:grid;grid-template-columns:minmax(0,1.4fr) minmax(0,1fr);gap:10px}
+.xq-u{border:1.5px solid var(--line);border-radius:8px;background:var(--surface);padding:8px 10px;min-width:0}
+.xq-u.biu{border-color:var(--accent)}
+.xq-u.eu{border-color:var(--warm)}
+.xq-u p{margin:4px 0;font-size:13.5px;line-height:1.45}
+.xq-h{display:flex;gap:8px;align-items:baseline}
+.xq-h b{font-size:15px}.xq-h span{font-size:12px;color:var(--muted)}
+.xq-q{display:grid;grid-template-columns:repeat(6,minmax(0,1fr));gap:4px;margin-top:6px}
+.xq-slot{display:grid;justify-items:center;padding:4px 2px;border:1px dashed var(--line);border-radius:6px;font-family:var(--f-mono,"JetBrains Mono",monospace);min-width:0;background:var(--bg)}
+.xq-slot b{font-size:14px;color:var(--muted)}
+.xq-slot small{font-size:10.5px;color:var(--muted)}
+.xq-slot.on{border-style:solid;border-color:var(--accent);background:var(--accent-soft)}
+.xq-slot.on b{color:var(--ink)}
+.xq-qn{font-size:12.5px!important;color:var(--muted)}
+.xq-ev{margin:0;font-size:13.5px;min-height:2.9em}
+.xq-pl{display:inline-flex;align-items:center;gap:6px;min-height:44px;font-size:13.5px;font-weight:600;cursor:pointer}
+.xq-pl input{width:18px;height:18px;accent-color:var(--accent)}
+.xq-ask p{margin:4px 0;font-size:14px}
+.xq-fb.ok{color:var(--ok)}.xq-fb.bad{color:var(--warm)}
+.xq-log .tbl table{min-width:0;font-size:13px}
+.xq-log .tbl th,.xq-log .tbl td{white-space:normal;padding:4px 6px;overflow-wrap:anywhere}
+.xq-log td:first-child{white-space:nowrap}
+.xq .pipe-ctl .crumb{min-width:10.5em}
+.xq-sum{margin:6px 0 0;font-size:14px}
+.xq-err{color:var(--warm)}
+@media (max-width:600px){.xq-units{grid-template-columns:minmax(0,1fr)}.xq-slot b{font-size:13px}.xq .pipe-ctl .btn{padding:8px 10px}}
+/* ---------- trình mô phỏng của khóa (platform/css/sim/59-x86-dbg.css) ---------- */
+/* ---------- Bảng lệnh debugger kiểu dòng lệnh 8086, chỉ trên trang khóa mpu8086 (build.py: SIM_FILES) ----------
+   Phần vẽ: platform/js/59-x86-dbg-ui.js. Khung kết quả cao cố định, cuộn bên trong; chữ tự xuống dòng nên không tràn ngang ở 390 px. */
+.xd{display:grid;grid-template-columns:minmax(0,1fr);gap:8px;min-width:0}
+.xd-bar{display:flex;flex-wrap:wrap;gap:8px;align-items:center}
+.xd-sel{display:flex;flex-wrap:wrap;align-items:center;gap:6px;font-size:13.5px;font-weight:600;min-width:0;max-width:100%}
+.xd-sel select{min-height:40px;max-width:100%;min-width:0;width:24em;border:1px solid var(--line);border-radius:8px;background:var(--surface);color:var(--ink);padding:4px 8px;font:inherit;font-weight:500}
+.xd-note{margin:0;font-size:14px;color:var(--muted)}
+.xd-out{height:21em;overflow-y:auto;overflow-x:hidden;border:1px solid var(--line);border-radius:8px;background:var(--bg);padding:8px 10px;font-family:var(--f-mono,"JetBrains Mono",monospace);font-size:12.5px;line-height:1.5;overscroll-behavior:contain}
+.xd-blk{white-space:pre-wrap;overflow-wrap:anywhere;margin:0 0 6px}
+.xd-blk.cmd{color:var(--accent);font-weight:700;margin-bottom:2px}
+.xd-blk.err{color:var(--warm)}
+.xd-blk.sys{color:var(--muted)}
+.xd-ctl{gap:8px}
+.xd-in{display:flex;align-items:center;gap:4px;flex:1 1 12em;min-width:0;border:1px solid var(--line);border-radius:8px;background:var(--surface);padding:0 8px}
+.xd-in:focus-within{border-color:var(--accent);box-shadow:0 0 0 2px var(--accent-soft)}
+.xd-pr{font-family:var(--f-mono,"JetBrains Mono",monospace);color:var(--muted);font-weight:700}
+.xd-in input{flex:1;min-width:0;min-height:42px;border:0;background:transparent;color:var(--ink);font-family:var(--f-mono,"JetBrains Mono",monospace);font-size:15px;outline:none}
+.xd-hint{display:flex;flex-wrap:wrap;gap:6px;align-items:center;font-size:13px;color:var(--muted)}
+.xd-hint .chips{display:flex;flex-wrap:wrap;gap:6px}
+.xd-hint .chip-btn{font-family:var(--f-mono,"JetBrains Mono",monospace);min-height:36px}
+@media (max-width:600px){.xd-out{height:19em;font-size:12px;padding:6px 8px}}
+/* ---------- trình mô phỏng của khóa (platform/css/sim/59-x86-bus.css) ---------- */
+/* ---------- Trình mô phỏng 8086 · chu kỳ bus (platform/js/59-x86-bus.js; chỉ có trên trang khóa mpu8086) ----------
+   Công cụ nhỏ chạy từng bước trong bài (docs/QUY-TAC-TRINH-MO-PHONG.md mục 5): hàng nút ngay sau phần hình, dính đáy màn hình.
+   Dạng sóng là SVG có chiều rộng cố định, nằm trong khung .xb-wave tự cuộn ngang (không làm tràn trang ở 390 px).
+   Chỉ dùng biến màu chung nên tự đổi theo chế độ sáng / tối. */
+.xb,.xh{display:grid;grid-template-columns:minmax(0,1fr);gap:10px;min-width:0;max-width:100%;border:1px solid var(--line);border-radius:12px;background:var(--surface);padding:12px}
+.xb>*,.xh>*{min-width:0}
+.figure.xb-fig{padding:0;border:0;background:none;grid-template-columns:minmax(0,1fr)}
+.xb-bar{display:grid;grid-template-columns:repeat(auto-fit,minmax(128px,1fr));gap:8px 12px;align-items:end}
+.xb-bar label{display:grid;gap:3px;font-size:12.5px;color:var(--muted);min-width:0;max-width:100%}
+.xb-bar>*{min-width:0}
+.xb-bar>label:first-child{grid-column:1/-1}
+.xb-bar select{width:100%;min-width:0;min-height:40px;max-width:100%;font:inherit;font-size:14px;color:var(--ink);background:var(--bg);border:1px solid var(--line);border-radius:8px;padding:4px 8px}
+.xb-bar .xb-pr{display:inline-flex;grid-auto-flow:column;align-items:center;gap:6px;min-height:44px;font-size:13.5px;font-weight:600;color:var(--ink);cursor:pointer}
+.xb-pr input{width:18px;height:18px;accent-color:var(--accent)}
+.xb-ins{font-size:14px;line-height:1.55;overflow-wrap:anywhere}
+.xb-ins .xb-k{font-size:12px;font-weight:700;letter-spacing:.04em;text-transform:uppercase;color:var(--muted)}
+.xb-ins .xb-m{color:var(--muted);font-size:13px}
+.xb-ins .xb-end{display:block;color:var(--accent)}
+.xb-ask{border:1px solid var(--accent);border-radius:10px;padding:10px 12px;background:var(--accent-soft);font-size:14px}
+.xb-ask p{margin:0 0 6px}.xb-ask .xb-fb{margin:0}
+.xb-ab{display:flex;flex-wrap:wrap;gap:8px}.xb-ab .btn{min-width:48px;min-height:44px}
+.xb-list .tbl{margin:0}
+.xb-list table{font-size:13px}
+.xb-list tr[data-i]{cursor:pointer}
+.xb-list tr.on td{background:var(--accent-soft)}
+.xb-list small{color:var(--muted)}
+.xb-list code{white-space:nowrap}
+.xb-none{margin:0;color:var(--muted);font-size:13.5px}
+.xb-wave{overflow-x:auto;max-width:100%;border:1px solid var(--line);border-radius:8px;background:var(--bg);padding:6px}
+.xb-cap{font-size:13px;color:var(--muted);margin:0 0 4px;position:sticky;left:0}
+.xb-svg{display:block;max-width:none;height:auto}
+.xb-svg .xw-a{fill:var(--bg)}.xb-svg .xw-b{fill:var(--surface)}.xb-svg .xw-tw{fill:var(--warm-soft)}
+.xb-svg .xw-t{font:700 12px var(--f-mono,monospace);fill:var(--muted)}
+.xb-svg .xw-n{font:600 12px var(--f-mono,monospace);fill:var(--ink)}
+.xb-svg .xw-ov{stroke:var(--ink);stroke-width:1}
+.xb-svg .xw-v{font:12px var(--f-mono,monospace);fill:var(--ink)}
+.xb-svg .xw-clk{fill:none;stroke:var(--muted);stroke-width:1.5}
+.xb-svg .xw-bit{fill:none;stroke:var(--accent);stroke-width:2}
+.xb-svg .xw-bus{fill:var(--accent-soft);stroke:var(--accent);stroke-width:1.5}
+.xb-svg .xw-z{stroke:var(--muted);stroke-width:1.5;stroke-dasharray:4 3}
+.xb-sum{font-size:13.5px;color:var(--ink);line-height:1.5}
+.xb-ctl{position:sticky;bottom:0;z-index:3;background:var(--surface);padding:6px 0 max(6px,env(safe-area-inset-bottom,0px))}
+.xb-ctl .btn{min-height:44px}
+.xb-lim{margin:0;font-size:12.5px;color:var(--muted);line-height:1.5}
+.xb-bad{color:var(--warm)}
+/* HOLD/HLDA */
+.xh-note{margin:0;font-size:14px}
+.xh-tl{display:flex;flex-wrap:wrap;gap:3px}
+.xh-c{display:inline-grid;place-items:center;width:26px;height:28px;border:1px solid var(--line);border-radius:5px;font:700 13px var(--f-mono,monospace);color:var(--muted);background:var(--bg)}
+.xh-c.oC{background:var(--accent-soft);color:var(--accent);border-color:var(--accent)}
+.xh-c.oD{background:var(--warm-soft);color:var(--warm);border-color:var(--warm)}
+.xh-c.oX{background:var(--warm);color:var(--surface);border-color:var(--warm)}
+.xh-rows table{font-size:13px}
+.xh-rows tr.bad td{background:var(--warm-soft)}
+@media (max-width:600px){.xb,.xh{padding:10px}.xb-bar{gap:6px 10px}.xb-list table{font-size:12px}.xh-c{width:22px;height:26px;font-size:12px}}
+/* hình trong bài chương 9: sơ đồ chân (vẽ bằng HTML), gạch trên tên tín hiệu tích cực mức thấp */
+.ov{text-decoration:overline;text-decoration-thickness:1px}
+.xp{display:grid;gap:0;max-width:420px;margin:0 auto;border:1px solid var(--line);border-radius:8px;background:var(--surface);padding:6px 0;font-size:13px}
+.xp-r{display:grid;grid-template-columns:26px minmax(0,1fr) 28px minmax(0,1.3fr) 26px;align-items:center;min-height:24px}
+.xp-n{text-align:center;font:600 11.5px var(--f-mono,monospace);color:var(--muted)}
+.xp-s{font-family:var(--f-mono,monospace);padding:0 6px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.xp-s.r{text-align:right}
+.xp-s small{display:block;font-size:10.5px;color:var(--warm);line-height:1.1}
+.xp-c{align-self:stretch;background:var(--accent-soft);border-left:1.5px solid var(--accent);border-right:1.5px solid var(--accent)}
+.xp-r:first-child .xp-c{border-top:1.5px solid var(--accent);border-radius:6px 6px 0 0}
+.xp-r:last-child .xp-c{border-bottom:1.5px solid var(--accent);border-radius:0 0 6px 6px}
+/* ---------- trình mô phỏng của khóa (platform/css/sim/59-x86-mem.css) ---------- */
+/* ---------- Trình mô phỏng 8086 · bộ nhớ và giải mã địa chỉ (platform/js/59-x86-mem.js; chỉ có trên trang khóa mpu8086) ----------
+   Ba công cụ nhỏ chạy từng bước trong bài (docs/QUY-TAC-TRINH-MO-PHONG.md mục 5): hàng nút ngay sau phần hình, dính đáy màn hình;
+   câu hỏi Đoán trước và lời giải thích nằm dưới hàng nút. Dạng sóng là SVG rộng cố định trong khung .xm-wv tự cuộn ngang.
+   Chỉ dùng biến màu chung nên tự đổi theo chế độ sáng / tối. Tiền tố xm- để không trùng lớp khác. */
+.xm{font-family:var(--f-body);display:grid;grid-template-columns:minmax(0,1fr);gap:10px;min-width:0;max-width:100%;border:1px solid var(--line);border-radius:12px;background:var(--surface);padding:12px}
+.xm>*{min-width:0}
+.xm-bar label{display:grid;gap:3px;font-size:12.5px;color:var(--muted);min-width:0}
+.xm-bar select{width:100%;min-height:40px;max-width:100%;font:inherit;font-size:14px;color:var(--ink);background:var(--bg);border:1px solid var(--line);border-radius:8px;padding:4px 8px}
+.xm-fig{display:grid;grid-template-columns:minmax(0,1fr);gap:10px;min-width:0}
+.xm-fig>*{min-width:0}
+.xm-ctl{position:sticky;bottom:0;z-index:3;background:var(--surface);padding:6px 0 max(6px,env(safe-area-inset-bottom,0px))}
+.xm-ctl .btn{min-height:44px}
+.xm-pr{display:inline-flex;align-items:center;gap:6px;min-height:44px;font-size:13.5px;font-weight:600;cursor:pointer}
+.xm-pr input{width:18px;height:18px;accent-color:var(--accent)}
+.xm-ask{border:1px solid var(--accent);border-radius:10px;padding:10px 12px;background:var(--accent-soft);font-size:14px}
+.xm-ask p{margin:0 0 6px}.xm-ask .xm-fb{margin:0}
+.xm-ab{display:flex;flex-wrap:wrap;gap:8px}.xm-ab .btn{min-height:44px}
+.xm-say{font-size:14px;line-height:1.55;overflow-wrap:anywhere}
+.xm-say p{margin:0}
+.xm-t{margin:0}
+.xm-t table{font-size:13px;min-width:0}
+.xm-t caption{caption-side:top;text-align:left;font-size:12.5px;color:var(--muted);padding:0 0 4px}
+.xm-t code{white-space:normal;overflow-wrap:anywhere}
+.xm-map code,.xm-bank .xm-t code{white-space:nowrap}
+.xm-t small{color:var(--muted)}
+.xm-t tr.on td{background:var(--accent-soft)}
+.xm-t tr.bad td{color:var(--warm)}
+.xm-t tr.none td{color:var(--muted)}
+.xm-map{max-height:none}
+.xm-warn{color:var(--warm);font-weight:600}
+.xm-chk,.xm-cpu,.xm-res,.xm-legend{margin:0;font-size:13.5px;line-height:1.5}
+.xm-cpu small{color:var(--muted)}
+.xm-bits{display:grid;grid-template-columns:repeat(20,minmax(0,1fr));gap:2px;font:12px/1.2 var(--f-mono,"JetBrains Mono",monospace)}
+.xm-bit{display:inline-grid;justify-items:center;border:1px solid var(--line);border-radius:4px;padding:2px 0;background:var(--bg);min-width:0}
+.xm-bit small{font-size:9px;color:var(--muted)}
+.xm-bit.dec{background:var(--accent-soft);border-color:var(--accent)}
+.xm-bit.ign{background:var(--warm-soft);border-style:dashed}
+.xm-legend .xm-bit{display:inline-block;padding:0 5px}
+.xm-sig{display:flex;flex-wrap:wrap;gap:6px 14px;font-size:14px}
+.xm-banks{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:6px 8px}
+.xm-bk{display:grid;gap:2px;border:1.5px solid var(--line);border-radius:8px;padding:8px;font-size:13px;background:var(--bg)}
+.xm-bk small{color:var(--muted);font-size:12px}
+.xm-bk.on{border-color:var(--accent);background:var(--accent-soft)}
+.xm-lane{text-align:center;font:12.5px/1.6 var(--f-mono,"JetBrains Mono",monospace);border-radius:6px;border:1px dashed var(--line);color:var(--muted)}
+.xm-lane.on{background:var(--accent);color:var(--accent-ink,#fff);border-style:solid;border-color:var(--accent)}
+.xm-in{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,92px),1fr));gap:8px}
+.xm-in label{display:grid;gap:3px;font-size:12.5px;color:var(--muted);min-width:0}
+.xm-in input{min-height:40px;width:100%;font:inherit;font-size:14px;color:var(--ink);background:var(--bg);border:1px solid var(--line);border-radius:8px;padding:4px 8px}
+.xm-wv{overflow-x:auto;max-width:100%;border:1px solid var(--line);border-radius:8px;background:var(--bg);padding:6px}
+.xm-wave{display:block}
+.xm-col{fill:transparent;stroke:var(--line);stroke-width:1}
+.xm-col.on{fill:var(--accent-soft)}
+.xm-ln{fill:none;stroke:var(--ink);stroke-width:1.6}
+.xm-ln.dim{stroke:var(--muted);stroke-dasharray:4 3}
+.xm-bar{stroke:var(--ink);stroke-width:1}
+.xm-bar.a{fill:var(--accent-soft)}
+.xm-bar.d{fill:var(--accent-soft)}
+.xm-bar.bad{fill:var(--warm-soft);stroke:var(--warm)}
+.xm-smp{stroke:var(--accent);stroke-width:2}
+.xm-smp.s{stroke-dasharray:3 3;stroke-width:1.5}
+.xm-tx{fill:var(--ink);font-size:11px;font-family:inherit}
+.xm-tx.c{text-anchor:middle;font-weight:700}
+.xm-tx.l{fill:var(--muted);font-size:10.5px}
+@media (max-width:600px){.xm{padding:10px}.xm-bits{grid-template-columns:repeat(10,minmax(0,1fr));font-size:12px}.xm-bit small{font-size:9px}.xm-banks{gap:6px}.xm-t table{font-size:12.5px}}
+.ov{text-decoration:overline;text-decoration-thickness:1px}
+/* ---------- trình mô phỏng của khóa (platform/css/sim/59-x86-io.css) ---------- */
+/* ---------- Bo I/O của trình mô phỏng 8086 (platform/js/59-x86-io-ui.js; chỉ trên trang khóa mpu8086) ----------
+   Phần "Bo I/O" nằm đầu khung cuộn .st-scroll. Mọi hàng tự xuống dòng, không tràn ngang ở 390 px; dạng sóng là SVG co giãn theo bề rộng. */
+.x86 .xio>:not(.pane-h){margin:0 12px 12px}
+.xio-dev{display:grid;gap:8px}
+.xio-row{display:flex;flex-wrap:wrap;align-items:center;gap:6px 10px}
+.xio-l{min-width:9.5em;font-size:12.5px;color:var(--muted)}
+.xio-leds,.xio-sw,.xio-btn{display:flex;flex-wrap:wrap;gap:4px}
+.xio-led{display:inline-grid;justify-items:center;gap:1px;min-width:30px}
+.xio-led i{font-style:normal;font-size:10px;color:var(--muted);font-family:var(--f-mono)}
+.xio-led b{width:18px;height:18px;border-radius:50%;border:2px solid var(--line);background:var(--bg);font-size:0;color:transparent}
+.xio-led.on b{background:#22c55e;border-color:#15803d;box-shadow:0 0 8px #22c55e}
+.xio-led.r.on b{background:#ef4444;border-color:#b91c1c;box-shadow:0 0 8px #ef4444}
+.xio-k{display:inline-grid;justify-items:center;min-width:44px;min-height:44px;padding:3px 4px;border:1px solid var(--line);border-radius:8px;background:var(--bg);color:var(--muted);font:inherit;cursor:pointer}
+.xio-k i{font-style:normal;font-size:10.5px;font-family:var(--f-mono)}
+.xio-k b{font-size:12px}
+.xio-k.on{border-color:var(--accent);background:var(--accent-soft);color:var(--accent)}
+.xio-d{margin:4px 0 0;font-size:12.5px;color:var(--muted);overflow-wrap:anywhere}
+.xio-blk{border-top:1px dashed var(--line);padding-top:8px}
+.xio-h{display:flex;flex-wrap:wrap;align-items:center;justify-content:space-between;gap:6px;font-weight:700;font-size:13.5px;color:var(--ink);margin-bottom:6px}
+.xio-h .btn{min-height:40px;font-size:13px}
+.xio-h2{font-size:12.5px;color:var(--muted);margin-top:8px}
+.xio-tb{width:100%;border-collapse:collapse;font-size:12.5px;table-layout:fixed}
+.xio-tb th,.xio-tb td{border-bottom:1px solid var(--line);padding:3px 4px;text-align:left;vertical-align:top;overflow-wrap:anywhere}
+.xio-tb th{color:var(--muted);font-weight:600}
+.xio-tb th:first-child{width:22%}.xio-tb th:nth-child(3),.xio-tb th:nth-child(4){width:15%}
+.xio-tb td small{display:block;color:var(--muted);font-size:11px}
+.xio-tb td{font-family:var(--f-mono)}
+.xio-wr td{border-bottom:1px solid var(--line);padding-bottom:6px}
+.xio-wv{display:block;width:100%;height:22px;margin:2px 0}
+.xio-wv path{fill:none;stroke:var(--accent);stroke-width:1.6;vector-effect:non-scaling-stroke}
+.xio-bits{display:flex;flex-wrap:wrap;align-items:center;gap:3px;margin-top:4px}
+.xio-bl{min-width:3.6em;font-size:12px;font-weight:700;color:var(--muted)}
+.xio-bit{display:inline-grid;justify-items:center;min-width:30px;padding:1px 3px;border:1px solid var(--line);border-radius:5px;font-family:var(--f-mono);background:var(--bg);color:var(--muted)}
+.xio-bit i{font-style:normal;font-size:9.5px}.xio-bit b{font-size:13px}
+.xio-bit.on{color:var(--accent);border-color:var(--accent);background:var(--accent-soft)}
+.xio-term{display:flex;flex-wrap:wrap;gap:8px;margin-top:8px}
+.xio-term label{display:grid;gap:2px;font-size:12px;color:var(--muted);flex:1 1 12em;min-width:0}
+.xio-term input,.xio-term select{min-height:40px;font:inherit;font-family:var(--f-mono);padding:4px 8px;border:1px solid var(--line);border-radius:8px;background:var(--bg);color:var(--ink);width:100%;box-sizing:border-box}
+.xio-rx{margin:4px 0 0;min-height:2.4em;padding:6px 8px;border:1px solid var(--line);border-radius:8px;background:#0b1020;color:#e5e7eb;font-family:var(--f-mono);font-size:13px;white-space:pre-wrap;overflow-wrap:anywhere}
+.xio-notes{margin:0;padding-left:18px;font-size:12.5px;color:var(--warm)}
+.xio-notes:empty{display:none}
+.xio-notes li{margin:2px 0;overflow-wrap:anywhere}
+/* hình tĩnh trong bài chương 11 (sơ đồ nối chip, bảng bit) */
+.io-map{display:grid;gap:6px;font-size:13px}
+.io-map>div{display:grid;grid-template-columns:minmax(6.5em,auto) 1fr;gap:4px 10px;padding:6px 8px;border:1px solid var(--line);border-radius:8px;background:var(--surface)}
+.io-map code{font-family:var(--f-mono);font-weight:700;color:var(--accent);background:none;padding:0}
+.io-map span{overflow-wrap:anywhere}
+.io-bits{display:grid;grid-template-columns:repeat(8,minmax(0,1fr));gap:3px;font-size:12px;text-align:center}
+.io-bits>div{border:1px solid var(--line);border-radius:6px;padding:4px 2px;background:var(--surface);overflow-wrap:anywhere;min-width:0}
+.io-bits>div b{display:block;font-family:var(--f-mono);color:var(--muted);font-size:11px}
+.io-bits>div.g{background:var(--accent-soft)}
+.io-tl{display:grid;gap:4px;font-family:var(--f-mono);font-size:12px}
+.io-tl svg{width:100%;height:auto;display:block}
+.io-tl svg path,.io-tl svg line{fill:none;stroke:var(--ink);stroke-width:1.5;vector-effect:non-scaling-stroke}
+.io-tl svg text{fill:var(--muted);font-size:10px;font-family:var(--f-mono)}
+.io-tl svg .a{stroke:var(--accent)}
+/* ---------- trình mô phỏng của khóa (platform/css/sim/59-x86-trainer.css) ---------- */
+/* ---------- Trainer AMTS-86 (chỉ trang khóa mpu8086; build.py: SIM_FILES). Phần “Bo mạch” trong khung theo dõi của trình mô phỏng 8086.
+   Không tràn ngang ở 390 px: lưới tự xuống hàng, chữ dài tự ngắt. ---------- */
+.x86tr .tr-pn>:not(.pane-h){margin:0 12px 12px}
+.tr-io{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:10px}
+.tr-g{border:1px solid var(--line);border-radius:8px;padding:8px 10px;background:var(--bg);min-width:0}
+.tr-h{font-size:12.5px;font-weight:600;color:var(--muted);margin:0 0 6px}
+.tr-pn>.tr-h{margin:4px 12px 4px}
+.tr-leds,.tr-ledc{display:flex;flex-wrap:wrap;align-items:center;gap:5px}
+.tr-leds b{margin-left:auto;font:600 14px var(--f-mono);color:var(--ink)}
+.tr-d{width:15px;height:15px;border-radius:50%;border:1px solid var(--line);background:var(--surface);display:inline-block}
+.tr-d.on{background:#2fbf5a;border-color:#1e8f41;box-shadow:0 0 6px #2fbf5a99}
+.tr-d.r.on{background:#e5484d;border-color:#b3262b;box-shadow:0 0 6px #e5484d99}
+.tr-sw,.tr-btn{display:flex;flex-wrap:wrap;gap:4px}
+.tr-t{display:inline-grid;justify-items:center;gap:2px;min-width:30px;min-height:44px;padding:4px 2px;border:1px solid var(--line);border-radius:6px;background:var(--surface);color:var(--muted);font:600 11px var(--f-mono);cursor:pointer}
+.tr-t i{width:10px;height:16px;border-radius:3px;background:var(--line);display:block;position:relative}
+.tr-t i::after{content:"";position:absolute;left:1px;right:1px;height:7px;bottom:1px;border-radius:2px;background:var(--muted)}
+.tr-t.on{border-color:var(--accent);color:var(--accent);background:var(--accent-soft)}
+.tr-t.on i::after{top:1px;bottom:auto;background:var(--accent)}
+.tr-k{min-width:38px}
+.tr-swv{font-family:var(--f-mono);color:var(--ink)}
+.tr-key{margin-top:8px;min-height:44px;width:100%}
+.tr-dev{display:grid;grid-template-columns:auto minmax(0,1fr);gap:4px 10px;font-size:13px;margin-top:10px!important}
+.tr-dev dt{font-weight:700;font-family:var(--f-mono);color:var(--muted)}
+.tr-dev dd{margin:0;overflow-wrap:anywhere;color:var(--ink)}
+.tr-dev .mem-empty{grid-column:1/-1}
+.tr-time{font-size:12px;color:var(--muted);font-weight:400;overflow-wrap:anywhere;text-align:right}
+.tr-log{list-style:none;padding:0;display:grid;gap:3px;font-size:12.5px}
+.tr-log li{display:grid;grid-template-columns:5.6em minmax(7.5em,auto) minmax(0,1fr);gap:6px;padding:3px 6px;border-radius:6px;background:var(--bg);align-items:baseline}
+.tr-lt{font-family:var(--f-mono);color:var(--muted);text-align:right;font-size:11.5px}
+.tr-lw{font-family:var(--f-mono);font-weight:600;color:var(--ink)}
+.tr-ld{color:var(--muted);overflow-wrap:anywhere;min-width:0}
+.tr-log .k-INTA,.tr-log .k-IRQ,.tr-log .k-EOI{background:var(--accent-soft)}
+.tr-log .k-MEMW{background:var(--warm-soft)}
+.tr-diag{border:1px solid var(--warm);border-radius:8px;padding:8px 10px;background:var(--warm-soft);font-size:13px}
+.tr-diag ul{margin:4px 0 0;padding-left:18px}
+@media (max-width:480px){.tr-log li{grid-template-columns:4.6em minmax(0,1fr)}.tr-ld{grid-column:1/-1;padding-left:5.2em}}
+/* ---------- dùng chung của khóa (courses/mpu8086/course.css) ---------- */
+/* Khóa Kiến trúc và lập trình vi xử lý 8086 (AMTS-EMB-002): hình vẽ bằng HTML trong bài (sơ đồ khối, bản đồ bộ nhớ…).
+   Chỉ dùng biến màu chung (--ink, --muted, --line, --surface, --bg, --accent, --accent-soft, --warm, --warm-soft, --ok) nên tự đổi theo chế độ sáng / tối.
+   Tiền tố mp- để không trùng với lớp của trình mô phỏng (platform/css/sim/58-x86.css). */
+.tbl.mp-fit table{min-width:0}
+.mp-intro .note{margin:0}
+/* đoạn mã hợp ngữ tĩnh trong bài */
+.mp-asm{margin:0;background:var(--bg);border:1px solid var(--line);border-radius:8px;padding:10px 12px;font:13px/1.55 var(--f-mono,"JetBrains Mono",monospace);overflow-x:auto;white-space:pre;max-width:100%}
+/* sơ đồ khối hệ tối thiểu */
+.mp-sys{display:grid;gap:10px;min-width:0}
+.mp-row{display:grid;grid-template-columns:repeat(auto-fit,minmax(118px,1fr));gap:8px;align-items:stretch}
+.mp-b{min-width:0;border:1.5px solid var(--line);border-radius:8px;background:var(--surface);padding:8px 10px;text-align:center;font-size:14px;line-height:1.4}
+.mp-b b{display:block;font-size:14.5px}
+.mp-b small{display:block;color:var(--muted);font-size:12.5px}
+.mp-b.cpu{border-color:var(--accent);background:var(--accent-soft)}
+.mp-b.mem{border-style:solid}
+.mp-b.io{border-style:dashed;border-color:var(--warm)}
+.mp-bus{border-radius:6px;background:var(--accent);color:var(--accent-ink,#fff);text-align:center;font-size:13px;font-weight:600;padding:6px 10px;line-height:1.4}
+.mp-grp{display:grid;gap:6px;min-width:0;align-content:start}
+.mp-grp>span{font-size:12px;font-weight:700;letter-spacing:.06em;text-transform:uppercase;color:var(--muted);text-align:center}
+.mp-arr{text-align:center;color:var(--muted);font-size:13px;line-height:1.2}
+/* bản đồ bộ nhớ */
+.mp-map{display:grid;grid-template-columns:minmax(0,1fr);gap:0;border:1px solid var(--line);border-radius:8px;overflow:hidden;font-size:13.5px}
+.mp-map>div{display:grid;grid-template-columns:minmax(92px,auto) minmax(0,1fr);gap:10px;padding:7px 10px;border-top:1px solid var(--line);background:var(--surface)}
+.mp-map>div:first-child{border-top:0}
+.mp-map code{font-size:12.5px;white-space:nowrap}
+.mp-map .hi{background:var(--accent-soft)}
+.mp-map .wm{background:var(--warm-soft)}
+.mp-map .gap{color:var(--muted);font-style:italic}
+/* phép tính địa chỉ vật lý */
+.mp-calc{display:grid;grid-template-columns:auto auto;max-width:100%;justify-content:start;gap:2px 14px;font:14px/1.6 var(--f-mono,"JetBrains Mono",monospace)}
+.mp-calc .r{text-align:right}
+.mp-calc .t{border-top:1.5px solid var(--ink)}
+@media (max-width:600px){.mp-b{padding:6px 8px;font-size:13px}.mp-b small{font-size:12px}.mp-map>div{grid-template-columns:minmax(0,1fr);gap:2px}.mp-asm{font-size:12px;padding:8px}.mp-calc{font-size:13px}}
+/* Bảng ở điện thoại (quyết định của chủ khóa 06/11/2026, mục 7): không để bảng co tới mức xuống dòng từng chữ. Tiêu đề cột giữ một dòng,
+   ô đủ rộng để đọc; bảng rộng hơn màn hình thì cuộn ngang trong khung .tbl của chính nó (overflow-x: auto), trang không tràn ngang.
+   Kiểm: node tools/author/mpu8086/bang390.js */
+@media (max-width:600px){
+  .part>.tbl th,.prose .tbl th,.figure>.tbl th{white-space:nowrap}   /* bảng của bài; bảng tự co của công cụ (BIU, bộ nhớ…) giữ nguyên */
+  .part>.tbl td,.prose .tbl td,.figure>.tbl td{min-width:12em}
+  .xm-t th{text-transform:none;letter-spacing:0;font-size:12.5px}   /* bảng của Công cụ 37.1–40.1: tiêu đề chữ thường, không giãn chữ, ít xuống dòng */
+  .xm-tim th{white-space:nowrap}   /* bảng thời gian của Công cụ 40.1: không đổi kích thước khi đổi số liệu */
+  .tbl{overscroll-behavior-x:contain}
+}
+/* mục “Nguồn tham khảo” cuối bài (quyết định của chủ khóa 06/11/2026, mục 5; sinh bởi xlib.add_page_sources) */
+.mp-src-l{margin:0;padding-left:1.4em}
+.mp-src-l li{margin:4px 0;overflow-wrap:anywhere}
+.mp-src-l small{color:var(--muted)}
+</style>
+
+<header class="top compact" id="top" data-root="../"><div class="wrap">
+  <a class="logo-a" href="../index.html" title="Về trang chủ"><span class="amts-logo" role="img" aria-label="AMTS · Về trang chủ"></span></a>
+  <nav class="nav" id="mainnav" aria-label="Điều hướng chính">
+    <a href="../index.html#khoa-hoc" data-nav="courses"><svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 5.5A1.5 1.5 0 0 1 4.5 4H10a2 2 0 0 1 2 2v13a1.5 1.5 0 0 0-1.5-1.5h-6A1.5 1.5 0 0 1 3 16z"/><path d="M21 5.5A1.5 1.5 0 0 0 19.5 4H14a2 2 0 0 0-2 2v13a1.5 1.5 0 0 1 1.5-1.5h6a1.5 1.5 0 0 0 1.5-1.5z"/></svg>Khóa học</a>
+    <a href="../mpu8086/index.html#lo-trinh" data-nav="road"><svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="6" cy="5" r="2.2"/><circle cx="18" cy="19" r="2.2"/><path d="M6 7.2V12a3 3 0 0 0 3 3h6a3 3 0 0 1 3 3v-1"/><path d="M18 3v8"/></svg>Lộ trình</a>
+    <a href="../mpu8086/index.html" id="nav-practice" data-nav="practice"><svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m8 8-4 4 4 4"/><path d="m16 8 4 4-4 4"/><path d="m13.5 5-3 14"/></svg>Thực hành</a>
+    <div class="navdd"><button type="button" id="nav-docs" aria-haspopup="true" aria-expanded="false" aria-controls="m-docs"><svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M14 3H7a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2V8z"/><path d="M14 3v5h5M9 13h6M9 17h4"/></svg>Tài liệu</button>
+      <div class="menu" id="m-docs" hidden>
+        <a href="../mpu8086/index.html#tu-dien">Từ điển thuật ngữ Anh – Việt<small>Thuật ngữ lập trình Vi xử lý 8086 kèm bài học có chúng</small></a>
+        <a href="../cpp/index.html#bai-2">Cài đặt trình biên dịch và IDE<small>Windows, macOS, Linux · Bài 2 khóa C++</small></a>
+        <a href="../mpu8086/index.html#lo-trinh" data-nav="road">Lộ trình Vi xử lý 8086 12 chương<small>Các chương đang mở và sắp mở</small></a>
+      </div></div>
+  </nav>
+  <div class="tright"><button type="button" class="menubtn" id="nav-menu" aria-controls="mainnav" aria-expanded="false">Menu</button><div class="tacct" id="topacct"></div></div>
+</div></header>
+
+<div class="lbar" id="mbar">
+  <button class="lbar-btn" id="m-open" aria-controls="side" aria-expanded="false"><svg width="20" height="20" viewBox="0 0 22 22" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" aria-hidden="true"><path d="M3.5 6h15M3.5 11h15M3.5 16h15"/></svg>Danh sách bài học</button>
+  <span class="lbar-r"><button type="button" class="lbar-lang" id="m-lang" hidden></button><span class="lbar-n" id="m-prog" aria-live="off">0 bài</span></span>
+</div>
+<div class="app">
+  <div class="scrim" id="scrim"></div>
+  <div class="sb-float" id="sb-float">
+    <button class="sb-toggle" id="sb-show" aria-controls="side" aria-expanded="false" aria-label="Hiện danh sách bài học" title="Hiện danh sách bài học"><svg width="20" height="20" viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.6" aria-hidden="true"><rect x="2.5" y="3.5" width="15" height="13" rx="2.5"/><path d="M7.5 3.5v13"/></svg></button><span>Danh sách bài học</span>
+  </div>
+  <aside class="side" id="side" aria-label="Danh sách bài học">
+    <div class="sb-top">
+      <div class="sb-head">
+        <a class="sb-back" href="../index.html#khoa-hoc"><span aria-hidden="true">←</span> Tất cả khóa học</a>
+        <button class="sb-toggle" id="sb-hide" aria-controls="side" aria-expanded="true" aria-label="Ẩn danh sách bài học" title="Ẩn danh sách bài học"><svg class="ic-panel" width="20" height="20" viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.6" aria-hidden="true"><rect x="2.5" y="3.5" width="15" height="13" rx="2.5"/><path d="M7.5 3.5v13"/></svg><svg class="ic-x" width="20" height="20" viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" aria-hidden="true"><path d="M5 5l10 10M15 5L5 15"/></svg></button>
+      </div>
+      <div class="brand"><b>Kiến trúc và lập trình vi xử lý 8086</b><small>12 chương · Đã mở 48 bài học</small></div>
+      <div class="lang-pick" id="lang-pick" hidden></div>
+      <div class="acct" id="acct"></div>
+      <div class="ol-q"><label class="vh" for="ol-q">Tìm bài học</label><input id="ol-q" type="search" placeholder="Tìm bài học…" autocomplete="off"><button type="button" class="ol-x" id="ol-x" aria-label="Xóa tìm kiếm" hidden>×</button></div>
+      <div class="side-nav" role="group" aria-label="Chế độ xem">
+        <button id="nav-road" aria-pressed="false">Lộ trình</button>
+        <button id="nav-lesson" aria-pressed="true" title="Bài đang học">Bài học</button>
+        <button id="nav-prac" aria-pressed="false">Thực hành</button>
+      </div>
+    </div>
+    <nav class="outline" id="outline" aria-label="Các chương và bài học"></nav>
+    <p class="ol-empty" id="ol-empty" role="status" hidden></p>
+    <div class="sb-foot">
+      <div class="en-row"><span id="en-lb">Thuật ngữ tiếng Anh</span><button class="en-sw" id="en-sw" role="switch" aria-checked="true" aria-labelledby="en-lb"></button></div>
+    </div>
+  </aside>
+
+  <main class="main">
+    <!-- ===================== ROADMAP ===================== -->
+    <div class="col" id="view-road" hidden>
+      <div class="road-intro">
+        <div class="crumb">Khóa học / Lộ trình</div>
+        <div class="hero">
+          <h1>Lộ trình <em>Vi xử lý 8086</em> 12 chương</h1>
+<div class="hsg-intro mp-intro">
+          <p class="lede">Khóa học đi từ bức tranh một hệ vi xử lý tối thiểu tới chương trình hợp ngữ 8086 hoàn chỉnh: thanh ghi, cờ, phân đoạn bộ nhớ, tập lệnh, ngăn xếp và thủ tục, lệnh chuỗi, dịch vụ DOS/BIOS và ngắt, rồi xuống tầng phần cứng với chu kỳ bus, giải mã địa chỉ và các chip ngoại vi 8255, 8253/8254, 8259A, 8251A. Mỗi bài có ví dụ chạy trên trình mô phỏng 8086 ngay trong trình duyệt (mã máy, số chu kỳ, bộ nhớ, ngăn xếp, màn hình DOS), bài tập hợp ngữ chấm tự động và trắc nghiệm. Thuật ngữ tiếng Anh được ghi kèm trong bài và tập hợp trong <button type="button" class="road-gl" id="road-gl">từ điển thuật ngữ Anh – Việt</button>.</p>
+
+          <h2>Dành cho ai</h2>
+          <p>Sinh viên cao đẳng, đại học ngành điện – điện tử – máy tính và kỹ sư muốn hiểu máy tính từ thanh ghi tới bus. Cần học trước khóa <b>Nền tảng vi điều khiển – vi xử lý</b> (hệ đếm, số có dấu, phép toán bit, CPU – bộ nhớ – bus) hoặc có kiến thức tương đương. Không bắt buộc học 8051 trước.</p>
+
+          <h2>Học xong khóa, học viên có thể</h2>
+          <ul>
+            <li>Đọc trạng thái thanh ghi, cờ và tính địa chỉ đoạn:độ lệch chính xác.</li>
+            <li>Viết chương trình hợp ngữ 8086 có thủ tục, tham số qua ngăn xếp, xử lý chuỗi và số có dấu.</li>
+            <li>Phân biệt dịch vụ DOS/BIOS với khả năng của CPU; dùng INT 21h đúng môi trường.</li>
+            <li>Đọc chu kỳ bus, thiết kế bản đồ bộ nhớ và giải mã địa chỉ.</li>
+            <li>Cấu hình 8255, 8253, 8259, 8251 và xây một chương trình giám sát (monitor) bare-metal khởi động từ reset.</li>
+          </ul>
+
+          <h2>Cấu trúc khóa học</h2>
+          <div class="tbl mp-fit"><table><thead><tr><th scope="col">Cấp độ</th><th scope="col">Chương</th><th scope="col">Nội dung</th></tr></thead><tbody>
+              <tr><td>Cơ bản</td><td>1–5</td><td>Môi trường, thanh ghi, định địa chỉ, tập lệnh, thuật toán</td></tr>
+              <tr><td>Trung cấp</td><td>6–8</td><td>Ngăn xếp và thủ tục, lệnh chuỗi, DOS/BIOS và ngắt</td></tr>
+              <tr><td>Nâng cao</td><td>9–12</td><td>Bus, thiết kế bộ nhớ, ngoại vi, đồ án hệ thống</td></tr>
+            </tbody></table></div>
+          <p>12 chương, mỗi chương 4 bài, tổng cộng 48 bài. Các bài chưa viết hiện nhãn “Sắp có” và sẽ mở dần theo từng đợt.</p>
+
+          <h2>Cách học một bài</h2>
+          <ol class="steps">
+            <li><b>Đọc lý thuyết</b>; mỗi thuật ngữ có nhãn tiếng Anh.</li>
+            <li><b>Trình mô phỏng 8086:</b> chọn một ví dụ, bấm <b>Từng bước</b> để xem mã máy, số chu kỳ, thanh ghi và bộ nhớ đổi sau mỗi lệnh. Bật <b>Đoán trước</b> để trả lời trước khi lệnh chạy.</li>
+            <li><b>Bài tập chấm tự động:</b> viết hợp ngữ ngay trên trang; trang chấm theo chữ in ra, giá trị biến trong bộ nhớ, và với một số bài, theo số chu kỳ và số byte mã.</li>
+            <li><b>Kiểm tra nhanh</b> và đọc mục <b>Lỗi thường gặp</b> trước khi sang bài sau.</li>
+          </ol>
+
+          <h2>Công cụ</h2>
+          <ul>
+            <li><b>Trình mô phỏng 8086 trên trình duyệt:</b> hợp ngữ kiểu MASM/TASM (giống emu8086), CPU 8086 chế độ thực, máy DOS giả lập (INT 21h, INT 10h, INT 16h). Đây là mô hình giảng dạy có ghi rõ giả định (xung nhịp 5 MHz, không có trạng thái chờ, bỏ qua hàng đợi lệnh), không phải bản sao của một máy thật.</li>
+            <li><b>Trên Windows:</b> DOSBox-X để chạy chương trình DOS 16 bit, kèm một trình dịch hợp ngữ có giấy phép hợp lệ; hướng dẫn cài đặt và bài thực hành đầu tiên nằm ở tài liệu phần mềm của khóa.</li>
+          </ul>
+          <p class="note"><b>An toàn:</b> các chương bus và ngoại vi học trên mô hình. Khi làm với bo mạch thật, tắt nguồn trước khi cắm, rút dây và làm theo hướng dẫn của nhà sản xuất bo.</p>
+        </div>
+
+        </div>
+      </div>
+      <div id="road"></div>
+      <details class="gloss gloss-all" id="gloss-all"><summary><b>Từ điển thuật ngữ Anh – Việt</b><small>English – Vietnamese glossary</small></summary>
+        <div class="gl-tools"><input id="gl-q" type="search" placeholder="Tìm: biến, loop, tham chiếu…" aria-label="Tìm thuật ngữ"><span class="gl-at" id="gl-n"></span></div>
+        <div class="gl-list" id="gl-all"></div>
+      </details>
+    </div>
+
+    <!-- ===================== THỰC HÀNH ===================== -->
+    <div class="col wide" id="view-practice" hidden>
+      <header class="hero"><div class="crumb">Khóa học / Thực hành</div><h1>Thực hành <em>Vi xử lý 8086</em></h1>
+        <p class="lede">Tất cả bài tập chấm tự động của khóa ở một nơi. Chọn bài, viết code, chạy thử trên trình mô phỏng rồi nộp bài. Bí thì mở gợi ý; lời giải mở khi bạn đã làm đạt hoặc đã nộp 3 lần chưa đạt, kèm trình tự chạy từng bước.</p>
+        <p class="pr-sum" id="pr-sum" role="status"></p></header>
+      <div class="pr-wrap">
+        <aside class="pr-side" aria-label="Danh sách bài tập">
+          <div class="pr-tools"><label class="vh" for="pr-q">Tìm bài tập</label><input id="pr-q" type="search" placeholder="Tìm bài tập…" autocomplete="off">
+            <div class="pr-f" role="group" aria-label="Lọc bài tập"><button type="button" data-f="all" aria-pressed="true">Tất cả</button><button type="button" data-f="todo" aria-pressed="false">Chưa đạt</button><button type="button" data-f="done" aria-pressed="false">Đã đạt</button></div></div>
+          <div class="pr-list" id="pr-list"></div>
+        </aside>
+        <section class="pr-main" id="pr-main" aria-live="polite"></section>
+      </div>
+    </div>
+
+    <!-- ===================== BÀI 1 · 8086 và bức tranh hệ thống ===================== -->
+    <article class="col" id="view-l1"><div class="lgate" aria-live="polite"></div><div class="park" hidden><div data-m="m0" id="x86-l1"></div>
+<div data-m="m1" id="ex-l1"></div>
+<div data-m="m2" class="quiz" id="quiz1"></div>
+<div data-m="m3" class="score" id="score1"></div>
+<div data-m="m4" class="next">
+        <span class="byline"><span class="amts-logo" aria-hidden="true"></span>Chương 1 · Bài 1/4</span>
+        <button class="btn pri nx" data-go="l2">Bài tiếp: EU, BIU và hàng đợi lệnh →</button>
+      </div></div></article>
+    <!-- ===================== BÀI 2 · EU, BIU và hàng đợi lệnh ===================== -->
+    <article class="col" id="view-l2" hidden><div class="lgate" aria-live="polite"></div><div class="park" hidden><figure data-m="m0" class="figure">
+          <div id="xq-l2"></div>
+          <figcaption>Hình 2.3. Mô hình hàng đợi lệnh (mô hình giảng dạy, giả định: không trạng thái chờ, lúc bắt đầu đoạn hàng đợi rỗng như ngay sau một lệnh nhảy, EU lấy đủ byte của lệnh rồi mới chạy, truy cập bộ nhớ nằm ở cuối lệnh). Số chu kỳ là của mô hình, không phải số đo trên chip thật.</figcaption>
+        </figure>
+<div data-m="m1" id="x86-l2"></div>
+<div data-m="m2" id="ex-l2"></div>
+<div data-m="m3" class="quiz" id="quiz2"></div>
+<div data-m="m4" class="score" id="score2"></div>
+<div data-m="m5" class="next">
+        <button class="btn prev" data-go="l1">← Bài 1</button>
+        <span class="byline"><span class="amts-logo" aria-hidden="true"></span>Chương 1 · Bài 2/4</span>
+        <button class="btn pri nx" data-go="l3">Bài tiếp: Toolchain và profile CPU →</button>
+      </div></div></article>
+    <!-- ===================== BÀI 3 · Toolchain và profile CPU ===================== -->
+    <article class="col" id="view-l3" hidden><div class="lgate" aria-live="polite"></div><div class="park" hidden><div data-m="m0" id="x86-l3"></div>
+<div data-m="m1" id="ex-l3"></div>
+<div data-m="m2" class="quiz" id="quiz3"></div>
+<div data-m="m3" class="score" id="score3"></div>
+<div data-m="m4" class="next">
+        <button class="btn prev" data-go="l2">← Bài 2</button>
+        <span class="byline"><span class="amts-logo" aria-hidden="true"></span>Chương 1 · Bài 3/4</span>
+        <button class="btn pri nx" data-go="l4">Bài tiếp: Chương trình đầu tiên và debugger →</button>
+      </div></div></article>
+    <!-- ===================== BÀI 4 · Chương trình đầu tiên và debugger ===================== -->
+    <article class="col" id="view-l4" hidden><div class="lgate" aria-live="polite"></div><div class="park" hidden><figure data-m="m0" class="figure">
+          <div id="xd-l4"></div>
+          <figcaption>Hình 4.2. Bảng lệnh debugger kiểu dòng lệnh, chạy trên máy 8086 của trình mô phỏng (cùng bố trí bộ nhớ giả định: PSP 0700h, mã từ 0710h). Lệnh B (lùi một lệnh, hoặc hoàn lại lần sửa gần nhất bằng E, R, A) không có trong DEBUG thật. Ngoài R, T, G, D, E, U còn có A (dịch một lệnh vào bộ nhớ), P (chạy trọn CALL, INT, LOOP), I và O (đọc, ghi cổng). Các lần OUT được liệt kê; ngoài dải cổng 80h–9Fh của bo I/O chương 11, cổng không có thiết bị (IN đọc FFh).</figcaption>
+        </figure>
+<div data-m="m1" id="x86-l4"></div>
+<div data-m="m2" id="ex-l4"></div>
+<div data-m="m3" class="quiz" id="quiz4"></div>
+<div data-m="m4" class="score" id="score4"></div>
+<div data-m="m5" class="next">
+        <button class="btn prev" data-go="l3">← Bài 3</button>
+        <span class="byline"><span class="amts-logo" aria-hidden="true"></span>Chương 1 · Bài 4/4</span>
+        <button class="btn pri nx" data-go="l5">Bài tiếp: Chương 2 · Thanh ghi tổng quát và con trỏ →</button>
+      </div></div></article>
+    <!-- ===================== BÀI 5 · Thanh ghi tổng quát và con trỏ ===================== -->
+    <article class="col" id="view-l5" hidden><div class="lgate" aria-live="polite"></div><div class="park" hidden><div data-m="m0" id="x86-l5"></div>
+<div data-m="m1" id="ex-l5"></div>
+<div data-m="m2" class="quiz" id="quiz5"></div>
+<div data-m="m3" class="score" id="score5"></div>
+<div data-m="m4" class="next">
+        <button class="btn prev" data-go="l4">← Bài 4</button>
+        <span class="byline"><span class="amts-logo" aria-hidden="true"></span>Chương 2 · Bài 1/4</span>
+        <button class="btn pri nx" data-go="l6">Bài tiếp: FLAGS và ý nghĩa phép toán →</button>
+      </div></div></article>
+    <!-- ===================== BÀI 6 · FLAGS và ý nghĩa phép toán ===================== -->
+    <article class="col" id="view-l6" hidden><div class="lgate" aria-live="polite"></div><div class="park" hidden><div data-m="m0" id="x86-l6"></div>
+<div data-m="m1" id="ex-l6"></div>
+<div data-m="m2" class="quiz" id="quiz6"></div>
+<div data-m="m3" class="score" id="score6"></div>
+<div data-m="m4" class="next">
+        <button class="btn prev" data-go="l5">← Bài 5</button>
+        <span class="byline"><span class="amts-logo" aria-hidden="true"></span>Chương 2 · Bài 2/4</span>
+        <button class="btn pri nx" data-go="l7">Bài tiếp: Segment:offset →</button>
+      </div></div></article>
+    <!-- ===================== BÀI 7 · Segment:offset ===================== -->
+    <article class="col" id="view-l7" hidden><div class="lgate" aria-live="polite"></div><div class="park" hidden><div data-m="m0" id="x86-l7"></div>
+<div data-m="m1" id="ex-l7"></div>
+<div data-m="m2" class="quiz" id="quiz7"></div>
+<div data-m="m3" class="score" id="score7"></div>
+<div data-m="m4" class="next">
+        <button class="btn prev" data-go="l6">← Bài 6</button>
+        <span class="byline"><span class="amts-logo" aria-hidden="true"></span>Chương 2 · Bài 3/4</span>
+        <button class="btn pri nx" data-go="l8">Bài tiếp: Little-endian, word và giới hạn →</button>
+      </div></div></article>
+    <!-- ===================== BÀI 8 · Little-endian, word và giới hạn ===================== -->
+    <article class="col" id="view-l8" hidden><div class="lgate" aria-live="polite"></div><div class="park" hidden><div data-m="m0" id="x86-l8"></div>
+<div data-m="m1" id="ex-l8"></div>
+<div data-m="m2" class="quiz" id="quiz8"></div>
+<div data-m="m3" class="score" id="score8"></div>
+<div data-m="m4" class="next">
+        <button class="btn prev" data-go="l7">← Bài 7</button>
+        <span class="byline"><span class="amts-logo" aria-hidden="true"></span>Chương 2 · Bài 4/4</span>
+        <button class="btn pri nx" data-go="l9">Bài tiếp: Chương 3 · Immediate, register và memory →</button>
+      </div></div></article>
+    <!-- ===================== BÀI 9 · Immediate, register và memory ===================== -->
+    <article class="col" id="view-l9" hidden><div class="lgate" aria-live="polite"></div><div class="park" hidden><div data-m="m0" id="x86-l9"></div>
+<div data-m="m1" id="ex-l9"></div>
+<div data-m="m2" class="quiz" id="quiz9"></div>
+<div data-m="m3" class="score" id="score9"></div>
+<div data-m="m4" class="next">
+        <button class="btn prev" data-go="l8">← Bài 8</button>
+        <span class="byline"><span class="amts-logo" aria-hidden="true"></span>Chương 3 · Bài 1/4</span>
+        <button class="btn pri nx" data-go="l10">Bài tiếp: Địa chỉ hiệu dụng hợp lệ →</button>
+      </div></div></article>
+    <!-- ===================== BÀI 10 · Địa chỉ hiệu dụng hợp lệ ===================== -->
+    <article class="col" id="view-l10" hidden><div class="lgate" aria-live="polite"></div><div class="park" hidden><div data-m="m0" id="x86-l10"></div>
+<div data-m="m1" id="ex-l10"></div>
+<div data-m="m2" class="quiz" id="quiz10"></div>
+<div data-m="m3" class="score" id="score10"></div>
+<div data-m="m4" class="next">
+        <button class="btn prev" data-go="l9">← Bài 9</button>
+        <span class="byline"><span class="amts-logo" aria-hidden="true"></span>Chương 3 · Bài 2/4</span>
+        <button class="btn pri nx" data-go="l11">Bài tiếp: Segment mặc định và override →</button>
+      </div></div></article>
+    <!-- ===================== BÀI 11 · Segment mặc định và override ===================== -->
+    <article class="col" id="view-l11" hidden><div class="lgate" aria-live="polite"></div><div class="park" hidden><div data-m="m0" id="x86-l11"></div>
+<div data-m="m1" id="ex-l11"></div>
+<div data-m="m2" class="quiz" id="quiz11"></div>
+<div data-m="m3" class="score" id="score11"></div>
+<div data-m="m4" class="next">
+        <button class="btn prev" data-go="l10">← Bài 10</button>
+        <span class="byline"><span class="amts-logo" aria-hidden="true"></span>Chương 3 · Bài 3/4</span>
+        <button class="btn pri nx" data-go="l12">Bài tiếp: Bảng dữ liệu và vùng nhớ →</button>
+      </div></div></article>
+    <!-- ===================== BÀI 12 · Bảng dữ liệu và vùng nhớ ===================== -->
+    <article class="col" id="view-l12" hidden><div class="lgate" aria-live="polite"></div><div class="park" hidden><div data-m="m0" id="x86-l12"></div>
+<div data-m="m1" id="ex-l12"></div>
+<div data-m="m2" class="quiz" id="quiz12"></div>
+<div data-m="m3" class="score" id="score12"></div>
+<div data-m="m4" class="next">
+        <button class="btn prev" data-go="l11">← Bài 11</button>
+        <span class="byline"><span class="amts-logo" aria-hidden="true"></span>Chương 3 · Bài 4/4</span>
+        <button class="btn pri nx" data-go="l13">Bài tiếp: Chương 4 · MOV, XCHG, LEA và chuyển dữ liệu →</button>
+      </div></div></article>
+    <!-- ===================== BÀI 13 · MOV, XCHG, LEA và chuyển dữ liệu ===================== -->
+    <article class="col" id="view-l13" hidden><div class="lgate" aria-live="polite"></div><div class="park" hidden><div data-m="m0" id="x86-l13"></div>
+<div data-m="m1" id="ex-l13"></div>
+<div data-m="m2" class="quiz" id="quiz13"></div>
+<div data-m="m3" class="score" id="score13"></div>
+<div data-m="m4" class="next">
+        <button class="btn prev" data-go="l12">← Bài 12</button>
+        <span class="byline"><span class="amts-logo" aria-hidden="true"></span>Chương 4 · Bài 1/4</span>
+        <button class="btn pri nx" data-go="l14">Bài tiếp: ADD/ADC, SUB/SBB và mở rộng dấu →</button>
+      </div></div></article>
+    <!-- ===================== BÀI 14 · ADD/ADC, SUB/SBB và mở rộng dấu ===================== -->
+    <article class="col" id="view-l14" hidden><div class="lgate" aria-live="polite"></div><div class="park" hidden><div data-m="m0" id="x86-l14"></div>
+<div data-m="m1" id="ex-l14"></div>
+<div data-m="m2" class="quiz" id="quiz14"></div>
+<div data-m="m3" class="score" id="score14"></div>
+<div data-m="m4" class="next">
+        <button class="btn prev" data-go="l13">← Bài 13</button>
+        <span class="byline"><span class="amts-logo" aria-hidden="true"></span>Chương 4 · Bài 2/4</span>
+        <button class="btn pri nx" data-go="l15">Bài tiếp: MUL/IMUL, DIV/IDIV →</button>
+      </div></div></article>
+    <!-- ===================== BÀI 15 · MUL/IMUL, DIV/IDIV ===================== -->
+    <article class="col" id="view-l15" hidden><div class="lgate" aria-live="polite"></div><div class="park" hidden><div data-m="m0" id="x86-l15"></div>
+<div data-m="m1" id="ex-l15"></div>
+<div data-m="m2" class="quiz" id="quiz15"></div>
+<div data-m="m3" class="score" id="score15"></div>
+<div data-m="m4" class="next">
+        <button class="btn prev" data-go="l14">← Bài 14</button>
+        <span class="byline"><span class="amts-logo" aria-hidden="true"></span>Chương 4 · Bài 3/4</span>
+        <button class="btn pri nx" data-go="l16">Bài tiếp: Logic, TEST, shift và rotate →</button>
+      </div></div></article>
+    <!-- ===================== BÀI 16 · Logic, TEST, shift và rotate ===================== -->
+    <article class="col" id="view-l16" hidden><div class="lgate" aria-live="polite"></div><div class="park" hidden><div data-m="m0" id="x86-l16"></div>
+<div data-m="m1" id="ex-l16"></div>
+<div data-m="m2" class="quiz" id="quiz16"></div>
+<div data-m="m3" class="score" id="score16"></div>
+<div data-m="m4" class="next">
+        <button class="btn prev" data-go="l15">← Bài 15</button>
+        <span class="byline"><span class="amts-logo" aria-hidden="true"></span>Chương 4 · Bài 4/4</span>
+        <button class="btn pri nx" data-go="l17">Bài tiếp: Chương 5 · CMP và nhảy signed/unsigned →</button>
+      </div></div></article>
+    <!-- ===================== BÀI 17 · CMP và nhảy signed/unsigned ===================== -->
+    <article class="col" id="view-l17" hidden><div class="lgate" aria-live="polite"></div><div class="park" hidden><div data-m="m0" id="x86-l17"></div>
+<div data-m="m1" id="ex-l17"></div>
+<div data-m="m2" class="quiz" id="quiz17"></div>
+<div data-m="m3" class="score" id="score17"></div>
+<div data-m="m4" class="next">
+        <button class="btn prev" data-go="l16">← Bài 16</button>
+        <span class="byline"><span class="amts-logo" aria-hidden="true"></span>Chương 5 · Bài 1/4</span>
+        <button class="btn pri nx" data-go="l18">Bài tiếp: LOOP và vòng lặp có điều kiện →</button>
+      </div></div></article>
+    <!-- ===================== BÀI 18 · LOOP và vòng lặp có điều kiện ===================== -->
+    <article class="col" id="view-l18" hidden><div class="lgate" aria-live="polite"></div><div class="park" hidden><div data-m="m0" id="x86-l18"></div>
+<div data-m="m1" id="ex-l18"></div>
+<div data-m="m2" class="quiz" id="quiz18"></div>
+<div data-m="m3" class="score" id="score18"></div>
+<div data-m="m4" class="next">
+        <button class="btn prev" data-go="l17">← Bài 17</button>
+        <span class="byline"><span class="amts-logo" aria-hidden="true"></span>Chương 5 · Bài 2/4</span>
+        <button class="btn pri nx" data-go="l19">Bài tiếp: Tìm kiếm và thống kê dãy →</button>
+      </div></div></article>
+    <!-- ===================== BÀI 19 · Tìm kiếm và thống kê dãy ===================== -->
+    <article class="col" id="view-l19" hidden><div class="lgate" aria-live="polite"></div><div class="park" hidden><div data-m="m0" id="x86-l19"></div>
+<div data-m="m1" id="ex-l19"></div>
+<div data-m="m2" class="quiz" id="quiz19"></div>
+<div data-m="m3" class="score" id="score19"></div>
+<div data-m="m4" class="next">
+        <button class="btn prev" data-go="l18">← Bài 18</button>
+        <span class="byline"><span class="amts-logo" aria-hidden="true"></span>Chương 5 · Bài 3/4</span>
+        <button class="btn pri nx" data-go="l20">Bài tiếp: Chuyển số và xử lý nhập số →</button>
+      </div></div></article>
+    <!-- ===================== BÀI 20 · Chuyển số và xử lý nhập số ===================== -->
+    <article class="col" id="view-l20" hidden><div class="lgate" aria-live="polite"></div><div class="park" hidden><div data-m="m0" id="x86-l20"></div>
+<div data-m="m1" id="ex-l20"></div>
+<div data-m="m2" class="quiz" id="quiz20"></div>
+<div data-m="m3" class="score" id="score20"></div>
+<div data-m="m4" class="next">
+        <button class="btn prev" data-go="l19">← Bài 19</button>
+        <span class="byline"><span class="amts-logo" aria-hidden="true"></span>Chương 5 · Bài 4/4</span>
+        <button class="btn pri nx" data-go="l21">Bài tiếp: Chương 6 · SS:SP và thao tác stack →</button>
+      </div></div></article>
+    <!-- ===================== BÀI 21 · SS:SP và thao tác stack ===================== -->
+    <article class="col" id="view-l21" hidden><div class="lgate" aria-live="polite"></div><div class="park" hidden><div data-m="m0" id="x86-l21"></div>
+<div data-m="m1" id="ex-l21"></div>
+<div data-m="m2" class="quiz" id="quiz21"></div>
+<div data-m="m3" class="score" id="score21"></div>
+<div data-m="m4" class="next">
+        <button class="btn prev" data-go="l20">← Bài 20</button>
+        <span class="byline"><span class="amts-logo" aria-hidden="true"></span>Chương 6 · Bài 1/4</span>
+        <button class="btn pri nx" data-go="l22">Bài tiếp: CALL/RET near và far →</button>
+      </div></div></article>
+    <!-- ===================== BÀI 22 · CALL/RET near và far ===================== -->
+    <article class="col" id="view-l22" hidden><div class="lgate" aria-live="polite"></div><div class="park" hidden><div data-m="m0" id="x86-l22"></div>
+<div data-m="m1" id="ex-l22"></div>
+<div data-m="m2" class="quiz" id="quiz22"></div>
+<div data-m="m3" class="score" id="score22"></div>
+<div data-m="m4" class="next">
+        <button class="btn prev" data-go="l21">← Bài 21</button>
+        <span class="byline"><span class="amts-logo" aria-hidden="true"></span>Chương 6 · Bài 2/4</span>
+        <button class="btn pri nx" data-go="l23">Bài tiếp: Truyền tham số và bảo toàn thanh ghi →</button>
+      </div></div></article>
+    <!-- ===================== BÀI 23 · Truyền tham số và bảo toàn thanh ghi ===================== -->
+    <article class="col" id="view-l23" hidden><div class="lgate" aria-live="polite"></div><div class="park" hidden><div data-m="m0" id="x86-l23"></div>
+<div data-m="m1" id="ex-l23"></div>
+<div data-m="m2" class="quiz" id="quiz23"></div>
+<div data-m="m3" class="score" id="score23"></div>
+<div data-m="m4" class="next">
+        <button class="btn prev" data-go="l22">← Bài 22</button>
+        <span class="byline"><span class="amts-logo" aria-hidden="true"></span>Chương 6 · Bài 3/4</span>
+        <button class="btn pri nx" data-go="l24">Bài tiếp: Reentrancy và chương trình con lồng →</button>
+      </div></div></article>
+    <!-- ===================== BÀI 24 · Reentrancy và chương trình con lồng ===================== -->
+    <article class="col" id="view-l24" hidden><div class="lgate" aria-live="polite"></div><div class="park" hidden><div data-m="m0" id="x86-l24"></div>
+<div data-m="m1" id="ex-l24"></div>
+<div data-m="m2" class="quiz" id="quiz24"></div>
+<div data-m="m3" class="score" id="score24"></div>
+<div data-m="m4" class="next">
+        <button class="btn prev" data-go="l23">← Bài 23</button>
+        <span class="byline"><span class="amts-logo" aria-hidden="true"></span>Chương 6 · Bài 4/4</span>
+        <button class="btn pri nx" data-go="l25">Bài tiếp: Chương 7 · Mảng byte/word và sắp xếp →</button>
+      </div></div></article>
+    <!-- ===================== BÀI 25 · Mảng byte/word và sắp xếp ===================== -->
+    <article class="col" id="view-l25" hidden><div class="lgate" aria-live="polite"></div><div class="park" hidden><div data-m="m0" id="x86-l25"></div>
+<div data-m="m1" id="ex-l25"></div>
+<div data-m="m2" class="quiz" id="quiz25"></div>
+<div data-m="m3" class="score" id="score25"></div>
+<div data-m="m4" class="next">
+        <button class="btn prev" data-go="l24">← Bài 24</button>
+        <span class="byline"><span class="amts-logo" aria-hidden="true"></span>Chương 7 · Bài 1/4</span>
+        <button class="btn pri nx" data-go="l26">Bài tiếp: MOVS/STOS/LODS và DF →</button>
+      </div></div></article>
+    <!-- ===================== BÀI 26 · MOVS/STOS/LODS và DF ===================== -->
+    <article class="col" id="view-l26" hidden><div class="lgate" aria-live="polite"></div><div class="park" hidden><div data-m="m0" id="x86-l26"></div>
+<div data-m="m1" id="ex-l26"></div>
+<div data-m="m2" class="quiz" id="quiz26"></div>
+<div data-m="m3" class="score" id="score26"></div>
+<div data-m="m4" class="next">
+        <button class="btn prev" data-go="l25">← Bài 25</button>
+        <span class="byline"><span class="amts-logo" aria-hidden="true"></span>Chương 7 · Bài 2/4</span>
+        <button class="btn pri nx" data-go="l27">Bài tiếp: CMPS/SCAS và REP →</button>
+      </div></div></article>
+    <!-- ===================== BÀI 27 · CMPS/SCAS và REP ===================== -->
+    <article class="col" id="view-l27" hidden><div class="lgate" aria-live="polite"></div><div class="park" hidden><div data-m="m0" id="x86-l27"></div>
+<div data-m="m1" id="ex-l27"></div>
+<div data-m="m2" class="quiz" id="quiz27"></div>
+<div data-m="m3" class="score" id="score27"></div>
+<div data-m="m4" class="next">
+        <button class="btn prev" data-go="l26">← Bài 26</button>
+        <span class="byline"><span class="amts-logo" aria-hidden="true"></span>Chương 7 · Bài 3/4</span>
+        <button class="btn pri nx" data-go="l28">Bài tiếp: Dữ liệu chồng lấn và biên →</button>
+      </div></div></article>
+    <!-- ===================== BÀI 28 · Dữ liệu chồng lấn và biên ===================== -->
+    <article class="col" id="view-l28" hidden><div class="lgate" aria-live="polite"></div><div class="park" hidden><div data-m="m0" id="x86-l28"></div>
+<div data-m="m1" id="ex-l28"></div>
+<div data-m="m2" class="quiz" id="quiz28"></div>
+<div data-m="m3" class="score" id="score28"></div>
+<div data-m="m4" class="next">
+        <button class="btn prev" data-go="l27">← Bài 27</button>
+        <span class="byline"><span class="amts-logo" aria-hidden="true"></span>Chương 7 · Bài 4/4</span>
+        <button class="btn pri nx" data-go="l29">Bài tiếp: Chương 8 · INT và bảng vector →</button>
+      </div></div></article>
+    <!-- ===================== BÀI 29 · INT và bảng vector ===================== -->
+    <article class="col" id="view-l29" hidden><div class="lgate" aria-live="polite"></div><div class="park" hidden><div data-m="m0" id="x86-l29"></div>
+<div data-m="m1" id="ex-l29"></div>
+<div data-m="m2" class="quiz" id="quiz29"></div>
+<div data-m="m3" class="score" id="score29"></div>
+<div data-m="m4" class="next">
+        <button class="btn prev" data-go="l28">← Bài 28</button>
+        <span class="byline"><span class="amts-logo" aria-hidden="true"></span>Chương 8 · Bài 1/4</span>
+        <button class="btn pri nx" data-go="l30">Bài tiếp: Dịch vụ DOS trong profile DOS →</button>
+      </div></div></article>
+    <!-- ===================== BÀI 30 · Dịch vụ DOS trong profile DOS ===================== -->
+    <article class="col" id="view-l30" hidden><div class="lgate" aria-live="polite"></div><div class="park" hidden><div data-m="m0" id="x86-l30"></div>
+<div data-m="m1" id="ex-l30"></div>
+<div data-m="m2" class="quiz" id="quiz30"></div>
+<div data-m="m3" class="score" id="score30"></div>
+<div data-m="m4" class="next">
+        <button class="btn prev" data-go="l29">← Bài 29</button>
+        <span class="byline"><span class="amts-logo" aria-hidden="true"></span>Chương 8 · Bài 2/4</span>
+        <button class="btn pri nx" data-go="l31">Bài tiếp: BIOS và giả định nền tảng PC →</button>
+      </div></div></article>
+    <!-- ===================== BÀI 31 · BIOS và giả định nền tảng PC ===================== -->
+    <article class="col" id="view-l31" hidden><div class="lgate" aria-live="polite"></div><div class="park" hidden><div data-m="m0" id="x86-l31"></div>
+<div data-m="m1" id="ex-l31"></div>
+<div data-m="m2" class="quiz" id="quiz31"></div>
+<div data-m="m3" class="score" id="score31"></div>
+<div data-m="m4" class="next">
+        <button class="btn prev" data-go="l30">← Bài 30</button>
+        <span class="byline"><span class="amts-logo" aria-hidden="true"></span>Chương 8 · Bài 3/4</span>
+        <button class="btn pri nx" data-go="l32">Bài tiếp: COM/EXE và chương trình đa module →</button>
+      </div></div></article>
+    <!-- ===================== BÀI 32 · COM/EXE và chương trình đa module ===================== -->
+    <article class="col" id="view-l32" hidden><div class="lgate" aria-live="polite"></div><div class="park" hidden><div data-m="m0" id="x86-l32"></div>
+<div data-m="m1" id="ex-l32"></div>
+<div data-m="m2" class="quiz" id="quiz32"></div>
+<div data-m="m3" class="score" id="score32"></div>
+<div data-m="m4" class="next">
+        <button class="btn prev" data-go="l31">← Bài 31</button>
+        <span class="byline"><span class="amts-logo" aria-hidden="true"></span>Chương 8 · Bài 4/4</span>
+        <button class="btn pri nx" data-go="l33">Bài tiếp: Chương 9 · Chân tín hiệu và bus ghép kênh →</button>
+      </div></div></article>
+    <!-- ===================== BÀI 33 · Chân tín hiệu và bus ghép kênh ===================== -->
+    <article class="col" id="view-l33" hidden><div class="lgate" aria-live="polite"></div><div class="park" hidden><figure data-m="m0" class="figure xb-fig">
+          <div id="bus-l33"></div>
+          <figcaption>Hình 33.3. Công cụ chu kỳ bus: chọn chương trình, bấm <b>Lệnh tiếp →</b> hoặc <b>Tới chu kỳ bus tiếp</b>. Bảng liệt kê các chu kỳ bus dữ liệu của lệnh vừa chạy; bấm một hàng để vẽ dạng sóng của chu kỳ đó. Bật <b>Đoán trước</b> để đoán số chu kỳ bus trước mỗi lệnh. Dạng sóng là định tính, không theo tỉ lệ ns.</figcaption>
+        </figure>
+<div data-m="m1" id="x86-l33"></div>
+<div data-m="m2" id="ex-l33"></div>
+<div data-m="m3" class="quiz" id="quiz33"></div>
+<div data-m="m4" class="score" id="score33"></div>
+<div data-m="m5" class="next">
+        <button class="btn prev" data-go="l32">← Bài 32</button>
+        <span class="byline"><span class="amts-logo" aria-hidden="true"></span>Chương 9 · Bài 1/4</span>
+        <button class="btn pri nx" data-go="l34">Bài tiếp: Chế độ minimum và clock/reset →</button>
+      </div></div></article>
+    <!-- ===================== BÀI 34 · Chế độ minimum và clock/reset ===================== -->
+    <article class="col" id="view-l34" hidden><div class="lgate" aria-live="polite"></div><div class="park" hidden><figure data-m="m0" class="figure xb-fig">
+          <div id="bus-l34"></div>
+          <figcaption>Hình 34.4. Công cụ chu kỳ bus với trạng thái chờ: mỗi chương trình đặt sẵn số Tw (đổi được) cho bộ nhớ và cho I/O. Xem cột “Chờ”, dạng sóng có Tw và READY thấp, dòng tổng chu kỳ. Máy 8086 của khóa và bài chấm vẫn tính <b>không chờ</b>; tổng có chờ chỉ hiện ở công cụ này.</figcaption>
+        </figure>
+<div data-m="m1" id="x86-l34"></div>
+<div data-m="m2" id="ex-l34"></div>
+<div data-m="m3" class="quiz" id="quiz34"></div>
+<div data-m="m4" class="score" id="score34"></div>
+<div data-m="m5" class="next">
+        <button class="btn prev" data-go="l33">← Bài 33</button>
+        <span class="byline"><span class="amts-logo" aria-hidden="true"></span>Chương 9 · Bài 2/4</span>
+        <button class="btn pri nx" data-go="l35">Bài tiếp: Chế độ maximum và điều khiển bus →</button>
+      </div></div></article>
+    <!-- ===================== BÀI 35 · Chế độ maximum và điều khiển bus ===================== -->
+    <article class="col" id="view-l35" hidden><div class="lgate" aria-live="polite"></div><div class="park" hidden><figure data-m="m0" class="figure xb-fig">
+          <div id="bus-l35"></div>
+          <figcaption>Hình 35.1. Công cụ chu kỳ bus ở chế độ maximum (đổi sang minimum để so sánh). Cột S2 S1 S0 → 8288 cho biết lệnh nào được bật; dạng sóng có S2 S1 S0 về 111 ở T3, AMWC sớm hơn MWTC một xung nhịp, chân LOCK khi lệnh có tiền tố LOCK. Chu kỳ nạp lệnh (100) không vẽ vì trình mô phỏng chưa mô hình hàng đợi lệnh.</figcaption>
+        </figure>
+<div data-m="m1" id="x86-l35"></div>
+<div data-m="m2" id="ex-l35"></div>
+<div data-m="m3" class="quiz" id="quiz35"></div>
+<div data-m="m4" class="score" id="score35"></div>
+<div data-m="m5" class="next">
+        <button class="btn prev" data-go="l34">← Bài 34</button>
+        <span class="byline"><span class="amts-logo" aria-hidden="true"></span>Chương 9 · Bài 3/4</span>
+        <button class="btn pri nx" data-go="l36">Bài tiếp: Arbitration và tranh chấp bus →</button>
+      </div></div></article>
+    <!-- ===================== BÀI 36 · Arbitration và tranh chấp bus ===================== -->
+    <article class="col" id="view-l36" hidden><div class="lgate" aria-live="polite"></div><div class="park" hidden><figure data-m="m0" class="figure xb-fig">
+          <div id="hold-l36"></div>
+          <figcaption>Hình 36.1. Công cụ HOLD/HLDA từng xung nhịp. Mỗi ô là một xung nhịp: C = CPU lái bus, D = thiết bị (DMA) lái bus, - = không ai lái, X = xung đột. Chọn tình huống, bấm “Xung nhịp tiếp →” và đoán trước ô tiếp theo trước khi bấm.</figcaption>
+        </figure>
+<figure data-m="m1" class="figure xb-fig">
+          <div id="bus-l36"></div>
+          <figcaption>Hình 36.2. Công cụ chu kỳ bus với 6 ví dụ của bài. Ở chế độ maximum, lệnh có tiền tố LOCK làm chân LOCK thấp trong cả chu kỳ đọc và chu kỳ ghi. Đổi sang minimum: không có chân LOCK báo cho mạch ngoài, dù CPU vẫn không trả lời HOLD giữa lệnh có LOCK (mục 36.3).</figcaption>
+        </figure>
+<div data-m="m2" id="x86-l36"></div>
+<div data-m="m3" id="ex-l36"></div>
+<div data-m="m4" class="quiz" id="quiz36"></div>
+<div data-m="m5" class="score" id="score36"></div>
+<div data-m="m6" class="next">
+        <button class="btn prev" data-go="l35">← Bài 35</button>
+        <span class="byline"><span class="amts-logo" aria-hidden="true"></span>Chương 9 · Bài 4/4</span>
+        <button class="btn pri nx" data-go="l37">Bài tiếp: Chương 10 · Memory map, ROM và reset vector →</button>
+      </div></div></article>
+    <!-- ===================== BÀI 37 · Memory map, ROM và reset vector ===================== -->
+    <article class="col" id="view-l37" hidden><div class="lgate" aria-live="polite"></div><div class="park" hidden><figure data-m="m0" class="figure">
+          <div id="dec-l37"></div>
+          <figcaption>Công cụ 37.1. Bản đồ bộ nhớ theo phương trình chọn chip. Bấm <b>Bước tiếp</b> để đi qua từng khoảng địa chỉ; bật <b>Đoán trước</b> để trả lời chip nào được chọn trước khi xem. Mẫu “ROM đặt nhầm ở đáy” cho thấy công cụ báo lỗi khi không có ROM ở FFFF0h.</figcaption>
+        </figure>
+<div data-m="m1" id="x86-l37"></div>
+<div data-m="m2" id="ex-l37"></div>
+<div data-m="m3" class="quiz" id="quiz37"></div>
+<div data-m="m4" class="score" id="score37"></div>
+<div data-m="m5" class="next">
+        <button class="btn prev" data-go="l36">← Bài 36</button>
+        <span class="byline"><span class="amts-logo" aria-hidden="true"></span>Chương 10 · Bài 1/4</span>
+        <button class="btn pri nx" data-go="l38">Bài tiếp: Latch, buffer và chip select →</button>
+      </div></div></article>
+    <!-- ===================== BÀI 38 · Latch, buffer và chip select ===================== -->
+    <article class="col" id="view-l38" hidden><div class="lgate" aria-live="polite"></div><div class="park" hidden><figure data-m="m0" class="figure">
+          <div id="dec-l38"></div>
+          <figcaption>Công cụ 38.1. Bốn thiết kế giải mã. Mẫu “Giải mã một phần” có 128 khoảng (mỗi chip 64 vùng); mẫu “hai RAM cùng được chọn” báo xung đột và hiện khoảng có hai chip; mẫu “Sửa” thêm A15 vào RAM 2. Bật <b>Đoán trước</b> rồi đi qua bản đồ.</figcaption>
+        </figure>
+<div data-m="m1" id="x86-l38"></div>
+<div data-m="m2" id="ex-l38"></div>
+<div data-m="m3" class="quiz" id="quiz38"></div>
+<div data-m="m4" class="score" id="score38"></div>
+<div data-m="m5" class="next">
+        <button class="btn prev" data-go="l37">← Bài 37</button>
+        <span class="byline"><span class="amts-logo" aria-hidden="true"></span>Chương 10 · Bài 2/4</span>
+        <button class="btn pri nx" data-go="l39">Bài tiếp: Bank chẵn/lẻ và A0/BHE →</button>
+      </div></div></article>
+    <!-- ===================== BÀI 39 · Bank chẵn/lẻ và A0/BHE ===================== -->
+    <article class="col" id="view-l39" hidden><div class="lgate" aria-live="polite"></div><div class="park" hidden><figure data-m="m0" class="figure">
+          <div id="bank-l39"></div>
+          <figcaption>Công cụ 39.1. Từng chu kỳ bus của một dãy truy cập: BHE, A0, A19–A1, dải nào hoạt động, làn dữ liệu nào mang byte, địa chỉ trong chip. Địa chỉ trong các mẫu là giả định. Bật <b>Đoán trước</b> để trả lời cặp BHE/A0 trước mỗi chu kỳ.</figcaption>
+        </figure>
+<div data-m="m1" id="x86-l39"></div>
+<div data-m="m2" id="ex-l39"></div>
+<div data-m="m3" class="quiz" id="quiz39"></div>
+<div data-m="m4" class="score" id="score39"></div>
+<div data-m="m5" class="next">
+        <button class="btn prev" data-go="l38">← Bài 38</button>
+        <span class="byline"><span class="amts-logo" aria-hidden="true"></span>Chương 10 · Bài 3/4</span>
+        <button class="btn pri nx" data-go="l40">Bài tiếp: Timing truy cập bộ nhớ →</button>
+      </div></div></article>
+    <!-- ===================== BÀI 40 · Timing truy cập bộ nhớ ===================== -->
+    <article class="col" id="view-l40" hidden><div class="lgate" aria-live="polite"></div><div class="park" hidden><figure data-m="m0" class="figure">
+          <div id="tim-l40"></div>
+          <figcaption>Công cụ 40.1. Thời gian cho phép, số Tw và dạng sóng chu kỳ đọc theo tỉ lệ ns. Đổi tACC, tCE, tOE hoặc trễ mạch ghép rồi bấm <b>Bước tiếp</b> qua từng trạng thái T; vạch đứng là lúc CPU chốt dữ liệu, vạch đứt là mốc thiết lập. Thông số CPU theo datasheet (cần SME đối chiếu), mọi thông số khác là giả định.</figcaption>
+        </figure>
+<div data-m="m1" id="x86-l40"></div>
+<div data-m="m2" id="ex-l40"></div>
+<div data-m="m3" class="quiz" id="quiz40"></div>
+<div data-m="m4" class="score" id="score40"></div>
+<div data-m="m5" class="next">
+        <button class="btn prev" data-go="l39">← Bài 39</button>
+        <span class="byline"><span class="amts-logo" aria-hidden="true"></span>Chương 10 · Bài 4/4</span>
+        <button class="btn pri nx" data-go="l41">Bài tiếp: Chương 11 · IN/OUT và 8255 PPI →</button>
+      </div></div></article>
+    <!-- ===================== BÀI 41 · IN/OUT và 8255 PPI ===================== -->
+    <article class="col" id="view-l41" hidden><div class="lgate" aria-live="polite"></div><div class="park" hidden><div data-m="m0" id="x86-l41"></div>
+<div data-m="m1" id="ex-l41"></div>
+<div data-m="m2" class="quiz" id="quiz41"></div>
+<div data-m="m3" class="score" id="score41"></div>
+<div data-m="m4" class="next">
+        <button class="btn prev" data-go="l40">← Bài 40</button>
+        <span class="byline"><span class="amts-logo" aria-hidden="true"></span>Chương 11 · Bài 1/4</span>
+        <button class="btn pri nx" data-go="l42">Bài tiếp: 8253/8254 và định thời →</button>
+      </div></div></article>
+    <!-- ===================== BÀI 42 · 8253/8254 và định thời ===================== -->
+    <article class="col" id="view-l42" hidden><div class="lgate" aria-live="polite"></div><div class="park" hidden><div data-m="m0" id="x86-l42"></div>
+<div data-m="m1" id="ex-l42"></div>
+<div data-m="m2" class="quiz" id="quiz42"></div>
+<div data-m="m3" class="score" id="score42"></div>
+<div data-m="m4" class="next">
+        <button class="btn prev" data-go="l41">← Bài 41</button>
+        <span class="byline"><span class="amts-logo" aria-hidden="true"></span>Chương 11 · Bài 2/4</span>
+        <button class="btn pri nx" data-go="l43">Bài tiếp: 8259 PIC và IRQ phần cứng →</button>
+      </div></div></article>
+    <!-- ===================== BÀI 43 · 8259 PIC và IRQ phần cứng ===================== -->
+    <article class="col" id="view-l43" hidden><div class="lgate" aria-live="polite"></div><div class="park" hidden><div data-m="m0" id="x86-l43"></div>
+<div data-m="m1" id="ex-l43"></div>
+<div data-m="m2" class="quiz" id="quiz43"></div>
+<div data-m="m3" class="score" id="score43"></div>
+<div data-m="m4" class="next">
+        <button class="btn prev" data-go="l42">← Bài 42</button>
+        <span class="byline"><span class="amts-logo" aria-hidden="true"></span>Chương 11 · Bài 3/4</span>
+        <button class="btn pri nx" data-go="l44">Bài tiếp: 8251 USART và truyền nối tiếp →</button>
+      </div></div></article>
+    <!-- ===================== BÀI 44 · 8251 USART và truyền nối tiếp ===================== -->
+    <article class="col" id="view-l44" hidden><div class="lgate" aria-live="polite"></div><div class="park" hidden><div data-m="m0" id="x86-l44"></div>
+<div data-m="m1" id="ex-l44"></div>
+<div data-m="m2" class="quiz" id="quiz44"></div>
+<div data-m="m3" class="score" id="score44"></div>
+<div data-m="m4" class="next">
+        <button class="btn prev" data-go="l43">← Bài 43</button>
+        <span class="byline"><span class="amts-logo" aria-hidden="true"></span>Chương 11 · Bài 4/4</span>
+        <button class="btn pri nx" data-go="l45">Bài tiếp: Chương 12 · Thiết kế trainer 8086 tối giản →</button>
+      </div></div></article>
+    <!-- ===================== BÀI 45 · Thiết kế trainer 8086 tối giản ===================== -->
+    <article class="col" id="view-l45" hidden><div class="lgate" aria-live="polite"></div><div class="park" hidden><div data-m="m0" id="x86-l45"></div>
+<div data-m="m1" id="ex-l45"></div>
+<div data-m="m2" class="quiz" id="quiz45"></div>
+<div data-m="m3" class="score" id="score45"></div>
+<div data-m="m4" class="next">
+        <button class="btn prev" data-go="l44">← Bài 44</button>
+        <span class="byline"><span class="amts-logo" aria-hidden="true"></span>Chương 12 · Bài 1/4</span>
+        <button class="btn pri nx" data-go="l46">Bài tiếp: Monitor bare-metal →</button>
+      </div></div></article>
+    <!-- ===================== BÀI 46 · Monitor bare-metal ===================== -->
+    <article class="col" id="view-l46" hidden><div class="lgate" aria-live="polite"></div><div class="park" hidden><div data-m="m0" id="x86-l46"></div>
+<div data-m="m1" id="ex-l46"></div>
+<div data-m="m2" class="quiz" id="quiz46"></div>
+<div data-m="m3" class="score" id="score46"></div>
+<div data-m="m4" class="next">
+        <button class="btn prev" data-go="l45">← Bài 45</button>
+        <span class="byline"><span class="amts-logo" aria-hidden="true"></span>Chương 12 · Bài 2/4</span>
+        <button class="btn pri nx" data-go="l47">Bài tiếp: Chẩn đoán bus và kiểm thử tích hợp →</button>
+      </div></div></article>
+    <!-- ===================== BÀI 47 · Chẩn đoán bus và kiểm thử tích hợp ===================== -->
+    <article class="col" id="view-l47" hidden><div class="lgate" aria-live="polite"></div><div class="park" hidden><div data-m="m0" id="x86-l47"></div>
+<div data-m="m1" id="ex-l47"></div>
+<div data-m="m2" class="quiz" id="quiz47"></div>
+<div data-m="m3" class="score" id="score47"></div>
+<div data-m="m4" class="next">
+        <button class="btn prev" data-go="l46">← Bài 46</button>
+        <span class="byline"><span class="amts-logo" aria-hidden="true"></span>Chương 12 · Bài 3/4</span>
+        <button class="btn pri nx" data-go="l48">Bài tiếp: Bảo vệ và hướng phát triển →</button>
+      </div></div></article>
+    <!-- ===================== BÀI 48 · Bảo vệ và hướng phát triển ===================== -->
+    <article class="col" id="view-l48" hidden><div class="lgate" aria-live="polite"></div><div class="park" hidden><div data-m="m0" id="x86-l48"></div>
+<div data-m="m1" id="ex-l48"></div>
+<div data-m="m2" class="quiz" id="quiz48"></div>
+<div data-m="m3" class="score" id="score48"></div>
+<div data-m="m4" class="next">
+        <button class="btn prev" data-go="l47">← Bài 47</button>
+        <span class="byline up"><span class="amts-logo" aria-hidden="true"></span>Chương 12 · Bài 4/4</span>
+      </div></div></article>
+  </main>
+</div>
+
+<script defer src="../assets/app/common.f9d17ffa4b.js"></script>
+<script defer src="../assets/app/mpu8086-head.5ed2022987.js"></script>
+<script defer src="../assets/app/core.a7f8b9e05f.js"></script>
+
+
+</body>
+</html>
