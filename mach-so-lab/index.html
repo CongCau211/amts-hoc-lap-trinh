@@ -52,6 +52,14 @@ svg text{font-family:var(--mono)}
 /* ---- khung cuộn riêng, các phần xếp dọc ---- */
 .st-scroll{grid-area:sc;overflow-y:auto;overscroll-behavior:contain;min-height:0;padding:0 10px 10px;background:rgba(13,20,36,.9)}
 .pn-sec{padding-bottom:10px}
+.pn-sec>h3.wv-h{display:flex;align-items:center;justify-content:space-between;gap:8px;padding-top:4px;padding-bottom:4px}
+.wv-btn{flex:none;min-height:34px;padding:0 12px;font:700 12.5px var(--sans);letter-spacing:0;border:1px solid var(--line);border-radius:999px;color:var(--txt);background:#0b1220}
+.wv-btn[aria-pressed="true"]{border-color:var(--r);color:#0a1a33;background:var(--r)}
+.wv-btn:focus-visible{outline:2px solid var(--hi);outline-offset:2px}
+.wv-wrap{position:relative}
+#cv{touch-action:pan-y}
+.wv-tip{margin:6px 0 0;font:12px/1.5 var(--sans);color:var(--dim)}
+.wv-tip b{color:var(--r)}
 .pn-sec>h3{position:sticky;top:0;z-index:1;margin:0 -10px 8px;padding:8px 10px;font:600 11.5px var(--mono);letter-spacing:1.5px;color:var(--dim);background:#0d1424;border-bottom:1px solid #16243a}
 .chips{display:flex;flex-wrap:wrap;gap:6px;margin:4px 0 8px}
 .chip{background:#0b1220;border:1px solid var(--line);border-radius:8px;padding:4px 9px;font:12px var(--mono);color:var(--dim)}
@@ -116,7 +124,9 @@ button.ex{font-size:13px}
     <button data-go="that">Làm mạch thật</button>
   </nav>
   <div class="st-scroll" id="scr" tabindex="0" role="region" aria-label="Kết quả và giải thích">
-    <section class="pn-sec" data-sec="xung"><h3>GIẢN ĐỒ XUNG · <span class="en">Timing diagram</span></h3><canvas id="cv"></canvas></section>
+    <section class="pn-sec" data-sec="xung"><h3 class="wv-h"><span>GIẢN ĐỒ XUNG · <span class="en">Timing diagram</span></span><button type="button" class="wv-btn" id="wv-pause" aria-pressed="false" title="Tạm dừng giản đồ để phân tích; mạch vẫn chạy">⏸ Tạm dừng</button></h3>
+      <div class="wv-wrap"><canvas id="cv" aria-label="Giản đồ xung của mạch"></canvas></div>
+      <p class="wv-tip" id="wv-tip" hidden>Đã tạm dừng: di chuột hoặc chạm vào giản đồ để đọc mức 0/1 của từng tín hiệu tại một thời điểm. Mạch vẫn chạy bình thường; bấm <b>Tiếp tục</b> để xem lại theo thời gian thực. <b id="wv-t"></b></p></section>
     <section class="pn-sec" data-sec="bang"><h3>BẢNG CHÂN LÝ · <span class="en">Truth table</span></h3><div id="tbl"></div></section>
     <section class="pn-sec" data-sec="buoc"><h3>TỪNG BƯỚC LAN TRUYỀN · <span class="en">Propagation</span></h3><div id="log"></div></section>
     <section class="pn-sec note" data-sec="hieu"><h3>GIẢI THÍCH TỪNG BƯỚC</h3><div class="chips" id="chips"></div><div id="steps"></div></section>
@@ -132,6 +142,6 @@ button.ex{font-size:13px}
 
 <script src="circuits.js?v=c6f7b43ce5"></script>
 <script src="engine.js?v=6f4d1bbd3a"></script>
-<script src="app.js?v=01dfd1cb2e"></script>
+<script src="app.js?v=f979270280"></script>
 </body>
 </html>

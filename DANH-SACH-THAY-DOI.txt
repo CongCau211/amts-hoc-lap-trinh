@@ -1,64 +1,11 @@
-GÓI CẬP NHẬT: trang Lab có thêm Bài học PID và PID Lab (11/11/2026)
+CẬP NHẬT: Mạch số Lab có nút Tạm dừng / Tiếp tục cho giản đồ xung
 
-Cách cập nhật:
-1. Giải nén file lab-cap-nhat.zip.
-2. Tải toàn bộ các file, thư mục vừa giải nén lên repo GitHub Pages (CongCau211/amts-hoc-lap-trinh), GIỮ NGUYÊN cấu trúc thư mục (ví dụ pid-lab/lab.html nằm trong thư mục pid-lab, lab/index.html nằm trong thư mục lab).
-3. Khi GitHub hỏi, cho GHI ĐÈ các file cùng tên.
-4. Chờ 1–2 phút rồi mở trang chủ, bấm Ctrl+F5 (hoặc kéo xuống để tải lại trên điện thoại). Bấm “Lab” trên thanh trên: trang Lab phải có hai thẻ Mạch số Lab và Thuật toán PID & PID Lab.
+File đã đổi (2):
+  mach-so-lab/app.js
+  mach-so-lab/index.html
 
-Thay đổi chính:
-- Thanh trên mọi trang vẫn là: Khóa học · Lab · Tài liệu. Các lab chỉ mở từ mục “Lab” (trang lab/index.html), trang chủ không có mục lab.
-- Mới: Bài học “Thuật toán PID: từ nền tảng đến ứng dụng” (pid-lab/index.html) và PID Lab (pid-lab/lab.html), thẻ thứ hai trong trang Lab.
-- Mạch số Lab, bài PID và PID Lab đều có nút “← Danh sách Lab” quay về trang Lab.
-
-File MỚI (7):
-  pid-lab/amts-logo.css
-  pid-lab/bai.js
-  pid-lab/index.html
-  pid-lab/lab.html
-  pid-lab/lab.js
-  pid-lab/pid.js
-  pid-lab/ve.js
-
-File ĐÃ ĐỔI (2):
-  README.md
-  lab/index.html
-
-File cũ KHÔNG CÒN DÙNG (có thể xóa nếu muốn; để lại trên GitHub cũng không sao) (37):
-  assets/app/algo-body.00e9900d55.js
-  assets/app/algo-body.1a4483e237.js
-  assets/app/algo-head.417e7fa4a6.js
-  assets/app/algo-head.db2a2e7f25.js
-  assets/app/algo-l21.e6f7c5d275.js
-  assets/app/algo-l22.9ece2eac41.js
-  assets/app/algo-l23.97c7d4cb8d.js
-  assets/app/algo-l24.baab4b91da.js
-  assets/app/common.6c272b3ef4.js
-  assets/app/common.90c25e16b6.js
-  assets/app/common.d88f38c7f4.js
-  assets/app/common.deabe1d1b3.js
-  assets/app/common.ea14a56c3a.js
-  assets/app/core.711423e9cb.js
-  assets/app/core.a7f8b9e05f.js
-  assets/app/core.eafd470834.css
-  assets/app/cpp-body.d9f043acf5.js
-  assets/app/cpp-body.e5b20604e0.js
-  assets/app/cpp-head.1b57c5fa7a.js
-  assets/app/cpp-head.ec168e87c4.js
-  assets/app/home.9ebaa84211.js
-  assets/app/hsg-body.20a95b7900.js
-  assets/app/hsg-body.caaeb4049d.js
-  assets/app/hsg-body.f74a7ccc2e.js
-  assets/app/hsg-head.0f1030f057.js
-  assets/app/hsg-head.5d52bb7cf1.js
-  assets/app/hsg-head.68f544f4c4.js
-  assets/app/hsg-l26.78e5dbfb6f.js
-  assets/app/hsg-l28.2964949b10.js
-  assets/app/lang-py.4a53244ecb.js
-  assets/app/maytinh-body.6d693962fc.js
-  assets/app/maytinh-head.30c0e23c8c.js
-  assets/app/syl-kcd.87716f2ec7.json
-  assets/app/syl-mcu8051.d5cbe54f95.json
-  assets/app/syl-mpu8086.fd4549fb7f.json
-  assets/app/syl-nentang.c5ec40a446.json
-  assets/app/syl-sql.0ba51d79bc.json
+Cách tải lên:
+  1. Giải nén gói này.
+  2. Tải thư mục mach-so-lab/ lên repo GitHub Pages amts-hoc-lap-trinh, giữ nguyên thư mục.
+  3. Cho phép ghi đè 2 file cũ. Không cần xóa file nào.
+  4. Mở trang Mạch số Lab, bấm Ctrl+F5 (tải lại không dùng bộ nhớ đệm) để thấy nút mới.

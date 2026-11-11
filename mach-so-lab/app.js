@@ -132,7 +132,7 @@ function silentSettle(){let n=0,asy=false;const k=new Set();while(n++<300){let u
 function load(id){
   if(!byId[id])id=CIRCUITS[0].id;
   gen++;running=false;pending=false;if(autoT){clearInterval(autoT);autoT=null}
-  C=byId[id];S=makeSim(C);silentSettle();hist=[];
+  C=byId[id];S=makeSim(C);silentSettle();hist=[];if(paused)setPause(false);
   $('pick').value=id;
   $('dsc').textContent=C.desc;
   $('chips').innerHTML=(C.chips||[]).map(c=>`<div class="chip">${c[0]}<b>${c[1]}</b></div>`).join('');
@@ -153,19 +153,41 @@ $('prev').onclick=()=>{const k=CIRCUITS.indexOf(C);if(k>0)go(CIRCUITS[k-1].id)};
 $('next').onclick=()=>{const k=CIRCUITS.indexOf(C);if(k<CIRCUITS.length-1)go(CIRCUITS[k+1].id)};
 
 // giản đồ xung (chiều cao cố định theo số tín hiệu của mạch)
-const cv=$('cv'),cx=cv.getContext('2d'),N=200;
+const cv=$('cv'),cx=cv.getContext('2d'),N=200,TICK=80;
+// Tạm dừng: chỉ đóng băng HÌNH giản đồ (ảnh chụp 'frozen'); mạch và việc ghi 'hist' vẫn chạy,
+// nên bấm Tiếp tục là thấy ngay tín hiệu theo thời gian thực.
+let paused=false,frozen=null,cur=-1;
+function setPause(p){paused=p;frozen=p?hist.map(r=>r.slice()):null;cur=-1;
+  const b=$('wv-pause');b.setAttribute('aria-pressed',String(p));b.textContent=p?'▶ Tiếp tục':'⏸ Tạm dừng';
+  b.title=p?'Tiếp tục vẽ giản đồ theo thời gian thực':'Tạm dừng giản đồ để phân tích; mạch vẫn chạy';
+  $('wv-tip').hidden=!p;draw()}
+$('wv-pause').onclick=()=>setPause(!paused);
+function pick(e){if(!paused||!frozen||!frozen.length)return;const r=cv.getBoundingClientRect(),x0=40,dx=(r.width-x0-4)/N;
+  const j=Math.floor((e.clientX-r.left-x0)/dx);cur=j>=0&&j<frozen.length?j:-1;draw()}
+cv.addEventListener('pointermove',pick);cv.addEventListener('pointerdown',pick);
+cv.addEventListener('pointerleave',e=>{if(e.pointerType==='mouse'&&cur>=0){cur=-1;draw()}});
 function draw(){
   const sig=C.sig,lane=30,h=sig.length*lane+6;cv.style.height=h+'px';
   const w=cv.clientWidth,dpr=devicePixelRatio||1;if(!w)return;if(cv.width!==Math.round(w*dpr)||cv.height!==Math.round(h*dpr)){cv.width=Math.round(w*dpr);cv.height=Math.round(h*dpr)}
   cx.setTransform(dpr,0,0,dpr,0,0);cx.clearRect(0,0,w,h);
   const cols=['#5eead4','#fbbf24','#7dd3fc','#e2e8f0','#f472b6','#a3e635'],x0=40,dx=(w-x0-4)/N;
+  const hs=paused&&frozen?frozen:hist;
   cx.font='12px ui-monospace,Consolas,monospace';
   sig.forEach(([lab,k],i)=>{const c=k==='CLK'?'#c084fc':cols[i%cols.length],top=i*lane+7,bot=(i+1)*lane-5;
     cx.fillStyle=c;cx.fillText(lab,4,(top+bot)/2+4);
     cx.strokeStyle='rgba(100,116,139,.18)';cx.lineWidth=1;cx.beginPath();cx.moveTo(x0,bot);cx.lineTo(w,bot);cx.stroke();
     cx.strokeStyle=c;cx.lineWidth=2;cx.beginPath();
-    hist.forEach((s,j)=>{const y=s[i]?top:bot,x=x0+j*dx;if(j===0)cx.moveTo(x,y);else{cx.lineTo(x,hist[j-1][i]?top:bot);cx.lineTo(x,y)}cx.lineTo(x+dx,y)});
+    hs.forEach((s,j)=>{const y=s[i]?top:bot,x=x0+j*dx;if(j===0)cx.moveTo(x,y);else{cx.lineTo(x,hs[j-1][i]?top:bot);cx.lineTo(x,y)}cx.lineTo(x+dx,y)});
     cx.stroke()});
+  if(paused&&cur<0){const tl='❚❚ ĐÃ TẠM DỪNG',tw=cx.measureText(tl).width;cx.fillStyle='rgba(13,20,36,.9)';cx.fillRect(w-tw-12,0,tw+12,17);cx.fillStyle='rgba(251,191,36,.95)';cx.textAlign='right';cx.fillText(tl,w-6,12);cx.textAlign='left'}
+  if(paused&&cur>=0&&cur<hs.length){const x=x0+cur*dx+dx/2;
+    cx.strokeStyle='rgba(226,232,240,.75)';cx.lineWidth=1;cx.setLineDash([4,3]);cx.beginPath();cx.moveTo(x,0);cx.lineTo(x,h);cx.stroke();cx.setLineDash([]);
+    const t=((hs.length-1-cur)*TICK/1000).toFixed(2).replace('.',','),right=x>w-120;
+    cx.textAlign=right?'right':'left';const tx=right?x-6:x+6;
+    sig.forEach(([lab],i)=>{const top=i*lane+7,bot=(i+1)*lane-5,v=hs[cur][i];
+      const txt=lab+'='+v,tw=cx.measureText(txt).width;cx.fillStyle='rgba(10,26,51,.85)';cx.fillRect(right?tx-tw-3:tx-3,(top+bot)/2-8,tw+6,16);
+      cx.fillStyle=v?'#5eead4':'#94a3b8';cx.fillText(txt,tx,(top+bot)/2+4)});
+    cx.textAlign='left';$('wv-t').textContent='Vạch đọc: '+t+' s trước lúc tạm dừng.'}else $('wv-t').textContent=''
 }
 setInterval(()=>{if(!C)return;hist.push(C.sig.map(([,k])=>S.V[k]));if(hist.length>N)hist.shift();draw()},80);
 
