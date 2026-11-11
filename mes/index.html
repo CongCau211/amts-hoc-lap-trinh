@@ -5,10 +5,10 @@
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <link rel="preload" as="font" type="font/woff2" crossorigin href="../assets/fonts/be-vietnam-pro-latin-400-normal.woff2">
 <link rel="preload" as="font" type="font/woff2" crossorigin href="../assets/fonts/be-vietnam-pro-vietnamese-400-normal.woff2">
-<link rel="preload" as="script" href="../assets/app/common.52a6197502.js">
-<link rel="preload" as="script" href="../assets/app/mes-head.d05bc8f643.js">
+<link rel="preload" as="script" href="../assets/app/common.a1af1e5cba.js">
+<link rel="preload" as="script" href="../assets/app/mes-head.c2536c62d8.js">
 <link rel="preload" as="script" href="../assets/app/core.de37ba5200.js">
-<link rel="preload" as="script" href="../assets/app/mes-body.47fa0ce91a.js">
+<link rel="preload" as="script" href="../assets/app/mes-body.47fa7a303c.js">
 <title>Xây dựng hệ thống MES từ con số 0</title>
 <meta name="claude:viewport-fit-sides" content="cover">
 <link rel="preconnect" href="https://cdn.jsdelivr.net">
@@ -191,6 +191,36 @@ li.bad>.mt-mk,.mt-ord li.bad .mt-mk{color:var(--err)}
 .mes-code{margin:8px 0;font-size:13px}
 .mes-code .ln{white-space:pre}
 @media (max-width:560px){.mes-code{font-size:12px}}
+/* ---- hình minh họa SVG của khóa MES (tools/author/mes/art.py) ---- */
+.mes-fig{margin:14px 0 18px}
+.mes-svg{display:block;width:100%;max-width:720px;height:auto;margin:0 auto;color:var(--ink);overflow:visible}
+.mes-svg text{fill:currentColor;font-family:var(--f-body);font-size:15px}
+.mes-svg .t-sm{font-size:13.5px}.mes-svg .t-xs{font-size:12.5px}.mes-svg .t-lg{font-size:19px;font-weight:700}
+.mes-svg .t-b{font-weight:700}.mes-svg .t-mono{font-family:var(--f-mono)}
+.mes-svg .t-m{fill:var(--muted)}.mes-svg .t-ac{fill:var(--accent)}.mes-svg .t-ok{fill:var(--ok)}.mes-svg .t-er{fill:var(--err)}.mes-svg .t-wa{fill:var(--warm)}
+.mes-svg .t-st{fill:var(--surface);font-weight:700}
+.mes-svg .bx{fill:var(--surface);stroke:currentColor;stroke-width:1.6}
+.mes-svg .zn{fill:none;stroke:var(--muted);stroke-width:1.5;stroke-dasharray:6 4}
+.mes-svg .vn{fill-opacity:.55;stroke:currentColor;stroke-width:1.4}
+.mes-svg .ln{stroke:currentColor;stroke-width:1.6;fill:none}
+.mes-svg .ln.thin{stroke-width:1;stroke:var(--muted)}.mes-svg .ln.b2{stroke-width:2.6}
+.mes-svg .ln.dsh,.mes-svg .dsh{stroke-dasharray:5 4}
+.mes-svg .ln.ac{stroke:var(--accent)}.mes-svg .ln.ok{stroke:var(--ok)}.mes-svg .ln.er{stroke:var(--err)}.mes-svg .ln.wa{stroke:var(--warm)}.mes-svg .ln.m{stroke:var(--muted)}
+.mes-svg .ah{fill:currentColor}.mes-svg .ah.ac{fill:var(--accent)}.mes-svg .ah.ok{fill:var(--ok)}.mes-svg .ah.er{fill:var(--err)}.mes-svg .ah.wa{fill:var(--warm)}.mes-svg .ah.m{fill:var(--muted)}
+.mes-svg .f-a,.mes-svg .bx.f-a{fill:var(--accent-soft)}.mes-svg .f-a2{fill:var(--accent)}
+.mes-svg .f-w,.mes-svg .bx.f-w{fill:var(--warm-soft)}.mes-svg .f-w2{fill:var(--warm);opacity:.45}
+.mes-svg .f-o,.mes-svg .bx.f-o{fill:var(--ok-soft)}.mes-svg .f-e,.mes-svg .bx.f-e{fill:var(--err-soft)}.mes-svg .f-e2{fill:var(--err);opacity:.25}
+.mes-svg .f-ok{fill:var(--ok)}.mes-svg .f-er{fill:var(--err)}.mes-svg .f-wa{fill:var(--warm)}.mes-svg .f-m{fill:var(--muted)}.mes-svg .f-ac{fill:var(--accent)}
+.mes-svg .f-off{fill:var(--line);stroke:var(--muted);stroke-width:.8}
+.mes-svg .f-s,.mes-svg .bx.f-s{fill:var(--surface)}.mes-svg .f-s2{fill:var(--line)}.mes-svg .f-pin{fill:var(--muted)}.mes-svg .f-port{fill:var(--ink)}.mes-svg .f-ink{fill:var(--ink)}
+.mes-svg .f-scr{fill:var(--accent-soft);stroke:var(--muted);stroke-width:.8}.mes-svg .f-scr2{fill:var(--bg)}
+.mes-svg .f-brk{fill:var(--line);opacity:.6}
+.mes-svg .f-st-ok{fill:var(--ok)}.mes-svg .f-st-er{fill:var(--err)}.mes-svg .f-st-wa{fill:var(--warm)}.mes-svg .f-st-m{fill:var(--muted)}
+.mes-svg .bar{stroke:currentColor;stroke-width:1}.mes-svg .bar.f-e{stroke:var(--err)}.mes-svg .bar.f-w{stroke:var(--warm)}.mes-svg .bar.f-a{stroke:var(--accent)}.mes-svg .bar.f-o{stroke:var(--ok)}
+@media (max-width:640px){.mes-fig{overflow-x:auto;-webkit-overflow-scrolling:touch}.mes-fig .mes-svg{min-width:500px}}
+.mes-svg .f-term{fill:#131A2A;stroke:var(--line)}.mes-svg .f-termh{fill:#232C42}.mes-svg .f-termhl{fill:#3A2C17}
+.mes-svg .t-tt{fill:#DCE3F2}.mes-svg .t-tp{fill:#93AAFF}
+.mes-svg .t-xxs{font-size:10.5px}
 </style>
 
 <header class="top compact" id="top" data-root="../"><div class="wrap">
@@ -1684,8 +1714,8 @@ li.bad>.mt-mk,.mt-ord li.bad .mt-mk{color:var(--err)}
   </main>
 </div>
 
-<script defer src="../assets/app/common.52a6197502.js"></script>
-<script defer src="../assets/app/mes-head.d05bc8f643.js"></script>
+<script defer src="../assets/app/common.a1af1e5cba.js"></script>
+<script defer src="../assets/app/mes-head.c2536c62d8.js"></script>
 <script defer src="../assets/app/core.de37ba5200.js"></script>
 
 
