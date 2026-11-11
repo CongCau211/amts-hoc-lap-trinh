@@ -5,8 +5,8 @@
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <link rel="preload" as="font" type="font/woff2" crossorigin href="assets/fonts/be-vietnam-pro-latin-400-normal.woff2">
 <link rel="preload" as="font" type="font/woff2" crossorigin href="assets/fonts/be-vietnam-pro-vietnamese-400-normal.woff2">
-<link rel="preload" as="script" href="assets/app/common.a1af1e5cba.js">
-<link rel="preload" as="script" href="assets/app/home.4016f9c934.js">
+<link rel="preload" as="script" href="assets/app/common.a96e2f58a1.js">
+<link rel="preload" as="script" href="assets/app/home.402465378e.js">
 <title>AMTS Học Lập Trình</title>
 <meta name="claude:viewport-fit-sides" content="cover">
 <link rel="preconnect" href="https://cdn.jsdelivr.net">
@@ -173,6 +173,10 @@ body{background:var(--bg)}
 }
 .tacct .note{background:none;border:0;padding:0;margin:0;font-size:13px;color:var(--muted);border-radius:0}
 .tacct .note:empty{display:none}
+/* báo lỗi đăng nhập (vd. không kết nối được Firebase) là câu dài: không cho đẩy thanh trên tràn ngang; tối đa 2 dòng, câu đầy đủ ở title (11/11/2026) */
+.tright{flex:0 1 auto}
+.tright,.tacct{min-width:0}
+.tacct .note.bad-t{min-width:0;max-width:42ch;overflow:hidden;display:-webkit-box;-webkit-box-orient:vertical;-webkit-line-clamp:2;line-height:1.3}
 .ava{border-radius:50%;flex:none;position:relative;overflow:hidden;display:grid;place-items:center;font-weight:700}
 .ava img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;border-radius:50%}
 .top .ic{width:20px;height:20px;flex:none}
@@ -183,6 +187,7 @@ body{background:var(--bg)}
   .top .amts-logo{height:30px}
   .tright{gap:4px}
   .tacct .gbtn{padding:7px 8px;gap:6px;font-size:13.5px}
+  .tacct .note.bad-t{font-size:12px}
 }
 
 /* ---- lời chào + tiếp tục học ---- */
@@ -536,8 +541,8 @@ footer{margin-top:56px;border-top:1px solid var(--line);padding-block:20px 40px;
   <div><b>Dữ liệu của bạn</b><p>Chưa đăng nhập: tiến độ chỉ lưu trên trình duyệt này. Đăng nhập Google: tiến độ được lưu để học tiếp trên mọi thiết bị và để giảng viên theo dõi kết quả học tập.</p></div>
 </div></footer>
 
-<script defer src="assets/app/common.a1af1e5cba.js"></script>
-<script defer src="assets/app/home.4016f9c934.js"></script>
+<script defer src="assets/app/common.a96e2f58a1.js"></script>
+<script defer src="assets/app/home.402465378e.js"></script>
 
 </body>
 </html>
