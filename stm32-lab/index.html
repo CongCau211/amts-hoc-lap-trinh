@@ -1,0 +1,301 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>STM32 Lab · NUCLEO-F103RB ảo · AMTS</title>
+<link rel="stylesheet" href="amts-logo.css?v=51b7ed6925">
+<style>
+:root{--bg:#0a1a33;--panel:#0d1424;--field:#0b1220;--line:#1e3a5f;--line2:#16243a;--hi:#5eead4;--txt:#cbd5e1;--dim:#7c8ca3;--head:#e2e8f0;
+  --bad:#f87171;--warn:#fbbf24;--en:#fbbf24;--lv1:#fb923c;--ok:#4ade80;
+  --term-bg:#050b14;--term:#bbf7d0;--term-dim:#64748b;
+  --mono:ui-monospace,"JetBrains Mono","Cascadia Mono",Consolas,monospace;--sans:"Be Vietnam Pro","Segoe UI",Roboto,Arial,sans-serif}
+*{box-sizing:border-box}
+[hidden]{display:none!important}
+html,body{margin:0;height:100%}
+body{background:var(--bg);color:var(--txt);font:15px/1.5 var(--sans);display:flex;flex-direction:column;height:100dvh;overflow:hidden;
+  padding:env(safe-area-inset-top) env(safe-area-inset-right) env(safe-area-inset-bottom) env(safe-area-inset-left)}
+.en{color:var(--en);font-style:italic}
+code{font:13px var(--mono);background:var(--field);border:1px solid var(--line2);border-radius:4px;padding:0 4px;overflow-wrap:anywhere}
+/* ---- thanh trên ---- */
+.top{flex:none;display:flex;align-items:center;gap:8px;padding:6px 10px;border-bottom:1px solid var(--line);background:rgba(10,20,38,.96)}
+.brand{display:flex;flex-direction:column;align-items:flex-start;gap:1px;flex:0 1 auto;min-width:0}
+.brand .amts-logo{height:22px}
+.brand small{font-size:9px;line-height:1.1;color:var(--dim);white-space:nowrap;max-width:100%;overflow:hidden;text-overflow:ellipsis}
+.top h1{flex:1;min-width:0;margin:0;font:700 14px var(--sans);color:var(--head);white-space:nowrap;overflow:hidden;text-overflow:ellipsis;text-align:right}
+.top h1 span{color:var(--dim);font-weight:400}
+.top .home{flex:none;display:inline-flex;align-items:center;gap:4px;height:40px;padding:0 10px;border:1px solid var(--line);border-radius:10px;color:var(--txt);text-decoration:none;font:600 13px var(--sans);white-space:nowrap}
+.top .home:hover,.top .home:focus-visible{border-color:var(--hi);color:var(--hi)}
+@media (max-width:480px){.top h1 span{display:none}.top .home{padding:0 6px;font-size:11.5px}.sc-btns .lg{display:none}}
+/* ---- nút, ô chọn ---- */
+button,.btn{font:700 13.5px var(--sans);border-radius:10px;border:2px solid var(--line);background:var(--field);color:var(--txt);padding:0 8px;min-height:44px;cursor:pointer;touch-action:manipulation;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+button:hover:not(:disabled){border-color:#2f5a8a}
+button:disabled{opacity:.45;cursor:default}
+button.on{border-color:var(--hi);color:var(--hi)}
+button:focus-visible,input:focus-visible,select:focus-visible,[tabindex]:focus-visible{outline:2px solid var(--hi);outline-offset:1px}
+select,input[type=text]{height:44px;font:14px var(--sans);color:var(--txt);background:var(--field);border:2px solid var(--line);border-radius:10px;padding:0 8px;min-width:0}
+/* ---- khung một màn hình ---- */
+.sim-stage{flex:1;min-height:0;display:grid;grid-template-columns:minmax(0,1fr);grid-template-rows:auto minmax(180px,38%) auto minmax(0,1fr) auto;
+  grid-template-areas:"bar" "vw" "nav" "sc" "ctl";max-width:1400px;width:100%;margin:0 auto}
+.sim-bar{grid-area:bar;display:flex;gap:6px;align-items:center;padding:6px 8px;overflow-x:auto;scrollbar-width:none;border-bottom:1px solid var(--line);background:rgba(13,20,36,.96)}
+.sim-bar::-webkit-scrollbar{display:none}
+.sim-bar>*{flex:none}
+.sim-bar #sample{flex:1 1 170px;max-width:340px}
+.sim-bar .primary{border-color:var(--hi);color:var(--hi)}
+/* ---- bảng mạch ---- */
+.vw{grid-area:vw;position:relative;min-height:0;background:radial-gradient(ellipse at 50% 40%,#13284a 0%,#0a1a33 72%);overflow:hidden}
+#board{position:absolute;inset:6px 6px 6px 6px;width:calc(100% - 12px);height:calc(100% - 12px);display:block;touch-action:none;user-select:none;-webkit-user-select:none}
+.bbtn{cursor:pointer}
+.bbtn:focus{outline:none}
+.bbtn:focus-visible .cap{stroke:var(--hi);stroke-width:4}
+.ov{position:absolute;pointer-events:none}
+.ov.tl{top:4px;left:6px;display:flex;flex-direction:column;font:11.5px var(--mono);color:var(--dim);max-width:44%;padding:2px 7px;border-radius:7px;background:rgba(10,20,38,.82);z-index:1}
+.ov.tl b{color:var(--head);font:700 12px var(--sans);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.ov.tl span{white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.ov.msg{left:8px;right:8px;top:4px;z-index:2;pointer-events:auto;padding:7px 10px;border-radius:9px;font:13px/1.4 var(--sans);background:rgba(69,10,10,.94);border:1px solid #7f1d1d;color:#fecaca;max-height:45%;overflow:auto}
+.ov.msg.info{background:rgba(66,32,6,.94);border-color:#92400e;color:#fde68a}
+/* ---- tên phần ---- */
+.st-nav{grid-area:nav;display:flex;gap:4px;overflow-x:auto;scrollbar-width:none;padding:6px 8px;border-top:1px solid var(--line);border-bottom:1px solid var(--line);background:rgba(13,20,36,.96)}
+.st-nav::-webkit-scrollbar{display:none}
+.st-nav button{flex:none;position:relative;font:600 12.5px var(--sans);color:var(--dim);background:none;border:1px solid transparent;border-radius:999px;padding:4px 11px;min-height:32px;overflow:visible}
+.st-nav button.act{color:var(--hi);border-color:var(--hi)}
+.st-nav button.dot::after{content:"";position:absolute;top:4px;right:3px;width:7px;height:7px;border-radius:50%;background:var(--lv1)}
+/* ---- khung cuộn riêng, các phần xếp dọc ---- */
+.st-scroll{grid-area:sc;overflow-y:auto;overscroll-behavior:contain;min-height:0;padding:0 10px 10px;background:rgba(13,20,36,.9)}
+.pn-sec{padding-bottom:14px}
+.pn-sec>h3{position:sticky;top:0;z-index:1;margin:0 -10px 8px;padding:8px 10px;font:600 11.5px var(--mono);letter-spacing:1.2px;color:var(--dim);background:var(--panel);border-bottom:1px solid var(--line2)}
+.pn-sec>h3 .en{letter-spacing:.3px;font-family:var(--sans);font-weight:400}
+.note{font-size:13.5px;color:var(--txt)}
+.note p{margin:0 0 8px}
+.note ol,.note ul{margin:0 0 8px;padding-left:20px}
+.note li{margin-bottom:4px}
+.note h4{margin:10px 0 4px;font:700 13.5px var(--sans);color:var(--head)}
+.dim{color:var(--dim)}
+/* chân GPIO */
+.port{margin-bottom:8px}
+.port b{display:block;font:700 12px var(--mono);color:var(--head);margin-bottom:3px}
+.pins{display:grid;grid-template-columns:repeat(8,minmax(0,1fr));gap:4px}
+.pin{min-height:38px;padding:2px 0;border:1px solid var(--line);border-radius:7px;background:var(--field);font:600 11.5px/1.15 var(--mono);color:var(--dim);text-align:center}
+.pin small{display:block;font-size:10px;font-weight:400}
+.pin[data-l="1"]{background:#7c2d12;border-color:var(--lv1);color:#ffedd5}
+.pin[data-dir=out]{border-width:2px}
+.pin.ext{box-shadow:inset 0 0 0 2px var(--hi)}
+.legend{display:flex;flex-wrap:wrap;gap:2px 14px;font-size:12.5px;color:var(--dim);margin:2px 0 10px}
+.legend i{display:inline-block;width:10px;height:10px;border-radius:3px;background:#7c2d12;border:1px solid var(--lv1);vertical-align:-1px;margin-right:4px}
+.sub{font:600 12px var(--sans);color:var(--head);margin:10px 0 6px}
+.pwm-row,.an-row{display:grid;grid-template-columns:minmax(0,110px) minmax(0,1fr) auto;gap:8px;align-items:center;min-height:36px;font:12.5px var(--mono)}
+.pwm-row .v,.an-row .v{min-width:52px;text-align:right;white-space:nowrap;color:var(--head)}
+.meter{height:12px;border:1px solid var(--line);border-radius:4px;overflow:hidden;background:var(--field)}
+.meter i{display:block;height:100%;background:var(--lv1)}
+.an-row input{width:100%;height:32px;margin:0;accent-color:var(--hi)}
+/* CPU */
+.chips{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:6px;margin-bottom:8px}
+.chip{background:var(--field);border:1px solid var(--line);border-radius:8px;padding:4px 8px;font:11px var(--sans);color:var(--dim);min-width:0}
+.chip b{display:block;font:700 14.5px var(--mono);color:var(--head);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.where{font:12.5px var(--mono);color:var(--head);margin:0 0 6px;overflow-wrap:anywhere}
+.regs{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:0 14px;font:12.5px/1.75 var(--mono)}
+.regs div{display:flex;justify-content:space-between;gap:6px;border-bottom:1px solid var(--line2)}
+.regs span{color:var(--dim)}
+/* code, cảnh báo */
+pre.code{margin:0;padding:8px 10px;background:var(--field);border:1px solid var(--line2);border-radius:8px;font:12.5px/1.5 var(--mono);color:#e2e8f0;white-space:pre-wrap;overflow-wrap:anywhere;tab-size:2}
+ul.log{list-style:none;margin:0;padding:0;display:grid;gap:6px}
+ul.log li{padding:6px 9px;border-radius:8px;background:#2a1c05;border:1px solid #78350f;color:#fde68a;font-size:13px;overflow-wrap:anywhere}
+/* cổng COM */
+.term{background:var(--term-bg);color:var(--term);border:1px solid var(--line2);border-radius:8px;padding:8px 10px;min-height:9em;font:13px/1.45 var(--mono);white-space:pre-wrap;overflow-wrap:anywhere}
+.term .sys{color:var(--term-dim)}
+.tx{display:grid;grid-template-columns:minmax(0,1fr) auto auto;gap:6px;margin-top:6px}
+.tx input{font-family:var(--mono)}
+.tx-opt{display:flex;flex-wrap:wrap;gap:6px 12px;align-items:center;margin-top:6px;font-size:12.5px;color:var(--dim)}
+.tx-opt select{height:36px;font-size:13px}
+/* ---- hàng nút ---- */
+.sim-ctl{grid-area:ctl;padding:6px 8px 8px;border-top:1px solid var(--line);background:rgba(10,20,38,.98)}
+.sc-st{display:flex;align-items:center;gap:7px;margin-bottom:6px;min-height:20px;font:600 12.5px var(--mono);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.sc-st i{flex:none;width:9px;height:9px;border-radius:50%;background:var(--dim)}
+.sc-st[data-s=run] i{background:var(--ok)}
+.sc-st[data-s=sleep] i{background:var(--hi)}
+.sc-st[data-s=stop] i{background:var(--warn)}
+.sc-st[data-s=err]{color:var(--bad)}.sc-st[data-s=err] i{background:var(--bad)}
+.sc-st span{overflow:hidden;text-overflow:ellipsis}
+.sc-btns{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:6px}
+#drop{position:fixed;inset:0;z-index:20;display:flex;align-items:center;justify-content:center;padding:20px;text-align:center;background:rgba(10,26,51,.9);border:3px dashed var(--hi);color:var(--hi);font:700 20px var(--sans)}
+@media (min-width:901px){
+  .sim-stage{grid-template-columns:minmax(0,1.3fr) minmax(380px,1fr);grid-template-rows:auto auto minmax(0,1fr) auto;grid-template-areas:"bar bar" "vw nav" "vw sc" "ctl ctl"}
+  .st-nav{border-top:0;border-left:1px solid var(--line)}
+  .st-scroll{border-left:1px solid var(--line)}
+  .chips{grid-template-columns:repeat(4,minmax(0,1fr))}
+  .regs{grid-template-columns:repeat(3,minmax(0,1fr))}
+  .sc-btns{grid-template-columns:repeat(4,minmax(120px,170px))}
+  .sim-ctl{display:flex;align-items:center;gap:12px}
+  .sc-st{flex:1;order:2;margin:0}
+  .top{padding:8px 16px}
+  .brand .amts-logo{height:26px}.brand small{font-size:10px}
+  .top h1{font-size:15px}
+}
+@media (min-width:1200px){.pins{grid-template-columns:repeat(16,minmax(0,1fr))}}
+@media (prefers-reduced-motion:reduce){.st-scroll{scroll-behavior:auto}}
+</style>
+</head>
+<body>
+<header class="top">
+  <div class="brand"><span class="amts-logo" role="img" aria-label="AMTS"></span><small>Nguyễn Công Cầu · Hotline: +84337595406</small></div>
+  <h1>STM32 Lab <span>· NUCLEO-F103RB ảo</span></h1>
+  <a class="home" href="../lab/index.html" title="Danh sách các Lab của AMTS Học Lập Trình"><span aria-hidden="true">←</span> Danh sách Lab</a>
+</header>
+
+<main class="sim-stage" id="stage">
+  <div class="sim-bar">
+    <button class="primary" id="bOpen" title="Chọn file .elf, .hex hoặc .bin trong thư mục Debug của project">Nạp file .elf</button>
+    <button id="bWatch" title="Chọn file .elf một lần, trang tự nạp lại mỗi khi bạn Build trong STM32CubeIDE">Tự nạp khi Build</button>
+    <select id="sample" aria-label="Chọn bài mẫu"></select>
+    <input type="file" id="file" accept=".elf,.hex,.bin,.axf,.out" hidden>
+  </div>
+
+  <div class="vw" id="vw">
+    <svg id="board" viewBox="0 0 640 440" preserveAspectRatio="xMidYMid meet" role="img" aria-label="Board NUCLEO-F103RB ảo">
+      <defs><pattern id="hdr" width="14" height="14" patternUnits="userSpaceOnUse"><rect width="14" height="14" fill="#141a18"/><circle cx="7" cy="7" r="3.1" fill="#d6b15b"/></pattern></defs>
+      <rect x="2" y="2" width="636" height="436" rx="14" fill="#0e5c43" stroke="#083a2a" stroke-width="3"/>
+      <g fill="#d6b15b"><circle cx="20" cy="20" r="7"/><circle cx="620" cy="20" r="7"/><circle cx="20" cy="420" r="7"/><circle cx="620" cy="420" r="7"/></g>
+      <g fill="#0e5c43"><circle cx="20" cy="20" r="3.5"/><circle cx="620" cy="20" r="3.5"/><circle cx="20" cy="420" r="3.5"/><circle cx="620" cy="420" r="3.5"/></g>
+      <rect x="196" y="14" width="248" height="84" rx="4" fill="none" stroke="#3a9c78" stroke-dasharray="5 4"/>
+      <text x="436" y="90" fill="#bde7d4" font-family="ui-monospace, Consolas, monospace" font-size="11" text-anchor="end">ST-LINK · cổng COM ảo</text>
+      <rect x="282" y="2" width="76" height="40" rx="3" fill="#b9c2c0"/><rect x="292" y="8" width="56" height="24" rx="2" fill="#6d7674"/>
+      <rect x="222" y="48" width="42" height="42" rx="2" fill="#151a19"/>
+      <circle cx="384" cy="62" r="7" id="ld1" fill="#40130f" stroke="#111"/><text x="396" y="66" fill="#fff" font-family="ui-monospace, Consolas, monospace" font-size="11">LD1 COM</text>
+      <rect x="42" y="112" width="14" height="224" fill="url(#hdr)"/>
+      <rect x="588" y="112" width="14" height="224" fill="url(#hdr)"/>
+      <g id="hdrL" font-family="ui-monospace, Consolas, monospace" font-size="11" fill="#e9f5ef"></g>
+      <g id="hdrR" font-family="ui-monospace, Consolas, monospace" font-size="11" fill="#e9f5ef" text-anchor="end"></g>
+      <g transform="translate(320 236)">
+        <g fill="#c8ccca" id="legs"></g>
+        <rect x="-62" y="-62" width="124" height="124" fill="#191d1c" rx="3"/>
+        <circle cx="-48" cy="-48" r="4" fill="#3a403e"/>
+        <text x="0" y="-7" text-anchor="middle" fill="#dfe6e3" font-family="ui-monospace, Consolas, monospace" font-size="13" font-weight="600">STM32</text>
+        <text x="0" y="11" text-anchor="middle" fill="#dfe6e3" font-family="ui-monospace, Consolas, monospace" font-size="13" font-weight="600">F103RB</text>
+        <text x="0" y="31" text-anchor="middle" fill="#8f9a96" font-family="ui-monospace, Consolas, monospace" font-size="10">Cortex-M3</text>
+      </g>
+      <rect x="150" y="124" width="26" height="16" rx="2" fill="#dfe6e3"/>
+      <circle cx="163" cy="132" r="32" fill="#44ff88" opacity="0" id="ld2glow"/>
+      <rect x="153" y="126" width="20" height="12" rx="2" fill="#123c26"/>
+      <rect x="153" y="126" width="20" height="12" rx="2" fill="#5dff9a" opacity="0" id="ld2"/>
+      <text x="163" y="161" text-anchor="middle" fill="#fff" font-family="ui-monospace, Consolas, monospace" font-size="12" font-weight="600">LD2 · PA5</text>
+      <g class="bbtn" id="b1" tabindex="0" role="button" aria-label="Nút B1, chân PC13. Giữ để nhấn">
+        <rect x="124" y="330" width="62" height="62" rx="6" fill="#c8ccca"/>
+        <circle class="cap" id="b1cap" cx="155" cy="361" r="23" fill="#1a6fd0" stroke="#0d3f7a" stroke-width="2"/>
+        <text x="155" y="411" text-anchor="middle" fill="#fff" font-family="ui-monospace, Consolas, monospace" font-size="12" font-weight="600">B1 · PC13</text>
+      </g>
+      <g class="bbtn" id="b2" tabindex="0" role="button" aria-label="Nút Reset của board">
+        <rect x="462" y="330" width="62" height="62" rx="6" fill="#c8ccca"/>
+        <circle class="cap" id="b2cap" cx="493" cy="361" r="23" fill="#191d1c" stroke="#000" stroke-width="2"/>
+        <text x="493" y="411" text-anchor="middle" fill="#fff" font-family="ui-monospace, Consolas, monospace" font-size="12" font-weight="600">B2 · RESET</text>
+      </g>
+    </svg>
+    <div class="ov tl"><b id="fname">Chưa nạp</b><span id="fdesc"></span></div>
+    <div class="ov msg" id="msg" role="status" hidden></div>
+  </div>
+
+  <nav class="st-nav" id="stnav">
+    <button data-go="tb" class="act">Thiết bị</button>
+    <button data-go="cpu">CPU</button>
+    <button data-go="code">Code mẫu</button>
+    <button data-go="hd">Hướng dẫn</button>
+    <button data-go="cb">Cảnh báo</button>
+    <button data-go="com">Cổng COM</button>
+  </nav>
+
+  <div class="st-scroll" id="scr" tabindex="0" role="region" aria-label="Thiết bị, CPU, hướng dẫn và cổng COM">
+    <section class="pn-sec" data-sec="tb"><h3>THIẾT BỊ · <span class="en">GPIO, PWM, ADC</span></h3>
+      <div id="ports"></div>
+      <div class="legend"><span><i></i>mức 1</span><span>viền đậm: ngõ ra</span><span>bấm chân ngõ vào: cấp 1 → cấp 0 → thả nổi</span></div>
+      <div class="sub">Điện áp vào ADC (0 – 3,3 V)</div>
+      <div class="an-row"><label for="a0">A0 · PA0</label><input type="range" id="a0" min="0" max="3.3" step="0.01" value="1.65"><span class="v" id="a0v"></span></div>
+      <div class="an-row"><label for="a1">A1 · PA1</label><input type="range" id="a1" min="0" max="3.3" step="0.01" value="0"><span class="v" id="a1v"></span></div>
+      <div class="sub">Ngõ ra PWM <span class="en">pulse-width modulation</span></div>
+      <div id="pwm"><p class="dim" style="margin:0;font-size:13px">Chưa có kênh PWM nào đang chạy.</p></div>
+    </section>
+
+    <section class="pn-sec" data-sec="cpu"><h3>CPU &amp; XUNG NHỊP · <span class="en">Cortex-M3 registers</span></h3>
+      <div class="chips">
+        <div class="chip">SYSCLK<b id="cClk">8 MHz</b></div>
+        <div class="chip">APB1 / APB2<b id="cApb">8 / 8 MHz</b></div>
+        <div class="chip">Thời gian chip<b id="cTime">0,000 s</b></div>
+        <div class="chip">So với board thật<b id="cSpeed">–</b></div>
+      </div>
+      <p class="where" id="where"></p>
+      <div class="regs" id="regs"></div>
+    </section>
+
+    <section class="pn-sec" data-sec="code"><h3>CODE MẪU · <span class="en">main.c</span></h3>
+      <pre class="code" id="code" tabindex="0"></pre>
+    </section>
+
+    <section class="pn-sec note" data-sec="hd"><h3>HƯỚNG DẪN</h3>
+      <h4>Chạy code của bạn từ STM32CubeIDE</h4>
+      <ol>
+        <li>Tạo project, chọn board <b>NUCLEO-F103RB</b> (hoặc chip STM32F103RBTx).</li>
+        <li>Viết code, bấm <b>Build</b> (Ctrl + B). Không cần bấm Run vì không có mạch nạp thật.</li>
+        <li>Bấm <b>Nạp file .elf</b> hoặc kéo thả file <code>TênProject/Debug/TênProject.elf</code> vào trang.</li>
+        <li>Muốn khỏi nạp tay: bấm <b>Tự nạp khi Build</b> (Chrome hoặc Edge trên máy tính), chọn file .elf một lần. Mỗi lần Build xong, trang tự nạp và chạy lại sau khoảng 1 giây.</li>
+      </ol>
+      <h4>Board ảo</h4>
+      <ul>
+        <li><b>B1</b> (PC13): giữ chuột hoặc ngón tay để nhấn, thả ra để nhả. Board có điện trở kéo lên nên nhả = 1, nhấn = 0. Bàn phím: chọn nút rồi giữ phím cách.</li>
+        <li><b>LD2</b> (PA5) sáng khi chân ở mức 1, mờ dần theo độ rộng xung khi chân đảo nhanh. <b>LD1</b> nháy khi có dữ liệu trên cổng COM.</li>
+        <li><b>Cổng COM</b> là USART2 (PA2/PA3), giống cổng COM ảo của ST-LINK trên board thật; <code>printf</code> trong code mẫu in ra đây.</li>
+      </ul>
+      <h4>Bài tập</h4>
+      <ol>
+        <li>Mẫu Nháy LED: đổi <code>HAL_Delay(500)</code> thành 100, Build lại, xem LED nháy nhanh hơn.</li>
+        <li>Mẫu Ngắt timer: tính lại Prescaler và Period để LED đảo mỗi 1 s. Kiểm bằng ô Thời gian chip ở phần CPU.</li>
+        <li>Mẫu UART: khi gõ chữ <code>a</code> thì bật LED, chữ <code>t</code> thì tắt.</li>
+        <li>Mẫu Lỗi quên clock: sửa cho LED sáng, xem tab Cảnh báo hết báo.</li>
+      </ol>
+      <h4>Đã mô phỏng</h4>
+      <ul>
+        <li>CPU Cortex-M3: đủ tập lệnh Thumb-2 mà GCC sinh ra, NVIC, ưu tiên ngắt, SysTick, ngủ WFI, chạy được FreeRTOS.</li>
+        <li>Ngoại vi: RCC (HSI, PLL, bộ chia), FLASH latency, GPIO A–E, AFIO, EXTI, TIM1–TIM4 (đếm, ngắt, PWM), USART1–3, ADC1.</li>
+        <li>Bộ nhớ như chip thật: flash 128 KB tại 0x0800 0000, RAM 20 KB tại 0x2000 0000.</li>
+      </ul>
+      <h4>Mô hình và giới hạn</h4>
+      <ul>
+        <li>Mô hình là <b>mức lệnh và thanh ghi</b>, không mô phỏng điện: không có điện áp thật, dòng, nhiễu, dội phím. Mức logic chỉ là 0 hoặc 1; chân thả nổi đọc về 0.</li>
+        <li>Thời gian mỗi lệnh lấy gần đúng theo số chu kỳ của Cortex-M3 (sai lệch vài chục phần trăm, không mô phỏng wait state của flash). Thời gian của timer, SysTick, UART, ADC tính theo xung nhịp đã cấu hình nên <code>HAL_Delay</code> và ngắt timer đúng giờ; vòng chờ bằng <code>for</code> thì không chính xác.</li>
+        <li>ADC lý tưởng: giá trị = điện áp ÷ 3,3 V × 4095, làm tròn; không có sai số offset, nhiễu hay sai số lượng tử ngoài bước 1 LSB.</li>
+        <li>Chưa mô phỏng: I2C, SPI, DMA, CAN, USB, RTC, watchdog, input capture, encoder, ghi flash. Firmware dùng các phần này sẽ được báo ở mục Cảnh báo.</li>
+        <li>Code chạy đúng ở đây vẫn phải thử lại trên board thật. Đây là công cụ học, không phải công cụ kiểm định phần cứng.</li>
+      </ul>
+      <p class="dim" style="font-size:12.5px">AMTS · AutoMaxTech Solutions · Nguyễn Công Cầu · Hotline: +84337595406</p>
+    </section>
+
+    <section class="pn-sec" data-sec="cb"><h3>CẢNH BÁO · <span class="en">warnings</span></h3>
+      <p class="dim" id="cbEmpty" style="margin:0;font-size:13px">Chưa có cảnh báo. Mục này báo khi firmware dùng ngoại vi chưa bật clock, cấu hình xung nhịp sai, hoặc dùng phần chưa được mô phỏng.</p>
+      <ul class="log" id="cbList"></ul>
+    </section>
+
+    <section class="pn-sec" data-sec="com"><h3>CỔNG COM · <span class="en">USART2</span> · <span id="baud">chưa cấu hình</span></h3>
+      <div class="term" id="term" aria-live="off"></div>
+      <form class="tx" id="txForm">
+        <input type="text" id="txIn" placeholder="Gõ nội dung gửi xuống chip" autocomplete="off" aria-label="Nội dung gửi qua USART2">
+        <button type="submit">Gửi</button>
+        <button type="button" id="txClear">Xóa</button>
+      </form>
+      <div class="tx-opt"><label for="eol">Kết thúc dòng</label><select id="eol"><option value="">Không thêm</option><option value="\n">LF</option><option value="\r\n">CR LF</option></select></div>
+    </section>
+  </div>
+
+  <div class="sim-ctl">
+    <span class="sc-st" id="st" data-s="stop"><i></i><span id="stText">Chưa nạp</span></span>
+    <div class="sc-btns">
+      <button id="bReset">↺ Reset</button>
+      <button id="bStep" disabled title="Chạy đúng 1 lệnh máy (khi đang tạm dừng)"><span class="lg">Chạy </span>1 lệnh</button>
+      <button id="bRun">Tạm dừng</button>
+      <button id="bSpeed" title="Tốc độ so với board thật"><span class="lg">Tốc độ </span><span id="spd">100%</span></button>
+    </div>
+  </div>
+</main>
+<div id="drop" hidden>Thả file .elf vào đây để nạp</div>
+
+<script src="core.js?v=fa5ec375ef"></script>
+<script src="samples.js?v=3959189948"></script>
+<script src="app.js?v=e28433703e"></script>
+</body>
+</html>

@@ -1,13 +1,13 @@
-Gói cập nhật 11/11/2026 · Robot Lab lên trang Lab
-Tải lên repo GitHub Pages amts-hoc-lap-trinh, giữ nguyên đường dẫn (ghi đè nếu trùng).
+Gói cập nhật GitHub Pages · STM32 Lab · 11/11/2026
+Giải nén, tải lên repo GitHub Pages, giữ nguyên đường dẫn.
 
-Đổi:
-  lab/index.html          trang Lab đang chạy + thẻ "Robot Lab · SCARA" (phần còn lại giữ nguyên từng byte)
+Đã đổi:
+  lab/index.html            (trang Lab: thêm thẻ STM32 Lab)
 Mới:
-  robot-lab/index.html
-  robot-lab/amts-logo.css
-  robot-lab/engine.js
-  robot-lab/app.js
+  stm32-lab/index.html
+  stm32-lab/amts-logo.css
+  stm32-lab/core.js
+  stm32-lab/samples.js
+  stm32-lab/app.js
 
-Không đổi gì khác. Sau khi up: https://congcau211.github.io/amts-hoc-lap-trinh/lab/index.html
-Robot Lab: https://congcau211.github.io/amts-hoc-lap-trinh/robot-lab/index.html  (#fk, #ik)
+Gói làm tay, không cập nhật publish/github-manifest.json: lần chạy tools/delta.py sau sẽ liệt kê lại các file này, up lại cũng không sao.
