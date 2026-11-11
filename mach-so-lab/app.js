@@ -189,7 +189,12 @@ function draw(){
       cx.fillStyle=v?'#5eead4':'#94a3b8';cx.fillText(txt,tx,(top+bot)/2+4)});
     cx.textAlign='left';$('wv-t').textContent='Vạch đọc: '+t+' s trước lúc tạm dừng.'}else $('wv-t').textContent=''
 }
-setInterval(()=>{if(!C)return;hist.push(C.sig.map(([,k])=>S.V[k]));if(hist.length>N)hist.shift();draw()},80);
+// Chỉ VẼ khi giản đồ đang hiện trên màn hình, tab đang mở và chưa tạm dừng; việc GHI tín hiệu (rất nhẹ) vẫn chạy
+// để lúc cuộn tới / quay lại tab / bấm Tiếp tục thấy đúng 16 s gần nhất.
+let onScreen=true;
+if('IntersectionObserver' in window)new IntersectionObserver(es=>{onScreen=es[es.length-1].isIntersecting;if(onScreen)draw()}).observe(cv);
+document.addEventListener('visibilitychange',()=>{if(!document.hidden)draw()});
+setInterval(()=>{if(!C)return;hist.push(C.sig.map(([,k])=>S.V[k]));if(hist.length>N)hist.shift();if(onScreen&&!document.hidden&&!paused)draw()},TICK);
 
 $('spd').onchange=e=>{delay=+e.target.value};
 window.addEventListener('hashchange',()=>load(location.hash.slice(1)));

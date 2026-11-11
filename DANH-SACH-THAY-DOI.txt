@@ -1,4 +1,4 @@
-CẬP NHẬT: Mạch số Lab có nút Tạm dừng / Tiếp tục cho giản đồ xung
+CẬP NHẬT: Mạch số Lab tiết kiệm tài nguyên (không vẽ giản đồ khi không xem)
 
 File đã đổi (2):
   mach-so-lab/app.js
@@ -8,4 +8,4 @@ Cách tải lên:
   1. Giải nén gói này.
   2. Tải thư mục mach-so-lab/ lên repo GitHub Pages amts-hoc-lap-trinh, giữ nguyên thư mục.
   3. Cho phép ghi đè 2 file cũ. Không cần xóa file nào.
-  4. Mở trang Mạch số Lab, bấm Ctrl+F5 (tải lại không dùng bộ nhớ đệm) để thấy nút mới.
+  4. Mở lại trang Mạch số Lab bằng Ctrl+F5.
