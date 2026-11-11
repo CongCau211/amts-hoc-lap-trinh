@@ -1,0 +1,695 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="theme-color" content="#0E97A9">
+<title>Thuật toán PID: từ nền tảng đến ứng dụng · AMTS</title>
+<meta name="description" content="Bài học PID đầy đủ: vòng kín, khâu P, I, D, toán học, mô hình đối tượng, PID số, code C++17, chống bão hòa, chỉnh định Ziegler–Nichols, SIMC, ứng dụng; kèm mô phỏng chạy ngay trên trình duyệt và PID Lab.">
+<link rel="stylesheet" href="amts-logo.css?v=51b7ed6925">
+<style>
+:root{--bg:#f6f8fb;--surface:#fff;--ink:#0f172a;--ink2:#334155;--muted:#64748b;--line:#e2e8f0;--accent:#0E97A9;--accent-d:#0b7a89;--accent-soft:#e6f6f8;
+  --en:#b45309;--en-bg:#fff7e6;--warn:#b91c1c;--ok:#15803d;--cp:#db2777;--ci:#7c3aed;--cd:#ea580c;--cr:#d97706;--cy:#0E97A9;--cu:#2563eb;
+  --mono:ui-monospace,"JetBrains Mono","Cascadia Mono",Consolas,monospace;--sans:"Be Vietnam Pro","Segoe UI",Roboto,Arial,sans-serif;--serif:"Cambria Math","STIX Two Math","Times New Roman",serif}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth;scroll-padding-top:72px}
+@media (prefers-reduced-motion:reduce){html{scroll-behavior:auto}}
+body{margin:0;background:var(--bg);color:var(--ink);font:16.5px/1.7 var(--sans);-webkit-text-size-adjust:100%}
+a{color:var(--accent-d)}
+.en{color:var(--en);background:var(--en-bg);border-radius:4px;padding:0 4px;font-style:normal;font-size:.92em;white-space:nowrap}
+/* ---- thanh trên ---- */
+.top{position:sticky;top:0;z-index:20;display:flex;align-items:center;gap:8px;padding:8px max(12px,env(safe-area-inset-right)) 8px max(12px,env(safe-area-inset-left));background:rgba(255,255,255,.95);backdrop-filter:blur(8px);border-bottom:1px solid var(--line)}
+.brand{display:flex;flex-direction:column;gap:1px;min-width:0;flex:0 1 auto}
+.brand .amts-logo{height:24px}
+.brand small{font-size:10px;color:var(--muted);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.top .sp{flex:1}
+.top .home{flex:none;display:inline-flex;align-items:center;gap:4px;height:40px;padding:0 10px;border:1px solid var(--line);border-radius:10px;color:var(--ink2);text-decoration:none;font:600 13px var(--sans);white-space:nowrap;background:#fff}
+.top .home:hover{border-color:var(--accent);color:var(--accent-d)}
+.top .go{flex:none;display:inline-flex;align-items:center;gap:6px;height:40px;padding:0 14px;border-radius:10px;background:var(--accent);color:#fff;text-decoration:none;font:700 13.5px var(--sans);white-space:nowrap}
+.top .go:hover{background:var(--accent-d)}
+@media (max-width:480px){.top{gap:5px}.top .home,.top .go{padding:0 8px;font-size:12px}.top .home .lg,.top .go .lgx{display:none}}
+/* ---- bố cục ---- */
+.wrap{max-width:1180px;margin:0 auto;padding:0 16px;display:grid;grid-template-columns:minmax(0,1fr);gap:28px}
+@media (min-width:1024px){.wrap{grid-template-columns:250px minmax(0,1fr);padding:0 24px}}
+.toc{font-size:14px}
+@media (min-width:1024px){.toc{position:sticky;top:72px;align-self:start;max-height:calc(100vh - 90px);overflow:auto;padding:18px 0}}
+.toc details{background:var(--surface);border:1px solid var(--line);border-radius:12px;padding:4px 14px}
+.toc summary{cursor:pointer;font-weight:700;min-height:44px;display:flex;align-items:center}
+.toc ol{margin:4px 0 10px;padding-left:22px}
+.toc li{margin:3px 0}
+.toc a{color:var(--ink2);text-decoration:none;display:block;padding:2px 0;line-height:1.4}
+.toc a.on{color:var(--accent-d);font-weight:700}
+article{min-width:0;padding:6px 0 60px}
+.hero{padding:26px 0 8px}
+.kicker{font:700 12.5px var(--sans);letter-spacing:.08em;text-transform:uppercase;color:var(--accent-d)}
+h1{font-size:clamp(28px,4.6vw,44px);line-height:1.15;letter-spacing:-.02em;margin:8px 0 12px}
+.lead{font-size:18px;color:var(--ink2);max-width:760px}
+.meta{display:flex;flex-wrap:wrap;gap:8px;margin:14px 0 4px}
+.meta span{font-size:13px;background:var(--surface);border:1px solid var(--line);border-radius:999px;padding:4px 12px;color:var(--ink2)}
+section.s{background:var(--surface);border:1px solid var(--line);border-radius:16px;padding:22px clamp(16px,3.4vw,34px);margin:22px 0}
+h2{font-size:clamp(22px,3vw,28px);line-height:1.25;margin:0 0 12px;letter-spacing:-.01em}
+h2 .n{color:var(--accent);margin-right:6px}
+h3{font-size:19px;margin:24px 0 8px}
+p{margin:0 0 12px}
+ul,ol{padding-left:22px;margin:0 0 12px}
+li{margin:3px 0}
+.note,.tip,.warnb{border-radius:12px;padding:12px 16px;margin:14px 0;font-size:15.5px}
+.note{background:var(--accent-soft);border-left:4px solid var(--accent)}
+.tip{background:#f0fdf4;border-left:4px solid var(--ok)}
+.warnb{background:#fef2f2;border-left:4px solid var(--warn)}
+.note>:last-child,.tip>:last-child,.warnb>:last-child{margin-bottom:0}
+/* ---- công thức ---- */
+.eq{font-family:var(--serif);font-size:19px;text-align:center;margin:14px 0;padding:12px 10px;background:#f8fafc;border:1px solid var(--line);border-radius:12px;overflow-x:auto;line-height:2.1}
+.eq.l{text-align:left;font-size:17.5px}
+.eq .c{font-family:var(--sans);font-size:13px;color:var(--muted);display:block;line-height:1.4;margin-top:2px}
+var,.v{font-family:var(--serif);font-style:italic;font-size:1.06em}
+.fr{display:inline-flex;flex-direction:column;vertical-align:middle;text-align:center;margin:0 3px;line-height:1.25}
+.fr>span:first-child{border-bottom:1.3px solid currentColor;padding:0 4px}
+.fr>span:last-child{padding:0 4px}
+.big{font-size:1.5em;vertical-align:middle;line-height:0}
+.steps{counter-reset:st;list-style:none;padding:0;margin:12px 0}
+.steps>li{counter-increment:st;position:relative;padding:10px 12px 10px 46px;border:1px solid var(--line);border-radius:12px;margin:8px 0;background:#fcfdff}
+.steps>li::before{content:counter(st);position:absolute;left:12px;top:10px;width:24px;height:24px;border-radius:50%;background:var(--accent);color:#fff;font:700 13px/24px var(--sans);text-align:center}
+.steps .eq{margin:8px 0 2px;font-size:17px;padding:6px 8px}
+code{font-family:var(--mono);font-size:.9em;background:#f1f5f9;border-radius:5px;padding:1px 5px}
+pre{background:#0f172a;color:#e2e8f0;border-radius:12px;padding:14px 16px;overflow-x:auto;font:13.5px/1.6 var(--mono);margin:12px 0}
+pre code{background:none;padding:0;font-size:inherit;color:inherit}
+pre .cm{color:#94a3b8}pre .kw{color:#7dd3fc}pre .nb{color:#fcd34d}
+/* ---- bảng ---- */
+.tw{overflow-x:auto;margin:12px 0;border:1px solid var(--line);border-radius:12px}
+table{border-collapse:collapse;width:100%;font-size:14.5px;font-variant-numeric:tabular-nums}
+th,td{padding:8px 10px;border-bottom:1px solid var(--line);text-align:left;vertical-align:top}
+th{background:#f8fafc;font-weight:700;color:var(--ink2);white-space:nowrap}
+tr:last-child td{border-bottom:0}
+/* ---- hình ---- */
+figure{margin:16px 0}
+figure svg{width:100%;height:auto;display:block}
+figcaption{font-size:13.5px;color:var(--muted);text-align:center;margin-top:6px}
+.dg text{font-family:var(--sans);font-size:14px;fill:var(--ink)}
+.dg .bx{fill:#fff;stroke:#334155;stroke-width:1.6}
+.dg .bx.pid{fill:var(--accent-soft);stroke:var(--accent)}
+.dg .ar{fill:none;stroke:#334155;stroke-width:1.6;marker-end:url(#ah)}
+.dg .sm{fill:#fff;stroke:#334155;stroke-width:1.6}
+.dg .lb{font-size:13px;fill:var(--muted)}
+.dg .enl{font-size:12px;fill:var(--en)}
+/* ---- mô phỏng nhỏ trong bài ---- */
+.wg{border:1px solid #bfe3e8;background:#fbfeff;border-radius:14px;padding:12px;margin:16px 0}
+.wg .wt{font-weight:700;font-size:15px;margin-bottom:6px;display:flex;align-items:center;gap:8px;flex-wrap:wrap}
+.wg .wt::before{content:"MÔ PHỎNG";font:700 10.5px var(--sans);letter-spacing:.08em;color:#fff;background:var(--accent);border-radius:6px;padding:2px 7px}
+.wg canvas{width:100%;height:240px;display:block;border-radius:10px;border:1px solid var(--line);touch-action:pan-y}
+@media (max-width:600px){.wg canvas{height:210px}}
+.wg .ctl{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:4px 16px;margin:8px 0 2px}
+.wg label{display:grid;grid-template-columns:auto 1fr auto;align-items:center;gap:8px;font-size:14px;min-height:40px}
+.wg label b{font-family:var(--mono);font-weight:700}
+.wg label output{font:600 14px var(--mono);min-width:64px;text-align:right}
+.wg input[type=range]{width:100%;accent-color:var(--accent);height:28px}
+.wg select{height:36px;font:14px var(--sans);border:1px solid var(--line);border-radius:8px;background:#fff;grid-column:2/4}
+.wg .out{font-size:14.5px;background:#f8fafc;border-radius:10px;padding:8px 12px;margin-top:6px;font-variant-numeric:tabular-nums}
+.wg .out b{font-weight:700}
+.wg .lk{display:inline-block;margin-top:8px;font-weight:700;font-size:14px}
+.wg .leg{display:flex;gap:12px;flex-wrap:wrap;font-size:12.5px;color:var(--muted);margin:2px 0 6px}
+.wg .leg i{display:inline-block;width:16px;border-top:2.5px solid;vertical-align:middle;margin-right:4px}
+.wg .leg i.ds{border-top-style:dashed}
+/* bảng tính từng bước */
+.calc{font-size:14.5px}
+.calc .row{display:flex;gap:8px;flex-wrap:wrap;align-items:center;margin:8px 0}
+.calc button{min-height:44px;padding:0 16px;border-radius:10px;border:2px solid var(--accent);background:#fff;color:var(--accent-d);font:700 14px var(--sans);cursor:pointer}
+.calc button.p{background:var(--accent);color:#fff}
+.calc .lines{font-variant-numeric:tabular-nums;min-height:252px}
+.calc .ln{display:grid;grid-template-columns:120px minmax(0,1fr);gap:8px;padding:5px 0;border-bottom:1px dashed var(--line)}
+.calc .ln>span:first-child{color:var(--muted)}
+@media (max-width:520px){.calc .ln{grid-template-columns:1fr}.calc .ln>span:first-child{font-size:12.5px}}
+.cp{color:var(--cp)}.ci{color:var(--ci)}.cd{color:var(--cd)}.cu{color:var(--cu)}
+.cards{display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:12px;margin:12px 0}
+.card{border:1px solid var(--line);border-radius:12px;padding:12px 14px;background:#fcfdff}
+.card h4{margin:0 0 4px;font-size:16px}
+.card p{font-size:14.5px;margin:0 0 6px;color:var(--ink2)}
+.card .k{font-size:13px;color:var(--muted)}
+.ex{counter-reset:ex;list-style:none;padding:0}
+.ex>li{counter-increment:ex;border:1px solid var(--line);border-radius:12px;padding:12px 14px 12px 50px;margin:10px 0;position:relative}
+.ex>li::before{content:"Bài " counter(ex);position:absolute;left:10px;top:12px;font:700 11px var(--sans);color:var(--accent-d);width:34px;line-height:1.2}
+.foot{text-align:center;color:var(--muted);font-size:13.5px;padding:10px 0 30px}
+.foot .amts-logo{height:26px;margin-bottom:4px}
+</style>
+</head>
+<body>
+<header class="top">
+  <div class="brand"><span class="amts-logo" role="img" aria-label="AMTS"></span><small>Nguyễn Công Cầu · Hotline: +84337595406</small></div>
+  <span class="sp"></span>
+  <a class="home" href="../lab/index.html" title="Danh sách các Lab của AMTS Học Lập Trình"><span aria-hidden="true">←</span> Danh sách Lab</a>
+  <a class="go" href="lab.html">Mở PID Lab<span class="lgx">&nbsp;→</span></a>
+</header>
+
+<div class="wrap">
+<nav class="toc" aria-label="Mục lục bài">
+  <details id="tocd"><summary>Trong bài này</summary>
+  <ol id="tocl">
+    <li><a href="#bai-toan">Bài toán điều khiển</a></li>
+    <li><a href="#vong-kin">Vòng hở và vòng kín</a></li>
+    <li><a href="#lich-su">PID ra đời thế nào</a></li>
+    <li><a href="#on-off">Điều khiển On/Off</a></li>
+    <li><a href="#khau-p">Khâu P: tỉ lệ</a></li>
+    <li><a href="#khau-i">Khâu I: tích phân</a></li>
+    <li><a href="#khau-d">Khâu D: vi phân</a></li>
+    <li><a href="#cong-thuc">Công thức PID đầy đủ</a></li>
+    <li><a href="#doi-tuong">Mô hình đối tượng</a></li>
+    <li><a href="#roi-rac">PID số: rời rạc hóa</a></li>
+    <li><a href="#code">Viết PID bằng C++17</a></li>
+    <li><a href="#thuc-te">Vấn đề thực tế</a></li>
+    <li><a href="#chinh-dinh">Chỉnh định thông số</a></li>
+    <li><a href="#nang-cao">Mở rộng: tầng, bù trước</a></li>
+    <li><a href="#ung-dung">Ứng dụng</a></li>
+    <li><a href="#thuc-hanh">Thực hành với PID Lab</a></li>
+    <li><a href="#tom-tat">Tóm tắt và thuật ngữ</a></li>
+  </ol></details>
+</nav>
+
+<article>
+<div class="hero">
+  <span class="kicker">Bài học · Điều khiển tự động</span>
+  <h1>Thuật toán PID: từ nền tảng đến ứng dụng</h1>
+  <p class="lead">PID là bộ điều khiển phổ biến nhất trong công nghiệp: giữ nhiệt độ lò, tốc độ động cơ, góc servo, áp suất đường ống, mực nước bồn. Bài này đi từ câu hỏi “vì sao cần phản hồi” tới toán học của từng khâu, cách viết PID số trên PLC/vi điều khiển, các bẫy ngoài thực tế và cách chỉnh thông số. Mỗi ý quan trọng có một mô phỏng nhỏ chạy ngay trong trang.</p>
+  <div class="meta"><span>Khoảng 60 phút đọc</span><span>6 mô phỏng trong bài</span><span>Code C++17</span><span>Kèm PID Lab 5 đối tượng</span></div>
+</div>
+
+<!-- 1 -->
+<section class="s" id="bai-toan">
+<h2><span class="n">1</span>Bài toán điều khiển</h2>
+<p>Hầu hết máy móc tự động đều phải làm một việc: <b>giữ một đại lượng vật lý ở giá trị ta muốn</b>, dù ngoại cảnh thay đổi. Lò sấy phải giữ 200 °C dù cửa lò được mở ra đóng vào; băng tải phải chạy đúng 1,5 m/s dù hàng nặng hay nhẹ; máy bơm phải giữ áp lực nước 3 bar dù cả khu nhà mở vòi cùng lúc.</p>
+<p>Để nói chuyện cho chính xác, ta đặt tên cho từng thứ trong bài toán:</p>
+<div class="tw"><table>
+<tr><th>Ký hiệu</th><th>Tên gọi</th><th>Ý nghĩa</th><th>Ví dụ lò nhiệt</th></tr>
+<tr><td><var>r</var></td><td>Điểm đặt <span class="en">setpoint, SP</span></td><td>Giá trị ta muốn đạt</td><td>200 °C</td></tr>
+<tr><td><var>y</var></td><td>Biến quá trình <span class="en">process variable, PV</span></td><td>Giá trị đo được thực tế</td><td>Nhiệt độ đọc từ cặp nhiệt</td></tr>
+<tr><td><var>e</var></td><td>Sai số <span class="en">error</span></td><td><var>e</var> = <var>r</var> − <var>y</var>: còn thiếu (dương) hay dư (âm) bao nhiêu</td><td>200 − 185 = 15 °C</td></tr>
+<tr><td><var>u</var></td><td>Tín hiệu điều khiển <span class="en">control output, CV/MV</span></td><td>Lệnh gửi tới cơ cấu chấp hành</td><td>% công suất thanh nhiệt (0–100 %)</td></tr>
+<tr><td><var>d</var></td><td>Nhiễu <span class="en">disturbance</span></td><td>Tác động bên ngoài ta không điều khiển được</td><td>Mở cửa lò, nhiệt độ phòng đổi</td></tr>
+<tr><td></td><td>Đối tượng <span class="en">plant, process</span></td><td>Hệ vật lý cần điều khiển</td><td>Buồng lò, vỏ cách nhiệt</td></tr>
+<tr><td></td><td>Cơ cấu chấp hành <span class="en">actuator</span></td><td>Biến lệnh <var>u</var> thành tác động vật lý</td><td>SSR + thanh điện trở</td></tr>
+<tr><td></td><td>Cảm biến <span class="en">sensor</span></td><td>Đo <var>y</var></td><td>Cặp nhiệt K, PT100</td></tr>
+</table></div>
+<p>Bộ điều khiển chỉ làm một việc: <b>nhìn <var>e</var> (và lịch sử của nó), rồi quyết định <var>u</var></b>. PID là một cách quyết định cực kỳ đơn giản nhưng hiệu quả đến mức đã dùng hơn một trăm năm.</p>
+</section>
+
+<!-- 2 -->
+<section class="s" id="vong-kin">
+<h2><span class="n">2</span>Vòng hở và vòng kín</h2>
+<p><b>Vòng hở</b> <span class="en">open loop</span>: tính trước <var>u</var> rồi cứ thế áp dụng, không nhìn kết quả. Ví dụ: biết lò cần khoảng 58 % công suất để giữ 200 °C, ta đặt cứng 58 %. Cách này chạy được khi mọi thứ đúng như tính toán. Nhưng chỉ cần cửa lò mở, điện áp lưới tụt 10 %, hay thanh nhiệt già đi, nhiệt độ sẽ lệch và <b>không ai sửa</b>.</p>
+<p><b>Vòng kín</b> <span class="en">closed loop, feedback</span>: đo <var>y</var> liên tục, so với <var>r</var>, rồi sửa <var>u</var> theo sai số. Cửa lò mở làm nhiệt tụt, <var>e</var> tăng, bộ điều khiển tự tăng công suất. Đây là ý tưởng phản hồi <span class="en">feedback</span>, nền móng của cả ngành điều khiển tự động.</p>
+<figure class="dg">
+<svg viewBox="0 0 780 230" role="img" aria-label="Sơ đồ khối vòng kín: điểm đặt r vào bộ so sánh, sai số e vào bộ PID, u vào đối tượng, đầu ra y qua cảm biến quay về bộ so sánh">
+<defs><marker id="ah" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="8" markerHeight="8" orient="auto-start-reverse"><path d="M0,0L10,5L0,10z" fill="#334155"/></marker></defs>
+<text x="8" y="72">r</text><text x="8" y="92" class="enl">setpoint</text>
+<path class="ar" d="M24,78H92"/>
+<circle class="sm" cx="110" cy="78" r="18"/><text x="103" y="83">Σ</text><text x="78" y="70" class="lb">+</text><text x="116" y="116" class="lb">−</text>
+<path class="ar" d="M128,78H210"/><text x="160" y="68">e</text>
+<rect class="bx pid" x="212" y="48" width="140" height="60" rx="10"/><text x="232" y="76" style="font-weight:700">Bộ điều khiển</text><text x="262" y="96" class="enl">PID</text>
+<path class="ar" d="M352,78H430"/><text x="384" y="68">u</text>
+<rect class="bx" x="432" y="48" width="130" height="60" rx="10"/><text x="448" y="74">Cơ cấu</text><text x="448" y="94">chấp hành</text>
+<path class="ar" d="M562,78H600"/>
+<rect class="bx" x="602" y="48" width="100" height="60" rx="10"/><text x="618" y="76">Đối tượng</text><text x="628" y="96" class="enl">plant</text>
+<path class="ar" d="M652,10V46"/><text x="660" y="24">d nhiễu</text>
+<path class="ar" d="M702,78H770"/><text x="740" y="68">y</text>
+<path class="ar" d="M740,78V180H452"/>
+<rect class="bx" x="350" y="152" width="100" height="56" rx="10"/><text x="370" y="178">Cảm biến</text><text x="375" y="198" class="enl">sensor</text>
+<path class="ar" d="M350,180H110V98"/>
+</svg>
+<figcaption>Hình 1. Vòng điều khiển kín. Tín hiệu đi một vòng: đo → so sánh → tính → tác động → đo lại.</figcaption>
+</figure>
+<p>Hai lợi ích lớn của vòng kín: <b>tự sửa khi có nhiễu</b>, và <b>không cần biết chính xác đối tượng</b> (mô hình sai 20 % thì vòng kín vẫn đưa <var>y</var> về đúng <var>r</var>). Cái giá phải trả: nếu phản ứng quá mạnh hoặc quá trễ, vòng kín có thể <b>dao động</b>, thậm chí mất ổn định. Toàn bộ nghệ thuật chỉnh PID là cân bằng giữa “phản ứng nhanh” và “không dao động”.</p>
+</section>
+
+<!-- 3 -->
+<section class="s" id="lich-su">
+<h2><span class="n">3</span>PID ra đời thế nào</h2>
+<ul>
+<li><b>1788, bộ điều tốc ly tâm</b> <span class="en">centrifugal governor</span> trên máy hơi nước của James Watt: quả văng quay nhanh thì nâng lên, khép van hơi lại. Đây là bộ điều khiển tỉ lệ (P) bằng cơ khí.</li>
+<li><b>1922, Nicolas Minorsky</b> quan sát người lái tàu của Hải quân Mỹ và nhận ra họ bẻ lái dựa vào ba thứ: tàu đang lệch bao nhiêu (P), lệch đã lâu chưa (I), và đang lệch nhanh dần hay chậm lại (D). Ông viết bài phân tích toán học đầu tiên cho bộ điều khiển PID.</li>
+<li><b>Thập niên 1930–1940</b>: bộ điều khiển khí nén (Taylor, Foxboro) đưa PID vào nhà máy hóa chất, lọc dầu. Năm <b>1942</b>, Ziegler và Nichols công bố hai quy tắc chỉnh thông số nổi tiếng mà đến nay vẫn được dạy.</li>
+<li><b>Thập niên 1950–1970</b>: PID điện tử dùng op-amp, rồi điều khiển số trực tiếp bằng máy tính <span class="en">DDC</span>.</li>
+<li><b>Ngày nay</b>: PID là một lệnh có sẵn trong mọi PLC, một khối trong biến tần và driver servo, vài chục dòng code trong vi điều khiển. Các khảo sát công nghiệp thường nêu con số: phần lớn áp đảo (trên 90 %) vòng điều khiển trong nhà máy là PI hoặc PID.</li>
+</ul>
+</section>
+
+<!-- 4 -->
+<section class="s" id="on-off">
+<h2><span class="n">4</span>Bước đầu tiên: điều khiển On/Off</h2>
+<p>Cách đơn giản nhất ai cũng nghĩ ra: <b>thiếu thì bật hết cỡ, thừa thì tắt</b>. Bàn là, bình nóng lạnh, tủ lạnh đời cũ đều làm vậy bằng một rơ-le nhiệt.</p>
+<div class="eq">u = <span class="v">u</span><sub>max</sub> nếu <var>e</var> &gt; 0 ;   u = <span class="v">u</span><sub>min</sub> nếu <var>e</var> &lt; 0</div>
+<p>Vấn đề: đối tượng thật có <b>quán tính và trễ</b>. Khi nhiệt độ vừa chạm 200 °C và rơ-le ngắt, thanh nhiệt vẫn còn nóng, nhiệt độ còn lên thêm; khi tụt dưới 200 °C và rơ-le đóng, phải chờ một lúc mới ấm lên lại. Kết quả: <var>y</var> <b>luôn dao động</b> quanh điểm đặt. Nếu để rơ-le đóng ngắt đúng tại <var>e</var> = 0, nhiễu đo nhỏ cũng làm rơ-le “lạch cạch” liên tục, rất mau hỏng. Người ta thêm <b>vùng trễ</b> <span class="en">hysteresis</span>: chỉ bật khi <var>y</var> &lt; <var>r</var> − <var>h</var>/2, chỉ tắt khi <var>y</var> &gt; <var>r</var> + <var>h</var>/2. Rơ-le bớt đóng cắt, nhưng biên độ dao động lớn hơn.</p>
+<div class="wg" id="w-onoff"></div>
+<p>On/Off đủ tốt cho bình nóng lạnh. Nhưng một lò ủ kim loại cần ±1 °C, một trục servo cần đứng yên đúng 90,0°: phải có cách điều khiển “mềm” hơn, <b>tỉ lệ với mức độ sai</b>. Đó là khâu P.</p>
+</section>
+
+<!-- 5 -->
+<section class="s" id="khau-p">
+<h2><span class="n">5</span>Khâu P: phản ứng tỉ lệ với sai số</h2>
+<p>Ý tưởng: sai nhiều thì sửa mạnh, sai ít thì sửa nhẹ.</p>
+<div class="eq"><span class="cp">u</span><sub>P</sub>(t) = <var>K</var><sub>p</sub> · <var>e</var>(t)<span class="c"><var>K</var><sub>p</sub>: hệ số tỉ lệ <span class="en">proportional gain</span>. Đơn vị = đơn vị của u / đơn vị của y, ví dụ %/°C.</span></div>
+<p>Với lò nhiệt và <var>K</var><sub>p</sub> = 2 %/°C: thiếu 30 °C thì bật 60 % công suất, thiếu 5 °C thì bật 10 %. Gần tới đích thì tự giảm ga, nên êm hơn On/Off nhiều.</p>
+<h3>Vì sao chỉ P thì luôn còn sai số?</h3>
+<p>Đây là điểm quan trọng nhất của khâu P, ta suy ra từng bước cho lò nhiệt. Mô hình đơn giản của lò (sẽ giải thích ở <a href="#doi-tuong">mục 9</a>): ở trạng thái đứng yên (xác lập), nhiệt độ vượt nhiệt độ phòng 25 °C đúng bằng <var>K</var> · <var>u</var>, với <var>K</var> = 3 °C/%.</p>
+<ol class="steps">
+<li>Ở trạng thái xác lập (mọi thứ đã đứng yên), đối tượng cho:
+<div class="eq">y<sub>∞</sub> − 25 = <var>K</var> · <var>u</var><sub>∞</sub></div></li>
+<li>Bộ điều khiển P cho:
+<div class="eq"><var>u</var><sub>∞</sub> = <var>K</var><sub>p</sub> · <var>e</var><sub>∞</sub> = <var>K</var><sub>p</sub> · (<var>r</var> − <var>y</var><sub>∞</sub>)</div></li>
+<li>Muốn có nhiệt (<var>y</var><sub>∞</sub> &gt; 25) thì phải có <var>u</var><sub>∞</sub> &gt; 0, mà <var>u</var><sub>∞</sub> = <var>K</var><sub>p</sub>·<var>e</var><sub>∞</sub>, nên <b><var>e</var><sub>∞</sub> không thể bằng 0</b>. Chính sai số “nuôi” tín hiệu điều khiển.</li>
+<li>Đặt Δ = <var>r</var> − 25. Viết <var>y</var><sub>∞</sub> − 25 = Δ − <var>e</var><sub>∞</sub>, thế vào bước 1 và 2:
+<div class="eq">Δ − <var>e</var><sub>∞</sub> = <var>K</var>·<var>K</var><sub>p</sub>·<var>e</var><sub>∞</sub></div></li>
+<li>Chuyển vế, gom <var>e</var><sub>∞</sub>:
+<div class="eq"><var>e</var><sub>∞</sub> = <span class="fr"><span>Δ</span><span>1 + <var>K</var>·<var>K</var><sub>p</sub></span></span></div></li>
+<li>Thay số: <var>r</var> = 200 °C, Δ = 175 °C, <var>K</var> = 3, <var>K</var><sub>p</sub> = 2: <var>e</var><sub>∞</sub> = 175 / (1 + 6) = <b>25 °C</b>. Lò chỉ lên được 175 °C! Tăng <var>K</var><sub>p</sub> lên 10 thì <var>e</var><sub>∞</sub> = 175/31 ≈ 5,6 °C: nhỏ đi nhưng không bao giờ bằng 0.</li>
+</ol>
+<p>Tích <var>K</var>·<var>K</var><sub>p</sub> gọi là <b>hệ số khuếch đại vòng</b> <span class="en">loop gain</span>. Vòng càng “khỏe” thì sai số càng nhỏ. Vậy cứ tăng <var>K</var><sub>p</sub> thật lớn? Không được: đối tượng thật có trễ, <var>K</var><sub>p</sub> lớn làm bộ điều khiển phản ứng quá tay với thông tin cũ, <var>y</var> dao động ngày càng mạnh. Hãy tự thử: bật trễ 15 s rồi kéo <var>K</var><sub>p</sub> lên.</p>
+<div class="wg" id="w-p"></div>
+<div class="note"><p><b>Ngoại lệ đáng nhớ:</b> nếu đối tượng có sẵn khâu tích phân, như vị trí trục động cơ (vị trí là tích phân của tốc độ), thì chỉ P đã hết sai số khi không có tải. Lý do: ở xác lập trục đứng yên cần <var>u</var> = 0, nên <var>e</var> = 0 là được. Có tải kéo (trọng lực) thì lại cần <var>u</var> ≠ 0 và sai số quay lại.</p></div>
+<p>Ghi chú về <b>dải tỉ lệ</b> <span class="en">proportional band, PB</span>: nhiều bộ điều khiển nhiệt (Omron, Autonics, RKC…) không cho nhập <var>K</var><sub>p</sub> mà cho nhập PB tính bằng % thang đo: PB = 100 % / <var>K</var><sub>p</sub> (khi <var>u</var> và <var>y</var> cùng tính theo % thang). PB nhỏ nghĩa là <var>K</var><sub>p</sub> lớn.</p>
+</section>
+
+<!-- 6 -->
+<section class="s" id="khau-i">
+<h2><span class="n">6</span>Khâu I: cộng dồn sai số theo thời gian</h2>
+<p>Khâu P còn sai số vì nó chỉ nhìn <b>hiện tại</b>. Khâu I nhìn <b>quá khứ</b>: chừng nào còn sai, dù nhỏ, nó cứ cộng dồn và đẩy <var>u</var> lên mãi.</p>
+<div class="eq"><span class="ci">u</span><sub>I</sub>(t) = <var>K</var><sub>i</sub> · <span class="big">∫</span><sub>0</sub><sup>t</sup> <var>e</var>(τ) dτ<span class="c"><var>K</var><sub>i</sub>: hệ số tích phân <span class="en">integral gain</span>, đơn vị = (đơn vị u)/(đơn vị y · s)</span></div>
+<p>Hình dung một cái xô hứng nước: mỗi giây sai số <var>e</var> lại đổ vào <var>K</var><sub>i</sub>·<var>e</var> lít. Sai dương thì xô đầy thêm, sai âm thì xô vơi đi. Mực nước trong xô chính là <var>u</var><sub>I</sub>.</p>
+<h3>Vì sao khâu I xóa được sai số xác lập?</h3>
+<ol class="steps">
+<li>Ở trạng thái xác lập, mọi tín hiệu đứng yên, nên <var>u</var><sub>I</sub> cũng không đổi theo thời gian: <div class="eq">d<var>u</var><sub>I</sub>/d<var>t</var> = 0</div></li>
+<li>Nhưng đạo hàm của tích phân chính là hàm bên trong: <div class="eq">d<var>u</var><sub>I</sub>/d<var>t</var> = <var>K</var><sub>i</sub> · <var>e</var>(t)</div></li>
+<li>Ghép hai dòng: <var>K</var><sub>i</sub>·<var>e</var><sub>∞</sub> = 0, mà <var>K</var><sub>i</sub> ≠ 0, nên <b><var>e</var><sub>∞</sub> = 0</b>.</li>
+<li>Ý nghĩa: khâu I chỉ chịu “đứng yên” khi sai số đúng bằng 0. Phần công suất 58 % cần để giữ 200 °C giờ do khâu I mang (xô đã đầy đúng mức), khâu P chỉ còn lo phần thay đổi.</li>
+</ol>
+<p><b>Thời gian tích phân</b> <span class="en">integral time, reset time</span> <var>T</var><sub>i</sub> = <var>K</var><sub>p</sub> / <var>K</var><sub>i</sub>: nếu sai số đứng yên ở giá trị <var>e</var>, sau thời gian <var>T</var><sub>i</sub> khâu I đã cộng thêm đúng bằng phần khâu P đang góp (<var>K</var><sub>p</sub>·<var>e</var>). <var>T</var><sub>i</sub> nhỏ = tích phân mạnh. Khâu I có giá: nó làm vòng kín chậm pha hơn, dễ <b>vọt lố</b> <span class="en">overshoot</span> và dao động; còn khi <var>u</var> chạm giới hạn, nó gây hiện tượng <b>bão hòa tích phân</b> (xem <a href="#thuc-te">mục 12</a>).</p>
+<div class="wg" id="w-i"></div>
+</section>
+
+<!-- 7 -->
+<section class="s" id="khau-d">
+<h2><span class="n">7</span>Khâu D: nhìn xu hướng để phanh sớm</h2>
+<p>Khâu D nhìn <b>tương lai gần</b>: sai số đang giảm nhanh nghĩa là sắp tới đích, nên bớt ga trước khi quá đà.</p>
+<div class="eq"><span class="cd">u</span><sub>D</sub>(t) = <var>K</var><sub>d</sub> · <span class="fr"><span>d<var>e</var>(t)</span><span>d<var>t</var></span></span><span class="c"><var>K</var><sub>d</sub>: hệ số vi phân <span class="en">derivative gain</span>; <var>T</var><sub>d</sub> = <var>K</var><sub>d</sub>/<var>K</var><sub>p</sub>: thời gian vi phân <span class="en">derivative time</span></span></div>
+<p>Một cách hiểu hay: <var>e</var>(t + <var>T</var><sub>d</sub>) ≈ <var>e</var>(t) + <var>T</var><sub>d</sub>·d<var>e</var>/d<var>t</var> (khai triển Taylor bậc 1). Vậy P + D = <var>K</var><sub>p</sub>·[<var>e</var> + <var>T</var><sub>d</sub>·d<var>e</var>/d<var>t</var>] ≈ <var>K</var><sub>p</sub>·<var>e</var>(t + <var>T</var><sub>d</sub>): khâu P tác động theo <b>sai số dự đoán trước <var>T</var><sub>d</sub> giây</b>.</p>
+<h3>Với hệ lò xo, D đúng nghĩa là một bộ giảm chấn</h3>
+<p>Xét vật khối lượng <var>m</var> gắn lò xo độ cứng <var>k</var>, giảm chấn <var>c</var>, lực điều khiển <var>F</var>. Dùng bộ PD với D lấy theo vị trí đo (<var>r</var> không đổi nên d<var>e</var>/d<var>t</var> = −d<var>x</var>/d<var>t</var>):</p>
+<ol class="steps">
+<li>Định luật II Newton: <div class="eq"><var>m</var>·<var>x</var>″ = <var>F</var> − <var>c</var>·<var>x</var>′ − <var>k</var>·<var>x</var></div></li>
+<li>Bộ PD: <div class="eq"><var>F</var> = <var>K</var><sub>p</sub>·(<var>r</var> − <var>x</var>) − <var>K</var><sub>d</sub>·<var>x</var>′</div></li>
+<li>Thế vào và gom theo <var>x</var>, <var>x</var>′: <div class="eq"><var>m</var>·<var>x</var>″ + (<var>c</var> + <var>K</var><sub>d</sub>)·<var>x</var>′ + (<var>k</var> + <var>K</var><sub>p</sub>)·<var>x</var> = <var>K</var><sub>p</sub>·<var>r</var></div></li>
+<li>Đọc kết quả: <b><var>K</var><sub>p</sub> cộng thêm vào độ cứng lò xo</b>, <b><var>K</var><sub>d</sub> cộng thêm vào hệ số giảm chấn</b>. Hệ số tắt dần (càng gần 1 càng ít dao động):
+<div class="eq">ζ = <span class="fr"><span><var>c</var> + <var>K</var><sub>d</sub></span><span>2·√(<var>m</var>·(<var>k</var> + <var>K</var><sub>p</sub>))</span></span></div></li>
+<li>Hệ quả: tăng <var>K</var><sub>p</sub> mà không tăng <var>K</var><sub>d</sub> làm ζ <b>giảm</b>, hệ càng dao động. Muốn vừa cứng vừa êm thì phải có D.</li>
+</ol>
+<div class="wg" id="w-d"></div>
+<h3>Hai nhược điểm của khâu D</h3>
+<ul>
+<li><b>Khuếch đại nhiễu.</b> Nhiễu đo dạng <var>A</var>·sin(ω<var>t</var>) có đạo hàm <var>A</var>·ω·cos(ω<var>t</var>): biên độ nhân với tần số ω. Nhiễu tần số cao (lắc rung, nhiễu điện) bị phóng đại rất mạnh, làm <var>u</var> rung giật. Giải pháp: <b>lọc thông thấp</b> khâu D (mục 12). Vì vậy phần lớn vòng điều khiển trong nhà máy chỉ dùng PI, tắt hẳn khâu D.</li>
+<li><b>Giật D</b> <span class="en">derivative kick</span>. Khi đổi điểm đặt đột ngột, <var>e</var> nhảy bậc, d<var>e</var>/d<var>t</var> về lý thuyết là vô cùng, <var>u</var> bị “đá” một xung rất lớn. Giải pháp: lấy đạo hàm theo <b>giá trị đo</b>: −<var>K</var><sub>d</sub>·d<var>y</var>/d<var>t</var> thay vì <var>K</var><sub>d</sub>·d<var>e</var>/d<var>t</var> (hai cách như nhau khi <var>r</var> không đổi).</li>
+</ul>
+</section>
+
+<!-- 8 -->
+<section class="s" id="cong-thuc">
+<h2><span class="n">8</span>Công thức PID đầy đủ</h2>
+<figure class="dg">
+<svg viewBox="0 0 640 210" role="img" aria-label="Ba nhánh P, I, D song song cùng nhận e, cộng lại thành u">
+<path class="ar" d="M10,105H80"/><text x="30" y="95">e</text>
+<path class="ar" d="M80,105V35H180"/><path class="ar" d="M80,105H180"/><path class="ar" d="M80,105V175H180"/>
+<rect class="bx" x="182" y="12" width="200" height="46" rx="8"/><text x="196" y="41" style="fill:var(--cp);font-weight:700">P:  Kp · e</text>
+<rect class="bx" x="182" y="82" width="200" height="46" rx="8"/><text x="196" y="111" style="fill:var(--ci);font-weight:700">I:  Ki · ∫ e dt</text>
+<rect class="bx" x="182" y="152" width="200" height="46" rx="8"/><text x="196" y="181" style="fill:var(--cd);font-weight:700">D:  Kd · de/dt</text>
+<path class="ar" d="M382,35H470V87"/><path class="ar" d="M382,105H452"/><path class="ar" d="M382,175H470V123"/>
+<circle class="sm" cx="470" cy="105" r="18"/><text x="463" y="110">Σ</text>
+<path class="ar" d="M488,105H560"/><text x="510" y="95">u*</text>
+<rect class="bx" x="562" y="82" width="70" height="46" rx="8"/><text x="570" y="104" style="font-size:12px">giới hạn</text><text x="574" y="120" style="font-size:12px">u min/max</text>
+</svg>
+<figcaption>Hình 2. Ba khâu làm việc song song: P nhìn hiện tại, I nhìn quá khứ, D nhìn xu hướng.</figcaption>
+</figure>
+<p><b>Dạng song song</b> <span class="en">parallel form</span>, ba hệ số độc lập, dễ hiểu, hay dùng trong vi điều khiển:</p>
+<div class="eq"><var>u</var>(t) = <span class="cp"><var>K</var><sub>p</sub>·<var>e</var>(t)</span> + <span class="ci"><var>K</var><sub>i</sub>·<span class="big">∫</span><var>e</var>(τ)dτ</span> + <span class="cd"><var>K</var><sub>d</sub>·<span class="fr"><span>d<var>e</var></span><span>d<var>t</var></span></span></span></div>
+<p><b>Dạng chuẩn ISA</b> <span class="en">standard / ideal form</span>, hay gặp trong PLC, bộ điều khiển nhiệt, tài liệu công nghiệp: một hệ số khuếch đại và hai hằng số thời gian.</p>
+<div class="eq"><var>u</var>(t) = <var>K</var><sub>p</sub> · [ <var>e</var>(t) + <span class="fr"><span>1</span><span><var>T</var><sub>i</sub></span></span><span class="big">∫</span><var>e</var>(τ)dτ + <var>T</var><sub>d</sub>·<span class="fr"><span>d<var>e</var></span><span>d<var>t</var></span></span> ]</div>
+<div class="tw"><table>
+<tr><th>Chuyển đổi</th><th>Từ dạng chuẩn sang song song</th><th>Từ song song sang dạng chuẩn</th></tr>
+<tr><td>Khâu I</td><td><var>K</var><sub>i</sub> = <var>K</var><sub>p</sub> / <var>T</var><sub>i</sub></td><td><var>T</var><sub>i</sub> = <var>K</var><sub>p</sub> / <var>K</var><sub>i</sub></td></tr>
+<tr><td>Khâu D</td><td><var>K</var><sub>d</sub> = <var>K</var><sub>p</sub> · <var>T</var><sub>d</sub></td><td><var>T</var><sub>d</sub> = <var>K</var><sub>d</sub> / <var>K</var><sub>p</sub></td></tr>
+</table></div>
+<div class="warnb"><p><b>Bẫy hay gặp:</b> chép bộ thông số từ máy này sang máy khác mà không để ý dạng. Ở dạng chuẩn, tăng <var>K</var><sub>p</sub> thì khâu I và D <b>cũng mạnh theo</b>; ở dạng song song thì không. Một số hãng còn dùng <var>K</var><sub>i</sub> tính theo 1/phút, <var>T</var><sub>i</sub> theo phút hoặc “lặp lại/phút”. Luôn đọc tài liệu lệnh PID của thiết bị trước khi nhập số.</p></div>
+<h3>Hàm truyền: ngôn ngữ của sách điều khiển</h3>
+<p>Phép biến đổi Laplace biến phép đạo hàm thành phép <b>nhân với s</b>, phép tích phân thành phép <b>chia cho s</b> (với điều kiện đầu bằng 0). Nhờ vậy phương trình vi phân trở thành phép nhân chia đại số. Hàm truyền của PID:</p>
+<div class="eq"><var>C</var>(<var>s</var>) = <span class="fr"><span><var>U</var>(<var>s</var>)</span><span><var>E</var>(<var>s</var>)</span></span> = <var>K</var><sub>p</sub> + <span class="fr"><span><var>K</var><sub>i</sub></span><span><var>s</var></span></span> + <var>K</var><sub>d</sub>·<var>s</var>    →    có lọc D:  <var>K</var><sub>p</sub> + <span class="fr"><span><var>K</var><sub>i</sub></span><span><var>s</var></span></span> + <span class="fr"><span><var>K</var><sub>d</sub>·<var>s</var></span><span>1 + <var>T</var><sub>f</sub>·<var>s</var></span></span></div>
+<p>Khi đã có hàm truyền đối tượng <var>G</var>(<var>s</var>), hàm truyền vòng kín từ <var>r</var> tới <var>y</var> là <var>C</var><var>G</var>/(1 + <var>C</var><var>G</var>). Phần lớn lý thuyết ổn định (Nyquist, Bode, độ dự trữ pha) xoay quanh biểu thức này; bài này chỉ cần nhớ ý: <b>1 + <var>C</var><var>G</var> càng xa 0 thì vòng kín càng an toàn</b>.</p>
+</section>
+
+<!-- 9 -->
+<section class="s" id="doi-tuong">
+<h2><span class="n">9</span>Mô hình đối tượng: hiểu thứ mình điều khiển</h2>
+<p>Không cần mô hình vẫn chỉnh được PID (thử và sai), nhưng hiểu đối tượng giúp chỉnh nhanh và đúng hơn. Ba dạng gặp nhiều nhất:</p>
+<h3>9.1. Bậc 1: lò nhiệt, bồn nước, tốc độ động cơ</h3>
+<p>Lò nhận nhiệt từ thanh đốt (tỉ lệ <var>u</var>) và mất nhiệt ra môi trường (tỉ lệ chênh lệch nhiệt độ). Cân bằng năng lượng cho:</p>
+<div class="eq">τ · <span class="fr"><span>d<var>y</var></span><span>d<var>t</var></span></span> + <var>y</var> = <var>K</var> · <var>u</var>    (tính <var>y</var> từ nhiệt độ phòng)<span class="c"><var>K</var>: hệ số khuếch đại tĩnh <span class="en">static gain</span>; τ: hằng số thời gian <span class="en">time constant</span></span></div>
+<p>Ý nghĩa của τ, suy ra từng bước khi đổi <var>u</var> một bậc Δ<var>u</var> lúc <var>t</var> = 0:</p>
+<ol class="steps">
+<li>Nghiệm của phương trình (kiểm tra bằng cách thế vào): <div class="eq"><var>y</var>(t) = <var>K</var>·Δ<var>u</var>·(1 − e<sup>−t/τ</sup>)</div></li>
+<li>Khi <var>t</var> → ∞: e<sup>−t/τ</sup> → 0, nên <var>y</var> → <var>K</var>·Δ<var>u</var>. Vậy <b><var>K</var> = Δ<var>y</var> / Δ<var>u</var></b> ở xác lập.</li>
+<li>Khi <var>t</var> = τ: <var>y</var> = <var>K</var>·Δ<var>u</var>·(1 − e<sup>−1</sup>) = <var>K</var>·Δ<var>u</var>·(1 − 0,368) = <b>63,2 %</b> giá trị cuối.</li>
+<li>Khi <var>t</var> = 3τ: 95 %; khi <var>t</var> = 5τ: 99,3 %. Thường coi sau 4–5τ là đã xác lập.</li>
+</ol>
+<h3>9.2. Bậc 1 có trễ (FOPDT)</h3>
+<p>Thực tế còn có <b>thời gian trễ</b> <span class="en">dead time</span> <var>L</var>: đổi <var>u</var> xong phải chờ <var>L</var> giây <var>y</var> mới bắt đầu nhích (nhiệt truyền qua vỏ, nước chảy qua ống dài, băng tải chở vật liệu). Mô hình FOPDT <span class="en">first-order plus dead time</span>:</p>
+<div class="eq"><var>G</var>(<var>s</var>) = <span class="fr"><span><var>K</var>·e<sup>−<var>L</var><var>s</var></sup></span><span>τ<var>s</var> + 1</span></span></div>
+<p>Ba con số <var>K</var>, τ, <var>L</var> mô tả được rất nhiều quá trình công nghiệp, và là đầu vào của hầu hết quy tắc chỉnh PID. Tỉ số <var>L</var>/τ cho biết đối tượng khó hay dễ: <var>L</var>/τ &lt; 0,1 rất dễ, <var>L</var>/τ &gt; 1 khó (trễ chiếm ưu thế).</p>
+<h3>9.3. Bậc 2 và có khâu tích phân: servo, lò xo</h3>
+<p>Vị trí trục động cơ: điện áp sinh mô-men, mô-men sinh gia tốc, tích phân ra tốc độ, tích phân lần nữa ra góc. Mô hình có <b>khâu tích phân</b> <span class="en">integrating process</span>: cấp điện áp không đổi thì góc tăng mãi, không có “giá trị xác lập”. Hệ lò xo – khối lượng là bậc 2 có thể <b>tự dao động</b>. Với các đối tượng này, khâu D thường cần thiết.</p>
+<h3>9.4. Máy tính giải phương trình vi phân thế nào?</h3>
+<p>Mô phỏng (và cả bộ ước lượng trong PLC) giải phương trình theo từng bước thời gian nhỏ <var>h</var>. Cách đơn giản nhất, <b>phương pháp Euler</b>: đạo hàm ≈ độ thay đổi chia cho <var>h</var>.</p>
+<ol class="steps">
+<li>Viết phương trình dạng “đạo hàm = …”: <div class="eq"><span class="fr"><span>d<var>y</var></span><span>d<var>t</var></span></span> = <span class="fr"><span>−<var>y</var> + <var>K</var>·<var>u</var></span><span>τ</span></span></div></li>
+<li>Thay đạo hàm bằng hiệu số: <div class="eq"><span class="fr"><span><var>y</var><sub>n+1</sub> − <var>y</var><sub>n</sub></span><span><var>h</var></span></span> ≈ <span class="fr"><span>−<var>y</var><sub>n</sub> + <var>K</var>·<var>u</var><sub>n</sub></span><span>τ</span></span></div></li>
+<li>Rút ra công thức lặp: <div class="eq"><var>y</var><sub>n+1</sub> = <var>y</var><sub>n</sub> + <var>h</var> · <span class="fr"><span>−<var>y</var><sub>n</sub> + <var>K</var>·<var>u</var><sub>n</sub></span><span>τ</span></span></div></li>
+<li>Thay số <var>K</var> = 3, τ = 150 s, <var>h</var> = 1 s, <var>u</var> = 50 %, bắt đầu <var>y</var><sub>0</sub> = 0: <var>y</var><sub>1</sub> = 0 + 1·(0 + 150)/150 = 1,000; <var>y</var><sub>2</sub> = 1 + (−1 + 150)/150 = 1,993; <var>y</var><sub>3</sub> = 1,993 + (−1,993 + 150)/150 = 2,980 … đúng dáng đường cong 1 − e<sup>−t/τ</sup>.</li>
+</ol>
+<p>PID Lab dùng phương pháp Runge–Kutta bậc 4 (RK4), chính xác hơn Euler nhiều với cùng bước <var>h</var>, nhưng ý tưởng giống hệt: đi từng bước nhỏ.</p>
+</section>
+
+<!-- 10 -->
+<section class="s" id="roi-rac">
+<h2><span class="n">10</span>PID số: từ công thức liên tục tới vòng lặp trong PLC</h2>
+<p>PLC và vi điều khiển không tính được tích phân hay đạo hàm liên tục. Chúng chạy theo <b>chu kỳ lấy mẫu</b> <span class="en">sampling period</span> <var>T</var><sub>s</sub>: cứ mỗi <var>T</var><sub>s</sub> đọc cảm biến một lần, tính <var>u</var> một lần, rồi <b>giữ nguyên <var>u</var></b> tới lần sau <span class="en">zero-order hold</span>. Ký hiệu <var>e</var>[<var>k</var>] là sai số ở chu kỳ thứ <var>k</var> (thời điểm <var>t</var> = <var>k</var>·<var>T</var><sub>s</sub>).</p>
+<h3>10.1. Dạng vị trí</h3>
+<ol class="steps">
+<li>Tích phân là diện tích dưới đường <var>e</var>(t). Xấp xỉ bằng tổng các hình chữ nhật rộng <var>T</var><sub>s</sub>: <div class="eq"><span class="big">∫</span><sub>0</sub><sup>t</sup><var>e</var> dτ ≈ <var>T</var><sub>s</sub> · (<var>e</var>[0] + <var>e</var>[1] + … + <var>e</var>[<var>k</var>])</div></li>
+<li>Không cần cộng lại từ đầu mỗi lần: lưu tổng của lần trước. <div class="eq"><var>I</var>[<var>k</var>] = <var>I</var>[<var>k</var>−1] + <var>K</var><sub>i</sub>·<var>T</var><sub>s</sub>·<var>e</var>[<var>k</var>]</div></li>
+<li>Đạo hàm là độ dốc. Xấp xỉ bằng độ chênh giữa hai lần đo liên tiếp: <div class="eq"><span class="fr"><span>d<var>e</var></span><span>d<var>t</var></span></span> ≈ <span class="fr"><span><var>e</var>[<var>k</var>] − <var>e</var>[<var>k</var>−1]</span><span><var>T</var><sub>s</sub></span></span></div></li>
+<li>Ghép lại: <div class="eq"><var>u</var>[<var>k</var>] = <span class="cp"><var>K</var><sub>p</sub>·<var>e</var>[<var>k</var>]</span> + <span class="ci"><var>I</var>[<var>k</var>]</span> + <span class="cd"><var>K</var><sub>d</sub>·<span class="fr"><span><var>e</var>[<var>k</var>] − <var>e</var>[<var>k</var>−1]</span><span><var>T</var><sub>s</sub></span></span></span></div></li>
+<li>Cuối cùng giới hạn <var>u</var>[<var>k</var>] trong khoảng cơ cấu chấp hành làm được (0–100 %, ±24 V…), rồi xuất ra.</li>
+</ol>
+<p>Bấm từng bước dưới đây để xem bộ PID số và đối tượng “nói chuyện” với nhau qua từng chu kỳ. Đối tượng là lò thu nhỏ đã rời rạc hóa: <var>y</var>[<var>k</var>+1] = 0,8·<var>y</var>[<var>k</var>] + 0,4·<var>u</var>[<var>k</var>] (bậc 1, <var>K</var> = 0,4/(1 − 0,8) = 2).</p>
+<div class="wg calc" id="w-calc"></div>
+<h3>10.2. Dạng vận tốc (dạng gia số)</h3>
+<p>Nhiều PLC và biến tần dùng dạng tính <b>độ thay đổi</b> Δ<var>u</var> thay vì <var>u</var>. Suy ra bằng cách lấy <var>u</var>[<var>k</var>] trừ <var>u</var>[<var>k</var>−1]:</p>
+<ol class="steps">
+<li>Khâu P: <var>K</var><sub>p</sub>·<var>e</var>[<var>k</var>] − <var>K</var><sub>p</sub>·<var>e</var>[<var>k</var>−1] = <var>K</var><sub>p</sub>·(<var>e</var>[<var>k</var>] − <var>e</var>[<var>k</var>−1])</li>
+<li>Khâu I: <var>I</var>[<var>k</var>] − <var>I</var>[<var>k</var>−1] = <var>K</var><sub>i</sub>·<var>T</var><sub>s</sub>·<var>e</var>[<var>k</var>] (tổng dồn biến mất!)</li>
+<li>Khâu D: <span class="fr"><span><var>K</var><sub>d</sub></span><span><var>T</var><sub>s</sub></span></span>·[(<var>e</var>[<var>k</var>] − <var>e</var>[<var>k</var>−1]) − (<var>e</var>[<var>k</var>−1] − <var>e</var>[<var>k</var>−2])] = <span class="fr"><span><var>K</var><sub>d</sub></span><span><var>T</var><sub>s</sub></span></span>·(<var>e</var>[<var>k</var>] − 2<var>e</var>[<var>k</var>−1] + <var>e</var>[<var>k</var>−2])</li>
+<li>Cộng ba dòng: <div class="eq">Δ<var>u</var>[<var>k</var>] = <var>K</var><sub>p</sub>(<var>e</var><sub>k</sub> − <var>e</var><sub>k−1</sub>) + <var>K</var><sub>i</sub><var>T</var><sub>s</sub><var>e</var><sub>k</sub> + <span class="fr"><span><var>K</var><sub>d</sub></span><span><var>T</var><sub>s</sub></span></span>(<var>e</var><sub>k</sub> − 2<var>e</var><sub>k−1</sub> + <var>e</var><sub>k−2</sub>) ;   <var>u</var>[<var>k</var>] = sat(<var>u</var>[<var>k</var>−1] + Δ<var>u</var>[<var>k</var>])</div></li>
+</ol>
+<p>Ưu điểm của dạng vận tốc: chuyển từ chạy tay sang tự động không bị giật (chỉ cộng thêm từ giá trị đang có), và <b>tự nhiên chống bão hòa tích phân</b> vì <var>u</var> bị kẹp ở giới hạn trước khi lưu. Nhược điểm: không có “bộ nhớ I” riêng để quan sát, và khâu P có tác dụng hơi khác khi <var>u</var> bị kẹp.</p>
+<h3>10.3. Chọn chu kỳ lấy mẫu</h3>
+<ul>
+<li>Quy tắc thường dùng: <var>T</var><sub>s</sub> nhỏ hơn khoảng 1/10 hằng số thời gian vòng kín mong muốn, và nhỏ hơn khoảng 1/4 thời gian trễ <var>L</var>.</li>
+<li>Lấy mẫu chậm tương đương <b>thêm trễ khoảng <var>T</var><sub>s</sub>/2</b> vào vòng: vòng kín kém ổn định hơn.</li>
+<li>Lấy mẫu quá nhanh với khâu D: hiệu <var>e</var>[<var>k</var>] − <var>e</var>[<var>k</var>−1] bé xíu, toàn là nhiễu lượng tử hóa của ADC, chia cho <var>T</var><sub>s</sub> nhỏ ra số rất lớn. Khâu D cần lọc.</li>
+<li>Giá trị điển hình: dòng điện động cơ 50–100 µs, tốc độ 0,5–2 ms, vị trí 1–5 ms, áp suất/lưu lượng 0,1–0,5 s, nhiệt độ 0,5–5 s.</li>
+<li><b>Phải đều</b>: gọi hàm PID trong ngắt timer hoặc task có chu kỳ cố định, không gọi “mỗi vòng quét” khi vòng quét dài ngắn thất thường.</li>
+</ul>
+</section>
+
+<!-- 11 -->
+<section class="s" id="code">
+<h2><span class="n">11</span>Viết PID bằng C++17</h2>
+<p>Dưới đây là một lớp PID dùng được thật (Arduino, STM32, ESP32 với trình biên dịch hỗ trợ C++17, hoặc chạy trên máy tính để thử). Nó có đủ ba “đồ bảo hộ” sẽ bàn ở mục 12: khâu D theo giá trị đo, lọc khâu D, chống bão hòa tích phân. Hàm <code>main</code> mô phỏng chính lò nhiệt ở trên để bạn chạy thử.</p>
+<pre><code>#include &lt;iostream&gt;
+#include &lt;iomanip&gt;
+#include &lt;algorithm&gt;
+using namespace std;
+
+<span class="cm">// Bộ điều khiển PID số, dạng vị trí, chống bão hòa kiểu dừng tích phân,</span>
+<span class="cm">// khâu D lấy theo giá trị đo và có lọc thông thấp bậc 1.</span>
+struct CauHinhPID {
+    double Kp = 1.0, Ki = 0.0, Kd = 0.0; <span class="cm">// hệ số dạng song song</span>
+    double Ts = 1.0;                      <span class="cm">// chu kỳ lấy mẫu (s)</span>
+    double uMin = 0.0, uMax = 100.0;      <span class="cm">// giới hạn của cơ cấu chấp hành</span>
+    double Tf = 0.0;                      <span class="cm">// hằng số lọc khâu D (s), 0 = không lọc</span>
+};
+
+class PID {
+public:
+    explicit PID(const CauHinhPID&amp; c) : c_(c) {}
+
+    <span class="cm">// Khởi động không giật: khâu I mang sẵn giá trị u đang dùng</span>
+    void datLai(double uHienTai, double yHienTai) {
+        I_ = uHienTai; yTruoc_ = yHienTai; D_ = 0.0; coYTruoc_ = true;
+    }
+
+    <span class="cm">// Gọi đúng một lần mỗi chu kỳ Ts</span>
+    double capNhat(double r, double y) {
+        double e = r - y;                                  <span class="cm">// 1. sai số</span>
+        double P = c_.Kp * e;                              <span class="cm">// 2. khâu P</span>
+        double Dtho = coYTruoc_ ? -c_.Kd * (y - yTruoc_) / c_.Ts : 0.0;  <span class="cm">// 3. D theo y</span>
+        double a = c_.Ts / (c_.Tf + c_.Ts);                <span class="cm">// hệ số lọc (Tf = 0 → a = 1)</span>
+        D_ += a * (Dtho - D_);
+        double Imoi = I_ + c_.Ki * c_.Ts * e;              <span class="cm">// 4. khâu I (thử cộng)</span>
+        double uThu = P + Imoi + D_;
+        bool dayLen = uThu &gt; c_.uMax &amp;&amp; e &gt; 0;             <span class="cm">// 5. chống bão hòa:</span>
+        bool dayXuong = uThu &lt; c_.uMin &amp;&amp; e &lt; 0;           <span class="cm">//    đang chạm trần/sàn mà còn đẩy thêm</span>
+        if (!dayLen &amp;&amp; !dayXuong) I_ = Imoi;               <span class="cm">//    thì không cộng dồn</span>
+        double u = clamp(P + I_ + D_, c_.uMin, c_.uMax);   <span class="cm">// 6. giới hạn (C++17: std::clamp)</span>
+        yTruoc_ = y; coYTruoc_ = true;
+        return u;
+    }
+
+private:
+    CauHinhPID c_;
+    double I_ = 0.0, D_ = 0.0, yTruoc_ = 0.0;
+    bool coYTruoc_ = false;
+};
+
+int main() {
+    <span class="cm">// Đối tượng: lò nhiệt bậc 1, tau*dy/dt = -(y - 25) + K*u, giải bằng Euler bước 0,1 s</span>
+    const double K = 3.0, tau = 150.0, moiTruong = 25.0;
+    CauHinhPID c;
+    c.Kp = 1.67; c.Ki = 0.0139; c.Kd = 0.0; c.Ts = 1.0;
+    PID pid(c);
+    double y = moiTruong, u = 0.0, r = 200.0;
+    pid.datLai(u, y);
+    cout &lt;&lt; fixed &lt;&lt; setprecision(2);
+    for (int k = 0; k &lt;= 600; ++k) {               <span class="cm">// 600 chu kỳ = 600 s</span>
+        u = pid.capNhat(r, y);                      <span class="cm">// đọc y, tính u</span>
+        for (int i = 0; i &lt; 10; ++i)                <span class="cm">// giữ u trong Ts = 1 s</span>
+            y += 0.1 * (-(y - moiTruong) + K * u) / tau;
+        if (k % 100 == 0) cout &lt;&lt; &quot;t = &quot; &lt;&lt; k &lt;&lt; &quot; s   y = &quot; &lt;&lt; y &lt;&lt; &quot; C   u = &quot; &lt;&lt; u &lt;&lt; &quot; %\n&quot;;
+    }
+    return 0;
+}</code></pre>
+<p>Biên dịch và chạy: <code>g++ -std=c++17 -Wall pid.cpp -o pid &amp;&amp; ./pid</code>. Kết quả (đã chạy thử): nhiệt độ lên 165 °C sau 100 s, 196 °C sau 300 s, 199,7 °C sau 600 s, công suất xác lập 58,4 % đúng như tính tay (175/3 ≈ 58,3 %).</p>
+<p>Đọc lại từng bước của <code>capNhat</code>:</p>
+<ol class="steps">
+<li><code>e = r - y</code>: sai số của chu kỳ này.</li>
+<li><code>P = Kp * e</code>: khâu tỉ lệ.</li>
+<li><code>Dtho = -Kd * (y - yTruoc_) / Ts</code>: đạo hàm theo <b>y</b> (có dấu trừ), nên đổi điểm đặt không gây giật. Rồi lọc: <code>D_ += a * (Dtho - D_)</code> là bộ lọc thông thấp bậc 1 rời rạc, <code>a = Ts/(Tf+Ts)</code>.</li>
+<li><code>Imoi = I_ + Ki * Ts * e</code>: thử cộng dồn.</li>
+<li>Nếu cộng dồn làm <code>u</code> càng vượt giới hạn theo đúng chiều đang vượt, thì bỏ qua lần cộng này (<b>dừng tích phân</b> <span class="en">conditional integration / clamping</span>).</li>
+<li><code>clamp(P + I_ + D_, uMin, uMax)</code>: hàm <code>std::clamp</code> có từ C++17, trả về giá trị bị kẹp trong khoảng.</li>
+</ol>
+<h3>Trên PLC: Structured Text (IEC 61131-3), dạng vận tốc</h3>
+<p>PLC nào cũng có lệnh PID sẵn; đoạn dưới để hiểu bên trong lệnh đó làm gì, hoặc dùng cho PLC đời cũ không có lệnh PID. Đặt trong một task chạy đúng chu kỳ <code>Ts</code>.</p>
+<pre><code><span class="cm">(* Biến giữ lại giữa các chu kỳ: e1, e2, u (REAL) *)</span>
+e  := SP - PV;
+du := Kp*(e - e1) + Ki*Ts*e + (Kd/Ts)*(e - 2.0*e1 + e2);
+u  := u + du;
+<span class="kw">IF</span> u &gt; UMAX <span class="kw">THEN</span> u := UMAX; <span class="kw">END_IF</span>;   <span class="cm">(* kẹp trước khi lưu: tự chống bão hòa *)</span>
+<span class="kw">IF</span> u &lt; UMIN <span class="kw">THEN</span> u := UMIN; <span class="kw">END_IF</span>;
+e2 := e1;
+e1 := e;
+CV := u;   <span class="cm">(* xuất ra analog / PWM *)</span></code></pre>
+</section>
+
+<!-- 12 -->
+<section class="s" id="thuc-te">
+<h2><span class="n">12</span>Các vấn đề thực tế và cách xử lý</h2>
+<p>Công thức PID sách giáo khoa chạy rất đẹp trên giấy. Đưa ra máy thật, có năm cái bẫy gần như ai cũng gặp.</p>
+<h3>12.1. Bão hòa tích phân <span class="en">integrator windup</span></h3>
+<p>Cơ cấu chấp hành có giới hạn: thanh nhiệt tối đa 100 %, động cơ tối đa 24 V. Khi đặt nhiệt độ cao, lò cần nhiều phút mới tới; suốt thời gian đó <var>u</var> đã kẹp 100 % nhưng <var>e</var> vẫn dương nên khâu I <b>vẫn cộng dồn</b>, có khi lên tới “300 %”. Tới điểm đặt, <var>e</var> đổi dấu nhưng phải mất rất lâu khâu I mới xả hết phần thừa: lò <b>vọt lố nặng</b> rồi chậm chạp quay về.</p>
+<p>Ba cách chống phổ biến:</p>
+<ul>
+<li><b>Dừng tích phân</b> <span class="en">clamping</span>: khi <var>u</var> đang bão hòa và <var>e</var> còn đẩy cùng chiều thì không cộng dồn nữa. Đơn giản, hiệu quả, dùng trong code ở mục 11.</li>
+<li><b>Tính ngược</b> <span class="en">back-calculation</span>: trừ bớt vào khâu I một lượng tỉ lệ phần bị cắt (<var>u</var> − <var>u</var>*)/<var>T</var><sub>t</sub>. Khâu I tự “xả” mềm mại. Thường chọn <var>T</var><sub>t</sub> = √(<var>T</var><sub>i</sub>·<var>T</var><sub>d</sub>), hoặc <var>T</var><sub>t</sub> = <var>T</var><sub>i</sub> với PI.</li>
+<li><b>Dùng dạng vận tốc</b> (mục 10.2): kẹp <var>u</var> trước khi lưu.</li>
+</ul>
+<div class="wg" id="w-wind"></div>
+<h3>12.2. Nhiễu đo và lọc khâu D</h3>
+<p>Thay <var>K</var><sub>d</sub>·<var>s</var> bằng <var>K</var><sub>d</sub>·<var>s</var>/(1 + <var>T</var><sub>f</sub>·<var>s</var>): ở tần số thấp vẫn là đạo hàm, ở tần số cao thì bị chặn lại ở mức <var>K</var><sub>d</sub>/<var>T</var><sub>f</sub>. Chọn <var>T</var><sub>f</sub> ≈ <var>T</var><sub>d</sub>/<var>N</var> với <var>N</var> từ 5 tới 20. Ngoài ra lọc ngay ở đầu vào analog (tụ RC, lọc trung bình trượt) và đi dây cảm biến đúng cách (cáp chống nhiễu, tách khỏi dây động lực) thường hiệu quả hơn mọi bộ lọc số.</p>
+<h3>12.3. Giật khi đổi điểm đặt</h3>
+<p>Đã gặp ở mục 7: lấy D theo <var>y</var>. Tương tự, khâu P cũng có thể chỉ lấy một phần điểm đặt: <var>P</var> = <var>K</var><sub>p</sub>·(<var>b</var>·<var>r</var> − <var>y</var>) với 0 ≤ <var>b</var> ≤ 1 (<b>trọng số điểm đặt</b> <span class="en">setpoint weighting</span>). <var>b</var> nhỏ thì đổi điểm đặt êm, ít vọt lố, mà khả năng chống nhiễu tải không đổi (vì nhiễu tải chỉ đi qua <var>y</var>). Cách khác: cho điểm đặt tăng dần theo dốc <span class="en">setpoint ramp</span>.</p>
+<h3>12.4. Tách tích phân</h3>
+<p>Với servo vị trí, khâu I cần để chống tải nhưng lại làm vọt lố khi chạy quãng dài (I tích lũy suốt quãng đường). Cách làm phổ biến trong sách điều khiển máy: <b>chỉ bật khâu I khi |<var>e</var>| nhỏ hơn một ngưỡng</b> <span class="en">integral separation</span>, tức là khi đã về gần đích. Thử trong Lab: đối tượng “Vị trí servo”, phần Thực tế.</p>
+<h3>12.5. Chuyển tay/tự động không giật và vùng chết</h3>
+<ul>
+<li><b>Không giật</b> <span class="en">bumpless transfer</span>: lúc chuyển từ chạy tay (<var>u</var> do người vận hành đặt) sang tự động, gán sẵn khâu I = <var>u</var> đang có (hàm <code>datLai</code> trong code). Nếu không, <var>u</var> nhảy về P + 0 đột ngột.</li>
+<li><b>Vùng chết</b> <span class="en">deadband</span>: khi |<var>e</var>| rất nhỏ thì coi như 0, để van, rơ-le, động cơ không phải nhúc nhích liên tục vì nhiễu. Đổi lại có sai số nhỏ cố hữu bằng độ rộng vùng chết.</li>
+<li><b>Phi tuyến</b>: bồn nước xả theo √<var>h</var>, van có đặc tính cong. Bộ thông số chỉnh ở một điểm làm việc có thể quá mạnh hoặc quá yếu ở điểm khác. Cách xử lý: <b>đổi thông số theo điểm làm việc</b> <span class="en">gain scheduling</span>.</li>
+</ul>
+</section>
+
+<!-- 13 -->
+<section class="s" id="chinh-dinh">
+<h2><span class="n">13</span>Chỉnh định thông số</h2>
+<h3>13.1. Đo chất lượng bằng gì?</h3>
+<figure class="dg">
+<svg viewBox="0 0 640 260" role="img" aria-label="Đáp ứng bước với các chỉ tiêu: thời gian lên, vọt lố, thời gian xác lập, sai số xác lập">
+<path d="M50,220H620M50,220V20" stroke="#94a3b8" stroke-width="1.4" fill="none"/>
+<path d="M50,80H620" stroke="#d97706" stroke-dasharray="6 4" stroke-width="1.4"/><text x="584" y="72" style="fill:#d97706">r</text>
+<path d="M50,72H620M50,88H620" stroke="#94a3b8" stroke-dasharray="2 4"/><text x="560" y="104" class="lb">dải ±2 %</text>
+<path d="M50,220C110,220 120,60 170,48C215,38 230,95 265,92C300,89 310,74 345,78C380,82 420,80 620,80" stroke="#0E97A9" stroke-width="2.6" fill="none"/>
+<path d="M95,206V230M150,94V230" stroke="#334155" stroke-dasharray="3 3"/><path class="ar" d="M95,238H148"/><text x="70" y="254" class="lb">thời gian lên (10→90 %)</text>
+<path d="M170,48V80" stroke="#b91c1c" stroke-width="1.6"/><text x="178" y="44" style="fill:#b91c1c">vọt lố</text>
+<path d="M352,80V230" stroke="#334155" stroke-dasharray="3 3"/><text x="300" y="214" class="lb">t xác lập</text>
+<text x="20" y="84" class="lb">r</text><text x="54" y="16" class="lb">y</text><text x="606" y="240" class="lb">t</text>
+</svg>
+<figcaption>Hình 3. Các chỉ tiêu của đáp ứng bước.</figcaption>
+</figure>
+<div class="tw"><table>
+<tr><th>Chỉ tiêu</th><th>Định nghĩa</th><th>Ý nghĩa</th></tr>
+<tr><td>Thời gian lên <span class="en">rise time</span></td><td>Từ 10 % tới 90 % quãng thay đổi</td><td>Nhanh hay chậm</td></tr>
+<tr><td>Vọt lố <span class="en">overshoot</span></td><td>(đỉnh − giá trị cuối)/quãng thay đổi × 100 %</td><td>Hăng quá đà bao nhiêu</td></tr>
+<tr><td>Thời gian xác lập <span class="en">settling time</span></td><td>Từ lúc đổi tới lúc vào hẳn dải ±2 % (hoặc ±5 %)</td><td>Bao lâu mới ổn</td></tr>
+<tr><td>Sai số xác lập <span class="en">steady-state error</span></td><td><var>r</var> − <var>y</var><sub>∞</sub></td><td>Có tới đích không</td></tr>
+<tr><td>IAE</td><td>∫|<var>e</var>|d<var>t</var></td><td>Một con số gộp: càng nhỏ càng tốt</td></tr>
+</table></div>
+<p>Ngoài đáp ứng với điểm đặt, đừng quên <b>đáp ứng với nhiễu tải</b>: trong nhà máy, điểm đặt ít khi đổi, nhiễu thì xảy ra suốt. Một bộ PID chống nhiễu tốt quan trọng hơn một đường cong đổi điểm đặt đẹp.</p>
+<h3>13.2. Chỉnh tay</h3>
+<div class="tw"><table>
+<tr><th>Tăng</th><th>Thời gian lên</th><th>Vọt lố</th><th>Thời gian xác lập</th><th>Sai số xác lập</th><th>Nhiễu ở u</th></tr>
+<tr><td class="cp"><var>K</var><sub>p</sub></td><td>Giảm</td><td>Tăng</td><td>Thay đổi ít</td><td>Giảm</td><td>Tăng</td></tr>
+<tr><td class="ci"><var>K</var><sub>i</sub></td><td>Giảm</td><td>Tăng</td><td>Tăng</td><td>Xóa hết</td><td>Ít ảnh hưởng</td></tr>
+<tr><td class="cd"><var>K</var><sub>d</sub></td><td>Ít ảnh hưởng</td><td>Giảm</td><td>Giảm</td><td>Không</td><td>Tăng mạnh</td></tr>
+</table></div>
+<p class="f" style="font-size:14px;color:var(--muted)">Bảng này đúng xu hướng cho đa số đối tượng, không phải luật tuyệt đối (ví dụ <var>K</var><sub>d</sub> quá lớn với đối tượng có trễ lại làm dao động).</p>
+<p>Trình tự an toàn khi chỉnh tay:</p>
+<ol class="steps">
+<li>Tắt I và D. Tăng dần <var>K</var><sub>p</sub> (mỗi lần gấp đôi) cho tới khi đáp ứng bắt đầu dao động, rồi lùi lại khoảng một nửa.</li>
+<li>Nếu đối tượng có quán tính lớn hoặc tự dao động (servo, lò xo): thêm D cho tới khi dao động tắt nhanh, đừng tăng tới mức <var>u</var> rung giật vì nhiễu.</li>
+<li>Thêm I từ nhỏ: bắt đầu <var>T</var><sub>i</sub> bằng khoảng hằng số thời gian τ của đối tượng, giảm <var>T</var><sub>i</sub> (tăng <var>K</var><sub>i</sub>) tới khi sai số xóa đủ nhanh mà vọt lố còn chấp nhận được.</li>
+<li>Kiểm tra cả đổi điểm đặt và nhiễu tải, ở vài điểm làm việc khác nhau, và khi <var>u</var> chạm giới hạn.</li>
+</ol>
+<h3>13.3. Ziegler–Nichols vòng kín (dao động tới hạn)</h3>
+<ol class="steps">
+<li>Chỉ dùng P, tăng <var>K</var><sub>p</sub> tới khi <var>y</var> dao động <b>đều, không tắt không tăng</b>. Ghi lại hệ số đó là <var>K</var><sub>u</sub> <span class="en">ultimate gain</span> và chu kỳ dao động <var>T</var><sub>u</sub> <span class="en">ultimate period</span>.</li>
+<li>Tra bảng:</li>
+</ol>
+<div class="tw"><table>
+<tr><th>Loại</th><th><var>K</var><sub>p</sub></th><th><var>T</var><sub>i</sub></th><th><var>T</var><sub>d</sub></th></tr>
+<tr><td>P</td><td>0,5·<var>K</var><sub>u</sub></td><td>—</td><td>—</td></tr>
+<tr><td>PI</td><td>0,45·<var>K</var><sub>u</sub></td><td><var>T</var><sub>u</sub>/1,2</td><td>—</td></tr>
+<tr><td>PID</td><td>0,6·<var>K</var><sub>u</sub></td><td><var>T</var><sub>u</sub>/2</td><td><var>T</var><sub>u</sub>/8</td></tr>
+<tr><td>PID “ít vọt lố”</td><td>0,2·<var>K</var><sub>u</sub></td><td><var>T</var><sub>u</sub>/2</td><td><var>T</var><sub>u</sub>/3</td></tr>
+<tr><td>PI Tyreus–Luyben (êm hơn)</td><td><var>K</var><sub>u</sub>/3,2</td><td>2,2·<var>T</var><sub>u</sub></td><td>—</td></tr>
+</table></div>
+<p>Đẩy máy thật tới sát mất ổn định là việc nguy hiểm. Năm 1984 Åström và Hägglund đề xuất <b>thử rơ-le</b> <span class="en">relay autotuning</span>: thay PID bằng một rơ-le <var>u</var> = <var>u</var><sub>0</sub> ± <var>d</var>. Vòng kín tự dao động với biên độ nhỏ, đúng tại tần số tới hạn, và <var>K</var><sub>u</sub> ≈ 4<var>d</var>/(π<var>a</var>) với <var>a</var> là biên độ dao động của <var>y</var>. Nút “Auto-tune” trên rất nhiều bộ điều khiển nhiệt hoạt động theo cách này. Ziegler–Nichols nhắm tới dao động tắt dần 1/4 mỗi chu kỳ, nên thường <b>khá hăng</b>; hãy coi là điểm xuất phát rồi giảm bớt.</p>
+<h3>13.4. Dựa trên mô hình FOPDT: thử bước + SIMC</h3>
+<ol class="steps">
+<li>Để hệ đứng yên, chuyển sang chạy tay, đổi <var>u</var> một bậc Δ<var>u</var> (10–20 % thang), ghi lại <var>y</var>(t).</li>
+<li><var>K</var> = Δ<var>y</var>/Δ<var>u</var> khi đã xác lập.</li>
+<li>Tìm thời điểm <var>y</var> đạt 28,3 % (<var>t</var><sub>28</sub>) và 63,2 % (<var>t</var><sub>63</sub>) quãng thay đổi. Với FOPDT đúng, <var>t</var><sub>28</sub> = <var>L</var> + τ/3 và <var>t</var><sub>63</sub> = <var>L</var> + τ, nên:
+<div class="eq">τ = 1,5·(<var>t</var><sub>63</sub> − <var>t</var><sub>28</sub>)  ;   <var>L</var> = <var>t</var><sub>63</sub> − τ</div></li>
+<li>Quy tắc SIMC (Skogestad, 2003) cho PI, với τ<sub>c</sub> là hằng số thời gian vòng kín mong muốn (chọn τ<sub>c</sub> = <var>L</var> để cân bằng nhanh/bền, lớn hơn để êm hơn):
+<div class="eq"><var>K</var><sub>p</sub> = <span class="fr"><span>τ</span><span><var>K</var>·(τ<sub>c</sub> + <var>L</var>)</span></span>   ;   <var>T</var><sub>i</sub> = min(τ, 4·(τ<sub>c</sub> + <var>L</var>))</div></li>
+<li>Ví dụ lò nhiệt: <var>K</var> = 3 °C/%, τ = 150 s, <var>L</var> = 15 s, chọn τ<sub>c</sub> = 15 s: <var>K</var><sub>p</sub> = 150/(3·30) = 1,67 %/°C; <var>T</var><sub>i</sub> = min(150, 120) = 120 s, <var>K</var><sub>i</sub> = 1,67/120 = 0,0139. Chính là bộ số trong code C++ ở mục 11.</li>
+</ol>
+<div class="tip"><p>PID Lab có sẵn cả hai cách tự chỉnh (phần <b>Tự chỉnh</b>): thử rơ-le rồi tra bảng Ziegler–Nichols / Tyreus–Luyben, và thử bước rồi tính SIMC. Mỗi bộ số đều được chạy thử và báo vọt lố, thời gian xác lập trước khi bạn bấm Áp dụng.</p></div>
+</section>
+
+<!-- 14 -->
+<section class="s" id="nang-cao">
+<h2><span class="n">14</span>Mở rộng: khi một PID chưa đủ</h2>
+<h3>Điều khiển tầng <span class="en">cascade control</span></h3>
+<p>Driver servo công nghiệp không dùng một PID từ góc ra điện áp, mà ba vòng lồng nhau: vòng <b>vị trí</b> (ngoài cùng, chậm nhất) ra lệnh tốc độ, vòng <b>tốc độ</b> ra lệnh dòng điện, vòng <b>dòng điện</b> (trong cùng, nhanh nhất, chu kỳ cỡ chục µs) ra điện áp PWM. Vòng trong dập nhiễu sớm (điện áp nguồn dao động, mô-men tải) trước khi nó kịp ảnh hưởng vòng ngoài. Quy tắc: vòng trong nhanh hơn vòng ngoài ít nhất 3–5 lần, chỉnh vòng trong trước.</p>
+<figure class="dg">
+<svg viewBox="0 0 760 120" role="img" aria-label="Ba vòng tầng: vị trí, tốc độ, dòng điện">
+<text x="4" y="58">θ đặt</text><path class="ar" d="M44,52H70"/>
+<rect class="bx pid" x="72" y="30" width="110" height="44" rx="8"/><text x="84" y="57">PID vị trí</text><path class="ar" d="M182,52H230"/><text x="190" y="44" class="lb">ω đặt</text>
+<rect class="bx pid" x="232" y="30" width="110" height="44" rx="8"/><text x="242" y="57">PI tốc độ</text><path class="ar" d="M342,52H390"/><text x="352" y="44" class="lb">i đặt</text>
+<rect class="bx pid" x="392" y="30" width="110" height="44" rx="8"/><text x="404" y="57">PI dòng</text><path class="ar" d="M502,52H550"/><text x="514" y="44" class="lb">PWM</text>
+<rect class="bx" x="552" y="30" width="120" height="44" rx="8"/><text x="566" y="57">Động cơ</text><path class="ar" d="M672,52H750"/><text x="712" y="44" class="lb">θ</text>
+<path d="M612,74V110H127V76M612,74" stroke="#94a3b8" fill="none" stroke-dasharray="4 3"/><path d="M600,74V98H287V76" stroke="#94a3b8" fill="none" stroke-dasharray="4 3"/><path d="M588,74V88H447V76" stroke="#94a3b8" fill="none" stroke-dasharray="4 3"/>
+<text x="300" y="118" class="lb">phản hồi encoder (θ, ω) và cảm biến dòng (i)</text>
+</svg>
+<figcaption>Hình 4. Ba vòng tầng trong driver servo.</figcaption>
+</figure>
+<h3>Bù trước <span class="en">feedforward</span></h3>
+<p>Nếu đo được nhiễu (nhiệt độ nước vào, lưu lượng hàng trên băng tải) hoặc biết trước điểm đặt sẽ đổi thế nào (quỹ đạo của robot), hãy cộng thẳng phần <var>u</var> cần thiết vào đầu ra mà không chờ sai số xuất hiện. PID chỉ còn sửa phần sai lệch nhỏ còn lại. Servo dùng bù trước tốc độ và gia tốc là chuyện thường ngày.</p>
+<h3>Trễ lớn: bộ dự báo Smith, MPC</h3>
+<p>Khi <var>L</var> lớn hơn τ nhiều lần (băng tải dài, quá trình hóa học), PID phải chỉnh rất chậm. Bộ dự báo Smith <span class="en">Smith predictor</span> dùng mô hình để “nhìn trước” kết quả; điều khiển dự báo theo mô hình <span class="en">MPC</span> tối ưu cả một chuỗi <var>u</var> tương lai có ràng buộc. Cả hai đều cần mô hình đối tượng tốt hơn FOPDT.</p>
+</section>
+
+<!-- 15 -->
+<section class="s" id="ung-dung">
+<h2><span class="n">15</span>Ứng dụng</h2>
+<div class="cards">
+<div class="card"><h4>Lò nhiệt, máy ép nhựa, máy hàn túi</h4><p>Cặp nhiệt K/PT100 → bộ điều khiển nhiệt → SSR + điện trở. Thường PID hoặc PI, <var>T</var><sub>s</sub> 0,5–2 s, nút Auto-tune dùng thử rơ-le.</p><p class="k">Bẫy: windup khi khởi động lò nguội; chỉ sưởi được, không làm lạnh được.</p></div>
+<div class="card"><h4>Bơm biến tần giữ áp lực nước</h4><p>Cảm biến áp suất 4–20 mA → PID có sẵn trong biến tần → tốc độ bơm. Gặp ở tòa nhà, hệ thống tưới, trạm cấp nước. Thường PI.</p><p class="k">Bẫy: Ki quá lớn làm áp suất “bơi”; cần chế độ ngủ khi không ai dùng nước.</p></div>
+<div class="card"><h4>Tốc độ động cơ, băng tải</h4><p>Encoder → PI tốc độ → điện áp/PWM hoặc lệnh biến tần. <var>T</var><sub>s</sub> cỡ ms.</p><p class="k">Bẫy: đo tốc độ bằng đếm xung ở tốc độ thấp rất nhiễu, D gần như không dùng.</p></div>
+<div class="card"><h4>Servo vị trí, robot, máy CNC</h4><p>Ba vòng tầng (hình 4) + bù trước. Vòng vị trí thường P hoặc PD, vòng tốc độ PI.</p><p class="k">Bẫy: ma sát tĩnh, khe hở bánh răng gây dao động nhỏ quanh đích.</p></div>
+<div class="card"><h4>Mực nước, lưu lượng, áp suất quá trình</h4><p>Cảm biến mức/lưu lượng → PI → van điều khiển. Mực nước bồn trung gian đôi khi chỉ cần P (cho phép mực thay đổi để làm “đệm”).</p><p class="k">Bẫy: van có đặc tính phi tuyến, kẹt van (stiction).</p></div>
+<div class="card"><h4>Drone, xe tự cân bằng</h4><p>Cảm biến IMU (gia tốc kế + con quay) → PID góc nghiêng (vòng ngoài) + PID tốc độ góc (vòng trong) → tốc độ động cơ. Chu kỳ 1–4 ms.</p><p class="k">Bẫy: rung động cơ làm nhiễu con quay, phải lọc kỹ trước khâu D.</p></div>
+<div class="card"><h4>Điều hòa inverter, tủ ấm</h4><p>Nhiệt độ phòng → PI → tần số máy nén. Thay chế độ On/Off của máy đời cũ, nên êm và tiết kiệm điện hơn.</p><p class="k">Đối tượng rất chậm: τ hàng chục phút.</p></div>
+<div class="card"><h4>Ô tô: ga tự động, giữ làn</h4><p>Cruise control giữ tốc độ khi lên dốc xuống dốc: dốc chính là nhiễu tải, khâu I xóa sai lệch.</p><p class="k">Cần chống bão hòa khi xe leo dốc hết ga.</p></div>
+</div>
+</section>
+
+<!-- 16 -->
+<section class="s" id="thuc-hanh">
+<h2><span class="n">16</span>Thực hành với PID Lab</h2>
+<p>PID Lab có 5 đối tượng, mỗi đối tượng có một thử thách (vọt lố, thời gian xác lập, sai số xác lập kể cả khi có nhiễu tải). Ở chế độ xem nhanh, kéo thanh trượt là đường cong vẽ lại ngay; bấm <b>▶ Chạy</b> để xem theo thời gian và bấm <b>Nhiễu tải</b>, <b>Điểm đặt</b> lúc đang chạy; chạm vào đồ thị để xem <b>từng chu kỳ</b> PID tính ra sao, đúng như bảng ở mục 10.</p>
+<ol class="ex">
+<li><b>Sai số của khâu P.</b> <a href="lab.html#lo?Kp=1&amp;Ki=0&amp;Kd=0&amp;dist=0">Lò nhiệt chỉ P, Kp = 1</a>. Đọc sai số xác lập ở phần Chỉ tiêu, so với công thức 175/(1 + 3·Kp). Đổi Kp = 2, rồi 4: công thức còn đúng không? Với Kp = 4 chuyện gì xảy ra (gợi ý: chạy Thử rơ-le xem Ku bằng bao nhiêu)?</li>
+<li><b>On/Off và vùng trễ.</b> <a href="lab.html#lo?type=onoff">Lò nhiệt On/Off</a>. Đổi vùng trễ 0, 10, 30 °C; đếm số lần đóng cắt trên đồ thị u và đo biên độ dao động.</li>
+<li><b>Windup.</b> <a href="lab.html#lo?Kp=2&amp;Ki=0.05&amp;Kd=0&amp;aw=none">Lò nhiệt Ki lớn, không chống bão hòa</a>. Bật “Vẽ riêng P, I, D” để thấy khâu I phình ra. Lần lượt chọn Dừng tích phân, Tính ngược và so vọt lố (dùng Ghim).</li>
+<li><b>D là giảm chấn.</b> <a href="lab.html#loxo">Khối lượng – lò xo</a>. Chỉ P: dao động. Tăng Kd tới khi hết dao động; tính ζ theo công thức mục 7 và so. Bật nhiễu đo Mạnh, đổi lọc D, quan sát u.</li>
+<li><b>Giật D.</b> Cùng đối tượng, đặt Kd = 0,2, chọn “D theo sai số e”, bật Vẽ riêng P, I, D: xem xung D lúc đổi điểm đặt. Chuyển về “D theo y”.</li>
+<li><b>Servo có tải.</b> <a href="lab.html#servo">Vị trí servo</a>: chỉ PD thì có tải bị lệch. Thêm I thì vọt lố. Dùng Tách tích phân để đạt thử thách.</li>
+<li><b>Tự chỉnh.</b> <a href="lab.html#bon">Mực nước bồn</a>: chạy Thử bước, đọc K, τ, L; áp dụng SIMC. Rồi chạy Thử rơ-le, so Ziegler–Nichols với Tyreus–Luyben.</li>
+<li><b>Chu kỳ lấy mẫu.</b> <a href="lab.html#dc">Tốc độ động cơ DC</a> với bộ số đạt thử thách: đổi Ts từ 2 ms lên 10 ms rồi 40 ms. Từ đâu bắt đầu dao động?</li>
+</ol>
+</section>
+
+<!-- 17 -->
+<section class="s" id="tom-tat">
+<h2><span class="n">17</span>Tóm tắt và thuật ngữ</h2>
+<ul>
+<li><b>Phản hồi</b> đo kết quả để tự sửa: chống được nhiễu và sai lệch mô hình, đổi lại có nguy cơ dao động.</li>
+<li><b>P</b> phản ứng với hiện tại: nhanh nhưng còn sai số <var>e</var><sub>∞</sub> = Δ/(1 + <var>K</var>·<var>K</var><sub>p</sub>) với đối tượng không có khâu tích phân.</li>
+<li><b>I</b> cộng dồn quá khứ: xóa sai số xác lập, đổi lại chậm pha, dễ vọt lố, bị bão hòa khi <var>u</var> chạm giới hạn.</li>
+<li><b>D</b> dự đoán xu hướng: giảm chấn, giảm vọt lố, nhưng khuếch đại nhiễu; nên lấy theo <var>y</var> và có lọc.</li>
+<li><b>PID số</b>: tích phân thành tổng dồn, đạo hàm thành hiệu chia <var>T</var><sub>s</sub>; gọi đúng chu kỳ.</li>
+<li><b>Chỉnh định</b>: chỉnh tay theo trình tự P → D → I; Ziegler–Nichols / thử rơ-le; thử bước + SIMC. Luôn kiểm tra cả nhiễu tải và lúc bão hòa.</li>
+</ul>
+<div class="tw"><table>
+<tr><th>Tiếng Việt</th><th>English</th><th>Ký hiệu</th></tr>
+<tr><td>Điểm đặt</td><td>Setpoint (SP)</td><td><var>r</var></td></tr>
+<tr><td>Biến quá trình, giá trị đo</td><td>Process variable (PV)</td><td><var>y</var></td></tr>
+<tr><td>Tín hiệu điều khiển</td><td>Control output (CV/MV)</td><td><var>u</var></td></tr>
+<tr><td>Sai số</td><td>Error</td><td><var>e</var></td></tr>
+<tr><td>Hệ số tỉ lệ / tích phân / vi phân</td><td>Proportional / integral / derivative gain</td><td><var>K</var><sub>p</sub>, <var>K</var><sub>i</sub>, <var>K</var><sub>d</sub></td></tr>
+<tr><td>Thời gian tích phân / vi phân</td><td>Integral (reset) time / derivative time</td><td><var>T</var><sub>i</sub>, <var>T</var><sub>d</sub></td></tr>
+<tr><td>Dải tỉ lệ</td><td>Proportional band</td><td>PB</td></tr>
+<tr><td>Chu kỳ lấy mẫu</td><td>Sampling period</td><td><var>T</var><sub>s</sub></td></tr>
+<tr><td>Hằng số thời gian, thời gian trễ</td><td>Time constant, dead time</td><td>τ, <var>L</var></td></tr>
+<tr><td>Bão hòa tích phân, chống bão hòa</td><td>Integrator windup, anti-windup</td><td></td></tr>
+<tr><td>Giật D</td><td>Derivative kick</td><td></td></tr>
+<tr><td>Trọng số điểm đặt</td><td>Setpoint weighting</td><td><var>b</var></td></tr>
+<tr><td>Chuyển không giật</td><td>Bumpless transfer</td><td></td></tr>
+<tr><td>Hệ số / chu kỳ tới hạn</td><td>Ultimate gain / period</td><td><var>K</var><sub>u</sub>, <var>T</var><sub>u</sub></td></tr>
+<tr><td>Điều khiển tầng, bù trước</td><td>Cascade, feedforward</td><td></td></tr>
+</table></div>
+<h3>Đọc thêm</h3>
+<ul>
+<li>K. J. Åström, T. Hägglund, <i>Advanced PID Control</i>, ISA, 2006 (và bản trước <i>PID Controllers: Theory, Design, and Tuning</i>, 1995).</li>
+<li>J. G. Ziegler, N. B. Nichols, “Optimum settings for automatic controllers”, <i>Transactions of the ASME</i>, 1942.</li>
+<li>S. Skogestad, “Simple analytic rules for model reduction and PID controller tuning”, <i>Journal of Process Control</i>, 2003.</li>
+<li>N. Minorsky, “Directional stability of automatically steered bodies”, <i>Journal of the American Society of Naval Engineers</i>, 1922.</li>
+<li>Tài liệu lệnh PID của chính PLC/biến tần bạn đang dùng: dạng công thức, đơn vị <var>T</var><sub>i</sub>, <var>T</var><sub>d</sub>, cách chống bão hòa.</li>
+</ul>
+<div class="tip"><p><b>Bước tiếp theo:</b> <a href="lab.html">mở PID Lab</a> và làm 8 bài thực hành ở mục 16.</p></div>
+</section>
+
+<div class="foot"><span class="amts-logo" role="img" aria-label="AMTS"></span><br>AutoMaxTech Solutions · Nguyễn Công Cầu · Hotline: +84337595406</div>
+</article>
+</div>
+
+<script src="pid.js?v=d964eaf343"></script>
+<script src="ve.js?v=3d2f6249f6"></script>
+<script src="bai.js?v=26e4138b4e"></script>
+</body>
+</html>

@@ -4,8 +4,9 @@ Website học lập trình của trung tâm đào tạo **AMTS**. Mỗi bài có
 
 - Trang chủ: `index.html`
 - Khóa C++ từ nền tảng: `cpp/index.html` (19 bài đang mở, lộ trình 12 chương)
-- Lab: `lab/index.html`, mục “Lab” trên thanh điều hướng mọi trang (Khóa học · Lab · Tài liệu): danh sách các lab, mỗi lab một thẻ. Hiện có Mạch số Lab.
+- Lab: `lab/index.html`, mục “Lab” trên thanh điều hướng mọi trang (Khóa học · Lab · Tài liệu): danh sách các lab, mỗi lab một thẻ. Hiện có Mạch số Lab và PID Lab.
 - Mạch số Lab: `mach-so-lab/index.html`, mở từ trang Lab, nút “← Danh sách Lab” để quay lại (công cụ mô phỏng 14 mạch số, trang tĩnh độc lập, không dùng Firebase; mở thẳng một mạch bằng `#id`, ví dụ `mach-so-lab/index.html#d-flipflop`). Tên file không có mã băm; trang gắn `?v=<băm>` vào script/CSS nên cập nhật không bị dùng bản cũ.
+- Bài học PID và PID Lab: mở từ trang Lab (trước ở trang chủ, nay chuyển vào trang Lab), nút “← Danh sách Lab” để quay lại; `pid-lab/index.html` (bài “Thuật toán PID: từ nền tảng đến ứng dụng”, mở thẳng một mục bằng `#id`, ví dụ `pid-lab/index.html#khau-i`) và `pid-lab/lab.html` (phòng thí nghiệm PID, mở thẳng một đối tượng: `pid-lab/lab.html#servo`). Trang tĩnh độc lập, không dùng Firebase; tên file không có mã băm, script/CSS gắn `?v=<băm>`.
 - Công nghệ: HTML, CSS, JavaScript thuần; Firebase Authentication (Google) và Cloud Firestore; hosting tĩnh GitHub Pages.
 
 ## Repo này chứa gì và không chứa gì

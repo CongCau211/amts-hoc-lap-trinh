@@ -1,32 +1,28 @@
-GÓI CẬP NHẬT: thanh điều hướng Khóa học · Lab · Tài liệu và trang Lab (11/11/2026)
+GÓI CẬP NHẬT: trang Lab có thêm Bài học PID và PID Lab (11/11/2026)
 
 Cách cập nhật:
 1. Giải nén file lab-cap-nhat.zip.
-2. Tải toàn bộ các file, thư mục vừa giải nén lên repo GitHub Pages (CongCau211/amts-hoc-lap-trinh), GIỮ NGUYÊN cấu trúc thư mục (ví dụ lab/index.html nằm trong thư mục lab).
+2. Tải toàn bộ các file, thư mục vừa giải nén lên repo GitHub Pages (CongCau211/amts-hoc-lap-trinh), GIỮ NGUYÊN cấu trúc thư mục (ví dụ pid-lab/lab.html nằm trong thư mục pid-lab, lab/index.html nằm trong thư mục lab).
 3. Khi GitHub hỏi, cho GHI ĐÈ các file cùng tên.
-4. Chờ 1–2 phút rồi mở trang chủ, bấm Ctrl+F5 (hoặc kéo xuống để tải lại trên điện thoại). Thanh trên phải là: Khóa học · Lab · Tài liệu.
+4. Chờ 1–2 phút rồi mở trang chủ, bấm Ctrl+F5 (hoặc kéo xuống để tải lại trên điện thoại). Bấm “Lab” trên thanh trên: trang Lab phải có hai thẻ Mạch số Lab và Thuật toán PID & PID Lab.
 
 Thay đổi chính:
-- Thanh trên mọi trang còn 3 mục: Khóa học · Lab · Tài liệu (bỏ Lộ trình, Thực hành, Mạch số Lab trên thanh; Lộ trình và Thực hành vẫn ở thanh bên trong trang khóa học).
-- Trang mới lab/index.html: danh sách các Lab (hiện có Mạch số Lab).
-- Mạch số Lab: nút “← Danh sách Lab” quay về trang Lab.
+- Thanh trên mọi trang vẫn là: Khóa học · Lab · Tài liệu. Các lab chỉ mở từ mục “Lab” (trang lab/index.html), trang chủ không có mục lab.
+- Mới: Bài học “Thuật toán PID: từ nền tảng đến ứng dụng” (pid-lab/index.html) và PID Lab (pid-lab/lab.html), thẻ thứ hai trong trang Lab.
+- Mạch số Lab, bài PID và PID Lab đều có nút “← Danh sách Lab” quay về trang Lab.
 
-File MỚI (3):
-  assets/app/core.de37ba5200.js
-  assets/app/home.3b034225e0.js
-  lab/index.html
+File MỚI (7):
+  pid-lab/amts-logo.css
+  pid-lab/bai.js
+  pid-lab/index.html
+  pid-lab/lab.html
+  pid-lab/lab.js
+  pid-lab/pid.js
+  pid-lab/ve.js
 
-File ĐÃ ĐỔI (10):
+File ĐÃ ĐỔI (2):
   README.md
-  algo/index.html
-  cpp/index.html
-  hsg/index.html
-  index.html
-  mach-so-lab/index.html
-  maytinh/index.html
-  mcu8051/index.html
-  mpu8086/index.html
-  nentang/index.html
+  lab/index.html
 
 File cũ KHÔNG CÒN DÙNG (có thể xóa nếu muốn; để lại trên GitHub cũng không sao) (37):
   assets/app/algo-body.00e9900d55.js

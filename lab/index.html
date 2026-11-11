@@ -13,12 +13,12 @@
 <link rel="preload" as="script" href="https://cdn.jsdelivr.net/npm/firebase@10.14.1/firebase-app-compat.js">
 <link rel="preload" as="script" href="https://cdn.jsdelivr.net/npm/firebase@10.14.1/firebase-auth-compat.js">
 <link rel="preload" as="script" href="https://cdn.jsdelivr.net/npm/firebase@10.14.1/firebase-firestore-compat.js">
-<meta name="description" content="Lab của AMTS: công cụ mô phỏng chạy ngay trên trình duyệt, như Mạch số Lab mô phỏng mạch số mức cổng.">
+<meta name="description" content="Lab của AMTS: công cụ mô phỏng chạy ngay trên trình duyệt: Mạch số Lab mô phỏng mạch số mức cổng, bài học PID và PID Lab chỉnh Kp, Ki, Kd trên 5 đối tượng.">
 <meta property="og:type" content="website">
 <meta property="og:locale" content="vi_VN">
 <meta property="og:site_name" content="AMTS Học Lập Trình">
 <meta property="og:title" content="Lab · AMTS Học Lập Trình">
-<meta property="og:description" content="Lab của AMTS: công cụ mô phỏng chạy ngay trên trình duyệt, như Mạch số Lab mô phỏng mạch số mức cổng.">
+<meta property="og:description" content="Lab của AMTS: công cụ mô phỏng chạy ngay trên trình duyệt: Mạch số Lab mô phỏng mạch số mức cổng, bài học PID và PID Lab chỉnh Kp, Ki, Kd trên 5 đối tượng.">
 <meta name="theme-color" content="#0E97A9">
 <link rel="icon" href="../assets/brand/favicon.png">
 <link rel="apple-touch-icon" href="../assets/brand/apple-touch-icon.png">
@@ -200,8 +200,11 @@ body{background:var(--bg)}
 .lc-go{position:relative;z-index:1;display:flex;flex-wrap:wrap;align-items:center;gap:6px 8px;font-size:13.5px;color:var(--muted)}
 .lc-go a{display:inline-flex;align-items:center;min-height:36px;padding:0 12px;border-radius:999px;border:1px solid var(--line);background:var(--surface);color:var(--ink);font-weight:600;text-decoration:none}
 .lc-go a:hover{border-color:var(--accent);color:var(--accent)}
-.lc-cta{position:relative;z-index:1;justify-self:start;display:inline-flex;align-items:center;gap:8px;background:var(--accent);color:var(--accent-ink);border-radius:10px;padding:11px 18px;font-weight:700;font-size:15.5px;text-decoration:none;white-space:nowrap}
+.lc-acts{display:flex;flex-wrap:wrap;gap:10px;align-items:center}
+.lc-cta{position:relative;z-index:1;display:inline-flex;align-items:center;gap:8px;background:var(--accent);color:var(--accent-ink);border-radius:10px;padding:11px 18px;font-weight:700;font-size:15.5px;text-decoration:none;white-space:nowrap}
 .lc-cta:hover{filter:brightness(1.07)}
+.lc-cta2{position:relative;z-index:1;display:inline-flex;align-items:center;min-height:44px;padding:0 18px;border:1.5px solid var(--accent);border-radius:10px;background:var(--surface);color:var(--accent);font-weight:700;font-size:15.5px;text-decoration:none;white-space:nowrap}
+.lc-cta2:hover{background:var(--accent-soft)}
 /* ---- chân trang ---- */
 footer{margin-top:56px;border-top:1px solid var(--line);background:var(--surface);padding-block:24px 36px;font-size:14px;color:var(--muted)}
 footer .wrap{display:flex;flex-wrap:wrap;gap:10px 24px;align-items:center;justify-content:space-between}
@@ -222,7 +225,8 @@ footer a:hover{color:var(--accent)}
   .labc{padding:18px 16px;gap:12px 14px}
   .lc-ic{width:48px;height:48px}.lc-ic svg{width:28px;height:28px}
   .lc-t h2{font-size:20px}
-  .lc-cta{justify-self:stretch;justify-content:center}
+  .lc-acts{display:grid}
+  .lc-cta,.lc-cta2{justify-content:center}
 }
 </style>
 
@@ -254,7 +258,17 @@ footer a:hover{color:var(--accent)}
       <div class="lc-b"><p>14 mạch số, đi từ cổng logic tới thanh ghi. Bật/tắt đầu vào và xem tín hiệu lan qua từng cổng. Mỗi mạch có sơ đồ, giản đồ xung <span class="en">timing diagram</span>, bảng chân lý <span class="en">truth table</span>, nhật ký từng bước, giải thích và hướng dẫn ráp mạch thật bằng IC 74HC.</p>
         <ul class="lc-facts"><li>14 mạch · 5 nhóm</li><li>Không cần đăng nhập</li><li>Chạy ngay trên trình duyệt</li></ul>
         <div class="lc-go"><span>Mở thẳng:</span><a href="../mach-so-lab/index.html#cong-logic">Cổng logic</a><a href="../mach-so-lab/index.html#cong-du">Bộ cộng đủ</a><a href="../mach-so-lab/index.html#sr-nor">Chốt SR NOR</a><a href="../mach-so-lab/index.html#d-flipflop">D flip-flop</a><a href="../mach-so-lab/index.html#bo-dem">Bộ đếm 4 bit</a></div>
-        <a class="lc-cta" href="../mach-so-lab/index.html" tabindex="-1" aria-hidden="true">Mở Mạch số Lab <span aria-hidden="true">→</span></a></div>
+        <div class="lc-acts"><a class="lc-cta" href="../mach-so-lab/index.html" tabindex="-1" aria-hidden="true">Mở Mạch số Lab <span aria-hidden="true">→</span></a></div>
+      </div>
+    </article>
+    <article class="labc" data-lab="pid-lab">
+      <span class="lc-ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 3v18h18"/><path d="M3 16c3 0 4-10 7-10s3 5 5 5 3-1 6-1"/></svg></span>
+      <div class="lc-t"><h2><a href="../pid-lab/index.html">Thuật toán PID &amp; PID Lab</a></h2><p class="lc-sub">Bài học · Phòng thí nghiệm</p></div>
+      <div class="lc-b"><p>Bài học PID từ nền tảng tới ứng dụng: vòng kín, khâu P, I, D <span class="en" lang="en" data-vi="bộ điều khiển tỉ lệ, tích phân, vi phân">PID controller</span>, toán học, PID số, code C++17, chống bão hòa, chỉnh định Ziegler–Nichols và SIMC, kèm 6 mô phỏng trong bài. PID Lab cho chỉnh Kp, Ki, Kd trên 5 đối tượng thật (lò nhiệt, động cơ DC, servo, bồn nước, lò xo), xem từng chu kỳ tính toán và tự chỉnh <span class="en" lang="en" data-vi="tự chỉnh">auto-tuning</span>.</p>
+        <ul class="lc-facts"><li>Bài 17 mục · 6 mô phỏng</li><li>Lab 5 đối tượng</li><li>Không cần đăng nhập</li><li>Chạy ngay trên trình duyệt</li></ul>
+        <div class="lc-go"><span>Mở thẳng:</span><a href="../pid-lab/index.html#vong-kin">Vòng kín</a><a href="../pid-lab/index.html#khau-p">Khâu P</a><a href="../pid-lab/index.html#khau-i">Khâu I</a><a href="../pid-lab/index.html#khau-d">Khâu D</a><a href="../pid-lab/index.html#code">Code C++17</a><a href="../pid-lab/index.html#chinh-dinh">Chỉnh định</a><a href="../pid-lab/lab.html#lo">Lò nhiệt</a><a href="../pid-lab/lab.html#dc">Động cơ DC</a><a href="../pid-lab/lab.html#servo">Servo</a><a href="../pid-lab/lab.html#bon">Bồn nước</a><a href="../pid-lab/lab.html#loxo">Lò xo</a></div>
+        <div class="lc-acts"><a class="lc-cta" href="../pid-lab/index.html" tabindex="-1" aria-hidden="true">Đọc bài PID <span aria-hidden="true">→</span></a><a class="lc-cta2" href="../pid-lab/lab.html">Mở PID Lab</a></div>
+      </div>
     </article>
   </section>
 </main>

@@ -1,0 +1,211 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="theme-color" content="#0a1a33">
+<title>PID Lab · Mô phỏng bộ điều khiển PID · AMTS</title>
+<meta name="description" content="Phòng thí nghiệm PID chạy trên trình duyệt: chỉnh Kp, Ki, Kd cho lò nhiệt, động cơ DC, servo, bồn nước, lò xo; xem từng chu kỳ tính toán, chống bão hòa, tự chỉnh Ziegler–Nichols.">
+<link rel="stylesheet" href="amts-logo.css?v=51b7ed6925">
+<style>
+:root{--bg:#0a1a33;--panel:#0d1424;--line:#1e3a5f;--hi:#5eead4;--txt:#cbd5e1;--dim:#8a9ab0;--en:#fbbf24;--bad:#f87171;--ok:#4ade80;
+  --cr:#fbbf24;--cy:#5eead4;--cu:#7dd3fc;--cp:#f472b6;--ci:#a78bfa;--cd:#fb923c;
+  --mono:ui-monospace,"JetBrains Mono","Cascadia Mono",Consolas,monospace;--sans:"Be Vietnam Pro","Segoe UI",Roboto,Arial,sans-serif}
+*{box-sizing:border-box}
+html,body{margin:0;height:100%}
+body{background:var(--bg);color:var(--txt);font:15px/1.5 var(--sans);display:flex;flex-direction:column;height:100dvh;overflow:hidden;
+  padding:env(safe-area-inset-top) env(safe-area-inset-right) env(safe-area-inset-bottom) env(safe-area-inset-left)}
+.en{color:var(--en);font-style:normal}
+a{color:var(--hi)}
+/* ---- thanh trên ---- */
+.top{flex:none;display:flex;align-items:center;gap:8px;padding:6px 10px;border-bottom:1px solid var(--line);background:rgba(10,20,38,.96)}
+.brand{display:flex;flex-direction:column;align-items:flex-start;gap:1px;flex:0 1 auto;min-width:0}
+.brand .amts-logo{height:22px}
+.brand small{font-size:9px;line-height:1.1;color:var(--dim);white-space:nowrap;max-width:100%;overflow:hidden;text-overflow:ellipsis}
+.top .sp{flex:1}
+.top .home,.top .doc{flex:none;display:inline-flex;align-items:center;gap:4px;height:40px;padding:0 10px;border:1px solid var(--line);border-radius:10px;color:var(--txt);text-decoration:none;font:600 13px var(--sans);white-space:nowrap}
+.top .doc{border-color:#2a5d7a;color:var(--hi)}
+.top .home:hover,.top .home:focus-visible,.top .doc:hover,.top .doc:focus-visible{border-color:var(--hi);color:var(--hi)}
+@media (max-width:480px){.top{gap:5px}.top .home,.top .doc{padding:0 6px;gap:2px;font-size:11.5px}.top .home .lg,.top .doc .lgx{display:none}}
+/* ---- khung mô phỏng một màn hình ---- */
+.sim-stage{flex:1;min-height:0;display:grid;grid-template-columns:minmax(0,1fr);grid-template-rows:minmax(190px,46%) auto minmax(0,1fr) auto;
+  grid-template-areas:"dg" "nav" "sc" "ctl";max-width:1440px;width:100%;margin:0 auto}
+.dg{grid-area:dg;min-height:0;padding:4px 6px 2px;display:flex;flex-direction:column;gap:3px}
+.ttl{display:flex;align-items:center;gap:8px;flex-wrap:nowrap}
+.ttl select{flex:0 1 250px;min-width:0;height:36px;font:700 14px var(--sans);color:#e2e8f0;background:#0b1220;border:1px solid var(--line);border-radius:10px;padding:0 6px}
+.rd{flex:1;min-width:0;font:12.5px var(--sans);font-variant-numeric:tabular-nums;color:var(--dim);white-space:nowrap;overflow:hidden;text-overflow:ellipsis;text-align:right}
+.rd b{font-weight:600}
+.legend{display:flex;gap:10px;flex-wrap:wrap;font:11.5px var(--sans);color:var(--dim);padding:0 2px}
+.legend i{display:inline-block;width:14px;height:0;border-top:2px solid;vertical-align:middle;margin-right:4px}
+.legend i.ds{border-top-style:dashed}
+#cv{flex:1;min-height:0;width:100%;display:block;border-radius:8px;touch-action:pan-y;cursor:crosshair}
+/* ---- tên phần ---- */
+.st-nav{grid-area:nav;display:flex;gap:4px;overflow-x:auto;scrollbar-width:none;padding:6px 8px;border-top:1px solid var(--line);border-bottom:1px solid var(--line);background:rgba(13,20,36,.96)}
+.st-nav::-webkit-scrollbar{display:none}
+.st-nav button{flex:none;position:relative;font:600 12.5px var(--sans);color:var(--dim);background:none;border:1px solid transparent;border-radius:999px;padding:5px 11px;min-height:32px;cursor:pointer}
+.st-nav button.act{color:var(--hi);border-color:var(--hi)}
+.st-nav button.dot::after{content:"";position:absolute;top:3px;right:3px;width:7px;height:7px;border-radius:50%;background:#fb923c}
+/* ---- khung cuộn riêng, các phần xếp dọc ---- */
+.st-scroll{grid-area:sc;overflow-y:auto;overscroll-behavior:contain;min-height:0;padding:0 10px 10px;background:rgba(13,20,36,.9)}
+.pn-sec{padding-bottom:12px}
+.pn-sec>h3{position:sticky;top:0;z-index:1;margin:0 -10px 8px;padding:8px 10px;font:700 11.5px var(--sans);letter-spacing:1px;color:var(--dim);background:#0d1424;border-bottom:1px solid #16243a}
+.note{font-size:14px;line-height:1.6}
+.note p{margin:0 0 8px}
+code,.m{font-family:var(--mono)}
+.note code{background:#0b1220;padding:1px 5px;border-radius:4px;color:var(--hi)}
+/* hàng chỉnh thông số */
+.kr{display:grid;grid-template-columns:auto 1fr 84px;align-items:center;gap:4px 10px;margin:4px 0 10px}
+.kr label{font:700 14px var(--mono);min-width:30px;display:flex;align-items:center;gap:6px}
+.kr label input[type=checkbox]{width:18px;height:18px;margin:0;accent-color:var(--hi)}
+.kr input[type=range]{width:100%;height:30px;accent-color:var(--hi);margin:0}
+.kr input.num{width:84px;height:36px;font:600 14px var(--mono);color:#e2e8f0;background:#0b1220;border:1px solid var(--line);border-radius:8px;padding:0 6px;text-align:right}
+.kr input.num.badv{border-color:var(--bad)}
+.kr .sub{grid-column:1/-1;font:12.5px var(--sans);color:var(--dim);margin-top:-6px}
+.kP label{color:var(--cp)}.kI label{color:var(--ci)}.kD label{color:var(--cd)}.kR label{color:var(--cr)}
+.opt{display:grid;grid-template-columns:minmax(0,1fr) auto;gap:6px 10px;align-items:center;margin:6px 0 10px;font-size:14px}
+.opt select{height:36px;max-width:190px;font:13px var(--sans);color:var(--txt);background:#0b1220;border:1px solid var(--line);border-radius:8px}
+.opt .why{grid-column:1/-1;font-size:12.5px;color:var(--dim);margin-top:-4px;line-height:1.45}
+.chk{display:flex;align-items:center;gap:8px;font-size:14px;margin:6px 0}
+.chk input{width:18px;height:18px;accent-color:var(--hi)}
+.eq{font:13px/1.55 var(--mono);background:#0b1220;border:1px solid #16243a;border-radius:8px;padding:8px 10px;overflow-x:auto;white-space:pre;color:#e2e8f0}
+table{width:100%;border-collapse:collapse;font:13.5px var(--sans);font-variant-numeric:tabular-nums}
+th{color:var(--dim);font-weight:400;padding:5px 4px;text-align:left}
+td{padding:5px 4px;border-top:1px solid #16243a;vertical-align:top}
+td.v{text-align:right;white-space:nowrap;color:#e2e8f0}
+.ok{color:var(--ok)}.bad{color:var(--bad)}.warn{color:#fde047}
+.cyc{font:13.5px/1.6 var(--sans);font-variant-numeric:tabular-nums}
+.cyc .s{display:grid;grid-template-columns:22px minmax(0,1fr);gap:4px;padding:3px 0;border-bottom:1px dashed #1b2b44}
+.cyc .s>span:first-child{color:var(--dim)}
+.cyc .f{color:var(--dim)}
+.cyc b{color:#e2e8f0;font-weight:600}
+.cyc .cp{color:var(--cp)}.cyc .ci{color:var(--ci)}.cyc .cd{color:var(--cd)}.cyc .cu{color:var(--cu)}
+.mini{width:100%;height:150px;display:block;border-radius:8px;margin:6px 0}
+.btn2{font:600 13px var(--sans);min-height:38px;padding:0 12px;border-radius:9px;border:1px solid var(--line);background:#0b1220;color:var(--hi);cursor:pointer}
+.btn2:disabled{opacity:.45;cursor:default}
+.ghost{font:12.5px var(--sans);color:var(--dim);display:flex;align-items:center;gap:8px;flex-wrap:wrap;margin:-2px 0 6px}
+.goal li{margin:4px 0}
+/* ---- hàng nút ở đáy khung ---- */
+.sim-ctl{grid-area:ctl;padding:6px 8px 8px;border-top:1px solid var(--line);background:rgba(10,20,38,.98)}
+.sc-row{display:flex;align-items:center;gap:8px;margin-bottom:6px;min-height:22px}
+.sc-st{flex:1;min-width:0;font:600 13px var(--sans);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.sc-row label{flex:none;font-size:12px;color:var(--dim);display:flex;align-items:center;gap:4px}
+.sc-row select{font:12px var(--sans);color:var(--txt);background:#0b1220;border:1px solid var(--line);border-radius:7px;height:28px}
+.sc-btns{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:6px}
+.sc-btns button{font:700 14px var(--sans);border-radius:10px;border:2px solid var(--line);background:#0b1220;color:var(--txt);padding:0 4px;min-height:44px;cursor:pointer;touch-action:manipulation;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.sc-btns button.pri{border-color:var(--hi);color:var(--hi)}
+.sc-btns button:disabled{opacity:.4;cursor:default}
+@media (min-width:901px){
+  .sim-stage{grid-template-columns:minmax(0,1.55fr) minmax(360px,1fr);grid-template-rows:auto minmax(0,1fr) auto;grid-template-areas:"dg nav" "dg sc" "ctl ctl"}
+  .dg{padding:10px 14px 6px}
+  .st-nav{border-top:0;border-left:1px solid var(--line)}
+  .st-scroll{border-left:1px solid var(--line)}
+  .sc-btns{grid-template-columns:repeat(6,minmax(0,150px))}
+  .top{padding:8px 16px}
+  .brand .amts-logo{height:26px}.brand small{font-size:10px}
+}
+@media (prefers-reduced-motion:reduce){.st-scroll{scroll-behavior:auto}}
+</style>
+</head>
+<body>
+<header class="top">
+  <div class="brand"><span class="amts-logo" role="img" aria-label="AMTS"></span><small>Nguyễn Công Cầu · Hotline: +84337595406</small></div>
+  <span class="sp"></span>
+  <a class="home" href="../lab/index.html" title="Danh sách các Lab của AMTS Học Lập Trình"><span aria-hidden="true">←</span> Danh sách Lab</a>
+  <a class="doc" href="index.html" title="Bài học: Thuật toán PID từ nền tảng tới ứng dụng"><span aria-hidden="true">📖</span> Bài<span class="lgx">&nbsp;học PID</span></a>
+</header>
+
+<main class="sim-stage" id="stage">
+  <div class="dg">
+    <div class="ttl"><select id="pick" aria-label="Chọn đối tượng điều khiển"></select><span class="rd" id="rd"></span></div>
+    <div class="legend" aria-hidden="true"><span><i style="border-color:var(--cr)" class="ds"></i>r điểm đặt</span><span><i style="border-color:var(--cy)"></i>y đầu ra</span><span id="lgG" hidden><i style="border-color:#64748b"></i>đường ghim</span><span><i style="border-color:var(--cu)"></i>u điều khiển</span><span id="lgPID" hidden><i style="border-color:var(--cp)"></i>P <i style="border-color:var(--ci)"></i>I <i style="border-color:var(--cd)"></i>D</span></div>
+    <canvas id="cv" role="img" aria-label="Đồ thị điểm đặt, đầu ra và tín hiệu điều khiển theo thời gian. Chạm để xem một chu kỳ."></canvas>
+  </div>
+
+  <nav class="st-nav" id="stnav">
+    <button data-go="pid">Thông số PID</button>
+    <button data-go="chuky">Từng chu kỳ</button>
+    <button data-go="chitieu">Chỉ tiêu</button>
+    <button data-go="thucte">Thực tế</button>
+    <button data-go="tuchinh">Tự chỉnh</button>
+    <button data-go="thuthach">Thử thách</button>
+    <button data-go="doituong">Đối tượng</button>
+  </nav>
+  <div class="st-scroll" id="scr" tabindex="0" role="region" aria-label="Thông số, kết quả và giải thích">
+    <section class="pn-sec" data-sec="pid"><h3>THÔNG SỐ BỘ ĐIỀU KHIỂN · <span class="en">Controller</span></h3>
+      <div class="opt"><span>Loại bộ điều khiển</span><select id="ctype"><option value="pid">PID</option><option value="onoff">On/Off (bật/tắt)</option></select></div>
+      <div id="pidBox">
+        <div class="kr kP"><label><input type="checkbox" id="onP" checked aria-label="Bật khâu P">Kp</label><input type="range" id="rKp" min="0" max="1000" aria-label="Kp"><input class="num" id="nKp" inputmode="decimal" aria-label="Kp"><span class="sub" id="sKp"></span></div>
+        <div class="kr kI"><label><input type="checkbox" id="onI" checked aria-label="Bật khâu I">Ki</label><input type="range" id="rKi" min="0" max="1000" aria-label="Ki"><input class="num" id="nKi" inputmode="decimal" aria-label="Ki"><span class="sub" id="sKi"></span></div>
+        <div class="kr kD"><label><input type="checkbox" id="onD" checked aria-label="Bật khâu D">Kd</label><input type="range" id="rKd" min="0" max="1000" aria-label="Kd"><input class="num" id="nKd" inputmode="decimal" aria-label="Kd"><span class="sub" id="sKd"></span></div>
+      </div>
+      <div id="ooBox" hidden>
+        <div class="kr"><label>Trễ</label><input type="range" id="rHy" min="0" max="100" aria-label="Vùng trễ"><input class="num" id="nHy" inputmode="decimal" aria-label="Vùng trễ"><span class="sub">Vùng trễ <span class="en">hysteresis</span>: bật khi y &lt; r − trễ/2, tắt khi y &gt; r + trễ/2. Trễ = 0 thì rơ-le đóng ngắt liên tục.</span></div>
+      </div>
+      <div class="kr kR"><label>r</label><input type="range" id="rR" min="0" max="1000" aria-label="Điểm đặt"><input class="num" id="nR" inputmode="decimal" aria-label="Điểm đặt"><span class="sub" id="sR"></span></div>
+      <div class="ghost" id="ghostInfo" hidden></div>
+      <div class="note"><p class="f" id="formula"></p></div>
+    </section>
+
+    <section class="pn-sec" data-sec="chuky"><h3>TỪNG CHU KỲ LẤY MẪU · <span class="en">One sample</span></h3>
+      <div class="cyc" id="cyc"></div>
+    </section>
+
+    <section class="pn-sec" data-sec="chitieu"><h3>CHỈ TIÊU CHẤT LƯỢNG · <span class="en">Performance</span></h3>
+      <div id="met"></div>
+    </section>
+
+    <section class="pn-sec" data-sec="thucte"><h3>VẤN ĐỀ THỰC TẾ · <span class="en">Practical issues</span></h3>
+      <div class="opt"><span>Chống bão hòa tích phân <span class="en">anti-windup</span></span><select id="oAw"><option value="none">Không</option><option value="clamp">Dừng tích phân (clamping)</option><option value="back">Tính ngược (back-calculation)</option></select>
+        <span class="why">u bị giới hạn (công suất 0–100 %, điện áp ±V) mà khâu I vẫn cộng dồn thì I “phình” ra, y vọt lố lớn rồi rất lâu mới về.</span></div>
+      <div class="opt"><span>Khâu D lấy theo</span><select id="oDon"><option value="y">giá trị đo y (không giật)</option><option value="e">sai số e (bị giật D)</option></select>
+        <span class="why">Đổi điểm đặt đột ngột làm e nhảy bậc, de/dt rất lớn: u bị “đá” một phát <span class="en">derivative kick</span>. Lấy −dy/dt thì không bị.</span></div>
+      <div class="opt"><span>Lọc khâu D <span class="en">D filter</span></span><select id="oNf"><option value="0">Không lọc</option><option value="2">Tf = 2·Ts</option><option value="5">Tf = 5·Ts</option><option value="10">Tf = 10·Ts</option><option value="30">Tf = 30·Ts</option></select>
+        <span class="why">Đạo hàm khuếch đại nhiễu đo. Bộ lọc thông thấp bậc 1 làm u bớt rung, đổi lại D chậm hơn một chút.</span></div>
+      <div class="opt"><span>Nhiễu đo <span class="en">sensor noise</span></span><select id="oNoise"><option value="0">Không</option><option value="0.5">Nhẹ</option><option value="1">Vừa</option><option value="3">Mạnh</option></select></div>
+      <div class="opt"><span>Tách tích phân <span class="en">integral separation</span></span><select id="oSep"><option value="0">Không</option><option value="0.02">khi |e| &lt; 2 % bước</option><option value="0.05">khi |e| &lt; 5 % bước</option><option value="0.15">khi |e| &lt; 15 % bước</option></select>
+        <span class="why">Chỉ cho khâu I làm việc khi y đã tới gần điểm đặt: tránh I tích lũy trong lúc y còn đang chạy lên, nên bớt vọt lố.</span></div>
+      <div class="opt"><span>Trọng số điểm đặt của P (b)</span><select id="oB"><option value="1">b = 1 (chuẩn)</option><option value="0.5">b = 0,5</option><option value="0">b = 0 (P theo y, kiểu “I-PD”)</option></select>
+        <span class="why">P = Kp·(b·r − y). b nhỏ thì đổi điểm đặt êm hơn, ít vọt lố; khả năng chống nhiễu tải không đổi.</span></div>
+      <div class="opt"><span>Chu kỳ lấy mẫu Ts</span><select id="oTs"></select>
+        <span class="why">PID số chỉ “nhìn” y mỗi Ts một lần. Ts quá lớn so với độ nhanh của đối tượng thì như thêm trễ, vòng kín kém ổn định.</span></div>
+      <label class="chk"><input type="checkbox" id="oDist" checked> Tự động có nhiễu tải lúc <span id="tDistL"></span></label>
+      <label class="chk"><input type="checkbox" id="oShow"> Vẽ riêng P, I, D trên đồ thị u</label>
+    </section>
+
+    <section class="pn-sec note" data-sec="tuchinh"><h3>TỰ CHỈNH · <span class="en">Auto-tuning</span></h3>
+      <p><b>1. Thử rơ-le</b> <span class="en">relay feedback</span> (Åström–Hägglund): thay PID bằng rơ-le u = u₀ ± d. Vòng kín tự dao động đúng ở tần số tới hạn; đo biên độ a và chu kỳ T<sub>u</sub> rồi tính K<sub>u</sub> ≈ 4d / (π·a), sau đó tra bảng Ziegler–Nichols.</p>
+      <button class="btn2" id="bRelay">Chạy thử rơ-le</button>
+      <div id="relayOut"></div>
+      <p style="margin-top:12px"><b>2. Thử bước vòng hở</b> <span class="en">step test</span>: đổi u một bậc, đo đường cong y(t), xấp xỉ thành đối tượng bậc 1 có trễ (K, τ, L) bằng hai điểm 28,3 % và 63,2 %, rồi dùng quy tắc SIMC.</p>
+      <button class="btn2" id="bStep">Chạy thử bước</button>
+      <div id="stepOut"></div>
+    </section>
+
+    <section class="pn-sec note" data-sec="thuthach"><h3>THỬ THÁCH · <span class="en">Challenge</span></h3>
+      <div id="goal"></div>
+    </section>
+
+    <section class="pn-sec note" data-sec="doituong"><h3>ĐỐI TƯỢNG ĐIỀU KHIỂN · <span class="en">Plant</span></h3>
+      <div id="plantInfo"></div>
+    </section>
+  </div>
+
+  <div class="sim-ctl">
+    <div class="sc-row"><span class="sc-st" id="state"></span>
+      <label>Tốc độ <select id="spd"><option value="20">chậm</option><option value="8" selected>vừa</option><option value="3">nhanh</option></select></label></div>
+    <div class="sc-btns" id="ctl">
+      <button id="bReset" title="Làm lại từ đầu, bỏ các sự kiện đã bấm">↺ Làm lại</button>
+      <button id="bStepK" title="Chạy đúng một chu kỳ lấy mẫu">Bước →</button>
+      <button id="bRun" class="pri">▶ Chạy</button>
+      <button id="bR" title="Đổi điểm đặt ngay lúc này (khi đang chạy)">Điểm đặt ⇅</button>
+      <button id="bD" title="Bật/tắt nhiễu tải ngay lúc này (khi đang chạy)">Nhiễu tải</button>
+      <button id="bPin" title="Giữ đường y hiện tại để so sánh">Ghim</button>
+    </div>
+  </div>
+</main>
+
+<script src="pid.js?v=d964eaf343"></script>
+<script src="ve.js?v=3d2f6249f6"></script>
+<script src="lab.js?v=ad8cffc9cb"></script>
+</body>
+</html>
