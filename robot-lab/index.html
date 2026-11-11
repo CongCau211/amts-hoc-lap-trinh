@@ -1,0 +1,190 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Robot Lab · SCARA động học thuận – ngược · AMTS</title>
+<link rel="stylesheet" href="amts-logo.css?v=51b7ed6925">
+<style>
+:root{--bg:#0a1a33;--panel:#0d1424;--line:#1e3a5f;--hi:#5eead4;--txt:#cbd5e1;--dim:#7c8ca3;--bad:#f87171;--warn:#fbbf24;--en:#fbbf24;
+  --j1:#7dd3fc;--j2:#c084fc;--j3:#5eead4;--j4:#fb923c;
+  --mono:ui-monospace,"JetBrains Mono","Cascadia Mono",Consolas,monospace;--sans:"Be Vietnam Pro","Segoe UI",Roboto,Arial,sans-serif}
+*{box-sizing:border-box}
+html,body{margin:0;height:100%}
+body{background:var(--bg);color:var(--txt);font:15px/1.5 var(--sans);display:flex;flex-direction:column;height:100dvh;overflow:hidden;
+  padding:env(safe-area-inset-top) env(safe-area-inset-right) env(safe-area-inset-bottom) env(safe-area-inset-left)}
+.en{color:var(--en);font-style:italic}
+/* ---- thanh trên ---- */
+.top{flex:none;display:flex;align-items:center;gap:8px;padding:6px 10px;border-bottom:1px solid var(--line);background:rgba(10,20,38,.96)}
+.brand{display:flex;flex-direction:column;align-items:flex-start;gap:1px;flex:0 1 auto;min-width:0}
+.brand .amts-logo{height:22px}
+.brand small{font-size:9px;line-height:1.1;color:var(--dim);white-space:nowrap;max-width:100%;overflow:hidden;text-overflow:ellipsis}
+.top h1{flex:1;min-width:0;margin:0;font:700 14px var(--sans);color:#e2e8f0;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;text-align:right}
+.top h1 span{color:var(--dim);font-weight:400}
+.top .home{flex:none;display:inline-flex;align-items:center;gap:4px;height:40px;padding:0 10px;border:1px solid var(--line);border-radius:10px;color:var(--txt);text-decoration:none;font:600 13px var(--sans);white-space:nowrap}
+.top .home:hover,.top .home:focus-visible{border-color:var(--hi);color:var(--hi)}
+@media (max-width:480px){.top h1 span{display:none}.top .home{padding:0 6px;font-size:11.5px}.top .home .lg{display:none}}
+/* ---- khung mô phỏng: cao bằng phần còn lại của màn hình, không cuộn trang ---- */
+.sim-stage{flex:1;min-height:0;display:grid;grid-template-columns:minmax(0,1fr);grid-template-rows:minmax(190px,44%) auto minmax(0,1fr) auto;
+  grid-template-areas:"vw" "nav" "sc" "ctl";max-width:1400px;width:100%;margin:0 auto}
+.vw{grid-area:vw;position:relative;min-height:0;background:radial-gradient(ellipse at 50% 35%,#13284a 0%,#0a1a33 70%)}
+#cv{position:absolute;inset:0;width:100%;height:100%;display:block;touch-action:none;cursor:grab}
+#cv.drag{cursor:grabbing}
+.ov{position:absolute;display:flex;gap:4px;pointer-events:none}
+.ov>*{pointer-events:auto}
+.ov.tl{top:6px;left:8px;flex-direction:column;gap:0;font:11.5px var(--mono);color:var(--dim)}
+.ov.tl b{color:#e2e8f0;font:700 12px var(--sans)}
+.ov.tr{top:6px;right:6px}
+.ov.bl{bottom:6px;left:8px;font:11px var(--sans);color:var(--dim)}
+.ov button{min-height:32px;font:600 12px var(--sans);padding:0 9px;border-width:1px;border-radius:8px;background:rgba(11,18,32,.85)}
+/* ---- tên phần ---- */
+.st-nav{grid-area:nav;display:flex;gap:4px;overflow-x:auto;scrollbar-width:none;padding:6px 8px;border-top:1px solid var(--line);border-bottom:1px solid var(--line);background:rgba(13,20,36,.96)}
+.st-nav::-webkit-scrollbar{display:none}
+.st-nav button{flex:none;font:600 12.5px var(--sans);color:var(--dim);background:none;border:1px solid transparent;border-radius:999px;padding:4px 11px;min-height:32px}
+.st-nav button.act{color:var(--hi);border-color:var(--hi)}
+/* ---- khung cuộn riêng, các phần xếp dọc ---- */
+.st-scroll{grid-area:sc;overflow-y:auto;overscroll-behavior:contain;min-height:0;padding:0 10px 10px;background:rgba(13,20,36,.9)}
+.pn-sec{padding-bottom:12px}
+.pn-sec>h3{position:sticky;top:0;z-index:1;margin:0 -10px 8px;padding:8px 10px;font:600 11.5px var(--mono);letter-spacing:1.2px;color:var(--dim);background:#0d1424;border-bottom:1px solid #16243a}
+.pn-sec>h3 .en{letter-spacing:.3px;font-family:var(--sans);font-weight:400}
+/* hàng thanh trượt */
+.jrow{display:grid;grid-template-columns:62px minmax(0,1fr) 84px;align-items:center;gap:8px;min-height:44px}
+.jrow .lb{font:700 13px var(--mono);line-height:1.15}
+.jrow .lb small{display:block;font:11px var(--sans);color:var(--dim);font-weight:400}
+.jrow input[type=range]{width:100%;height:32px;margin:0;accent-color:var(--hi)}
+.jrow input[type=number]{width:100%;height:36px;font:600 14px var(--mono);color:#e2e8f0;background:#0b1220;border:1px solid var(--line);border-radius:8px;padding:0 6px;text-align:right}
+.jrow.bad input[type=number]{border-color:var(--bad);color:var(--bad)}
+.c1{color:var(--j1)}.c2{color:var(--j2)}.c3{color:var(--j3)}.c4{color:var(--j4)}
+.cx{color:#f87171}.cy{color:#4ade80}.cz{color:#60a5fa}
+.opt{display:flex;flex-wrap:wrap;align-items:center;gap:6px;margin:6px 0 2px;font-size:13px}
+.opt select{height:36px;font:13px var(--sans);color:var(--txt);background:#0b1220;border:1px solid var(--line);border-radius:8px;padding:0 6px;max-width:100%}
+.seg{display:inline-flex;border:1px solid var(--line);border-radius:9px;overflow:hidden}
+.seg button{border:0;border-radius:0;min-height:36px;font:600 12.5px var(--sans);padding:0 10px}
+.seg button.on{background:#123a3a;color:var(--hi)}
+.msg{min-height:42px;margin-top:6px;padding:6px 9px;border-radius:8px;background:#0b1220;border:1px solid var(--line);font:12.5px/1.45 var(--sans)}
+.msg.ok{border-color:#1f5f55}.msg.err{border-color:#7f1d1d;color:#fecaca}
+.chips{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:6px;margin-bottom:8px}
+.chip{background:#0b1220;border:1px solid var(--line);border-radius:8px;padding:4px 7px;font:11px var(--sans);color:var(--dim)}
+.chip b{display:block;font:700 15px var(--mono);color:#e2e8f0;white-space:nowrap}
+table{width:100%;border-collapse:collapse;font:12.5px var(--mono)}
+th{color:var(--dim);font-weight:400;padding:4px 3px;text-align:right}
+td{text-align:right;padding:4px 3px;border-top:1px solid #16243a;white-space:nowrap}
+td:first-child,th:first-child{text-align:left}
+.mat{display:inline-grid;grid-template-columns:repeat(4,auto);gap:2px 14px;padding:6px 12px;border-left:2px solid var(--dim);border-right:2px solid var(--dim);border-radius:6px;font:600 13px var(--mono);color:#e2e8f0;text-align:right}
+.mat span.r{color:#93c5fd}.mat span.t{color:var(--hi)}.mat span.k{color:var(--dim)}
+.tw{overflow-x:auto}
+tr.cur td{background:rgba(94,234,212,.08)}
+td.bad{color:var(--bad)}td.ok{color:var(--hi)}
+td button{min-height:30px;font:600 11.5px var(--sans);padding:0 8px;border-width:1px}
+.note{font-size:14px;line-height:1.65}
+.note p{margin:0 0 8px}.note ol,.note ul{margin:0 0 8px;padding-left:20px}
+.note code,.f{font-family:var(--mono);background:#0b1220;padding:1px 5px;border-radius:4px;color:var(--hi)}
+.step{display:grid;grid-template-columns:24px minmax(0,1fr);gap:6px;padding:5px 0;border-top:1px dashed #1b2b44;font-size:13.5px}
+.step i{font:700 12px var(--mono);color:var(--dim);font-style:normal;padding-top:2px}
+.step .f{display:inline-block;margin:2px 0;white-space:normal;word-break:break-word}
+/* ---- hàng nút ở đáy khung ---- */
+.sim-ctl{grid-area:ctl;padding:6px 8px 8px;border-top:1px solid var(--line);background:rgba(10,20,38,.98)}
+.sc-st{display:block;margin-bottom:6px;min-height:20px;font:600 12.5px var(--mono);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.sc-st.err{color:var(--bad)}.sc-st.warn{color:var(--warn)}
+.sc-btns{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:6px}
+button{font:700 13.5px var(--sans);border-radius:10px;border:2px solid var(--line);background:#0b1220;color:var(--txt);padding:0 4px;min-height:44px;cursor:pointer;touch-action:manipulation;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+button.on{border-color:var(--hi);color:var(--hi)}
+button:focus-visible,input:focus-visible,select:focus-visible{outline:2px solid var(--hi);outline-offset:1px}
+@media (min-width:901px){
+  .sim-stage{grid-template-columns:minmax(0,1.45fr) minmax(360px,1fr);grid-template-rows:auto minmax(0,1fr) auto;grid-template-areas:"vw nav" "vw sc" "ctl ctl"}
+  .st-nav{border-top:0;border-left:1px solid var(--line)}
+  .st-scroll{border-left:1px solid var(--line)}
+  .sc-btns{grid-template-columns:repeat(4,minmax(120px,170px))}
+  .sim-ctl{display:flex;align-items:center;gap:12px}
+  .sc-st{flex:1;order:2;margin:0}
+  .top{padding:8px 16px}
+  .brand .amts-logo{height:26px}.brand small{font-size:10px}
+  .top h1{font-size:15px}
+}
+</style>
+</head>
+<body>
+<header class="top">
+  <div class="brand"><span class="amts-logo" role="img" aria-label="AMTS"></span><small>Nguyễn Công Cầu · Hotline: +84337595406</small></div>
+  <h1>Robot Lab · SCARA <span>· động học thuận – ngược</span></h1>
+  <a class="home" href="../lab/index.html" title="Danh sách các Lab của AMTS Học Lập Trình"><span aria-hidden="true">←</span> Danh sách Lab</a>
+</header>
+
+<main class="sim-stage" id="stage">
+  <div class="vw" id="vw">
+    <canvas id="cv" aria-label="Mô hình 3D robot SCARA. Kéo để xoay góc nhìn, chụm hai ngón hoặc lăn chuột để phóng to."></canvas>
+    <div class="ov tl"><b>SCARA mẫu AMTS</b><span>L1 250 · L2 200 · H 350 mm</span></div>
+    <div class="ov tr"><button id="v3d" class="on">3D</button><button id="vtop">Trên</button><button id="vside">Bên</button><button id="vtrail">Vết</button></div>
+    <div class="ov bl">Kéo: xoay · chụm/lăn: phóng · chạm đúp: đặt lại</div>
+  </div>
+
+  <nav class="st-nav" id="stnav">
+    <button data-go="dk" class="act">Điều khiển</button>
+    <button data-go="tt">Tư thế &amp; ma trận T</button>
+    <button data-go="ik">Hai nghiệm IK</button>
+    <button data-go="ct">Công thức từng bước</button>
+    <button data-go="hd">Hướng dẫn</button>
+  </nav>
+
+  <div class="st-scroll" id="scr" tabindex="0" role="region" aria-label="Điều khiển và kết quả">
+    <section class="pn-sec" data-sec="dk"><h3 id="dkTitle">ĐIỀU KHIỂN KHỚP · <span class="en">Forward kinematics</span></h3>
+      <div id="fkBox">
+        <div class="jrow" data-k="q1"><span class="lb c1">J1 θ1<small>vai, độ</small></span><input type="range" min="-132" max="132" step="0.5" aria-label="Góc khớp 1"><input type="number" step="0.5" aria-label="Giá trị khớp 1"></div>
+        <div class="jrow" data-k="q2"><span class="lb c2">J2 θ2<small>khuỷu, độ</small></span><input type="range" min="-145" max="145" step="0.5" aria-label="Góc khớp 2"><input type="number" step="0.5" aria-label="Giá trị khớp 2"></div>
+        <div class="jrow" data-k="d3"><span class="lb c3">J3 d3<small>hạ trục, mm</small></span><input type="range" min="0" max="200" step="1" aria-label="Hành trình khớp 3"><input type="number" step="1" aria-label="Giá trị khớp 3"></div>
+        <div class="jrow" data-k="q4"><span class="lb c4">J4 θ4<small>xoay tool, độ</small></span><input type="range" min="-360" max="360" step="1" aria-label="Góc khớp 4"><input type="number" step="1" aria-label="Giá trị khớp 4"></div>
+      </div>
+      <div id="ikBox" hidden>
+        <div class="jrow" data-k="x"><span class="lb cx">x<small>mm</small></span><input type="range" min="-450" max="450" step="1" aria-label="Tọa độ x đích"><input type="number" step="1" aria-label="Giá trị x"></div>
+        <div class="jrow" data-k="y"><span class="lb cy">y<small>mm</small></span><input type="range" min="-450" max="450" step="1" aria-label="Tọa độ y đích"><input type="number" step="1" aria-label="Giá trị y"></div>
+        <div class="jrow" data-k="z"><span class="lb cz">z<small>mm</small></span><input type="range" min="100" max="380" step="1" aria-label="Tọa độ z đích"><input type="number" step="1" aria-label="Giá trị z"></div>
+        <div class="jrow" data-k="phi"><span class="lb c4">φ<small>hướng tool, độ</small></span><input type="range" min="-180" max="180" step="1" aria-label="Hướng dụng cụ đích"><input type="number" step="1" aria-label="Giá trị φ"></div>
+        <div class="opt">Cấu hình tay <span class="seg"><button id="armR" class="on">Tay phải θ2 &gt; 0</button><button id="armL">Tay trái θ2 &lt; 0</button></span></div>
+        <div class="msg" id="ikMsg"></div>
+      </div>
+      <div class="opt">Tư thế mẫu <select id="preset" aria-label="Tư thế mẫu"></select></div>
+    </section>
+
+    <section class="pn-sec" data-sec="tt"><h3>TƯ THẾ TCP &amp; MA TRẬN T · <span class="en">Pose, homogeneous transform</span></h3>
+      <div class="chips"><div class="chip">x (mm)<b id="ox"></b></div><div class="chip">y (mm)<b id="oy"></b></div><div class="chip">z (mm)<b id="oz"></b></div><div class="chip">φ (độ)<b id="op"></b></div></div>
+      <div class="tw"><div class="mat" id="mat" aria-label="Ma trận T đế đến mặt bích"></div></div>
+      <p class="note" style="margin:8px 0 6px;font-size:13px">Chuỗi nhân từng ma trận (giáo trình M01-L02, ví dụ 3): gốc hệ sau mỗi phép nhân.</p>
+      <div class="tw"><table id="chainTbl"></table></div>
+    </section>
+
+    <section class="pn-sec" data-sec="ik"><h3>HAI NGHIỆM ĐỘNG HỌC NGƯỢC · <span class="en">Inverse kinematics</span></h3>
+      <div class="tw"><table id="solTbl"></table></div>
+      <p class="note" style="margin:8px 0 0;font-size:13px">Cùng một điểm đích, SCARA thường có hai cách đặt khuỷu. Nghiệm bị gạch đỏ vượt giới hạn khớp hoặc ngoài tầm với. Bóng mờ trên hình là cấu hình còn lại.</p>
+    </section>
+
+    <section class="pn-sec note" data-sec="ct"><h3>CÔNG THỨC TỪNG BƯỚC · <span class="en">Step by step</span></h3>
+      <div id="steps"></div>
+    </section>
+
+    <section class="pn-sec note" data-sec="hd"><h3>HƯỚNG DẪN &amp; BÀI TẬP</h3>
+      <p><b>Động học thuận (FK):</b> kéo J1–J4, xem TCP và ma trận T đổi theo. <b>Động học ngược (IK):</b> bấm <b>IK · Ngược</b>, kéo x, y, z, φ; robot tự tính góc khớp, chọn tay phải hoặc tay trái.</p>
+      <ol>
+        <li>Đặt J1 = 30°, J2 = 45°, J3 = 100 mm, J4 = 0°. So TCP với giáo trình AMTS-ROB-004 M01-L02 (268,270; 318,185; 250).</li>
+        <li>Ở IK, đưa đích ra xa dần theo trục x. Ghi lại khi nào báo "ngoài tầm với" và θ2 lúc sát biên bằng bao nhiêu. Vì sao gọi đó là điểm kỳ dị?</li>
+        <li>Tìm một điểm chỉ một trong hai cấu hình tay đạt được. Giải thích bằng giới hạn khớp nào.</li>
+      </ol>
+      <p><b>Giới hạn mô hình:</b> chỉ động học (hình học), không có khối lượng, tốc độ, va chạm; giới hạn khớp là số học tập; không điều khiển robot thật. Quy ước tay phải θ2 &gt; 0 là của Robot Lab, mỗi hãng có thể định nghĩa khác.</p>
+      <p style="font-size:12.5px;color:var(--dim)">AMTS · AutoMaxTech Solutions · Nguyễn Công Cầu · Hotline: +84337595406</p>
+    </section>
+  </div>
+
+  <div class="sim-ctl">
+    <span class="sc-st" id="state">Sẵn sàng</span>
+    <div class="sc-btns">
+      <button id="mFK" class="on" data-mode="fk">FK · Thuận</button>
+      <button id="mIK" data-mode="ik">IK · Ngược</button>
+      <button id="home">↺ Về gốc</button>
+      <button id="demo">▶ Chạy thử</button>
+    </div>
+  </div>
+</main>
+
+<script src="engine.js?v=acdddc0e8d"></script>
+<script src="app.js?v=09c0a10f0e"></script>
+</body>
+</html>
