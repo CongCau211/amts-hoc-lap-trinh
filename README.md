@@ -4,6 +4,7 @@ Website học lập trình của trung tâm đào tạo **AMTS**. Mỗi bài có
 
 - Trang chủ: `index.html`
 - Khóa C++ từ nền tảng: `cpp/index.html` (19 bài đang mở, lộ trình 12 chương)
+- Mạch số Lab: `mach-so-lab/index.html` (công cụ mô phỏng 14 mạch số, trang tĩnh độc lập, không dùng Firebase; mở thẳng một mạch bằng `#id`, ví dụ `mach-so-lab/index.html#d-flipflop`). Tên file không có mã băm; trang gắn `?v=<băm>` vào script/CSS nên cập nhật không bị dùng bản cũ.
 - Công nghệ: HTML, CSS, JavaScript thuần; Firebase Authentication (Google) và Cloud Firestore; hosting tĩnh GitHub Pages.
 
 ## Repo này chứa gì và không chứa gì

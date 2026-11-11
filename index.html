@@ -6,7 +6,7 @@
 <link rel="preload" as="font" type="font/woff2" crossorigin href="assets/fonts/be-vietnam-pro-latin-400-normal.woff2">
 <link rel="preload" as="font" type="font/woff2" crossorigin href="assets/fonts/be-vietnam-pro-vietnamese-400-normal.woff2">
 <link rel="preload" as="script" href="assets/app/common.f9d17ffa4b.js">
-<link rel="preload" as="script" href="assets/app/home.6e2315ccd5.js">
+<link rel="preload" as="script" href="assets/app/home.9ebaa84211.js">
 <title>AMTS Học Lập Trình</title>
 <meta name="claude:viewport-fit-sides" content="cover">
 <link rel="preconnect" href="https://cdn.jsdelivr.net">
@@ -322,6 +322,38 @@ html.sy-open{overflow:hidden}
   .course.soon .c-meta{display:none}
 }
 @media (prefers-reduced-motion:reduce){.sy-ch summary::after{transition:none}}
+/* ---- công cụ / phòng thí nghiệm: Mạch số Lab (trang tĩnh mach-so-lab/, không phải khóa học: không tiến độ, không đăng nhập) ---- */
+.lab{margin-top:40px;display:grid;grid-template-columns:minmax(0,300px) minmax(0,1fr);background:var(--surface);border:1px solid var(--line);border-radius:16px;overflow:hidden;box-shadow:var(--shadow)}
+.lab-art{background:linear-gradient(135deg,color-mix(in srgb,var(--c-maytinh) 22%,var(--surface)),var(--accent-soft));display:grid;place-items:center;padding:18px;color:var(--accent)}
+.lab-art svg{width:100%;max-width:240px;height:auto;display:block}
+.lab-art .w{fill:none;stroke:currentColor;stroke-width:3;stroke-linecap:round;stroke-linejoin:round}
+.lab-art .w.off{stroke:var(--muted);opacity:.55}
+.lab-art .g{fill:var(--surface);stroke:var(--ink);stroke-width:3;stroke-linejoin:round}
+.lab-art .d{fill:currentColor}.lab-art .d.off{fill:var(--muted)}
+.lab-art text{font:700 15px var(--f-mono);fill:var(--ink)}
+.lab-body{padding:22px 26px;display:grid;gap:10px;align-content:start;min-width:0}
+.lab-body h2{font-size:clamp(22px,2.6vw,28px);font-weight:800;letter-spacing:-.015em}
+.lab-body>p{font-size:15px;color:var(--muted);line-height:1.55}
+.lab .en{font-size:.85em;font-weight:500;font-style:italic;color:var(--accent);background:var(--accent-soft);border-radius:5px;padding:.08em .42em;white-space:nowrap}
+.lab-act{display:flex;gap:10px 16px;align-items:center;flex-wrap:wrap;margin-top:2px}
+.lab-act .note{font-size:13.5px}
+.lab-tg{display:none}
+.lab-gs{grid-column:1/-1;display:grid;grid-template-columns:repeat(5,minmax(0,1fr));gap:14px;padding:16px 26px 22px;border-top:1px solid var(--line)}
+.lab-g{display:grid;gap:8px;align-content:start;min-width:0}
+.lab-g h3{font-size:14px;font-weight:700;display:flex;flex-wrap:wrap;align-items:baseline;gap:2px 6px}
+.lab-g h3 .en{font-size:12px}
+.lab-c{display:flex;flex-wrap:wrap;gap:6px}
+.lab-c a{display:inline-flex;align-items:center;min-height:36px;padding:6px 11px;border:1px solid var(--line);border-radius:999px;background:var(--bg);color:var(--ink);font-size:13.5px;font-weight:600;text-decoration:none;line-height:1.25}
+.lab-c a:hover,.lab-c a:focus-visible{border-color:var(--accent);color:var(--accent);background:var(--accent-soft)}
+@media (max-width:1100px){.lab-gs{grid-template-columns:repeat(3,minmax(0,1fr))}}
+@media (max-width:760px){.lab{grid-template-columns:1fr}.lab-art{padding:12px 16px}.lab-art svg{max-width:200px;max-height:96px}
+  .lab-body{padding:16px 16px 12px}.lab-act .btn-p{width:100%;justify-content:center;min-height:44px}
+  .lab-tg{display:flex;align-items:center;justify-content:space-between;gap:10px;margin:0 16px 14px;min-height:44px;padding:8px 14px;border:1px solid var(--line);border-radius:10px;background:var(--bg);color:var(--ink);font:inherit;font-size:15px;font-weight:600;text-align:left;cursor:pointer}
+  .lab-tg::after{content:"";flex:none;width:8px;height:8px;border-right:2px solid var(--muted);border-bottom:2px solid var(--muted);transform:rotate(45deg);transition:transform .15s}
+  .lab-tg[aria-expanded="true"]::after{transform:rotate(-135deg)}
+  .lab-gs{grid-template-columns:1fr;gap:12px;padding:14px 16px 16px}
+  .lab:not(.open) .lab-gs{display:none}}
+@media (prefers-reduced-motion:reduce){.lab-tg::after{transition:none}}
 /* ---- thực hành ---- */
 .practice{margin-top:28px;display:flex;align-items:center;gap:16px;background:var(--warm-soft);border:1px solid color-mix(in srgb,var(--warm) 25%,transparent);border-radius:14px;padding:16px 20px}
 .practice .bulb{width:52px;height:52px;border-radius:50%;display:grid;place-items:center;background:color-mix(in srgb,var(--warm) 22%,var(--surface));color:var(--warm);flex:none}
@@ -509,6 +541,28 @@ footer{margin-top:56px;border-top:1px solid var(--line);padding-block:20px 40px;
     <div class="cgrid" id="courses"></div>
   </section>
 
+  <section class="lab" id="phong-thi-nghiem" aria-labelledby="lab-h">
+    <div class="lab-art" aria-hidden="true"><svg viewBox="0 0 240 120" focusable="false">
+      <path class="w" d="M14 38h50M14 82h50"/><path class="w off" d="M163 60h57"/>
+      <path class="g" d="M64 22h46a38 38 0 0 1 0 76H64z"/><circle class="g" cx="156" cy="60" r="7"/>
+      <circle class="d" cx="14" cy="38" r="6"/><circle class="d" cx="14" cy="82" r="6"/><circle class="d off" cx="226" cy="60" r="6"/>
+      <text x="24" y="28">A</text><text x="24" y="108">B</text><text x="200" y="48">Y</text></svg></div>
+    <div class="lab-body">
+      <span class="kicker">Công cụ · Phòng thí nghiệm</span>
+      <h2 id="lab-h">Mạch số Lab</h2>
+      <p>Mô phỏng 14 mạch số <span class="en" lang="en" data-vi="mạch số">digital logic</span> ở mức cổng, từ cổng logic tới thanh ghi: bật tắt đầu vào và xem tín hiệu lan qua từng cổng, kèm giản đồ xung <span class="en" lang="en" data-vi="giản đồ xung">timing diagram</span>, bảng chân lý <span class="en" lang="en" data-vi="bảng chân lý">truth table</span> và cách ráp mạch thật bằng IC 74HC.</p>
+      <div class="lab-act"><a class="btn-p" href="mach-so-lab/index.html">Mở Mạch số Lab <svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a><span class="note">Miễn phí · không cần đăng nhập</span></div>
+    </div>
+    <button type="button" class="lab-tg" id="lab-tg" aria-expanded="false" aria-controls="lab-gs">Đi thẳng tới một mạch</button>
+    <div class="lab-gs" id="lab-gs" role="group" aria-label="Các mạch trong Mạch số Lab">
+      <div class="lab-g"><h3>1. Cổng logic <span class="en" lang="en" data-vi="cổng logic">Logic gates</span></h3><div class="lab-c"><a href="mach-so-lab/index.html#cong-logic">7 cổng cơ bản</a></div></div>
+      <div class="lab-g"><h3>2. Mạch tổ hợp <span class="en" lang="en" data-vi="mạch tổ hợp">Combinational logic</span></h3><div class="lab-c"><a href="mach-so-lab/index.html#ban-cong">Bộ bán cộng</a><a href="mach-so-lab/index.html#cong-du">Bộ cộng đủ</a><a href="mach-so-lab/index.html#mux">MUX 2→1</a><a href="mach-so-lab/index.html#giai-ma">Giải mã 2→4</a></div></div>
+      <div class="lab-g"><h3>3. Mạch chốt <span class="en" lang="en" data-vi="mạch chốt">Latch</span></h3><div class="lab-c"><a href="mach-so-lab/index.html#sr-nor">SR NOR</a><a href="mach-so-lab/index.html#sr-nand">S̄R̄ NAND</a><a href="mach-so-lab/index.html#sr-enable">SR có Enable</a><a href="mach-so-lab/index.html#d-latch">D latch</a></div></div>
+      <div class="lab-g"><h3>4. Mạch lật <span class="en" lang="en" data-vi="mạch lật">Flip-flop</span></h3><div class="lab-c"><a href="mach-so-lab/index.html#d-flipflop">D flip-flop</a><a href="mach-so-lab/index.html#jk-flipflop">JK</a><a href="mach-so-lab/index.html#t-flipflop">T</a></div></div>
+      <div class="lab-g"><h3>5. Ứng dụng <span class="en" lang="en" data-vi="bộ đếm, thanh ghi dịch">Counter, shift register</span></h3><div class="lab-c"><a href="mach-so-lab/index.html#bo-dem">Bộ đếm 4 bit</a><a href="mach-so-lab/index.html#thanh-ghi-dich">Thanh ghi dịch 4 bit</a></div></div>
+    </div>
+  </section>
+
   <section class="practice" id="thuc-hanh">
     <span class="bulb" aria-hidden="true"><svg viewBox="0 0 24 24" width="26" height="26" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M9 18h6M10 21h4"/><path d="M12 3a6 6 0 0 0-3.6 10.8c.6.5 1 1.2 1 2V16h5.2v-.2c0-.8.4-1.5 1-2A6 6 0 0 0 12 3z"/></svg></span>
     <div><b>Học qua thực hành</b><p id="pr-text">Khám phá các bài tập và mô phỏng tương tác.</p></div>
@@ -538,7 +592,7 @@ footer{margin-top:56px;border-top:1px solid var(--line);padding-block:20px 40px;
 </div></footer>
 
 <script defer src="assets/app/common.f9d17ffa4b.js"></script>
-<script defer src="assets/app/home.6e2315ccd5.js"></script>
+<script defer src="assets/app/home.9ebaa84211.js"></script>
 
 </body>
 </html>
